@@ -1,5 +1,5 @@
 import express from 'express'
-import { getEstimate, postEstimate, putEstimate, deleteEstimate } from '../../controllers/estimates/estimateController' 
+import { getEstimate, postEstimate, putEstimate, deleteEstimate } from '../controllers/estimateController' 
 const router = express.Router()
 
 router.get('/', getEstimate)
