@@ -2,7 +2,9 @@ import React from 'react'
 
 const RecentEstimates = () => {
   return (
-    <div>RecentEstimates</div>
+    <div className='border-black rounded-sm bg-slate-500'>
+
+    </div>
   )
 }
 

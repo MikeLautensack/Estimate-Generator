@@ -2,7 +2,9 @@ import React from 'react'
 
 const NewEstimateTemplate = () => {
   return (
-    <div>NewEstimateTemplate</div>
+    <div className='flex h-[90%] m-8 bg-slate-300'>
+      
+    </div>
   )
 }
 

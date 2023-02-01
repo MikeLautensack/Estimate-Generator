@@ -2,7 +2,9 @@ import React from 'react'
 
 const CustomersList = () => {
   return (
-    <div>CustomersList</div>
+    <div className='flex flex-col m-8 h-[80%] bg-slate-600'>
+      
+    </div>
   )
 }
 

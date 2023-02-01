@@ -2,7 +2,9 @@ import React from 'react'
 
 const RecentCustomers = () => {
   return (
-    <div>RecentCustomers</div>
+    <div className='border-black rounded-sm bg-slate-400'>
+
+    </div>
   )
 }
 

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Home from './components/Home/Home'
 import Dashboard from './components/Dashboard/Dashboard';
 import EstimateGenerator from './components/EstimateGenerator/EstimateGenerator';
+import Customers from './components/Customers/Customers'
+import Estimates from './components/Estimates/Estimates'
 
 function App() {
 
@@ -12,6 +14,8 @@ function App() {
     <>
       <Home />
       <Dashboard />
+      <Customers />
+      <Estimates />
       <EstimateGenerator />
     </>
   );

@@ -2,7 +2,9 @@ import React from 'react'
 
 const EstimateStats = () => {
   return (
-    <div>EstimateStats</div>
+    <div className='bg-gray-600'>
+
+    </div>
   )
 }
 

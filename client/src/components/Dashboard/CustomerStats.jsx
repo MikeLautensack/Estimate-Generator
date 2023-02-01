@@ -2,7 +2,9 @@ import React from 'react'
 
 const CustomerStats = () => {
   return (
-    <div>CustomerStats</div>
+    <div className='border-black rounded-sm bg-gray-500'>
+
+    </div>
   )
 }
 
