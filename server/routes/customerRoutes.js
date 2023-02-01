@@ -3,9 +3,9 @@ import { getCustomer, postCustomer, putCustomer, deleteCustomer } from '../contr
 const router = express.Router()
 
 
-router.get('/', getCustomer)
-router.post('/', postCustomer)
-router.put('/', putCustomer)
-router.delete('/', deleteCustomer)
+router.get('/getcustomer', getCustomer)
+router.post('/postcustomer', postCustomer)
+router.put('/putcustomer', putCustomer)
+router.delete('/deletecustomer', deleteCustomer)
 
 export default router

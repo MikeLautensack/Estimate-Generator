@@ -1,20 +1,19 @@
 import './App.css';
-import Login from './components/Login'
 import React, { useState } from 'react';
+import Home from './components/Home/Home'
+import Dashboard from './components/Dashboard/Dashboard';
+import EstimateGenerator from './components/EstimateGenerator/EstimateGenerator';
 
 function App() {
 
   //const [user, setUser] = useState
 
   return (
-    <div className="flex flex-col justify-center items-center bg-blue-100 h-screen">
-      <div className='text-center w-[80%]'>
-        <h3>Welcome</h3>
-        <h6>to</h6>
-        <h1>Estimate Generator</h1>
-      </div>
-      <Login />
-    </div>
+    <>
+      <Home />
+      <Dashboard />
+      <EstimateGenerator />
+    </>
   );
 }
 

@@ -3,9 +3,9 @@ import bodyParser from "body-parser"
 import mongoose from "mongoose"
 import cors from "cors"
 
-import userRoutes from './routes/users/userRoutes'
-import customerRoutes from './routes/customers/customerRoutes'
-import estimateRoutes from './routes/estimates/estimateRoutes'
+import userRoutes from './routes/userRoutes'
+import customerRoutes from './routes/customerRoutes'
+import estimateRoutes from './routes/estimateRoutes'
 
 const app = express()
 
