@@ -1,0 +1,41 @@
+.dashboard {
+    display: flex;
+    height: 100vh;
+    background-color: green;
+}
+
+.dashboard-nav {
+    position: fixed;
+    right: 0;
+    height: 100%;
+    transform: translateX(100%);
+    transition: transform 250ms ease-out;
+}
+
+.dashboard-nav[data-vis = true] {
+    transform: translateX(0%);
+
+}
+
+.dashboard-content {
+ 
+}
+
+.dashboard-nav-button {
+    position: absolute;
+    display: block;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 2000;
+}
+
+@media (min-width: 800px) {
+    .dashboard-nav{
+        left: 0;
+        transform: translateX(0%);
+    }
+
+    .dashboard-nav-button {
+        display: none;
+    }
+}

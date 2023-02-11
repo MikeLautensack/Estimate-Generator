@@ -1,14 +1,12 @@
 import React from 'react'
 import Login from './Login'
+import '../css/Home/Home.css'
 
 const Home = () => {
+
   return (
-    <div className="h-screen bg-green-400 flex flex-col justify-center items-center">
-      <div className='text-center w-[80%]'>
-        <h3>Welcome</h3>
-        <h6>to</h6>
-        <h1>Estimate Generator</h1>
-      </div>
+    <div className="home">
+      <h3 className='heading'>Welcome to Estimate Generator</h3>
       <Login />
     </div>
   )

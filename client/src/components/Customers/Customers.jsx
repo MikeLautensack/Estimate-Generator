@@ -1,21 +1,27 @@
 import React from 'react'
-import Nav from '../Nav'
-import CustomersList from '../Customers/CustomersList'
+import Nav from '../Nav/Nav'
+import { FaBars, FaTimes } from 'react-icons/fa'
+import { useState } from 'react'
+import '../css/Customers/Customers.css'
 
 const Customers = () => {
+  const [navVis, setNavVis] = useState(false)
+  const changeNavVis = () => {
+      if (navVis === false) {
+        setNavVis(true)
+      } else {
+        setNavVis(false)
+      }
+
+  }
   return (
-    <div className='flex h-screen bg-white'>
-      <div className='w-[20%]'>
+    <div className='customers'>
+      <button className='customers-nav-button' onClick={changeNavVis}><FaBars /></button>
+      <div className='customers-nav' data-vis={navVis}>
         <Nav />
       </div>  
-      <div className=' flex flex-col w-[80%]'>
-        <div className='flex justify-around h-[20%] m-8'>
-          <h1>Customers</h1>
-          <div>
-            <button>Add New Customer</button>
-          </div>
-        </div>
-        <CustomersList />
+      <div className='customers-content'>
+    
       </div>
     </div>
   )

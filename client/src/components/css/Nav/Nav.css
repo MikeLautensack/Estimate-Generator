@@ -1,0 +1,51 @@
+.nav {
+   width: 280px;
+   height: 100%;
+   background-color: #0C243C;
+   position: relative;
+}
+
+.user {
+    position: relative;
+    top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.img {
+    background-color: aquamarine;
+    border: 1px solid aquamarine;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 3rem;
+}
+
+.username {
+    color: antiquewhite;
+    font-size: 16px;
+}
+
+.nav-buttons {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 220px;
+    right: 0px;
+    color: aliceblue;
+    width: 258px;
+}
+
+.nav-button {
+    width: 100%;
+    height: 56px;
+    background-color: #55C2C3;
+    border-radius: 1rem 0 0 1rem;
+    margin: 15px 0;
+}
+
+@media (min-width: 600px) {
+
+}

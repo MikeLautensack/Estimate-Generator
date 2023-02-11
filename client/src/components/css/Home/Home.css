@@ -1,0 +1,24 @@
+.home {
+    height: 100vh;
+    background-color: #EBF5FF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading {
+    text-align: center;
+    color: #0C243C;
+    font-size: 38px;
+    line-height: 56px;
+    font-weight: bold;
+    width: 60%;
+    margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+   .heading {
+    width: 100%;
+   }
+}

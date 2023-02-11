@@ -1,23 +1,26 @@
-import React from 'react'
-import Nav from '../../components/Nav'
-import CustomerStats from './CustomerStats'
-import EstimateStats from './EstimateStats'
-import RecentCustomers from './RecentCustomers'
-import RecentEstimates from './RecentEstimates'
-import UserInfo from './UserInfo'
+import React, { useState } from 'react'
+import Nav from '../../components/Nav/Nav'
+import '../css/Dashboard/Dashboard.css'
+import { FaBars, FaTimes } from 'react-icons/fa'
 
 const Dashboard = () => {
+  const [navVis, setNavVis] = useState(false)
+  const changeNavVis = () => {
+      if (navVis === false) {
+        setNavVis(true)
+      } else {
+        setNavVis(false)
+      }
+
+  }
   return (
-    <div className='flex h-screen bg-white'>
-      <div className='w-[20%]'>
+    <div className='dashboard'>
+      <button className='dashboard-nav-button' onClick={changeNavVis}><FaBars /></button>
+      <div className='dashboard-nav' data-vis={navVis}>
         <Nav />
       </div>  
-      <div className='grid grid-cols-3 gap-2 m-2 w-[80%]'>
-        <UserInfo />
-        <CustomerStats />
-        <EstimateStats />
-        <RecentCustomers />
-        <RecentEstimates />
+      <div className='dashboard-content'>
+    
       </div>
     </div>
   )

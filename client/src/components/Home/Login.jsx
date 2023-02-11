@@ -1,4 +1,6 @@
 import React from 'react'
+import '../css/Home/Login.css'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     //const [username, setUsername] = useState
@@ -9,16 +11,16 @@ const Login = () => {
 //
     //}
   return (
-    <form className='grid bg-blue-600 border rounded border-blue-600 p-5'>
-        <label className='' for='username'>Username</label>
-        <input className='my-1 px-1.5 py-0.5' /*value={username}*/ type='name' placeholder='Username' id='name' name='name'></input>
-        <label className='' for='email'>Email</label>
-        <input className='my-1 px-1.5 py-0.5' /*value={email}*/ type='email' placeholder='email@gmail.com' id='email' name='email'></input>
-        <label className='' for='password'>Password</label>
-        <input className='my-1 px-1.5 py-0.5' /*value={password}*/ type='password' placeholder='password' id='password' name='password'></input>
-        <button className='bg-orange-400 border-orange-400 border rounded my-1'>Log In</button>
-        <button className='bg-orange-400 border-orange-400 border rounded my-1'>Log In As Guest</button>
-        <button className='bg-orange-400 border-orange-400 border rounded my-1'>Create an Accout</button>
+    <form className='login'>
+        <label className='email-label' for='email'>Email</label>
+        <input className='email-input' type='email' id='email' name='email'></input>
+        <label className='password-label' for='password'>Password</label>
+        <input className='password-input' type='password' id='password' name='password'></input>
+        <div className='buttons'>
+          <button className='button'>Log In</button>
+          <Link to='/dashboard'><button className='button'>Log In As Guest</button></Link>
+          <button className='button'>Create an Accout</button>
+        </div>
     </form>
   )
 }
