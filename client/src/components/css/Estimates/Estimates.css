@@ -18,7 +18,7 @@
 }
 
 .estimates-content {
- 
+    width: 100%;
 }
 
 .estimates-nav-button {
@@ -33,6 +33,7 @@
     .estimates-nav{
         left: 0;
         transform: translateX(0%);
+        position: relative;
     }
 
     .estimates-nav-button {

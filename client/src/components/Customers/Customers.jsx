@@ -3,6 +3,7 @@ import Nav from '../Nav/Nav'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { useState } from 'react'
 import '../css/Customers/Customers.css'
+import CustomerContent from './CustomerContent'
 
 const Customers = () => {
   const [navVis, setNavVis] = useState(false)
@@ -21,7 +22,7 @@ const Customers = () => {
         <Nav />
       </div>  
       <div className='customers-content'>
-    
+        <CustomerContent />
       </div>
     </div>
   )

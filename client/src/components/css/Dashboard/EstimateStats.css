@@ -1,0 +1,38 @@
+.estimate-stats {
+    background-color: white;
+    border-radius: .5rem;
+    margin: 0 1rem 1rem 1rem;
+    padding: .5rem;
+}
+
+.estimate-stats-heading {
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    font-size: 1rem;
+}
+
+.estimate-stats-text {
+    font-size: 12px;
+
+}
+
+.new-estimate-button-container {
+    text-align: center;
+}
+
+.stats-new-estimate-button {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 21px;
+    padding: 4px 8px;
+    background-color: aqua;
+    border-radius: 15px;
+    margin: 0 auto;
+}
+
+@media (min-width: 1000px) {
+    .estimate-stats {
+        margin: 0 1rem 1rem .5rem;
+    }
+}

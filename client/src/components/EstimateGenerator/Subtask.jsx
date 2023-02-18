@@ -1,9 +1,15 @@
 import React from 'react'
+import '../css/EstimateGenerator/SubTask.css'
 
-const Subtask = () => {
+const SubTask = () => {
   return (
-    <div>Subtask</div>
+    <div className='subtask'>
+        <button className='edit-subtask-button'>Edit</button>
+        <button className='delete-subtask-button'>Delete</button>
+        <label>SubTask Name:</label>
+        <input></input>
+    </div>
   )
 }
 
-export default Subtask
+export default SubTask

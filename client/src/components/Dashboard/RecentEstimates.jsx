@@ -1,9 +1,25 @@
 import React from 'react'
+import '../css/Dashboard/RecentEstimates.css'
+import Estimate from '../Estimate'
 
 const RecentEstimates = () => {
   return (
-    <div className='border-black rounded-sm bg-slate-500'>
-
+    <div className='recent-estimates-card'>
+      <h1>Recent Estimates</h1>
+      <div className='recent-estimates-list'>
+        <Estimate />
+        <Estimate />
+        <Estimate />
+        <Estimate />
+        <Estimate />
+        <Estimate />
+        <Estimate />
+        <Estimate />
+        <Estimate />
+        <Estimate />
+        <Estimate />
+        <Estimate />
+      </div>
     </div>
   )
 }

@@ -1,0 +1,13 @@
+.dashboard-content {
+    display: grid;
+    padding: 2rem;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+}
+
+@media (min-width: 1000px) {
+    .dashboard-content {
+        grid-template-columns: 1fr 1fr;
+    }
+}

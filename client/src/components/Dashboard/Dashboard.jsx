@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import Nav from '../../components/Nav/Nav'
 import '../css/Dashboard/Dashboard.css'
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FaBars } from 'react-icons/fa'
+import DashboardContent from './DashboardContent'
 
 const Dashboard = () => {
   const [navVis, setNavVis] = useState(false)
@@ -19,8 +20,8 @@ const Dashboard = () => {
       <div className='dashboard-nav' data-vis={navVis}>
         <Nav />
       </div>  
-      <div className='dashboard-content'>
-    
+      <div className='dashboard-content-section'>
+        <DashboardContent />
       </div>
     </div>
   )

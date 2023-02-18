@@ -1,0 +1,25 @@
+.statistics {
+    background-color: #0C243C;
+    border-radius: 1rem;
+}
+
+.statistics-heading {
+   text-align: center;
+   font-size: 28px;
+   line-height: 48px;
+   color: white;
+}
+
+.stat-cards {
+    display: grid;
+}
+
+@media (min-width: 1000px) {
+    .statistics {
+        grid-column: 1 / 3;
+    }
+
+    .stat-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+}

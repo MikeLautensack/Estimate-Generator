@@ -1,7 +1,7 @@
 .customers {
     display: flex;
     height: 100vh;
-    background-color: red;
+    background-color: rgb(255, 255, 255);
 }
 
 .customers-nav {
@@ -18,21 +18,22 @@
 }
 
 .customers-content {
- 
+    width: 100%;
 }
 
 .customers-nav-button {
-    position: absolute;
+    position: fixed;
     display: block;
     top: 1.5rem;
     right: 1.5rem;
     z-index: 2000;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
     .customers-nav{
         left: 0;
         transform: translateX(0%);
+        position: relative;
     }
 
     .customers-nav-button {

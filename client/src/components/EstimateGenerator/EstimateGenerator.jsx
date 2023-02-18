@@ -3,6 +3,7 @@ import Nav from '../Nav/Nav'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { useState } from 'react'
 import '../css/EstimateGenerator/EstimateGenerator.css'
+import EstimateGeneratorContent from './EstimateGeneratorContent'
 
 const EstimateGenerator = () => {
   const [navVis, setNavVis] = useState(false)
@@ -21,7 +22,7 @@ const EstimateGenerator = () => {
         <Nav />
       </div>  
       <div className='estimate-generator-content'>
-    
+        <EstimateGeneratorContent />
       </div>
     </div>
   )

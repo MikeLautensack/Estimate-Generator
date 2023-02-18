@@ -1,0 +1,33 @@
+.subtask {
+    background-color: darkblue;
+    border-radius: 2px;
+    padding: 2px;
+    height: 2rem;
+    width: 100%;
+    display: flex;
+}
+
+.edit-subtask-button {
+    color: white;
+    background-color: aqua;
+    padding: 4px 8px;
+    border-radius: 100vw;
+}
+
+.delete-subtask-button {
+    color: white;
+    background-color: red;
+    padding: 4px 8px;
+    border-radius: 100vw;
+}
+
+.subtask label {
+    color: white;
+}
+
+.subtask input {
+    background-color: darkblue;
+    border: 1px solid white;
+    border-radius: 2px;
+    width: fit-content;
+}

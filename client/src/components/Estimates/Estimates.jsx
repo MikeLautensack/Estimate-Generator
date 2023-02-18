@@ -3,6 +3,7 @@ import Nav from '../Nav/Nav'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { useState } from 'react'
 import '../css/Estimates/Estimates.css'
+import EstimateContent from './EstimateContent'
 
 
 const Estimates = () => {
@@ -22,7 +23,7 @@ const Estimates = () => {
         <Nav />
       </div>  
       <div className='estimates-content'>
-    
+        <EstimateContent />
       </div>
     </div>
   )

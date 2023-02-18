@@ -1,0 +1,80 @@
+.estimate-generator-content {
+    background-color: aqua;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+}
+
+.estimate-template {
+    background-color: rgb(87, 87, 232);
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    padding: 0 .5rem .5rem;
+}
+
+.estimate-name-heading {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 48px;
+}
+
+.estimate-template-fields {
+    display: flex;
+    justify-content: space-between;
+    margin: .2rem 0;
+}
+
+.estimate-template-fields label {
+    color: white;
+    font-size: 12px;
+    line-height: 21px;
+}
+
+.estimate-template-fields input {
+    border: 1px solid white;
+    border-radius: 4px;
+    background-color: rgb(87, 87, 232);
+}
+
+.tasks {
+    width: 100%;
+    background-color: white;
+    border-radius: .5rem;
+    position: relative;
+    padding: .25rem;
+}
+
+.tasks-list-heading {
+    font-weight: bold;
+    color: blue;
+    font-size: 16px;
+    line-height: 32px;
+}
+
+.add-task-button {
+    font-size: 12px;
+    line-height: 21px;
+    padding: 4px 8px;
+    border-radius: 100vw;
+    background-color: aqua;
+    position: absolute;
+    top: .25rem;
+    right: .25rem;
+}
+
+.estimate-buttons {
+    width: 100%;
+    background-color: aqua;
+    border-radius: 100vw;
+    padding: 1rem 0;
+    margin: .25rem 0;
+}
+
+.estimate-total {
+    text-align: end;
+    color: white;
+    font-weight: bold;
+}

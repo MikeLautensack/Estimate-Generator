@@ -1,0 +1,78 @@
+.task {
+    border: 2px solid darkblue;
+    border-radius: .5rem;
+    padding: .5rem;
+    position: relative;
+}
+
+.task-name-and-price {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: .5rem;
+    height: auto;
+}
+
+.task-name {
+    font-size: 12px;
+    line-height: 21px;
+    font-weight: bold;
+    color: darkblue;
+}
+
+.task-price-label {
+    position: absolute;
+    left: 1000000px;
+}
+
+.task-price {
+    border: 1px solid darkblue;
+    border-radius: .25rem;
+    background-color: rgb(255, 255, 255);
+}
+
+.subtask-list {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background-color: aquamarine;
+    border-radius: 2px;
+}
+
+.task-description {
+    width: 100%;
+    background-color: bisque;
+    border-radius: .25rem;
+    height: 3rem;
+}
+
+.subtask-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.add-subtask-button {
+    font-size: 12px;
+    line-height: 21px;
+    color: darkblue;
+    border-radius: 100vw;
+    background-color: aqua;
+    margin-right: .25rem;
+    padding: 4px;
+    width: 50%;
+}
+
+.delete-task-button {
+    font-size: 12px;
+    line-height: 21px;
+    color: darkblue;
+    border-radius: 100vw;
+    background-color: red;
+    margin-left: .25rem;
+    width: 50%;
+    padding: 4px;
+}
