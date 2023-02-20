@@ -1,33 +1,65 @@
 .subtask {
-    background-color: darkblue;
-    border-radius: 2px;
-    padding: 2px;
-    height: 2rem;
+    background-color: var(--Tiara);
+    border-radius: .25rem;
+    padding: .2rem;
     width: 100%;
     display: flex;
+    justify-content: space-between;
+}
+
+.subtask-buttons {
+    display: flex;
+    margin: 0 0 0 .5rem;
 }
 
 .edit-subtask-button {
-    color: white;
-    background-color: aqua;
+    color: var(--Blue-Zodiac);
+    font-weight: bold;
+    background-color: var(--Fountain-Blue);
+    margin: 0 .25rem 0 0;
     padding: 4px 8px;
     border-radius: 100vw;
+    width: 65px;
+}
+
+.edit-subtask-button:hover {
+    box-shadow: 0 0 .5rem var(--Fountain-Blue);
 }
 
 .delete-subtask-button {
-    color: white;
-    background-color: red;
+    color: var(--Blue-Zodiac);
+    background-color: var(--Delete);
+    margin: 0 0 0 .25rem;
     padding: 4px 8px;
     border-radius: 100vw;
+    font-weight: bold;
+    width: 65px;
 }
 
-.subtask label {
-    color: white;
+.delete-subtask-button:hover {
+    box-shadow: 0 0 .5rem var(--Delete);
 }
 
-.subtask input {
-    background-color: darkblue;
-    border: 1px solid white;
-    border-radius: 2px;
-    width: fit-content;
+.subtask-fields {
+    display: flex;
+    margin: 0 .5rem;
+}
+
+.subtask-fields h2 {
+    color: var(--Blue-Zodiac);
+}
+
+.subtask-name-heading {
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    margin: 0 .2rem 0 0;
+}
+
+.subtask-price-heading {
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    color: var(--White);
 }

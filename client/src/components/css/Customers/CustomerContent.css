@@ -1,7 +1,7 @@
 .customer-content-component {
     width: 100%;
     height: 100%;
-    background-color: rgb(174, 0, 255);
+    background-color: var(--White);
 }
 
 .customer-content-component-top {
@@ -10,17 +10,17 @@
 }
 
 .customers-card {
-    background-color: #49da8f;
+    background-color: var(--Blue-Zodiac);
     border-radius: 1rem;
     padding: 1rem;
     margin: 1rem;
-    height: 30rem;
+    height: calc(100% - 90px);
 }
 
 .customer-list {
     height: 100%;
     overflow-y: scroll;
-    background-color: white;
+    background-color: var(--Regent-Gray);
     border-radius: .5rem;
     display: grid;
     grid-template-columns: 1fr;
@@ -31,14 +31,34 @@
 .customer-heading {
     font-size: 1.75rem;
     font-weight: bold;
-    color: #0C243C;
+    color: var(--Blue-Zodiac);
     margin: 1rem 0 0 1rem;
 }
 
 .new-customer-button {
     padding: .5rem 1rem;
     margin: 1rem 1rem 0 0;
-    background-color: #0C243C;
-    color: white;
+    background-color: var(--Fountain-Blue);
+    color: var(--Blue-Zodiac);
+    font-weight: bold;
+    border-radius: 100vw;
+}
+
+.new-customer-button:hover {
+    box-shadow: 0 0 .5rem var(--Fountain-Blue);
+}
+
+.customer-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+.customer-list::-webkit-scrollbar-track {
+    background-color: var(--Regent-Gray);
+    border-radius: 100vw;
+    margin-block: .25rem;
+}
+
+.customer-list::-webkit-scrollbar-thumb {
+    background-color: var(--Fountain-Blue);
     border-radius: 100vw;
 }

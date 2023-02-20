@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --Blue-Zodiac: #0C243C;
+  --Fountain-Blue: #55C2C3;
+  --Delete: #B91C1C;
+  --Regent-Gray: #7E8C9C;
+  --Tiara: #C9D1D5;
+  --Black: #1B1D1F;
+  --White: #EBF5FF;
+}
+
 body {
   margin: 0;
   box-sizing: border-box;

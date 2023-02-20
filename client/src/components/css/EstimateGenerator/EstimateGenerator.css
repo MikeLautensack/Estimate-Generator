@@ -1,7 +1,7 @@
 .estimate-generator {
     display: flex;
-    height: 100vh;
     background-color: rgb(218, 218, 218);
+    height: 100vh;
 }
 
 .estimate-generator-nav {
@@ -18,7 +18,7 @@
 }
 
 .estimate-generator-content {
- 
+    width: 100%;
 }
 
 .estimate-generator-nav-button {
@@ -29,7 +29,7 @@
     z-index: 2000;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 700px) {
     .estimate-generator-nav{
         left: 0;
         transform: translateX(0%);

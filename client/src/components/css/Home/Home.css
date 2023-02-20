@@ -1,6 +1,6 @@
 .home {
     height: 100vh;
-    background-color: #EBF5FF;
+    background-color: var(--White);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,7 +9,7 @@
 
 .heading {
     text-align: center;
-    color: #0C243C;
+    color: var(--Blue-Zodiac);
     font-size: 38px;
     line-height: 56px;
     font-weight: bold;

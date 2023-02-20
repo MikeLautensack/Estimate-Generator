@@ -1,7 +1,8 @@
 .customer {
-    border: 2px solid #0C243C;
+    border: 2px solid var(--Black);
     border-radius: .5rem;
     display: flex;
+    background-color: var(--Tiara);
 }
 
 .customer-text {
@@ -21,20 +22,27 @@
 .edit-customer {
     font-size: 9px;
     font-weight: bold;
-    color: #0C243C;
+    color: var(--Blue-Zodiac);
     line-height: 16px;
     padding: 4px 13px;
-    background-color: aqua;
+    background-color: var(--Fountain-Blue);
     border-radius: 1rem;
+}
+
+.edit-customer:hover {
+    box-shadow: 0 0 .5rem var(--Fountain-Blue);
 }
 
 .delete-customer {
     font-size: 9px;
     font-weight: bold;
-    color: #0C243C;
+    color: var(--Blue-Zodiac);
     line-height: 16px;
     padding: 4px 8px;
-    background-color: red;
+    background-color: var(--Delete);
     border-radius: 1rem;
+}
 
+.delete-customer:hover {
+    box-shadow: 0 0 .5rem var(--Delete);
 }

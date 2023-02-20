@@ -1,6 +1,8 @@
 .task {
-    border: 2px solid darkblue;
+    border: 2px solid var(--Blue-Zodiac);
+    background-color: var(--Blue-Zodiac);
     border-radius: .5rem;
+    margin: .25rem 0;
     padding: .5rem;
     position: relative;
 }
@@ -9,7 +11,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: .5rem;
     height: auto;
 }
 
@@ -17,8 +18,9 @@
     font-size: 12px;
     line-height: 21px;
     font-weight: bold;
-    color: darkblue;
+    color: var(--White);
 }
+
 
 .task-price-label {
     position: absolute;
@@ -26,30 +28,31 @@
 }
 
 .task-price {
-    border: 1px solid darkblue;
-    border-radius: .25rem;
-    background-color: rgb(255, 255, 255);
+    font-weight: bold;
+    color: var(--White);
 }
 
 .subtask-list {
     width: 100%;
-    height: 100%;
+    height: 5.5rem;
+    margin: .5rem 0;
+    padding: .25rem;
     overflow-y: scroll;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1px;
-    background-color: aquamarine;
-    border-radius: 2px;
+    gap: .2rem;
+    background-color: var(--Regent-Gray);
+    border-radius: .25rem;
 }
 
 .task-description {
     width: 100%;
-    background-color: bisque;
+    background-color: var(--Tiara);
     border-radius: .25rem;
-    height: 3rem;
+    margin: 0;
 }
 
-.subtask-buttons {
+.tasks-subtask-buttons {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -58,21 +61,46 @@
 .add-subtask-button {
     font-size: 12px;
     line-height: 21px;
-    color: darkblue;
+    color: var(--Blue-Zodiac);
+    font-weight: bold;
     border-radius: 100vw;
-    background-color: aqua;
+    background-color: var(--Fountain-Blue);
     margin-right: .25rem;
     padding: 4px;
     width: 50%;
 }
 
+.add-subtask-button:hover {
+    box-shadow: 0 0 .5rem var(--Fountain-Blue);
+}
+
 .delete-task-button {
     font-size: 12px;
     line-height: 21px;
-    color: darkblue;
+    color: var(--Blue-Zodiac);
+    font-weight: bold;
     border-radius: 100vw;
-    background-color: red;
+    background-color: var(--Delete);
     margin-left: .25rem;
     width: 50%;
     padding: 4px;
+}
+
+.delete-task-button:hover {
+    box-shadow: 0 0 .5rem var(--Delete);
+}
+
+.subtask-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+.subtask-list::-webkit-scrollbar-track {
+    background-color: var(--Regent-Gray);
+    border-radius: 100vw;
+    margin-block: .25rem;
+}
+
+.subtask-list::-webkit-scrollbar-thumb {
+    background-color: var(--Blue-Zodiac);
+    border-radius: 100vw;
 }

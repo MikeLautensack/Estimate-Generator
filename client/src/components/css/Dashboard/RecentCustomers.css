@@ -1,5 +1,5 @@
 .recent-customers-card {
-    background-color: #0C243C;
+    background-color: var(--Blue-Zodiac);
     border-radius: 1rem;
     padding: 0 1rem 1rem;
     height: 20rem;
@@ -9,13 +9,13 @@
     text-align: center;
     font-size: 28px;
     line-height: 48px;
-    color: white;
+    color: var(--White);
 }
 
 .recent-customers-list {
     height: calc(100% - 48px);
     overflow-y: scroll;
-    background-color: white;
+    background-color: var(--Regent-Gray);
     border-radius: .5rem;
     display: grid;
     grid-template-columns: 1fr;
@@ -28,18 +28,22 @@
 }
 
 .recent-customers-list::-webkit-scrollbar-track {
-    background-color: #0C243C;
+    background-color: var(--Regent-Gray);
     border-radius: 100vw;
     margin-block: .25rem;
 }
 
 .recent-customers-list::-webkit-scrollbar-thumb {
-    background-color: #55C2C3;
+    background-color: var(--Fountain-Blue);
     border-radius: 100vw;
 }
 
-@media (min-width: 1000px) {
-    .recent-customers-list {
-        height: calc(100% - 48px);
+@media (min-width: 700px) {
+    .statistics {
+        grid-column: 1 / 3;
+    }
+    
+    .recent-customers-card {
+        height: calc(100vh - 317px);
     }
 }

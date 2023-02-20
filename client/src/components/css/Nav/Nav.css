@@ -1,7 +1,7 @@
 .nav {
    width: 280px;
    height: 100%;
-   background-color: #0C243C;
+   background-color: var(--Blue-Zodiac);
    position: relative;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .username {
-    color: antiquewhite;
+    color: var(--White);
     font-size: 16px;
 }
 
@@ -34,16 +34,21 @@
     flex-direction: column;
     top: 220px;
     right: 0px;
-    color: aliceblue;
+    color: var(--Blue-Zodiac);
+    font-weight: bold;
     width: 258px;
 }
 
 .nav-button {
     width: 100%;
     height: 56px;
-    background-color: #55C2C3;
+    background-color: var(--Fountain-Blue);
     border-radius: 1rem 0 0 1rem;
     margin: 15px 0;
+}
+
+.nav-button:hover {
+    box-shadow: 0 0 .5rem var(--Fountain-Blue);
 }
 
 @media (min-width: 600px) {
