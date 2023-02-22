@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/EstimateGenerator/SubTask.css'
+import './SubTask.css'
 
 const SubTask = () => {
   return (

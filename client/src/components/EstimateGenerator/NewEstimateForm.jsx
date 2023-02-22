@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/EstimateGenerator/NewEstimateForm.css'
+import './NewEstimateForm.css'
 import Task from './Task'
 import { FaTimes } from 'react-icons/fa'
 

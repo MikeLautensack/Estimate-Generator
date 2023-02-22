@@ -1,6 +1,6 @@
 import React from 'react'
-import '../css/Dashboard/RecentCustomers.css'
-import Customer from '../Customer'
+import './RecentCustomers.css'
+import Customer from '../Customers/Customer'
 
 const RecentCustomers = () => {
   return (

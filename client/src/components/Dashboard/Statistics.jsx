@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/Dashboard/Statistics.css'
+import './Statistics.css'
 
 const Statistics = () => {
   return (

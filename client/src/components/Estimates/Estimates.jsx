@@ -2,8 +2,8 @@ import React from 'react'
 import Nav from '../Nav/Nav'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { useState } from 'react'
-import '../css/Estimates/Estimates.css'
-import Estimate from '../Estimate'
+import './Estimates.css'
+import Estimate from './Estimate'
 import NewEstimateForm from '../EstimateGenerator/NewEstimateForm'
 
 

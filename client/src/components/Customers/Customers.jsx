@@ -2,8 +2,8 @@ import React from 'react'
 import Nav from '../Nav/Nav'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { useState } from 'react'
-import '../css/Customers/Customers.css'
-import Customer from '../Customer'
+import './Customers.css'
+import Customer from './Customer'
 import NewCustomerForm from './NewCustomerForm';
 
 const Customers = () => {

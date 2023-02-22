@@ -1,6 +1,6 @@
 import React from 'react'
-import '../css/Dashboard/RecentEstimates.css'
-import Estimate from '../Estimate'
+import './RecentEstimates.css'
+import Estimate from '../Estimates/Estimate'
 
 const RecentEstimates = () => {
   return (

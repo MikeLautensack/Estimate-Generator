@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/Customer.css'
+import './Customer.css'
 
 const Customer = () => {
   return (
