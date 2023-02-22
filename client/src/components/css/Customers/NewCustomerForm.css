@@ -1,0 +1,38 @@
+.new-customer-form {
+    width: 320px;
+    background-color: var(--Blue-Zodiac);
+    border-radius: 1rem;
+    padding: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.exit-button {
+
+}
+
+.new-customer-input-feilds {
+    width: 100%;
+}
+
+.new-customer-input-feilds label {
+    color: var(--White);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.new-customer-input-feilds input {
+    color: var(--Regent-Gray);
+    background-color: var(--Tiara);
+    border-radius: .5rem;
+}
+
+.new-customer-form-submit-button {
+    width: 100%;
+    padding: .5rem 0;
+    background-color: var(--Fountain-Blue);
+    color: var(--Blue-Zodiac);
+    border-radius: 100vw;
+}

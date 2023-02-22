@@ -15,7 +15,6 @@ const Nav = () => {
           <Link to='/dashboard'><button className='nav-button'>Dashboard</button></Link>
           <Link to='/customers'><button className='nav-button'>Customers</button></Link>
           <Link to='/estimates'><button className='nav-button'>Estimates</button></Link>
-          <Link to='/estimategenerator'><button className='nav-button'>Estimate Generator</button></Link>
         </div>
     </div>
   )

@@ -1,11 +1,18 @@
 import React from 'react'
-import '../css/EstimateGenerator/EstimateGeneratorContent.css'
+import '../css/EstimateGenerator/NewEstimateForm.css'
 import Task from './Task'
+import { FaTimes } from 'react-icons/fa'
 
-const EstimateGeneratorContent = () => {
+const NewEstimateForm = ({ setEstimateGeneratorFormRendered }) => {
   return (
     <div className='estimate-generator-content'>
         <div className='estimate-template'>
+            <FaTimes 
+                onClick={() => setEstimateGeneratorFormRendered(false)}
+                style={{ color: 'white', 
+                         position: 'absolute',
+                         top: '.5rem',
+                         left: '.5rem'}}/>
             <div className='heading-and-inputs'>
                 <h1 className='estimate-name-heading'>Estimate Name</h1>
                 <div className='estimate-template-fields'>
@@ -47,4 +54,4 @@ const EstimateGeneratorContent = () => {
   )
 }
 
-export default EstimateGeneratorContent
+export default NewEstimateForm

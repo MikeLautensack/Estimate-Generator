@@ -4,7 +4,7 @@
     background-color: rgb(255, 255, 255);
 }
 
-.customers-nav {
+.customers-sidebar {
     position: fixed;
     right: 0;
     height: 100%;
@@ -12,16 +12,12 @@
     transition: transform 250ms ease-out;
 }
 
-.customers-nav[data-vis = true] {
+.customers-sidebar[data-vis = true] {
     transform: translateX(0%);
 
 }
 
-.customers-content {
-    width: 100%;
-}
-
-.customers-nav-button {
+.customers-sidebar-button {
     position: fixed;
     display: block;
     top: 1.5rem;
@@ -29,14 +25,81 @@
     z-index: 2000;
 }
 
+.customers-content {
+    height: 100%;
+    width: 100%;
+    background-color: var(--White);
+    position: relative;
+}
+
+.customer-content-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.customers-card {
+    background-color: var(--Blue-Zodiac);
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+    height: calc(100% - 90px);
+}
+
+.customer-list {
+    height: 100%;
+    overflow-y: scroll;
+    background-color: var(--Regent-Gray);
+    border-radius: .5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 4px;
+    gap: 2px;
+    position: relative;
+}
+
+.customer-heading {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: var(--Blue-Zodiac);
+    margin: 1rem 0 0 1rem;
+}
+
+.new-customer-button {
+    padding: .5rem 1rem;
+    margin: 1rem 1rem 0 0;
+    background-color: var(--Fountain-Blue);
+    color: var(--Blue-Zodiac);
+    font-weight: bold;
+    border-radius: 100vw;
+}
+
+.new-customer-button:hover {
+    box-shadow: 0 0 .5rem var(--Fountain-Blue);
+}
+
+.customer-list::-webkit-scrollbar {
+    width: 10px;
+}
+
+.customer-list::-webkit-scrollbar-track {
+    background-color: var(--Regent-Gray);
+    border-radius: 100vw;
+    margin-block: .25rem;
+}
+
+.customer-list::-webkit-scrollbar-thumb {
+    background-color: var(--Fountain-Blue);
+    border-radius: 100vw;
+}
+
 @media (min-width: 650px) {
-    .customers-nav{
+    .customers-sidebar {
         left: 0;
         transform: translateX(0%);
         position: relative;
     }
 
-    .customers-nav-button {
+    .customers-sidebar-button {
         display: none;
     }
 }
