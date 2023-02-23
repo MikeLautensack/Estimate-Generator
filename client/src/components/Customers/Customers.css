@@ -50,9 +50,9 @@
     overflow-y: scroll;
     background-color: var(--Regent-Gray);
     border-radius: .5rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    padding: .25rem;
     gap: 2px;
     position: relative;
 }

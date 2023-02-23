@@ -10,16 +10,48 @@ const Customers = () => {
 
   const [newCustomerFormRendered, setNewCustomerFormRendered] = useState(false);
   const [navVis, setNavVis] = useState(false)
+  const [customerList, setCustomerList] = useState([
+      {
+        id: 1,
+        firstName: "Bob",
+        lastName: "Jones",
+        email: "bobjones@example.com",
+        phoneNumber: "610-111-2222",
+        address: "275 Burger Dr",
+      },
+      {
+        id: 2,
+        firstName: "Walter",
+        lastName: "White",
+        email: "walterwhite@example.com",
+        phoneNumber: "610-123-4567",
+        address: "2385 Gold St",
+      }
+    ])
+
   const changeNavVis = () => {
       if (navVis === false) {
         setNavVis(true)
       } else {
         setNavVis(false)
       }
+  }
+
+  const createNewCustomer = () => {
 
   }
+
+  const editCustomer = () => {
+
+  }
+
+  const deleteCustomer = (id) => {
+      const list = customerList.filter((customer) => customer.id !== id)
+      setCustomerList(list)
+  }
+
   return (
-    <div className='customers'>
+    <main className='customers'>
       <button className='customers-sidebar-button' onClick={changeNavVis}><FaBars /></button>
       <div className='customers-sidebar' data-vis={navVis}>
         <Nav />
@@ -30,28 +62,25 @@ const Customers = () => {
             <button onClick={() => setNewCustomerFormRendered(true)} className='new-customer-button'>New Customer</button>
           </div>
           <div className='customers-card'>
-              <div className='customer-list'>
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
-                  <Customer />
+              <ul className='customer-list'>
+                  {customerList.map((customer) => (
+                    <li className='customer-list-item' key={customer.id}>
+                        <Customer 
+                            customerName={customer.firstName + " " + customer.lastName}
+                            customerEmail={customer.email}
+                            customerPhoneNumber={customer.phoneNumber}
+                            deleteCustomer={deleteCustomer}
+                            customerID={customer.id}
+                            setNewCustomerFormRendered={setNewCustomerFormRendered}
+                            />
+                    </li>
+                  ))}
                   {newCustomerFormRendered === true && <NewCustomerForm 
                     setNewCustomerFormRendered={setNewCustomerFormRendered}/>}
-              </div>
+              </ul>
           </div>
       </div>
-    </div>
+    </main>
   )
 }
 

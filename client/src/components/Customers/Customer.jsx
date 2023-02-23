@@ -1,17 +1,22 @@
 import React from 'react'
 import './Customer.css'
 
-const Customer = () => {
+const Customer = ({ customerName,
+                    customerEmail, 
+                    customerPhoneNumber, 
+                    deleteCustomer,
+                    customerID,
+                    setNewCustomerFormRendered }) => {
   return (
     <div className='customer'>
         <div className='customer-text'>
-            <p className='customer-labels'>Customer 1</p>
-            <p className='customer-labels'>Email@gmail.com</p>
-            <p className='customer-labels'>610-296-4153</p>
+            <p className='customer-labels'>{customerName}</p>
+            <p className='customer-labels'>{customerEmail}</p>
+            <p className='customer-labels'>{customerPhoneNumber}</p>
         </div>
         <div className='button-box'>
-            <button className='edit-customer'>Edit</button>
-            <button className='delete-customer'>Delete</button>
+            <button onClick={() => setNewCustomerFormRendered(true)} className='edit-customer'>Edit</button>
+            <button onClick={() => deleteCustomer(customerID)} className='delete-customer'>Delete</button>
         </div>
     </div>
   )
