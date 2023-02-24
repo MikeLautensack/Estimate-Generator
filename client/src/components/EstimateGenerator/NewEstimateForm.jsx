@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './NewEstimateForm.css'
 import Task from './Task'
 import { FaTimes } from 'react-icons/fa'
+import NewTaskForm from './NewTaskForm'
+import NewSubtaskForm from './NewSubtaskForm'
 
 const NewEstimateForm = ({ setEstimateGeneratorFormRendered }) => {
+
+    const [newTaskFormRendered, setNewTaskFormRendered] = useState(false)
+    const [newSubtaskFormRendered, setNewSubtaskFormRendered] = useState(false)
+
   return (
     <div className='estimate-generator-content'>
         <div className='estimate-template'>
@@ -33,15 +39,25 @@ const NewEstimateForm = ({ setEstimateGeneratorFormRendered }) => {
             </div>
             <div className='tasks'>
                 <h2 className='tasks-list-heading'>Tasks</h2>
-                <button className='add-task-button'>Add Task</button>
+                <button onClick={() => setNewTaskFormRendered(true)} className='add-task-button'>Add Task</button>
                 <div className='task-list'>
-                    <Task />
-                    <Task />
-                    <Task />
-                    <Task />
-                    <Task />
-                    <Task />
+                    <Task 
+                        setNewSubtaskFormRendered={setNewSubtaskFormRendered}/>
+                    <Task 
+                        setNewSubtaskFormRendered={setNewSubtaskFormRendered}/>
+                    <Task 
+                        setNewSubtaskFormRendered={setNewSubtaskFormRendered}/>
+                    <Task 
+                        setNewSubtaskFormRendered={setNewSubtaskFormRendered}/>
+                    <Task 
+                        setNewSubtaskFormRendered={setNewSubtaskFormRendered}/>
+                    <Task 
+                        setNewSubtaskFormRendered={setNewSubtaskFormRendered}/>
                 </div>
+                {newTaskFormRendered === true && <NewTaskForm 
+            setNewTaskFormRendered={setNewTaskFormRendered}/>}
+                {newSubtaskFormRendered === true && <NewSubtaskForm 
+            setNewSubtaskFormRendered={setNewSubtaskFormRendered}/>}
             </div>
             <div className='buttons-and-price'>
                 <button className='estimate-buttons'>Preview Estimate</button>

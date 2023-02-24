@@ -2,11 +2,11 @@ import React from 'react'
 import './NewCustomerForm.css'
 import { FaTimes } from 'react-icons/fa'
 
-const NewCustomerForm = ({ setNewCustomerFormRendered }) => {
+const NewCustomerForm = ({ setCustomerFormRendered }) => {
   return (
     <form className='new-customer-form'>
         <FaTimes 
-            onClick={() => setNewCustomerFormRendered(false)}
+            onClick={() => setCustomerFormRendered(false)}
             style={{ color: 'white', 
                          position: 'absolute',
                          top: '.5rem',

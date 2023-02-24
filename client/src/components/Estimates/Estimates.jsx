@@ -28,7 +28,7 @@ const Estimates = () => {
       <div className='estimates-content'>
         <div className='estimates-content-top'>
           <h1 className='estimate-heading'>Estimates</h1>
-          <button onClick={() => setEstimateGeneratorFormRendered(!estimateGeneratorFormRendered)} className='new-estimate-button'>New Estimate</button>
+          <button onClick={() => setEstimateGeneratorFormRendered(true)} className='new-estimate-button'>New Estimate</button>
         </div>
         <div className='estimates-card'>
             <div className='estimate-list'>

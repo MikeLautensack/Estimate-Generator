@@ -2,7 +2,7 @@ import React from 'react'
 import './Task.css'
 import SubTask from './SubTask'
 
-const Task = () => {
+const Task = ({ setNewSubtaskFormRendered }) => {
   return (
     <div className='task'>
         <div className='task-name-and-price'>
@@ -33,7 +33,7 @@ const Task = () => {
             <SubTask />
         </div>
         <div className='tasks-subtask-buttons'>
-            <button className='add-subtask-button'>Add Sub-Task</button>
+            <button onClick={() => setNewSubtaskFormRendered(true)} className='add-subtask-button'>Add Sub-Task</button>
             <button className='delete-task-button'>Delete Task</button>
         </div>
     </div>

@@ -6,7 +6,7 @@ const Customer = ({ customerName,
                     customerPhoneNumber, 
                     deleteCustomer,
                     customerID,
-                    setNewCustomerFormRendered }) => {
+                    setCustomerFormRendered }) => {
   return (
     <div className='customer'>
         <div className='customer-text'>
@@ -15,7 +15,7 @@ const Customer = ({ customerName,
             <p className='customer-labels'>{customerPhoneNumber}</p>
         </div>
         <div className='button-box'>
-            <button onClick={() => setNewCustomerFormRendered(true)} className='edit-customer'>Edit</button>
+            <button onClick={() => setCustomerFormRendered(true)} className='edit-customer'>Edit</button>
             <button onClick={() => deleteCustomer(customerID)} className='delete-customer'>Delete</button>
         </div>
     </div>

@@ -8,7 +8,7 @@ import NewCustomerForm from './NewCustomerForm';
 
 const Customers = () => {
 
-  const [newCustomerFormRendered, setNewCustomerFormRendered] = useState(false);
+  const [newCustomerFormRendered, setCustomerFormRendered] = useState(false);
   const [navVis, setNavVis] = useState(false)
   const [customerList, setCustomerList] = useState([
       {
@@ -59,7 +59,7 @@ const Customers = () => {
       <div className='customers-content'>
           <div className='customer-content-top'>
             <h1 className='customer-heading'>Customers</h1>
-            <button onClick={() => setNewCustomerFormRendered(true)} className='new-customer-button'>New Customer</button>
+            <button onClick={() => setCustomerFormRendered(true)} className='new-customer-button'>New Customer</button>
           </div>
           <div className='customers-card'>
               <ul className='customer-list'>
@@ -71,12 +71,12 @@ const Customers = () => {
                             customerPhoneNumber={customer.phoneNumber}
                             deleteCustomer={deleteCustomer}
                             customerID={customer.id}
-                            setNewCustomerFormRendered={setNewCustomerFormRendered}
+                            setCustomerFormRendered={setCustomerFormRendered}
                             />
                     </li>
                   ))}
                   {newCustomerFormRendered === true && <NewCustomerForm 
-                    setNewCustomerFormRendered={setNewCustomerFormRendered}/>}
+                    setCustomerFormRendered={setCustomerFormRendered}/>}
               </ul>
           </div>
       </div>

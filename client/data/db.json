@@ -19,7 +19,8 @@
             "lastName": "Smith",
             "email": "email@gmail.com",
             "phoneNumber": "123-456-7890",
-            "address": "123 Example St"
+            "address": "123 Example St",
+            "estimates": []
         }
     ],
     "estimates": [
