@@ -8,75 +8,1335 @@
             "lastName": "Smith",
             "email": "email@gmail.com",
             "phoneNumber": "123-456-7890",
-            "customers": [],
-            "estimates": []
-        }
-    ],
-    "customers": [
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "id": 1,
+            "username": "username",
+            "password": "password",
             "firstName": "Bob",
             "lastName": "Smith",
             "email": "email@gmail.com",
             "phoneNumber": "123-456-7890",
-            "address": "123 Example St",
-            "estimates": []
-        }
-    ],
-    "estimates": [
-        {
-            "id": 1,
-            "customerName": "mike",
-            "customerEmail": "email@gmail.com",
-            "customerPhone": "123-456-7890",
-            "address": "123 Example St",
-            "tasks": [
+            "customers": [
                 {
                     "id": 1,
-                    "taskName": "task1",
-                    "taskTotal": 0.0,
-                    "taskDescription": "...",
-                    "subtasks": [
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
                         {
                             "id": 1,
-                            "subtaskName": "subtask1",
-                            "subtaskDescription": "...",
-                            "methods": {
-                                "timeMaterial": {
-                                    "time": {
-                                        "id": 1,
-                                        "unit": "hrly",
-                                        "quantity": 1,
-                                        "total": 0.0
-                                    },
-                                    "materials": {
-                                        "id": 1,
-                                        "unit": "hrly",
-                                        "pricePerUnit": 0.0,
-                                        "quantity": 1,
-                                        "total": 0.0
-                                    }
-                                },
-                                "sqft": {
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
                                     "pricePerUnit": 0.0,
-                                    "quantity": 0,
-                                    "total": 0.0
-                                },
-                                "lnft": {
-                                    "pricePerUnit": 0.0,
-                                    "quantity": 0,
-                                    "total": 0.0
-                                },
-                                "unitRate": {
-                                    "pricePerUnit": 0.0,
-                                    "quantity": 0,
-                                    "total": 0.0
-                                },
-                                "custom": {
-                                    "total": 0.0
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
                                 }
-                            },
-                            "subtaskTotal": 0.0
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "firstName": "Bob",
+            "lastName": "Smith",
+            "email": "email@gmail.com",
+            "phoneNumber": "123-456-7890",
+            "customers": [
+                {
+                    "id": 1,
+                    "firstName": "Bob",
+                    "lastName": "Smith",
+                    "email": "email@gmail.com",
+                    "phoneNumber": "123-456-7890",
+                    "address": "123 Example St",
+                    "estimates": [
+                        {
+                            "estimateID": 0
+                        }
+                    ]
+                }
+            ],
+            "estimates": [
+                {
+                    "id": 1,
+                    "customerName": "mike",
+                    "customerEmail": "email@gmail.com",
+                    "customerPhone": "123-456-7890",
+                    "address": "123 Example St",
+                    "tasks": [
+                        {
+                            "id": 1,
+                            "taskName": "task1",
+                            "taskTotal": 0.0,
+                            "taskDescription": "...",
+                            "subtasks": [
+                                {
+                                    "id": 1,
+                                    "subtaskName": "subtask1",
+                                    "subtaskDescription": "...",
+                                    "calcMethod": "",
+                                    "timeUnit": "",
+                                    "timeQuantity": 0.0,
+                                    "timeSubtotal": 0.0,
+                                    "materialsUnit": "",
+                                    "materialsPricePerUnit": 0.0,
+                                    "materialsQuantity": 0.0,
+                                    "materialsSubtotal": 0.0,
+                                    "unit": "",
+                                    "pricePerUnit": 0.0,
+                                    "quantity": 0.0,
+                                    "subtotal": 0.0,
+                                    "subtaskTotal": 0.0
+                                }
+                            ]
                         }
                     ]
                 }
