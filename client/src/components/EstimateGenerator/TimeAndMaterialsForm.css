@@ -1,0 +1,36 @@
+.time-and-materials-form {
+    background-color: var(--Blue-Zodiac);
+    border-radius: 1rem;
+    padding: 1rem;
+    z-index: 10000;
+}
+
+.time,
+.materials {
+    margin: 1rem 0;
+}
+
+.time h1, h2,
+.materials h1, h2 {
+    color: var(--White);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.time-and-materials-input-fields {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.time-and-materials-input-fields label {
+    color: var(--White);
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.time-and-materials-input-fields input {
+    color: var(--Regent-Gray);
+    background-color: var(--Tiara);
+    border-radius: .5rem;
+}

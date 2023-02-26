@@ -1,6 +1,9 @@
 import React from 'react'
 import './NewSubtaskForm.css'
 import { FaTimes } from 'react-icons/fa'
+import TimeAndMaterialsForm from './TimeAndMaterialsForm'
+import UnitRateForm from './UnitRateForm'
+import CustomRateForm from './CustomRateForm'
 
 const NewSubtaskForm = ({ setNewSubtaskFormRendered }) => {
   return (
@@ -26,12 +29,11 @@ const NewSubtaskForm = ({ setNewSubtaskFormRendered }) => {
                     <option value="time-and-material">Time & Materials</option>
                     <option value="sqft">Square Feet</option>
                     <option value="lnft">Lineal Feet</option>
-                    <option value="unit-rate">Unit Rate</option>
                     <option value="custom">Custom</option>
                 </select>
             </div>
             <div className='method-card'>
-
+                <CustomRateForm />
             </div>
         </div>
         <button className='new-task-form-submit-button'>Create New Subtask</button>
