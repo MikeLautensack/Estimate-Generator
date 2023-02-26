@@ -1,33 +1,57 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Nav from '../Nav/Nav'
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FaBars } from 'react-icons/fa'
 import { useState } from 'react'
 import './Customers.css'
 import Customer from './Customer'
 import NewCustomerForm from './NewCustomerForm';
+import UserContext from '../../context/DataContext'
 
 const Customers = () => {
 
+  const userData = useContext(UserContext)
+
   const [newCustomerFormRendered, setCustomerFormRendered] = useState(false);
   const [navVis, setNavVis] = useState(false)
-  const [customerList, setCustomerList] = useState([
-      {
-        id: 1,
-        firstName: "Bob",
-        lastName: "Jones",
-        email: "bobjones@example.com",
-        phoneNumber: "610-111-2222",
-        address: "275 Burger Dr",
-      },
-      {
-        id: 2,
-        firstName: "Walter",
-        lastName: "White",
-        email: "walterwhite@example.com",
-        phoneNumber: "610-123-4567",
-        address: "2385 Gold St",
-      }
-    ])
+  const [customerList, setCustomerList] = useState([{
+    "id": 1,
+    "firstName": "Bob",
+    "lastName": "Smith",
+    "email": "email@gmail.com",
+    "phoneNumber": "123-456-7890",
+    "address": "123 Example St",
+    "estimates": [
+        {
+            "estimateID": 0
+        }
+    ]
+},
+{
+    "id": 2,
+    "firstName": "Walter",
+    "lastName": "White",
+    "email": "breakingbad@gmail.com",
+    "phoneNumber": "123-456-7890",
+    "address": "666 Meth St",
+    "estimates": [
+        {
+            "estimateID": 0
+        }
+    ]
+},
+{
+    "id": 3,
+    "firstName": "John",
+    "lastName": "Snow",
+    "email": "kinginthenorth@gmail.com",
+    "phoneNumber": "123-456-7890",
+    "address": "123 wall Rd",
+    "estimates": [
+        {
+            "estimateID": 0
+        }
+    ]
+}])
 
   const changeNavVis = () => {
       if (navVis === false) {
@@ -37,8 +61,8 @@ const Customers = () => {
       }
   }
 
-  const createNewCustomer = () => {
-
+  const addCustomer = () => {
+    
   }
 
   const editCustomer = () => {

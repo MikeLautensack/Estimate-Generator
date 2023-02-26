@@ -12,9 +12,9 @@ const Login = () => {
     //}
   return (
     <form className='login'>
-        <label className='email-label' for='email'>Email</label>
+        <label className='email-label' htmlFor='email'>Email</label>
         <input className='email-input' type='email' id='email' name='email'></input>
-        <label className='password-label' for='password'>Password</label>
+        <label className='password-label' htmlFor='password'>Password</label>
         <input className='password-input' type='password' id='password' name='password'></input>
         <div className='buttons'>
           <button className='button'>Log In</button>
