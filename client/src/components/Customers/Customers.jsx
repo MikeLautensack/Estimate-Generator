@@ -5,26 +5,27 @@ import { useState } from 'react'
 import './Customers.css'
 import Customer from './Customer'
 import NewCustomerForm from './NewCustomerForm';
+import EditCustomerForm from './EditCustomerForm';
 import UserContext from '../../context/DataContext'
 
 const Customers = () => {
 
   const userData = useContext(UserContext)
 
-  const [newCustomerFormRendered, setCustomerFormRendered] = useState(false);
+  const [newCustomerFormRendered, setNewCustomerFormRendered] = useState(false);
+  const [editCustomerFormRendered, setEditCustomerFormRendered] = useState(false);
+  const [editCustomerFormData, setEditCustomerFormData] = useState()
+  const [editedCustomerId, setEditedCustomerID] = useState()
   const [navVis, setNavVis] = useState(false)
-  const [customerList, setCustomerList] = useState([{
+  const [customerList, setCustomerList] = useState([
+{
     "id": 1,
     "firstName": "Bob",
     "lastName": "Smith",
     "email": "email@gmail.com",
     "phoneNumber": "123-456-7890",
     "address": "123 Example St",
-    "estimates": [
-        {
-            "estimateID": 0
-        }
-    ]
+    "estimates": []
 },
 {
     "id": 2,
@@ -33,11 +34,7 @@ const Customers = () => {
     "email": "breakingbad@gmail.com",
     "phoneNumber": "123-456-7890",
     "address": "666 Meth St",
-    "estimates": [
-        {
-            "estimateID": 0
-        }
-    ]
+    "estimates": []
 },
 {
     "id": 3,
@@ -46,11 +43,7 @@ const Customers = () => {
     "email": "kinginthenorth@gmail.com",
     "phoneNumber": "123-456-7890",
     "address": "123 wall Rd",
-    "estimates": [
-        {
-            "estimateID": 0
-        }
-    ]
+    "estimates": []
 }])
 
   const changeNavVis = () => {
@@ -61,12 +54,44 @@ const Customers = () => {
       }
   }
 
-  const addCustomer = () => {
-    
+  const addCustomer = (inputData) => {
+      const { firstName, lastName, email, phoneNumber, address} = inputData
+      const id = customerList.length ? customerList[customerList.length -1].id + 1 : 1
+      const newCustomer = {
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phoneNumber: phoneNumber,
+        address: address,
+        estimates: []
+      }
+      const newCustomerList = [...customerList, newCustomer]
+      setCustomerList(newCustomerList)
+      console.log(inputData)
   }
 
-  const editCustomer = () => {
-
+  const editCustomer = (inputData) => {
+    const { firstName, lastName, email, phoneNumber, address} = inputData
+    const editedCustomerList = customerList.map((customer) => {
+        if (customer.id === editedCustomerId) {
+          const editedCustomer = {
+            id: customer.id,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phoneNumber: phoneNumber,
+            address: address,
+            estimates: []
+          }
+          return editedCustomer
+        } else {
+          return customer
+        }
+ 
+    })
+    setCustomerList(editedCustomerList)
+    console.log(editedCustomerList)
   }
 
   const deleteCustomer = (id) => {
@@ -83,24 +108,32 @@ const Customers = () => {
       <div className='customers-content'>
           <div className='customer-content-top'>
             <h1 className='customer-heading'>Customers</h1>
-            <button onClick={() => setCustomerFormRendered(true)} className='new-customer-button'>New Customer</button>
+            <button onClick={() => setNewCustomerFormRendered(true)} className='new-customer-button'>New Customer</button>
           </div>
           <div className='customers-card'>
               <ul className='customer-list'>
                   {customerList.map((customer) => (
                     <li className='customer-list-item' key={customer.id}>
                         <Customer 
+                            customer={customer}
                             customerName={customer.firstName + " " + customer.lastName}
                             customerEmail={customer.email}
                             customerPhoneNumber={customer.phoneNumber}
                             deleteCustomer={deleteCustomer}
                             customerID={customer.id}
-                            setCustomerFormRendered={setCustomerFormRendered}
+                            setEditCustomerFormRendered={setEditCustomerFormRendered}
+                            setEditCustomerFormData={setEditCustomerFormData}
                             />
                     </li>
                   ))}
                   {newCustomerFormRendered === true && <NewCustomerForm 
-                    setCustomerFormRendered={setCustomerFormRendered}/>}
+                    setNewCustomerFormRendered={setNewCustomerFormRendered}
+                    addCustomer={addCustomer}/>}
+                  {editCustomerFormRendered === true && <EditCustomerForm 
+                    setEditCustomerFormRendered={setEditCustomerFormRendered}
+                    editCustomer={editCustomer}
+                    editCustomerFormData={editCustomerFormData}
+                    setEditedCustomerID={setEditedCustomerID}/>}
               </ul>
           </div>
       </div>

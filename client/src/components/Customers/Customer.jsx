@@ -1,12 +1,14 @@
 import React from 'react'
 import './Customer.css'
 
-const Customer = ({ customerName,
+const Customer = ({ customer,
+                    customerName,
                     customerEmail, 
                     customerPhoneNumber, 
                     deleteCustomer,
                     customerID,
-                    setCustomerFormRendered }) => {
+                    setEditCustomerFormRendered,
+                    setEditCustomerFormData}) => {
   return (
     <div className='customer'>
         <div className='customer-text'>
@@ -15,7 +17,7 @@ const Customer = ({ customerName,
             <p className='customer-labels'>{customerPhoneNumber}</p>
         </div>
         <div className='button-box'>
-            <button onClick={() => setCustomerFormRendered(true)} className='edit-customer'>Edit</button>
+            <button onClick={() => (setEditCustomerFormRendered(true), setEditCustomerFormData(customer))} className='edit-customer'>Edit</button>
             <button onClick={() => deleteCustomer(customerID)} className='delete-customer'>Delete</button>
         </div>
     </div>
