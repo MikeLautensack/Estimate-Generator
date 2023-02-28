@@ -1,5 +1,5 @@
 import React from 'react'
-import './SqftMethodCard.css'
+import './css/SqftMethodCard.css'
 
 const SqftMethodCard = () => {
   return (

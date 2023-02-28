@@ -1,5 +1,5 @@
 import React from 'react'
-import './Task.css'
+import './css/Task.css'
 import SubTask from './SubTask'
 
 const Task = ({ setNewSubtaskFormRendered }) => {

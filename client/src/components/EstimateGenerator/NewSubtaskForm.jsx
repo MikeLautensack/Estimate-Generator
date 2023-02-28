@@ -1,5 +1,5 @@
 import React from 'react'
-import './NewSubtaskForm.css'
+import './css/NewSubtaskForm.css'
 import { FaTimes } from 'react-icons/fa'
 import TimeAndMaterialsForm from './TimeAndMaterialsForm'
 import UnitRateForm from './UnitRateForm'

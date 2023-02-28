@@ -1,6 +1,6 @@
 import React from 'react'
 import Login from './Login'
-import './Home.css'
+import './css/Home.css'
 
 const Home = () => {
 
