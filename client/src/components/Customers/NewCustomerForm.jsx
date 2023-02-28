@@ -1,21 +1,36 @@
-import React, { useState } from 'react'
-import './NewCustomerForm.css'
+import React, { useState, useEffect } from 'react'
+import './css/NewCustomerForm.css'
 import { FaTimes } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 
-const NewCustomerForm = ({ setNewCustomerFormRendered, addCustomer }) => {
+const NewCustomerForm = ({ setNewCustomerFormRendered, 
+                           addCustomer,
+                           editCustomer,
+                           editCustomerFormData}) => {
 
     const [customerData, setCustomerData] = useState()
-    const [error, setError] = useState()
 
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
+
+    useEffect(() => {
+        setCustomerData(editCustomerFormData)
+    }, [])
+
+    if (customerData != null || undefined) {
+        const { firstName, lastName, email, phoneNumber, address} = customerData
+        setValue("firstName", firstName)
+        setValue("lastName", lastName)
+        setValue("email", email)
+        setValue("phoneNumber", phoneNumber)
+        setValue("address", address)
+    }
+
     
-    //const { firstName, lastName, email, phoneNumber, address} = customerData
 
     return (
-      <form onSubmit={handleSubmit(addCustomer)} className='new-customer-form'>
+      <form onSubmit={handleSubmit(customerData == null ? addCustomer : editCustomer & setCustomerData(null))} className='new-customer-form'>
           <FaTimes 
-              onClick={() => setNewCustomerFormRendered(false)}
+              onClick={() => (setNewCustomerFormRendered(false), setCustomerData(null))}
               style={{ color: 'white', 
                            position: 'absolute',
                            top: '.5rem',
@@ -42,7 +57,7 @@ const NewCustomerForm = ({ setNewCustomerFormRendered, addCustomer }) => {
                   <input {...register("address")} placeholder='Address:'></input>
               </div>
           </div>
-          <button className='new-customer-form-submit-button'>Create New Customer</button>
+          <button className='new-customer-form-submit-button'>{customerData == null ? "Add New Customer" : "Edit Customer"}</button>
       </form>
     )
 }

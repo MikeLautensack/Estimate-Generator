@@ -2,10 +2,9 @@ import React, { useContext } from 'react'
 import Nav from '../Nav/Nav'
 import { FaBars } from 'react-icons/fa'
 import { useState } from 'react'
-import './Customers.css'
+import './css/Customers.css'
 import Customer from './Customer'
 import NewCustomerForm from './NewCustomerForm';
-import EditCustomerForm from './EditCustomerForm';
 import UserContext from '../../context/DataContext'
 
 const Customers = () => {
@@ -13,9 +12,7 @@ const Customers = () => {
   const userData = useContext(UserContext)
 
   const [newCustomerFormRendered, setNewCustomerFormRendered] = useState(false);
-  const [editCustomerFormRendered, setEditCustomerFormRendered] = useState(false);
   const [editCustomerFormData, setEditCustomerFormData] = useState()
-  const [editedCustomerId, setEditedCustomerID] = useState()
   const [navVis, setNavVis] = useState(false)
   const [customerList, setCustomerList] = useState([
 {
@@ -68,13 +65,13 @@ const Customers = () => {
       }
       const newCustomerList = [...customerList, newCustomer]
       setCustomerList(newCustomerList)
-      console.log(inputData)
+      setNewCustomerFormRendered(false)
   }
 
   const editCustomer = (inputData) => {
     const { firstName, lastName, email, phoneNumber, address} = inputData
     const editedCustomerList = customerList.map((customer) => {
-        if (customer.id === editedCustomerId) {
+        if (customer.id === editCustomerFormData.id) {
           const editedCustomer = {
             id: customer.id,
             firstName: firstName,
@@ -91,7 +88,7 @@ const Customers = () => {
  
     })
     setCustomerList(editedCustomerList)
-    console.log(editedCustomerList)
+    setNewCustomerFormRendered(false)
   }
 
   const deleteCustomer = (id) => {
@@ -121,19 +118,16 @@ const Customers = () => {
                             customerPhoneNumber={customer.phoneNumber}
                             deleteCustomer={deleteCustomer}
                             customerID={customer.id}
-                            setEditCustomerFormRendered={setEditCustomerFormRendered}
                             setEditCustomerFormData={setEditCustomerFormData}
+                            setNewCustomerFormRendered={setNewCustomerFormRendered}
                             />
                     </li>
                   ))}
                   {newCustomerFormRendered === true && <NewCustomerForm 
                     setNewCustomerFormRendered={setNewCustomerFormRendered}
-                    addCustomer={addCustomer}/>}
-                  {editCustomerFormRendered === true && <EditCustomerForm 
-                    setEditCustomerFormRendered={setEditCustomerFormRendered}
+                    addCustomer={addCustomer}
                     editCustomer={editCustomer}
-                    editCustomerFormData={editCustomerFormData}
-                    setEditedCustomerID={setEditedCustomerID}/>}
+                    editCustomerFormData={editCustomerFormData}/>}
               </ul>
           </div>
       </div>

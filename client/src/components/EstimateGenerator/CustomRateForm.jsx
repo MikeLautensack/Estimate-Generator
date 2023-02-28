@@ -1,5 +1,5 @@
 import React from 'react'
-import './CustomRateForm.css'
+import './css/CustomRateForm.css'
 
 const CustomRateForm = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import './Customer.css'
+import './css/Customer.css'
 
 const Customer = ({ customer,
                     customerName,
@@ -8,7 +8,8 @@ const Customer = ({ customer,
                     deleteCustomer,
                     customerID,
                     setEditCustomerFormRendered,
-                    setEditCustomerFormData}) => {
+                    setEditCustomerFormData,
+                    setNewCustomerFormRendered}) => {
   return (
     <div className='customer'>
         <div className='customer-text'>
@@ -17,7 +18,7 @@ const Customer = ({ customer,
             <p className='customer-labels'>{customerPhoneNumber}</p>
         </div>
         <div className='button-box'>
-            <button onClick={() => (setEditCustomerFormRendered(true), setEditCustomerFormData(customer))} className='edit-customer'>Edit</button>
+            <button onClick={() => (setNewCustomerFormRendered(true), setEditCustomerFormData(customer))} className='edit-customer'>Edit</button>
             <button onClick={() => deleteCustomer(customerID)} className='delete-customer'>Delete</button>
         </div>
     </div>

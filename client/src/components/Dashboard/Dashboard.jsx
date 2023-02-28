@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Nav from '../../components/Nav/Nav'
-import './Dashboard.css'
+import './css/Dashboard.css'
 import { FaBars } from 'react-icons/fa'
 import Statistics from './Statistics'
 import RecentCustomers from './RecentCustomers'

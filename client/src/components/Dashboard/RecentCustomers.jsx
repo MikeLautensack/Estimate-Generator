@@ -1,5 +1,5 @@
 import React from 'react'
-import './RecentCustomers.css'
+import './css/RecentCustomers.css'
 import Customer from '../Customers/Customer'
 
 const RecentCustomers = () => {
