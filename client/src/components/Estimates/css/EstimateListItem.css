@@ -1,0 +1,50 @@
+.estimate {
+    border: 2px solid var(--Black);
+    border-radius: .5rem;
+    display: flex;
+    background-color: var(--Tiara);
+}
+
+.estimate-text {
+    font-size: 12px;
+    line-height: 21px;
+    width: 80%;
+    padding: 8px;
+}
+
+.button-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    width: 20%;
+    margin: 0 .5rem 0 0;
+}
+
+.edit-estimate {
+    font-size: 9px;
+    font-weight: bold;
+    color: var(--Blue-Zodiac);
+    line-height: 16px;
+    padding: 4px 13px;
+    background-color: var(--Fountain-Blue);
+    border-radius: 1rem;
+}
+
+.edit-estimate:hover {
+    box-shadow: 0 0 .5rem var(--Fountain-Blue);
+}
+
+.delete-estimate {
+    font-size: 9px;
+    font-weight: bold;
+    color: var(--Blue-Zodiac);
+    line-height: 16px;
+    padding: 4px 8px;
+    background-color: var(--Delete);
+    border-radius: 1rem;
+}
+
+.delete-estimate:hover {
+    box-shadow: 0 0 .5rem var(--Delete);
+}

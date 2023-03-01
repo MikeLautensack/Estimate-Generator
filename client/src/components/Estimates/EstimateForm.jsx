@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import './css/NewEstimateForm.css'
+import './css/EstimateForm.css'
 import Task from './Task'
 import { FaTimes } from 'react-icons/fa'
-import NewTaskForm from './NewTaskForm'
-import NewSubtaskForm from './NewSubtaskForm'
+import TaskForm from './TaskForm'
+import SubtaskForm from './SubtaskForm'
 
 const NewEstimateForm = ({ setEstimateGeneratorFormRendered }) => {
 
@@ -54,9 +54,9 @@ const NewEstimateForm = ({ setEstimateGeneratorFormRendered }) => {
                     <Task 
                         setNewSubtaskFormRendered={setNewSubtaskFormRendered}/>
                 </div>
-                {newTaskFormRendered === true && <NewTaskForm 
+                {newTaskFormRendered === true && <TaskForm 
             setNewTaskFormRendered={setNewTaskFormRendered}/>}
-                {newSubtaskFormRendered === true && <NewSubtaskForm 
+                {newSubtaskFormRendered === true && <SubtaskForm 
             setNewSubtaskFormRendered={setNewSubtaskFormRendered}/>}
             </div>
             <div className='buttons-and-price'>

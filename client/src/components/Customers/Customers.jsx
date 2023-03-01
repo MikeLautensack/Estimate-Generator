@@ -89,6 +89,7 @@ const Customers = () => {
     })
     setCustomerList(editedCustomerList)
     setNewCustomerFormRendered(false)
+    setEditCustomerFormData(null)
   }
 
   const deleteCustomer = (id) => {
@@ -127,7 +128,8 @@ const Customers = () => {
                     setNewCustomerFormRendered={setNewCustomerFormRendered}
                     addCustomer={addCustomer}
                     editCustomer={editCustomer}
-                    editCustomerFormData={editCustomerFormData}/>}
+                    editCustomerFormData={editCustomerFormData}
+                    setEditCustomerFormData={setEditCustomerFormData}/>}
               </ul>
           </div>
       </div>

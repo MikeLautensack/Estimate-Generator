@@ -3,8 +3,8 @@ import Nav from '../Nav/Nav'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { useState } from 'react'
 import './css/Estimates.css'
-import Estimate from './Estimate'
-import NewEstimateForm from '../EstimateGenerator/NewEstimateForm'
+import EstimateListItem from './EstimateListItem'
+import EstimateForm from './EstimateForm'
 
 
 const Estimates = () => {
@@ -162,7 +162,7 @@ const Estimates = () => {
             <ul className='estimate-list'>
                 {estimateList.map((estimate) => (
                   <li className='estimate-list-item'>
-                    <Estimate
+                    <EstimateListItem
                         estimate={estimate} 
                         estimateID={estimate.id}
                         estimateName={estimate.estimateName}
@@ -173,7 +173,7 @@ const Estimates = () => {
                 ))}
             </ul>
         </div>
-        {estimateGeneratorFormRendered === true && <NewEstimateForm 
+        {estimateGeneratorFormRendered === true && <EstimateForm 
             setEstimateGeneratorFormRendered={setEstimateGeneratorFormRendered}
             addEstimate={addEstimate}/>}
       </div>

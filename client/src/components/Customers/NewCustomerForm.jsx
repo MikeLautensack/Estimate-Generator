@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form'
 const NewCustomerForm = ({ setNewCustomerFormRendered, 
                            addCustomer,
                            editCustomer,
-                           editCustomerFormData}) => {
+                           editCustomerFormData,
+                           setEditCustomerFormData}) => {
 
     const [customerData, setCustomerData] = useState()
 
@@ -25,12 +26,16 @@ const NewCustomerForm = ({ setNewCustomerFormRendered,
         setValue("address", address)
     }
 
+    const onExit = () => {
+        setNewCustomerFormRendered(false)
+        setEditCustomerFormData(null)
+    }
     
 
     return (
-      <form onSubmit={handleSubmit(customerData == null ? addCustomer : editCustomer & setCustomerData(null))} className='new-customer-form'>
+      <form onSubmit={handleSubmit(customerData == null || undefined ? addCustomer : editCustomer)} className='new-customer-form'>
           <FaTimes 
-              onClick={() => (setNewCustomerFormRendered(false), setCustomerData(null))}
+              onClick={() => (onExit())}
               style={{ color: 'white', 
                            position: 'absolute',
                            top: '.5rem',
@@ -57,7 +62,7 @@ const NewCustomerForm = ({ setNewCustomerFormRendered,
                   <input {...register("address")} placeholder='Address:'></input>
               </div>
           </div>
-          <button className='new-customer-form-submit-button'>{customerData == null ? "Add New Customer" : "Edit Customer"}</button>
+          <button className='new-customer-form-submit-button'>{customerData == null || undefined ? "Add New Customer" : "Edit Customer"}</button>
       </form>
     )
 }
