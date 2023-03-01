@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/NewTaskForm.css'
+import './css/TaskForm.css'
 import { FaTimes } from 'react-icons/fa'
 
 const NewTaskForm = ({ setNewTaskFormRendered }) => {

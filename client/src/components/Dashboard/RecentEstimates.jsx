@@ -1,24 +1,24 @@
 import React from 'react'
 import './css/RecentEstimates.css'
-import Estimate from '../Estimates/Estimate'
+import EstimateListItem from '../Estimates/EstimateListItem'
 
 const RecentEstimates = () => {
   return (
     <div className='recent-estimates-card'>
       <h1>Recent Estimates</h1>
       <div className='recent-estimates-list'>
-        <Estimate />
-        <Estimate />
-        <Estimate />
-        <Estimate />
-        <Estimate />
-        <Estimate />
-        <Estimate />
-        <Estimate />
-        <Estimate />
-        <Estimate />
-        <Estimate />
-        <Estimate />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
+        <EstimateListItem />
       </div>
     </div>
   )
