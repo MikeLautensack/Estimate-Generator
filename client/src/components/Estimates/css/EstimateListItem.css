@@ -1,18 +1,18 @@
-.estimate {
+.estimate-li {
     border: 2px solid var(--Black);
     border-radius: .5rem;
     display: flex;
     background-color: var(--Tiara);
 }
 
-.estimate-text {
+.estimate-li-data {
     font-size: 12px;
     line-height: 21px;
     width: 80%;
     padding: 8px;
 }
 
-.button-box {
+.estimate-li-button-box {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

@@ -13,9 +13,9 @@ const Customer = ({ customer,
   return (
     <div className='customer'>
         <div className='customer-text'>
-            <p className='customer-labels'>{customerName}</p>
-            <p className='customer-labels'>{customerEmail}</p>
-            <p className='customer-labels'>{customerPhoneNumber}</p>
+            <p>{customerName}</p>
+            <p>{customerEmail}</p>
+            <p>{customerPhoneNumber}</p>
         </div>
         <div className='button-box'>
             <button onClick={() => (setNewCustomerFormRendered(true), setEditCustomerFormData(customer))} className='edit-customer'>Edit</button>

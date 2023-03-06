@@ -6,15 +6,16 @@ const Estimate = ({ estimate,
                     estimateName,
                     customerName,
                     estimateAddress,
-                    deleteEstimate}) => {
+                    deleteEstimate,
+                    setEstimateRendered}) => {
   return (
-    <div className='estimate'>
-        <div className='estimate-text'>
-            <p className='estimate-labels'>{estimateName}</p>
-            <p className='estimate-labels'>{customerName}</p>
-            <p className='estimate-labels'>{estimateAddress}</p>
+    <div onDoubleClick={() => setEstimateRendered(true)} className='estimate-li'>
+        <div className='estimate-li-data'>
+            <p>{estimateName}</p>
+            <p>{customerName}</p>
+            <p>{estimateAddress}</p>
         </div>
-        <div className='button-box'>
+        <div className='estimate-li-button-box'>
             <button className='edit-estimate'>Edit</button>
             <button onClick={() => deleteEstimate(estimateID)} className='delete-estimate'>Delete</button>
         </div>
