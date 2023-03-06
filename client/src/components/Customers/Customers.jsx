@@ -66,6 +66,7 @@ const Customers = () => {
       const newCustomerList = [...customerList, newCustomer]
       setCustomerList(newCustomerList)
       setNewCustomerFormRendered(false)
+      console.log("test")
   }
 
   const editCustomer = (inputData) => {
@@ -90,6 +91,7 @@ const Customers = () => {
     setCustomerList(editedCustomerList)
     setNewCustomerFormRendered(false)
     setEditCustomerFormData(null)
+    console.log("test")
   }
 
   const deleteCustomer = (id) => {

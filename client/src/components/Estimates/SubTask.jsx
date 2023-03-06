@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './css/SubTask.css'
 
-const SubTask = () => {
+const SubTask = ({ subtask }) => {
+
+  const [subtaskData, setSubtaskData] = useState({})
+
+  useEffect(() => {
+    setSubtaskData(subtask)
+  }, [subtask])
+
   return (
     <div className='subtask'>
         <div className='subtask-buttons'>
@@ -9,8 +16,8 @@ const SubTask = () => {
             <button className='delete-subtask-button'>Delete</button>
         </div>
         <div className='subtask-fields'>
-            <h2 className='subtask-name-heading'>SubTask Name:</h2>
-            <h2 className='subtask-price-heading'>$0.00</h2>
+            <h2 className='subtask-name-heading'>{subtaskData.subtaskName}</h2>
+            <h2 className='subtask-price-heading'>{subtaskData.subtaskTotal}</h2>
         </div>
     </div>
   )

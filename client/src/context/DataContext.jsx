@@ -9,7 +9,7 @@ export const DataProvider = ({ children }) => {
     const [customers, setCustomers] = useState()
     const [estimates, setEstimates] = useState()
 
-    useEffect(() => {
+    /*useEffect(() => {
         const getData = async () => {
             try {
               const userDataResponse = await axios.get('http://localhost:4000/users?id=1')
@@ -27,7 +27,7 @@ export const DataProvider = ({ children }) => {
             }
         }
         getData()
-    }, [])
+    }, [])*/
 
     return (
         <DataContext.Provider value={{user,

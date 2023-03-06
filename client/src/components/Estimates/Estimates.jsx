@@ -1,22 +1,28 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import Nav from '../Nav/Nav'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { useState } from 'react'
 import './css/Estimates.css'
 import EstimateListItem from './EstimateListItem'
 import EstimateForm from './EstimateForm'
+import Estimate from './Estimate'
 
+const reducer = (estimates, action) => {
+    switch(action.type) {
+        case 'add':
+          return [...estimates, action.payload]
+        case 'delete':
+          return action.payload
+    }
+}
 
 const Estimates = () => {
 
-  const [estimateGeneratorFormRendered, setEstimateGeneratorFormRendered] = useState(false)
-  const [navVis, setNavVis] = useState(false)
-  const [estimateList, setEstimateList] = useState([
+  const [estimates, dispatch] = useReducer(reducer, [
     {
       "id": 1,
       "estimateName": "test1",
-      "customerFirstName": "mike",
-      "customerLastName": "Lautensack",
+      "customerName": "bob",
       "customerEmail": "email@gmail.com",
       "customerPhone": "123-456-7890",
       "address": "123 Example St",
@@ -53,8 +59,7 @@ const Estimates = () => {
   {
       "id": 2,
       "estimateName": "test2",
-      "customerFirstName": "Walter",
-      "customerLastName": "White",
+      "customerName": "bob",
       "customerEmail": "breakingbad@gmail.com",
       "customerPhone": "123-456-7890",
       "address": "675 google st",
@@ -90,8 +95,7 @@ const Estimates = () => {
   {
       "id": 3,
       "estimateName": "test3",
-      "customerFirstName": "John",
-      "customerLastName": "Snow",
+      "customerName": "bob",
       "customerEmail": "kinginthenorth@gmail.com",
       "customerPhone": "123-456-7890",
       "address": "123 winterfell ave",
@@ -125,6 +129,11 @@ const Estimates = () => {
       ]
   }])
 
+  const [estimateRendered, setEstimateRendered] = useState(false)
+  const [estimateFormRendered, setEstimateFormRendered] = useState(false)
+  const [navVis, setNavVis] = useState(false)
+  const [estimateList, setEstimateList] = useState()
+
   const changeNavVis = () => {
       if (navVis === false) {
         setNavVis(true)
@@ -134,8 +143,8 @@ const Estimates = () => {
 
   }
 
-  const addEstimate = (inputData) => {
-
+  const addEstimate = (estimate) => {
+      dispatch({ type: 'add', payload: estimate})
   }
 
   const editEstimate = (inputData) => {
@@ -143,8 +152,8 @@ const Estimates = () => {
   }
 
   const deleteEstimate = (id) => {
-    const list = estimateList.filter((estimate) => estimate.id !== id)
-    setEstimateList(list)
+    const list = estimates.filter((estimate) => estimate.id !== id)
+    dispatch({ type: 'delete', payload: list})
 }
 
   return (
@@ -156,25 +165,29 @@ const Estimates = () => {
       <div className='estimates-content'>
         <div className='estimates-content-top'>
           <h1 className='estimate-heading'>Estimates</h1>
-          <button onClick={() => setEstimateGeneratorFormRendered(true)} className='new-estimate-button'>New Estimate</button>
+          <button onClick={() => setEstimateFormRendered(true)} className='new-estimate-button'>New Estimate</button>
         </div>
         <div className='estimates-card'>
             <ul className='estimate-list'>
-                {estimateList.map((estimate) => (
-                  <li className='estimate-list-item'>
+                {estimates.map((estimate) => (
+                  <li key={estimate.id}>
                     <EstimateListItem
                         estimate={estimate} 
                         estimateID={estimate.id}
                         estimateName={estimate.estimateName}
                         customerName={estimate.customerFirstName + " " + estimate.customerLastName}
                         estimateAddress={estimate.address}
-                        deleteEstimate={deleteEstimate}/>
+                        deleteEstimate={deleteEstimate}
+                        setEstimateRendered={setEstimateRendered}/>
                   </li>
                 ))}
             </ul>
         </div>
-        {estimateGeneratorFormRendered === true && <EstimateForm 
-            setEstimateGeneratorFormRendered={setEstimateGeneratorFormRendered}
+        {estimateRendered === true && <Estimate 
+            setEstimateRendered={setEstimateRendered}
+            addEstimate={addEstimate}/>}
+        {estimateFormRendered === true && <EstimateForm 
+            setEstimateFormRendered={setEstimateFormRendered}
             addEstimate={addEstimate}/>}
       </div>
     </div>
