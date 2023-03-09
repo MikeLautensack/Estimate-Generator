@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Nav from '../Nav/Nav'
 import { FaBars } from 'react-icons/fa'
 import { useState } from 'react'
@@ -10,38 +10,15 @@ import UserContext from '../../context/DataContext'
 const Customers = () => {
 
   const userData = useContext(UserContext)
-
+  const { customers, setCustomers } = userData
   const [newCustomerFormRendered, setNewCustomerFormRendered] = useState(false);
   const [editCustomerFormData, setEditCustomerFormData] = useState()
   const [navVis, setNavVis] = useState(false)
-  const [customerList, setCustomerList] = useState([
-{
-    "id": 1,
-    "firstName": "Bob",
-    "lastName": "Smith",
-    "email": "email@gmail.com",
-    "phoneNumber": "123-456-7890",
-    "address": "123 Example St",
-    "estimates": []
-},
-{
-    "id": 2,
-    "firstName": "Walter",
-    "lastName": "White",
-    "email": "breakingbad@gmail.com",
-    "phoneNumber": "123-456-7890",
-    "address": "666 Meth St",
-    "estimates": []
-},
-{
-    "id": 3,
-    "firstName": "John",
-    "lastName": "Snow",
-    "email": "kinginthenorth@gmail.com",
-    "phoneNumber": "123-456-7890",
-    "address": "123 wall Rd",
-    "estimates": []
-}])
+  const [customerList, setCustomerList] = useState([])
+
+  useEffect(() => {
+    setCustomerList(customers)
+  }, [])
 
   const changeNavVis = () => {
       if (navVis === false) {
@@ -66,7 +43,7 @@ const Customers = () => {
       const newCustomerList = [...customerList, newCustomer]
       setCustomerList(newCustomerList)
       setNewCustomerFormRendered(false)
-      console.log("test")
+      setCustomers(newCustomerList)
   }
 
   const editCustomer = (inputData) => {
@@ -91,12 +68,13 @@ const Customers = () => {
     setCustomerList(editedCustomerList)
     setNewCustomerFormRendered(false)
     setEditCustomerFormData(null)
-    console.log("test")
+    setCustomers(editedCustomerList)
   }
 
   const deleteCustomer = (id) => {
       const list = customerList.filter((customer) => customer.id !== id)
       setCustomerList(list)
+      setCustomers(list)
   }
 
   return (
