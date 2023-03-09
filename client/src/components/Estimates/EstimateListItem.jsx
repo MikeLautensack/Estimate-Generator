@@ -2,22 +2,20 @@ import React from 'react'
 import './css/EstimateListItem.css'
 
 const Estimate = ({ estimate,
-                    estimateID,
-                    estimateName,
-                    customerName,
-                    estimateAddress,
+                    setEstimateFormRendered,
                     deleteEstimate,
-                    setEstimateRendered}) => {
+                    setEstimateRendered,
+                    setEditEstimateData}) => {
   return (
     <div onDoubleClick={() => setEstimateRendered(true)} className='estimate-li'>
         <div className='estimate-li-data'>
-            <p>{estimateName}</p>
-            <p>{customerName}</p>
-            <p>{estimateAddress}</p>
+            <p>{estimate.estimateName}</p>
+            <p>{estimate.customerName}</p>
+            <p>{estimate.address}</p>
         </div>
         <div className='estimate-li-button-box'>
-            <button className='edit-estimate'>Edit</button>
-            <button onClick={() => deleteEstimate(estimateID)} className='delete-estimate'>Delete</button>
+            <button onClick={() => (setEstimateFormRendered(true), setEditEstimateData(estimate))} className='edit-estimate'>Edit</button>
+            <button onClick={() => deleteEstimate(estimate.id)} className='delete-estimate'>Delete</button>
         </div>
     </div>
   )

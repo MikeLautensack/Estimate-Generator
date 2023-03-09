@@ -1,10 +1,25 @@
 import React from 'react'
 import './css/UnitRateForm.css'
+import { useState, useEffect } from 'react'
 import { useFormContext, useController } from 'react-hook-form'
 
-const UnitRateForm = () => {
-  const { register, control } = useFormContext()
+const UnitRateForm = ({ editSubtaskData }) => {
+  const { register, control, setValue } = useFormContext()
   const { field:unitRate } = useController({ name: 'unit', control})
+  const [subtaskData, setSubtaskData] = useState()
+  useEffect(() => {
+    if (editSubtaskData != null || undefined) {
+      setValue("pricePerUnit", editSubtaskData.pricePerUnit)
+      setValue("quantity", editSubtaskData.quantity)
+      setValue("unit", editSubtaskData.unit)
+  }
+  }, [])
+
+  useEffect(() => {
+    setSubtaskData(editSubtaskData)
+  }, [editSubtaskData])
+  
+  
 
   return (
     <div className='unit-rate-form'>

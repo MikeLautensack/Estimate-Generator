@@ -8,27 +8,28 @@ import { useForm } from 'react-hook-form'
 
 const reducer = (estimate, action) => {
     switch(action.type) {
-        case 'save':
-            return {
-                ...estimate, 
-                estimateName: action.payload.estimateName,
-                customerName: action.payload.customerName,
-                customerEmail: action.payload.customerEmail,
-                customerPhone: action.payload.customerPhone,
-                address: action.payload.address,
-                id: action.payload.estimateNumber 
-            }
+        case 'loadEstimate':
+            return action.payload
         case 'addTask':
             return {
                 ...estimate,
                 tasks: [...estimate.tasks, action.payload]
             }
         case 'editTask':
-            return
+            return {
+                ...estimate,
+                tasks: estimate.tasks.map((task) => {
+                    if(task.id === action.payload.id) {
+                        return action.payload
+                    } else {
+                        return task
+                    }
+                })
+            }
         case 'deleteTask':
             return {
                 ...estimate,
-                tasks: action.payload
+                tasks: estimate.tasks.filter((task) => task.id !== action.payload.taskID)
             }
         case 'addSubtask':
             return {
@@ -47,18 +48,63 @@ const reducer = (estimate, action) => {
                     }
                 })
             }
+        case 'editSubtask':
+            return {
+                ...estimate,
+                tasks: estimate.tasks.map((task) => {
+                    if(task.id === action.payload.taskID) {
+                        return {
+                            ...task,
+                            subtasks: task.subtasks.map((subtask) => {
+                                if(subtask.id === action.payload.id) {
+                                    return action.payload
+                                } else {
+                                    return subtask
+                                }
+                            })
+                        }
+                    } else {
+                        return {
+                            ...task,
+                            subtasks: task.subtasks
+                        }
+                    }
+                })
+            }
+        case 'deleteSubtask':
+            return {
+                ...estimate,
+                tasks: estimate.tasks.map((task) => {
+                    if(task.id === action.payload.subtasksTaskID) {
+                        return {
+                            ...task,
+                            subtasks: task.subtasks.filter((subtask) => subtask.id !== action.payload.subtaskID)
+                        }
+                    } else {
+                        return {
+                            ...task,
+                            subtasks: task.subtasks
+                        }
+                    }
+                })
+            }
     }
 }
 
 export const EstimateContext = createContext()
 
 const EstimateForm = ({ setEstimateFormRendered,
-                        addEstimate}) => {
+                        addEstimate,
+                        editEstimate,
+                        editEstimateData,
+                        setEditEstimateData}) => {
 
+    const [editTaskData, setEditTaskData] = useState()
+    const [editSubtaskData, setEditSubtaskData] = useState()
     const [taskFormRendered, setTaskFormRendered] = useState(false)
     const [subtaskFormRendered, setSubtaskFormRendered] = useState(false)
     const [taskID, setTaskID] = useState(0)
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
     const [estimate, dispatch] = useReducer(reducer, 
     {
         id: 0,
@@ -70,8 +116,19 @@ const EstimateForm = ({ setEstimateFormRendered,
         tasks: []
     })
 
-    const save = (data) => {
-        dispatch({ type: 'save', payload: data})
+    useEffect(() => {
+        if(editEstimateData != null || undefined) {
+            dispatch({ type: 'loadEstimate', payload: editEstimateData})
+            setValue("estimateName", editEstimateData.estimateName)
+            setValue("customerName", editEstimateData.customerName)
+            setValue("customerEmail", editEstimateData.customerEmail)
+            setValue("customerPhone", editEstimateData.customerPhone)
+            setValue("address", editEstimateData.address)
+            setValue("estimateNumber", editEstimateData.estimateNumber)
+        }
+    }, [])
+
+    const addEst = (data) => {
         const newEstimate = {
             ...estimate,
             estimateName: data.estimateName,
@@ -85,13 +142,19 @@ const EstimateForm = ({ setEstimateFormRendered,
         setEstimateFormRendered(false)
     }
 
-    const editTask = () => {
-
-    }
-
-    const deleteTask = (id) => {
-        const list = estimate.tasks.filter((task) => task.id !== id)
-        dispatch({ type: 'deleteTask', payload: list})
+    const editEst = (data) => {
+        const newEstimate = {
+            ...editEstimateData,
+            estimateName: data.estimateName,
+            customerName: data.customerName,
+            customerEmail: data.customerEmail,
+            customerPhone: data.customerPhone,
+            address: data.address,
+            tasks: estimate.tasks
+        }
+        editEstimate(newEstimate)
+        setEditEstimateData(null)
+        setEstimateFormRendered(false)
     }
 
   return (
@@ -139,24 +202,30 @@ const EstimateForm = ({ setEstimateFormRendered,
                                 <Task 
                                     task={task}
                                     setTaskID={setTaskID}
-                                    deleteTask={deleteTask}
-                                    setSubtaskFormRendered={setSubtaskFormRendered}/>
+                                    setSubtaskFormRendered={setSubtaskFormRendered}
+                                    setEditSubtaskData={setEditSubtaskData}
+                                    setTaskFormRendered={setTaskFormRendered}
+                                    setEditTaskData={setEditTaskData}/>
                             </li>
                         ))}
                     </ul>
                 </div>
                 <div className='buttons-and-price'>
                     <button className='estimate-buttons'>Preview Estimate</button>
-                    <button onClick={handleSubmit(save)} className='estimate-buttons'>Save</button>
+                    <button onClick={handleSubmit(editEstimateData == null || undefined ? addEst : editEst)} className='estimate-buttons'>Save</button>
                     <button className='estimate-buttons'>Save & Send</button>
                     <h1 className='estimate-total'>$0.00</h1>
                 </div>
             </div>
             {taskFormRendered === true && <TaskForm 
-                setTaskFormRendered={setTaskFormRendered}/>}
+                setTaskFormRendered={setTaskFormRendered}
+                editTaskData={editTaskData}
+                setEditTaskData={setEditTaskData}/>}
             {subtaskFormRendered === true && <SubtaskForm 
                 setSubtaskFormRendered={setSubtaskFormRendered}
-                taskID={taskID}/>}
+                taskID={taskID}
+                editSubtaskData={editSubtaskData}
+                setEditSubtaskData={setEditSubtaskData}/>}
         </div>
     </EstimateContext.Provider>
   )

@@ -2,24 +2,19 @@ import React from 'react'
 import './css/Customer.css'
 
 const Customer = ({ customer,
-                    customerName,
-                    customerEmail, 
-                    customerPhoneNumber, 
-                    deleteCustomer,
-                    customerID,
                     setEditCustomerFormRendered,
                     setEditCustomerFormData,
-                    setNewCustomerFormRendered}) => {
+                    deleteCustomer}) => {
   return (
     <div className='customer'>
         <div className='customer-text'>
-            <p>{customerName}</p>
-            <p>{customerEmail}</p>
-            <p>{customerPhoneNumber}</p>
+            <p>{customer.firstName + "" + customer.lastName}</p>
+            <p>{customer.email}</p>
+            <p>{customer.phoneNumber}</p>
         </div>
         <div className='button-box'>
-            <button onClick={() => (setNewCustomerFormRendered(true), setEditCustomerFormData(customer))} className='edit-customer'>Edit</button>
-            <button onClick={() => deleteCustomer(customerID)} className='delete-customer'>Delete</button>
+            <button onClick={() => (setEditCustomerFormRendered(true), setEditCustomerFormData(customer))} className='edit-customer'>Edit</button>
+            <button onClick={() => deleteCustomer(customer.id)} className='delete-customer'>Delete</button>
         </div>
     </div>
   )

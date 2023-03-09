@@ -1,23 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './css/SubTask.css'
+import { EstimateContext } from './EstimateForm'
 
-const SubTask = ({ subtask }) => {
+const SubTask = ({ subtask, 
+                   setEditSubtaskData,
+                   setSubtaskFormRendered }) => {
 
-  const [subtaskData, setSubtaskData] = useState({})
+  const estimateContext = useContext(EstimateContext)
+  const { dispatch } = estimateContext
 
-  useEffect(() => {
-    setSubtaskData(subtask)
-  }, [subtask])
+  const deleteSubtask = (subtaskID, subtasksTaskID) => {
+    dispatch({ type: 'deleteSubtask', payload: {subtaskID: subtaskID, subtasksTaskID: subtasksTaskID}})
+    console.log('test')
+  }
+
+  const editSubtask = (subtask) => {
+    setSubtaskFormRendered(true)
+    setEditSubtaskData(subtask)
+  }
 
   return (
     <div className='subtask'>
         <div className='subtask-buttons'>
-            <button className='edit-subtask-button'>Edit</button>
-            <button className='delete-subtask-button'>Delete</button>
+            <button onClick={() => editSubtask(subtask)} className='edit-subtask-button'>Edit</button>
+            <button onClick={() => deleteSubtask(subtask.id, subtask.taskID)} className='delete-subtask-button'>Delete</button>
         </div>
         <div className='subtask-fields'>
-            <h2 className='subtask-name-heading'>{subtaskData.subtaskName}</h2>
-            <h2 className='subtask-price-heading'>{subtaskData.subtaskTotal}</h2>
+            <h2 className='subtask-name-heading'>{subtask.subtaskName}</h2>
+            <h2 className='subtask-price-heading'>{subtask.total}</h2>
         </div>
     </div>
   )

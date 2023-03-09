@@ -74,6 +74,22 @@
     box-shadow: 0 0 .5rem var(--Fountain-Blue);
 }
 
+.edit-task-button {
+    font-size: 12px;
+    line-height: 21px;
+    color: var(--Blue-Zodiac);
+    font-weight: bold;
+    border-radius: 100vw;
+    background-color: var(--Fountain-Blue);
+    margin-right: .25rem;
+    padding: 4px;
+    width: 50%;
+}
+
+.edit-task-button:hover {
+    box-shadow: 0 0 .5rem var(--Fountain-Blue);
+}
+
 .delete-task-button {
     font-size: 12px;
     line-height: 21px;

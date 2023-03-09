@@ -1,14 +1,16 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './css/TaskForm.css'
 import { FaTimes } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 import { EstimateContext } from './EstimateForm'
 
-const NewTaskForm = ({ setTaskFormRendered }) => {
+const NewTaskForm = ({ setTaskFormRendered, 
+                       editTaskData,
+                       setEditTaskData}) => {
     
     const estimateContext = useContext(EstimateContext)
     const { dispatch} = estimateContext
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
     const [task, setTask] = useState( 
     {
         id: 0,
@@ -17,6 +19,13 @@ const NewTaskForm = ({ setTaskFormRendered }) => {
         taskDescription: "",
         subtasks: []
     })
+
+    useEffect(() => {
+        if (editTaskData != null || undefined) {
+            setValue("taskName", editTaskData.taskName)
+            setValue("taskDescription", editTaskData.taskDescription)
+        }
+    }, [])
 
     const createNewTask = (data) => {
         const newTask = {
@@ -29,12 +38,23 @@ const NewTaskForm = ({ setTaskFormRendered }) => {
         setTaskFormRendered(false)
     }
 
+    const editTask = (data) => {
+        const newTask = {
+            ...editTaskData,
+            taskName: data.taskName,
+            taskDescription: data.taskDescription,
+        }
+        dispatch({ type: 'editTask', payload: newTask})
+        setTaskFormRendered(false)
+        setEditTaskData(null)
+    }
+
     const generateID = () => {
         return Math.random()
     }
 
   return (
-    <form onSubmit={handleSubmit(createNewTask)} className='new-task-form'>
+    <form onSubmit={handleSubmit(editTaskData == null || undefined ? createNewTask : editTask)} className='new-task-form'>
         <FaTimes 
             onClick={() => setTaskFormRendered(false)}
             style={{ color: 'white', 
@@ -51,7 +71,7 @@ const NewTaskForm = ({ setTaskFormRendered }) => {
                 <input {...register("taskDescription")} placeholder='Last Name:'></input>
             </div>
         </div>
-        <button className='new-task-form-submit-button'>Create New Task</button>
+        <button className='new-task-form-submit-button'>{editTaskData != null || undefined ? "Edit Task" : "Create New Task"}</button>
     </form>
   )
 }
