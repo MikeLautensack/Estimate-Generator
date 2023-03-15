@@ -1,19 +1,15 @@
-const getEstimate = (req, res) => {
+export const getEstimate = (req, res) => {
 
 }
 
-const postEstimate = (req, res) => {
+export const postEstimate = (req, res) => {
 
 }
 
-const putEstimate = (req, res) => {
+export const putEstimate = (req, res) => {
 
 }
 
-const deleteEstimate = (req, res) => {
+export const deleteEstimate = (req, res) => {
 
-}
-
-module.exports = {
-    getEstimate, postEstimate, putEstimate, deleteEstimate
 }
