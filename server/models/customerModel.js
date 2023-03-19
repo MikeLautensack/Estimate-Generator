@@ -19,5 +19,5 @@ const customerSchema = mongoose.Schema({
     address: String,
 })
 
-const customerModel = mongoose.model('customerModel', customerSchema)
+const customerModel = mongoose.model('customerModel', customerSchema, 'Customers')
 export default customerModel

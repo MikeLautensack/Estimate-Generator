@@ -50,5 +50,5 @@ const estimateSchema = mongoose.Schema({
     }]
 })
 
-const estimateModel = mongoose.model('estimateModel', estimateSchema)
+const estimateModel = mongoose.model('estimateModel', estimateSchema, 'Estimates')
 export default estimateModel
