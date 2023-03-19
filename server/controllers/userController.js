@@ -1,22 +1,29 @@
-import jwt  from'jsonwebtoken'
+import Jwt  from'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import userModel from "../models/userModel.js"
 
 export const getUser = async (req, res) => {
     try {
-        
+        console.log(req.user._id)
+        const { _id, username, email } = await userModel.findById(req.user._id)
+        res.status(200).json({
+            _id,
+            username,
+            email
+        })
     } catch (error) {
-        
+        res.status(400).send(error)
     }
 }
 
 // Regester new user
 export const registerUser = async (req, res) => {
-    console.log('test')
-    /*try {
+    
+    try {
+        console.log(req.body)
         const { username, password, email } = req.body
         if(!username || !password || !email) {
-            res.status(400)
+            res.status(400).send('Add all required fields')
             throw new Error('Add all required fields')
         }
 
@@ -24,7 +31,7 @@ export const registerUser = async (req, res) => {
         const userRegistered = await userModel.findOne({email})
 
         if(userRegistered) {
-            res.status(400)
+            res.status(400).send('User is already registered')
             throw new Error('User is already registered')
         }
 
@@ -34,7 +41,9 @@ export const registerUser = async (req, res) => {
 
         // Create user 
         const user = await userModel.create({
-
+            username,
+            password: hashedPassword,
+            email
         })
 
         if(user) {
@@ -46,12 +55,12 @@ export const registerUser = async (req, res) => {
             })
 
         } else {
-            res.status(400)
+            res.status(400).send('Invalid user data')
             throw new Error('Invalid user data')
         }
     } catch (error) {
         console.log(error)
-    }*/
+    }
 }
 
 export const loginUser = async (req, res) => {
@@ -69,7 +78,7 @@ export const loginUser = async (req, res) => {
                 token: generateToken(user._id)
             })
         } else {
-            res.status(400)
+            res.status(400).send('Invalid credentials')
             throw new Error('Invalid credentials')
         }
     } catch (error) {
@@ -87,7 +96,7 @@ export const deleteUser = async (req, res) => {
 
 //Generate JWT
 export const generateToken = (id) => {
-    return Jwt.sign({ id }, 12345, {
-        expiresIn: '10d'
+    return Jwt.sign({ id }, process.env.secret, {
+        expiresIn: '1h'
     })
 }

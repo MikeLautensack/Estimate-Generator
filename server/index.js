@@ -11,18 +11,20 @@ dotenv.config()
 
 const app = express()
 
-app.listen(5000, () => console.log(`Server running on port: ${PORT}`))
+app.use(bodyParser.json({ limit: "30mb", extended: true }))
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
+app.use(cors())
 
 app.use('/users', userRoutes)
 app.use('/customers', customerRoutes)
 app.use('/estimates', estimateRoutes)
 
-app.use(bodyParser.json({ limit: "30mb", extended: true }))
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
-app.use(cors())
-
-const  CONNECTION_URL = 'mongodb+srv://MikeL:lillyandlexy@estimate-generator.rrescsi.mongodb.net/?retryWrites=true&w=majority'
+const  CONNECTION_URL = process.env.Mongo_URL
 const PORT = process.env.PORT || 5000
+
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`)
+})
 
 mongoose.connect(CONNECTION_URL)
     .then(() => console.log('Mongo Connected'))
