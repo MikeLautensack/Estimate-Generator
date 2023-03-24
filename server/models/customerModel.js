@@ -3,21 +3,18 @@ import mongoose from "mongoose";
 const customerSchema = mongoose.Schema({
     id: Number,
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        type: mongoose.Types.ObjectId,
         ref: 'userModel'
     },
     name: {
-        type: String,
-        required: true
+        type: String
     },
     email: {
-        type: String,
-        required: true
+        type: String
     },
     phoneNumber: String,
     address: String,
 })
 
-const customerModel = mongoose.model('customerModel', customerSchema, 'Customers')
+const customerModel = mongoose.model('customers', customerSchema, 'Customers')
 export default customerModel

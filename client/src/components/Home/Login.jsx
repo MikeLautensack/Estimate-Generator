@@ -2,14 +2,8 @@ import React from 'react'
 import './css/Login.css'
 import { Link } from 'react-router-dom'
 
-const Login = () => {
-    //const [username, setUsername] = useState
-    //const [email, setEmail] = useState
-    //const [password, setPassword] = useState
-//
-    //const setUsername = ()=> {
-//
-    //}
+const Login = ({ setRegisterFormVis }) => {
+  
   return (
     <form className='login'>
         <label className='email-label' htmlFor='email'>Email</label>
@@ -19,7 +13,7 @@ const Login = () => {
         <div className='buttons'>
           <button className='button'>Log In</button>
           <Link to='/dashboard'><button className='button'>Log In As Guest</button></Link>
-          <button className='button'>Create an Accout</button>
+          <button onClick={() => setRegisterFormVis(true)} className='button'>Create an Accout</button>
         </div>
     </form>
   )

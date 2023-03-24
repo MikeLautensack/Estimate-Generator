@@ -1,0 +1,56 @@
+.register {
+    width: 350px;
+    height: 465px;
+    margin: auto;
+    padding: 2rem;
+    background-color: var(--Blue-Zodiac);
+    border: 1px solid var(--Blue-Zodiac);
+    border-radius: 1rem;
+    position: relative;
+}
+
+.username-label,
+.password-label,
+.password1-label,
+.email-label,
+.name-label,
+.phone-number-label {
+    font-size: 22px;
+    line-height: 40px;
+    font-weight: bold;
+    color: #EBF5FF;
+}
+
+.username-input,
+.password-input,
+.password1-input,
+.email-input,
+.name-input,
+.phone-number-input  {
+    width: 100%;
+    height: 40px;
+    background-color: var(--Blue-Zodiac);
+    border: 1px solid var(--White);
+    border-radius: .5rem;
+}
+
+.buttons {
+    position: absolute;
+    bottom: 2rem;
+    width: 286px;
+    margin: 0 auto;
+}
+
+.button {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--Blue-Zodiac);
+    background-color: var(--Fountain-Blue);
+    border-radius: .5rem;
+    margin-top: .5rem;
+}

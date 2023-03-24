@@ -88,9 +88,22 @@ export const loginUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
     try {
-        
+        const user = await userModel.findById(req.params.id)
+
+        if(!user) {
+            res.status(400).send('User not found')
+        } else {
+        if(user._id.toString() !== req.user._id.toString()) {
+            res.status(401).send('User not authorized')
+        }
+
+        await user.remove()
+
+        res.status(200).send(`Deleted User ${req.params.id}`)
+        }
     } catch (error) {
-        
+        console.log(error)
+        res.status(400).send('error')
     }
 }
 
