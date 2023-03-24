@@ -6,6 +6,6 @@ import protect from '../middleware/authMiddeware.js'
 router.get('/get', protect, getUser)
 router.post('/register', registerUser)
 router.post('/login', loginUser)
-router.delete('/deleteuser', deleteUser)
+router.delete('/delete/:id', protect, deleteUser)
 
 export default router

@@ -4,20 +4,16 @@ const estimateSchema = mongoose.Schema({
     id: Number,
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
         ref: 'userModel'
     },
     estimateName: {
-        type: String,
-        required: true
+        type: String
     },
     customerName: {
-        type: String,
-        required: true
+        type: String
     },
     customerEmail: {
-        type: String,
-        required: true
+        type: String
     },
     customerPhone: String,
     address: String,
@@ -50,5 +46,5 @@ const estimateSchema = mongoose.Schema({
     }]
 })
 
-const estimateModel = mongoose.model('estimateModel', estimateSchema, 'Estimates')
+const estimateModel = mongoose.model('estimates', estimateSchema, 'Estimates')
 export default estimateModel

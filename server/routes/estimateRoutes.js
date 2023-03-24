@@ -1,10 +1,11 @@
 import express from 'express'
 import { getEstimate, postEstimate, putEstimate, deleteEstimate } from '../controllers/estimateController.js' 
 const router = express.Router()
+import protect from '../middleware/authMiddeware.js'
 
-router.get('/getestimate', getEstimate)
-router.post('/postestimate', postEstimate)
-router.put('/putestimate', putEstimate)
-router.delete('/deleteestimate', deleteEstimate)
+router.get('/get', protect, getEstimate)
+router.post('/add', protect, postEstimate)
+router.put('/update/:id', protect, putEstimate)
+router.delete('/delete/:id', protect, deleteEstimate)
 
 export default router
