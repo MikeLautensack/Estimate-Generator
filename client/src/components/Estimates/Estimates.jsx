@@ -6,7 +6,8 @@ import './css/Estimates.css'
 import EstimateListItem from './EstimateListItem'
 import EstimateForm from './EstimateForm'
 import Estimate from './Estimate'
-import UserContext from '../../context/DataContext'
+import DataContext from '../../context/DataContext'
+import useAPI from '../../hooks/useAPI.js'
 
 const reducer = (estimates, action) => {
     switch(action.type) {
@@ -29,13 +30,14 @@ const reducer = (estimates, action) => {
 
 const Estimates = () => {
 
-  const userData = useContext(UserContext)
-  const { estimates, setEstimates } = userData
+  const data = useContext(DataContext)
+  const { jwt, estimates, setEstimates } = data
   const [estimatesList, dispatch] = useReducer(reducer, [])
   const [editEstimateData, setEditEstimateData] = useState()
   const [estimateRendered, setEstimateRendered] = useState(false)
   const [estimateFormRendered, setEstimateFormRendered] = useState(false)
   const [navVis, setNavVis] = useState(false)
+  const { addEstimate, updateEstimate, deleteEstimate } = useAPI()
 
   useEffect(() => {
     dispatch({ type: 'load', payload: estimates})
@@ -50,13 +52,14 @@ const Estimates = () => {
 
   }
 
-  const addEstimate = (estimate) => {
+  const add = (estimate) => {
       dispatch({ type: 'add', payload: estimate})
       const list = [...estimates, estimate]
       setEstimates(list)
+      addEstimate(jwt, estimate)
   }
 
-  const editEstimate = (estimate) => {
+  const edit = (estimate) => {
       dispatch({ type: 'edit', payload: estimate})
       const list = [...estimates, 
         estimates.map((est) => {
@@ -67,10 +70,16 @@ const Estimates = () => {
           }
         })]
       setEstimates(list)
+      updateEstimate(jwt, estimate, estimate.id)
   }
 
-  const deleteEstimate = (id) => {
-    const list = estimatesList.filter((estimate) => estimate.id !== id)
+  const deleteEst = (id) => {
+    const list = estimatesList.filter((estimate) => {
+      if(estimate.id !== id) {
+        return estimate
+      }
+      deleteEstimate(jwt, estimate, estimate.id)
+    })
     dispatch({ type: 'delete', payload: list})
     setEstimates(list)
 }
@@ -94,7 +103,7 @@ const Estimates = () => {
                         estimate={estimate}
                         setEstimateFormRendered={setEstimateFormRendered}
                         setEditEstimateData={setEditEstimateData}
-                        deleteEstimate={deleteEstimate}
+                        deleteEst={deleteEst}
                         setEstimateRendered={setEstimateRendered}/>
                   </li>
                 ))}
@@ -102,11 +111,11 @@ const Estimates = () => {
         </div>
         {estimateRendered === true && <Estimate 
             setEstimateRendered={setEstimateRendered}
-            addEstimate={addEstimate}/>}
+            add={add}/>}
         {estimateFormRendered === true && <EstimateForm 
             setEstimateFormRendered={setEstimateFormRendered}
-            addEstimate={addEstimate}
-            editEstimate={editEstimate}
+            add={add}
+            edit={edit}
             editEstimateData={editEstimateData}
             setEditEstimateData={setEditEstimateData}/>}
       </div>

@@ -4,8 +4,8 @@ import { FaTimes } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 
 const NewCustomerForm = ({ setNewCustomerFormRendered, 
-                           addCustomer,
-                           editCustomer,
+                           add,
+                           edit,
                            editCustomerFormData,
                            setEditCustomerFormData}) => {
 
@@ -33,7 +33,7 @@ const NewCustomerForm = ({ setNewCustomerFormRendered,
     
 
     return (
-      <form onSubmit={handleSubmit(customerData == null || undefined ? addCustomer : editCustomer)} className='new-customer-form'>
+      <form onSubmit={handleSubmit(customerData == null || undefined ? add : edit)} className='new-customer-form'>
           <FaTimes 
               onClick={() => (onExit())}
               style={{ color: 'white', 

@@ -94,8 +94,8 @@ const reducer = (estimate, action) => {
 export const EstimateContext = createContext()
 
 const EstimateForm = ({ setEstimateFormRendered,
-                        addEstimate,
-                        editEstimate,
+                        add,
+                        edit,
                         editEstimateData,
                         setEditEstimateData}) => {
 
@@ -138,7 +138,7 @@ const EstimateForm = ({ setEstimateFormRendered,
             address: data.address,
             id: data.estimateNumber
         }
-        addEstimate(newEstimate)
+        add(newEstimate)
         setEstimateFormRendered(false)
     }
 
@@ -152,7 +152,7 @@ const EstimateForm = ({ setEstimateFormRendered,
             address: data.address,
             tasks: estimate.tasks
         }
-        editEstimate(newEstimate)
+        edit(newEstimate)
         setEditEstimateData(null)
         setEstimateFormRendered(false)
     }

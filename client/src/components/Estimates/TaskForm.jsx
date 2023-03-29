@@ -9,7 +9,7 @@ const NewTaskForm = ({ setTaskFormRendered,
                        setEditTaskData}) => {
     
     const estimateContext = useContext(EstimateContext)
-    const { dispatch} = estimateContext
+    const { dispatch } = estimateContext
     const { register, handleSubmit, setValue } = useForm()
     const [task, setTask] = useState( 
     {
