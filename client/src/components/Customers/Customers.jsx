@@ -5,16 +5,18 @@ import { useState } from 'react'
 import './css/Customers.css'
 import Customer from './Customer'
 import NewCustomerForm from './NewCustomerForm';
-import UserContext from '../../context/DataContext'
+import DataContext from '../../context/DataContext'
+import useAPI from '../../hooks/useAPI.js'
 
 const Customers = () => {
 
-  const userData = useContext(UserContext)
-  const { customers, setCustomers } = userData
+  const data = useContext(DataContext)
+  const { jwt, customers, setCustomers } = data
   const [newCustomerFormRendered, setNewCustomerFormRendered] = useState(false);
   const [editCustomerFormData, setEditCustomerFormData] = useState()
   const [navVis, setNavVis] = useState(false)
   const [customerList, setCustomerList] = useState([])
+  const { addCustomer, updateCustomer, deleteCustomer } = useAPI()
 
   useEffect(() => {
     setCustomerList(customers)
@@ -28,7 +30,7 @@ const Customers = () => {
       }
   }
 
-  const addCustomer = (inputData) => {
+  const add = (inputData) => {
       const { firstName, lastName, email, phoneNumber, address} = inputData
       const id = customerList.length ? customerList[customerList.length -1].id + 1 : 1
       const newCustomer = {
@@ -44,9 +46,10 @@ const Customers = () => {
       setCustomerList(newCustomerList)
       setNewCustomerFormRendered(false)
       setCustomers(newCustomerList)
+      addCustomer(jwt, newCustomer)
   }
 
-  const editCustomer = (inputData) => {
+  const edit = (inputData) => {
     const { firstName, lastName, email, phoneNumber, address} = inputData
     const editedCustomerList = customerList.map((customer) => {
         if (customer.id === editCustomerFormData.id) {
@@ -59,6 +62,7 @@ const Customers = () => {
             address: address,
             estimates: []
           }
+          updateCustomer(jwt, editedCustomer, editedCustomer.id)
           return editedCustomer
         } else {
           return customer
@@ -71,8 +75,13 @@ const Customers = () => {
     setCustomers(editedCustomerList)
   }
 
-  const deleteCustomer = (id) => {
-      const list = customerList.filter((customer) => customer.id !== id)
+  const deleteCust = (id) => {
+      const list = customerList.filter((customer) => {
+        if(customer.id !== id) {
+          return customer
+        }
+        deleteCustomer(jwt, customer, customer.id)
+      })
       setCustomerList(list)
       setCustomers(list)
   }
@@ -97,7 +106,7 @@ const Customers = () => {
                             customerName={customer.firstName + " " + customer.lastName}
                             customerEmail={customer.email}
                             customerPhoneNumber={customer.phoneNumber}
-                            deleteCustomer={deleteCustomer}
+                            deleteCust={deleteCust}
                             customerID={customer.id}
                             setEditCustomerFormData={setEditCustomerFormData}
                             setNewCustomerFormRendered={setNewCustomerFormRendered}
@@ -106,8 +115,8 @@ const Customers = () => {
                   ))}
                   {newCustomerFormRendered === true && <NewCustomerForm 
                     setNewCustomerFormRendered={setNewCustomerFormRendered}
-                    addCustomer={addCustomer}
-                    editCustomer={editCustomer}
+                    add={add}
+                    edit={edit}
                     editCustomerFormData={editCustomerFormData}
                     setEditCustomerFormData={setEditCustomerFormData}/>}
               </ul>

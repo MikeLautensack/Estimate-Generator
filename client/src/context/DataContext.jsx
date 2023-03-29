@@ -1,5 +1,4 @@
-import { createContext, useState, useEffect } from "react"
-import axios from 'axios'
+import { createContext, useState } from "react"
 
 const DataContext = createContext({})
 
@@ -9,10 +8,6 @@ export const DataProvider = ({ children }) => {
     const [jwt, setJWT] = useState()
     const [customers, setCustomers] = useState([])
     const [estimates, setEstimates] = useState([])
-
-    useEffect(() => {
-        
-    }, [])
 
     return (
         <DataContext.Provider value={{user,

@@ -11,7 +11,7 @@ function App() {
   return (
     <DataProvider>
       <Routes>
-          <Route path='/' element={<Home />} ></Route>
+          <Route path='/' element={<Home />}></Route>
           <Route path='/Dashboard' element={<Dashboard />}></Route>
           <Route path='/Customers' element={<Customers />}></Route>
           <Route path='/Estimates' element={<Estimates />}></Route>

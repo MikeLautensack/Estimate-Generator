@@ -4,7 +4,7 @@ import './css/Customer.css'
 const Customer = ({ customer,
                     setEditCustomerFormRendered,
                     setEditCustomerFormData,
-                    deleteCustomer}) => {
+                    deleteCust}) => {
   return (
     <div className='customer'>
         <div className='customer-text'>
@@ -14,7 +14,7 @@ const Customer = ({ customer,
         </div>
         <div className='button-box'>
             <button onClick={() => (setEditCustomerFormRendered(true), setEditCustomerFormData(customer))} className='edit-customer'>Edit</button>
-            <button onClick={() => deleteCustomer(customer.id)} className='delete-customer'>Delete</button>
+            <button onClick={() => deleteCust(customer.id)} className='delete-customer'>Delete</button>
         </div>
     </div>
   )
