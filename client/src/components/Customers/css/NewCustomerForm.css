@@ -1,5 +1,6 @@
 .new-customer-form {
     width: 320px;
+    max-width: 95%;
     background-color: var(--Blue-Zodiac);
     border-radius: 1rem;
     padding: 1rem;
@@ -22,11 +23,11 @@
 .new-customer-input-feilds label {
     color: var(--White);
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .new-customer-input-feilds input {
-    color: var(--Regent-Gray);
+    color: var(--Black);
     background-color: var(--Tiara);
     border-radius: .5rem;
 }
@@ -37,4 +38,5 @@
     background-color: var(--Fountain-Blue);
     color: var(--Blue-Zodiac);
     border-radius: 100vw;
+    font-weight: 500;
 }

@@ -8,6 +8,7 @@ import EstimateForm from './EstimateForm'
 import Estimate from './Estimate'
 import DataContext from '../../context/DataContext'
 import useAPI from '../../hooks/useAPI.js'
+import { FaPlus } from "react-icons/fa"
 
 const reducer = (estimates, action) => {
     switch(action.type) {
@@ -17,7 +18,7 @@ const reducer = (estimates, action) => {
           return [...estimates, action.payload]
         case 'edit':
           return estimates.map((estimate) => {
-            if(estimate.id === action.payload.id) {
+            if(estimate._id === action.payload._id) {
               return action.payload
             } else {
               return estimate
@@ -63,22 +64,22 @@ const Estimates = () => {
       dispatch({ type: 'edit', payload: estimate})
       const list = [...estimates, 
         estimates.map((est) => {
-          if(est.id === estimate.id) {
+          if(est._id === estimate._id) {
             return estimate
           } else {
             return est
           }
         })]
       setEstimates(list)
-      updateEstimate(jwt, estimate, estimate.id)
+      updateEstimate(jwt, estimate, estimate._id)
   }
 
-  const deleteEst = (id) => {
+  const deleteEst = (_id) => {
     const list = estimatesList.filter((estimate) => {
-      if(estimate.id !== id) {
+      if(estimate._id !== _id) {
         return estimate
       }
-      deleteEstimate(jwt, estimate, estimate.id)
+      deleteEstimate(jwt, estimate, estimate._id)
     })
     dispatch({ type: 'delete', payload: list})
     setEstimates(list)
@@ -93,12 +94,14 @@ const Estimates = () => {
       <div className='estimates-content'>
         <div className='estimates-content-top'>
           <h1 className='estimate-heading'>Estimates</h1>
-          <button onClick={() => setEstimateFormRendered(true)} className='new-estimate-button'>New Estimate</button>
         </div>
         <div className='estimates-card'>
+            <div className='add-estimate-icon-box'>
+              <FaPlus onClick={() => setEstimateFormRendered(true)} className='add-estimate-icon'/>
+            </div>
             <ul className='estimate-list'>
                 {estimatesList.map((estimate) => (
-                  <li key={estimate.id}>
+                  <li key={estimate._id}>
                     <EstimateListItem
                         estimate={estimate}
                         setEstimateFormRendered={setEstimateFormRendered}
@@ -111,7 +114,7 @@ const Estimates = () => {
         </div>
         {estimateRendered === true && <Estimate 
             setEstimateRendered={setEstimateRendered}
-            add={add}/>}
+            estimate={editEstimateData}/>}
         {estimateFormRendered === true && <EstimateForm 
             setEstimateFormRendered={setEstimateFormRendered}
             add={add}

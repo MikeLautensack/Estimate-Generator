@@ -1,6 +1,6 @@
 .task {
     border: 2px solid var(--Blue-Zodiac);
-    background-color: var(--Blue-Zodiac);
+    background-color: var(--White);
     border-radius: .5rem;
     margin: .25rem 0;
     padding: .5rem;
@@ -15,10 +15,10 @@
 }
 
 .task-name {
-    font-size: 12px;
-    line-height: 21px;
-    font-weight: bold;
-    color: var(--White);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    color: var(--Blue-Zodiac);
 }
 
 
@@ -41,15 +41,18 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: .2rem;
-    background-color: var(--Regent-Gray);
+    background-color: var(--Tiara);
+    border: 2px solid var(--Blue-Zodiac);
     border-radius: .25rem;
 }
 
 .task-description {
     width: 100%;
-    background-color: var(--Tiara);
+    color: var(--Blue-Zodiac);
     border-radius: .25rem;
     margin: 0;
+    font-size: 12px;
+    line-height: 21px;
 }
 
 .tasks-subtask-buttons {
@@ -81,7 +84,6 @@
     font-weight: bold;
     border-radius: 100vw;
     background-color: var(--Fountain-Blue);
-    margin-right: .25rem;
     padding: 4px;
     width: 50%;
 }

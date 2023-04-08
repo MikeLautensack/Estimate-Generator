@@ -20,18 +20,15 @@ export const getUser = async (req, res) => {
 export const registerUser = async (req, res) => {
     
     try {
-        console.log(req.body)
         const { username, password, email } = req.body
-        if(!username || !password || !email) {
-            res.status(400).send('Add all required fields')
-            throw new Error('Add all required fields')
-        }
 
         // Check if user is already registered
         const userRegistered = await userModel.findOne({email})
 
         if(userRegistered) {
-            res.status(400).send('User is already registered')
+            res.status(400).json({
+                message: 'User is already registered'
+            })
             throw new Error('User is already registered')
         }
 
@@ -48,14 +45,14 @@ export const registerUser = async (req, res) => {
 
         if(user) {
             res.status(201).json({
-                _id: user._id,
-                username: user.username,
-                email: user.email,
+                user: user,
                 token: generateToken(user._id)
             })
 
         } else {
-            res.status(400).send('Invalid user data')
+            res.status(400).json({
+                message: 'Invalid user data'
+            })
             throw new Error('Invalid user data')
         }
     } catch (error) {
@@ -71,14 +68,14 @@ export const loginUser = async (req, res) => {
         const user = await userModel.findOne({email})
 
         if(user && (await bcrypt.compare(password, user.password))) {
-            res.json({
-                _id: user._id,
-                username: user.username,
-                email: user.email,
+            res.status(200).json({
+                user: user,
                 token: generateToken(user._id)
             })
         } else {
-            res.status(400).send('Invalid credentials')
+            res.status(400).json({
+                message: 'Incorrect email or password'
+            })
             throw new Error('Invalid credentials')
         }
     } catch (error) {

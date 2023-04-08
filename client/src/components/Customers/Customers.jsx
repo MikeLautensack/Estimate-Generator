@@ -7,13 +7,14 @@ import Customer from './Customer'
 import NewCustomerForm from './NewCustomerForm';
 import DataContext from '../../context/DataContext'
 import useAPI from '../../hooks/useAPI.js'
+import { FaPlus } from "react-icons/fa"
 
 const Customers = () => {
 
   const data = useContext(DataContext)
   const { jwt, customers, setCustomers } = data
-  const [newCustomerFormRendered, setNewCustomerFormRendered] = useState(false);
-  const [editCustomerFormData, setEditCustomerFormData] = useState()
+  const [customerFormVis, setCustomerFormVis] = useState(false)
+  const [formData, setFormData] = useState()
   const [navVis, setNavVis] = useState(false)
   const [customerList, setCustomerList] = useState([])
   const { addCustomer, updateCustomer, deleteCustomer } = useAPI()
@@ -31,38 +32,38 @@ const Customers = () => {
   }
 
   const add = (inputData) => {
-      const { firstName, lastName, email, phoneNumber, address} = inputData
-      const id = customerList.length ? customerList[customerList.length -1].id + 1 : 1
+      const { name, email, phoneNumber, address } = inputData
       const newCustomer = {
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
+        _id: Math.random(),
+        name: name,
         email: email,
         phoneNumber: phoneNumber,
         address: address,
+        dateCreated: new Date(),
+        dateModified: new Date(),
         estimates: []
       }
       const newCustomerList = [...customerList, newCustomer]
       setCustomerList(newCustomerList)
-      setNewCustomerFormRendered(false)
+      setCustomerFormVis(false)
       setCustomers(newCustomerList)
       addCustomer(jwt, newCustomer)
   }
 
   const edit = (inputData) => {
-    const { firstName, lastName, email, phoneNumber, address} = inputData
+    const { name, email, phoneNumber, address } = inputData
     const editedCustomerList = customerList.map((customer) => {
-        if (customer.id === editCustomerFormData.id) {
+        if (customer._id === formData._id) {
           const editedCustomer = {
-            id: customer.id,
-            firstName: firstName,
-            lastName: lastName,
+            _id: customer._id,
+            name: name,
             email: email,
             phoneNumber: phoneNumber,
             address: address,
+            dateModified: new Date(),
             estimates: []
           }
-          updateCustomer(jwt, editedCustomer, editedCustomer.id)
+          updateCustomer(jwt, editedCustomer, editedCustomer._id)
           return editedCustomer
         } else {
           return customer
@@ -70,17 +71,17 @@ const Customers = () => {
  
     })
     setCustomerList(editedCustomerList)
-    setNewCustomerFormRendered(false)
-    setEditCustomerFormData(null)
+    setCustomerFormVis(false)
+    setFormData(null)
     setCustomers(editedCustomerList)
   }
 
-  const deleteCust = (id) => {
+  const deleteCust = (_id) => {
       const list = customerList.filter((customer) => {
-        if(customer.id !== id) {
+        if(customer._id !== _id) {
           return customer
         }
-        deleteCustomer(jwt, customer, customer.id)
+        deleteCustomer(jwt, customer, customer._id)
       })
       setCustomerList(list)
       setCustomers(list)
@@ -95,30 +96,28 @@ const Customers = () => {
       <div className='customers-content'>
           <div className='customer-content-top'>
             <h1 className='customer-heading'>Customers</h1>
-            <button onClick={() => setNewCustomerFormRendered(true)} className='new-customer-button'>New Customer</button>
           </div>
           <div className='customers-card'>
+              <div className='add-customer-icon-box'>
+                  <FaPlus onClick={() => setCustomerFormVis(true)} className='add-customer-icon'/>
+              </div>
               <ul className='customer-list'>
                   {customerList.map((customer) => (
-                    <li className='customer-list-item' key={customer.id}>
+                    <li className='customer-list-item' key={customer._id}>
                         <Customer 
                             customer={customer}
-                            customerName={customer.firstName + " " + customer.lastName}
-                            customerEmail={customer.email}
-                            customerPhoneNumber={customer.phoneNumber}
+                            setCustomerFormVis={setCustomerFormVis}
+                            setFormData={setFormData}
                             deleteCust={deleteCust}
-                            customerID={customer.id}
-                            setEditCustomerFormData={setEditCustomerFormData}
-                            setNewCustomerFormRendered={setNewCustomerFormRendered}
                             />
                     </li>
                   ))}
-                  {newCustomerFormRendered === true && <NewCustomerForm 
-                    setNewCustomerFormRendered={setNewCustomerFormRendered}
+                  {customerFormVis === true && <NewCustomerForm 
+                    setCustomerFormVis={setCustomerFormVis}
                     add={add}
                     edit={edit}
-                    editCustomerFormData={editCustomerFormData}
-                    setEditCustomerFormData={setEditCustomerFormData}/>}
+                    formData={formData}
+                    setFormData={setFormData}/>}
               </ul>
           </div>
       </div>

@@ -15,7 +15,7 @@ const Estimate = ({ estimate,
         </div>
         <div className='estimate-li-button-box'>
             <button onClick={() => (setEstimateFormRendered(true), setEditEstimateData(estimate))} className='edit-estimate'>Edit</button>
-            <button onClick={() => deleteEst(estimate.id)} className='delete-estimate'>Delete</button>
+            <button onClick={() => deleteEst(estimate._id)} className='delete-estimate'>Delete</button>
         </div>
     </div>
   )

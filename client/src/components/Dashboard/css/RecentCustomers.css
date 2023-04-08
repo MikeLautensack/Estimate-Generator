@@ -5,6 +5,10 @@
     height: 20rem;
 }
 
+.recent-customer-heading-and-select {
+    
+}
+
 .recent-customers-card h1 {
     text-align: center;
     font-size: 28px;
@@ -15,10 +19,10 @@
 .recent-customers-list {
     height: calc(100% - 48px);
     overflow-y: scroll;
-    background-color: var(--Regent-Gray);
+    background-color: var(--Tiara);
     border-radius: .5rem;
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     padding: 4px;
     gap: 2px;
 }

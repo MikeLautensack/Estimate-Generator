@@ -41,7 +41,7 @@
 }
 
 .tasks-list-heading {
-    font-weight: bold;
+    font-weight: 500;
     color: var(--Blue-Zodiac);
     font-size: 16px;
     line-height: 32px;

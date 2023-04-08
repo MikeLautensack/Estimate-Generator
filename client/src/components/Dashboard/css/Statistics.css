@@ -24,8 +24,7 @@
     justify-content: center;
     align-items: center;
     padding: .5rem;
-    width: 5rem;
-    aspect-ratio: 1;
+    height: 5rem;
     background-color: var(--Blue-Zodiac);
     box-shadow: 0 0 1rem #06111c;
     transition: all .15s ease-in-out;
@@ -33,6 +32,7 @@
 
 .stat-card:hover {
     transform: scale(1.1);
+    box-shadow: 0 0 1rem var(--Fountain-Blue);
 }
 
 .stat-card h3 {
@@ -42,7 +42,7 @@
 }
 
 .stat-card h4 {
-    font-size: 9px;
+    font-size: 10px;
     text-align: center;
     color: var(--White);
 }
@@ -57,9 +57,9 @@
 }
 
 .customer-stats-cards {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: .75rem;
     margin: .5rem 0;
 }
 
@@ -76,7 +76,7 @@
 
 .stats-new-customer-button {
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 500;
     line-height: 21px;
     width: 100%;
     margin-top: .5rem;
@@ -100,9 +100,9 @@
 }
 
 .estimate-stats-cards {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: .75rem;
     margin: .5rem 0;
 }
 
@@ -119,7 +119,7 @@
 
 .stats-new-estimate-button {
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 500;
     line-height: 21px;
     width: 100%;
     margin-top: .5rem;

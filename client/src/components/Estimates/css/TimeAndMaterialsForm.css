@@ -1,20 +1,20 @@
 .time-and-materials-form {
     background-color: var(--Blue-Zodiac);
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0 1rem;
     z-index: 10000;
 }
 
 .time,
 .materials {
-    margin: 1rem 0;
+    margin: 0;
 }
 
 .time h1, h2,
 .materials h1, h2 {
     color: var(--White);
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .time-and-materials-input-fields {
@@ -26,11 +26,17 @@
 .time-and-materials-input-fields label {
     color: var(--White);
     font-size: 1rem;
-    font-weight: bold;
 }
 
-.time-and-materials-input-fields input {
-    color: var(--Regent-Gray);
+.time-and-materials-input-fields input,
+.time-and-materials-input-fields select,
+.time-and-materials-input-fields select::placeholder {
+    color: var(--Black);
     background-color: var(--Tiara);
     border-radius: .5rem;
+}
+
+.time h2,
+.materials h2 {
+    color: var(--Fountain-Blue);
 }

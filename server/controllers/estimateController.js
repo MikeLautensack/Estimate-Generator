@@ -20,9 +20,11 @@ export const postEstimate = async (req, res) => {
             customerEmail: req.body.customerEmail,
             customerPhone: req.body.customerPhone,
             address: req.body.address,
-            tasks: req.body.tasks
+            dateCreated: req.body.dateCreated,
+            dateModified: req.body.dateModified,
+            tasks: req.body.tasks,
+            total: req.body.total
         })
-
         res.status(200).send(estimate)
     } catch (error) {
         console.log(error)
@@ -84,8 +86,6 @@ export const deleteEstimate = async (req, res) => {
 
         res.status(200).send(`Deleted Estimate ${req.params.id}`)
         }
-
-        
     } catch (error) {
         console.log(error)
         res.status(400).send('error')

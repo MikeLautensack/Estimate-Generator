@@ -1,12 +1,10 @@
 import React from 'react'
 import './css/Estimate.css'
 import { FaTimes } from 'react-icons/fa'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import DataContext from '../../context/DataContext'
 
-const Estimate = ({ setEstimateRendered }) => {
-
-    const [estimate, setEstimate] = useState()
-    const [tasks, setTasks] = useState()
+const Estimate = ({ setEstimateRendered, estimate }) => {
 
   return (
     <div className='estimate'>

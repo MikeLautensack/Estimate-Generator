@@ -20,16 +20,30 @@
     flex-direction: column;
 }
 
+.method-card {
+    max-height: 25rem;
+    overflow-y: scroll;
+}
+
 .new-subtask-input-feilds label {
     color: var(--White);
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
 }
 
-.new-subtask-input-feilds input {
-    color: var(--Regent-Gray);
+.new-subtask-input-feilds input,
+.new-subtask-input-feilds input::placeholder {
+    color: var(--Black);
     background-color: var(--Tiara);
     border-radius: .5rem;
+    padding-left: .1rem;
+}
+
+.method-select {
+    color: var(--Black);
+    background-color: var(--Tiara);
+    border-radius: .5rem;
+    padding-left: .1rem;
 }
 
 .new-subtask-form-submit-button {
@@ -38,4 +52,5 @@
     background-color: var(--Fountain-Blue);
     color: var(--Blue-Zodiac);
     border-radius: 100vw;
+    font-weight: 500;
 }

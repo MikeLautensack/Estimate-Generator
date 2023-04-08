@@ -6,17 +6,22 @@ import UnitRateForm from './UnitRateForm'
 import CustomRateForm from './CustomRateForm'
 import { useForm, useController, FormProvider } from 'react-hook-form'
 import { EstimateContext } from './EstimateForm'
+import { validateSubtask } from '../../validations/validations.js'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const SubtaskForm = ({ setSubtaskFormRendered, 
                        taskID,
                        editSubtaskData,
-                       setEditSubtaskData}) => {
+                       setEditSubtaskData,
+                       calculate }) => {
 
     const [tamFormVisable, setTamFormVisable] = useState(true)
     const [urFormVisable, setUrFormVisable] = useState(false)
     const [cFormVisable, setCFormVisable] = useState(false)
-    const methods = useForm()
-    const { register, handleSubmit, control, setValue} = methods
+    const methods = useForm({
+        resolver: yupResolver(validateSubtask)
+    })
+    const { register, handleSubmit, control, setValue, formState: { errors } } = methods
     const { field } = useController({ name: 'method', control})
     const estimateContext = useContext(EstimateContext)
     const { estimate, dispatch } = estimateContext
@@ -100,7 +105,7 @@ const SubtaskForm = ({ setSubtaskFormRendered,
         dispatch({ type: 'addSubtask', payload: newSubtask})
         setEditSubtaskData(null)
         setSubtaskFormRendered(false)
-        console.log('add')
+        calculate(newSubtask, newSubtask.total, newSubtask.taskID, 'add')
     }
 
     const editSubtask = (data) => {
@@ -131,7 +136,7 @@ const SubtaskForm = ({ setSubtaskFormRendered,
         dispatch({ type: 'editSubtask', payload: newSubtask})
         setEditSubtaskData(null)
         setSubtaskFormRendered(false)
-        console.log('edit')
+        calculate(newSubtask, newSubtask.total, newSubtask.taskID, 'edit', editSubtaskData.total, newSubtask.total)
     }
 
     const calculateSubtotals = (var1, var2) => {
@@ -153,8 +158,6 @@ const SubtaskForm = ({ setSubtaskFormRendered,
         return ID
     }
 
-
-
   return (
     <FormProvider {...methods}>
         <form onSubmit={handleSubmit(editSubtaskData == null || undefined ? addSubtask : editSubtask)} className='new-subtask-form'>
@@ -164,30 +167,38 @@ const SubtaskForm = ({ setSubtaskFormRendered,
                              position: 'absolute',
                              top: '.5rem',
                              left: '.5rem'}}/>
-            <div className='new-task-input-feilds-box'>
-                <div className='new-task-input-feilds'>
+            <div className='new-subtask-input-feilds-box'>
+                <div className='new-subtask-input-feilds'>
                     <label>Subtask Name:</label>
-                    <input {...register("subtaskName")} placeholder='First Name:'></input>
+                    <input {...register("subtaskName")}></input>
+                    {errors.subtaskName && <p>{errors.subtaskName?.message}</p>}
                 </div>
-                <div className='new-task-input-feilds'>
+                <div className='new-subtask-input-feilds'>
                     <label>Subtask Description:</label>
-                    <input {...register("subtaskDescription")} placeholder='Last Name:'></input>
+                    <input {...register("subtaskDescription")}></input>
+                    {errors.subtaskDescription && <p>{errors.subtaskDescription?.message}</p>}
                 </div>
-                <div className='new-task-input-feilds'>
+                <div className='new-subtask-input-feilds'>
                     <label>Method:</label>
-                    <select value={field.value} onChange={handleSelectChange}>
+                    <select className='method-select' value={field.value} onChange={handleSelectChange}>
                         <option value="time-and-material">Time & Materials</option>
                         <option value="unit">Unit Rate</option>
                         <option value="custom">Custom</option>
                     </select>  
                 </div>
                 <div className='method-card'>
-                    {tamFormVisable && <TimeAndMaterialsForm editSubtaskData={editSubtaskData}/>}
-                    {urFormVisable && <UnitRateForm editSubtaskData={editSubtaskData}/>}
-                    {cFormVisable && <CustomRateForm editSubtaskData={editSubtaskData}/>}
+                    {tamFormVisable && <TimeAndMaterialsForm 
+                                            editSubtaskData={editSubtaskData}
+                                            errors={errors}/>}
+                    {urFormVisable && <UnitRateForm 
+                                            editSubtaskData={editSubtaskData}
+                                            errors={errors}/>}
+                    {cFormVisable && <CustomRateForm 
+                                            editSubtaskData={editSubtaskData}
+                                            errors={errors}/>}
                 </div>
             </div>
-            <button className='new-task-form-submit-button'>{editSubtaskData != null || undefined ? "Edit Subtask" : "Create New Subtask"}</button>
+            <button className='new-subtask-form-submit-button'>{editSubtaskData != null || undefined ? "Edit Subtask" : "Create New Subtask"}</button>
         </form>
     </FormProvider>
   )

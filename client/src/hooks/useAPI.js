@@ -25,19 +25,19 @@ const useAPI = () => {
     }
 
     const updateCustomer = async (token, customer, id) => {
-        const response = await axios.put(`http://localhost:5000/customers/update:${id}`, customer, { headers: { Authorization: `Bearer ${token}` } })
+        const response = await axios.put(`http://localhost:5000/customers/update/${id}`, customer, { headers: { Authorization: `Bearer ${token}` }})
     }
 
     const updateEstimate = async (token, estimate, id) => {
-        const response = await axios.put(`http://localhost:5000/estimates/update:${id}`, estimate, { headers: { Authorization: `Bearer ${token}` } })
+        const response = await axios.put(`http://localhost:5000/estimates/update/${id}`, estimate, { headers: { Authorization: `Bearer ${token}` }})
     }
 
     const deleteCustomer = async (token, customer, id) => {
-        const response = await axios.delete(`http://localhost:5000/customers/delete:${id}`, customer, { headers: { Authorization: `Bearer ${token}` } })
+        const response = await axios.delete(`http://localhost:5000/customers/delete/${id}`, { headers: { Authorization: `Bearer ${token}` }})
     }
 
     const deleteEstimate = async (token, estimate, id) => {
-        const response = await axios.delete(`http://localhost:5000/estimates/delete:${id}`, estimate, { headers: { Authorization: `Bearer ${token}` } })
+        const response = await axios.delete(`http://localhost:5000/estimates/delete/${id}`, { headers: { Authorization: `Bearer ${token}` }})
     }
 
   return {

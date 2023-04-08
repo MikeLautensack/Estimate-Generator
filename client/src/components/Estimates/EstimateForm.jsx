@@ -5,10 +5,16 @@ import { FaTimes } from 'react-icons/fa'
 import TaskForm from './TaskForm'
 import SubtaskForm from './SubtaskForm'
 import { useForm } from 'react-hook-form'
+import { validateEstimate } from '../../validations/validations.js'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const reducer = (estimate, action) => {
     switch(action.type) {
         case 'loadEstimate':
+            return action.payload
+        case 'calculateEstimate':
+            return action.payload
+        case 'calculateOnDeleteTask':
             return action.payload
         case 'addTask':
             return {
@@ -104,16 +110,21 @@ const EstimateForm = ({ setEstimateFormRendered,
     const [taskFormRendered, setTaskFormRendered] = useState(false)
     const [subtaskFormRendered, setSubtaskFormRendered] = useState(false)
     const [taskID, setTaskID] = useState(0)
-    const { register, handleSubmit, setValue } = useForm()
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+        resolver: yupResolver(validateEstimate)
+    })
     const [estimate, dispatch] = useReducer(reducer, 
     {
-        id: 0,
+        _id: 0,
         estimateName: "",
         customerName: "",
         customerEmail: "",
         customerPhone: "",
         address: "",
-        tasks: []
+        dateCreated: {},
+        dateModified: {},
+        tasks: [],
+        total: 0
     })
 
     useEffect(() => {
@@ -131,30 +142,144 @@ const EstimateForm = ({ setEstimateFormRendered,
     const addEst = (data) => {
         const newEstimate = {
             ...estimate,
+            _id: Math.random(),
             estimateName: data.estimateName,
             customerName: data.customerName,
             customerEmail: data.customerEmail,
             customerPhone: data.customerPhone,
             address: data.address,
-            id: data.estimateNumber
+            dateCreated: new Date(),
+            dateModified: new Date(),
+            total: estimate.total
         }
         add(newEstimate)
         setEstimateFormRendered(false)
     }
 
     const editEst = (data) => {
-        const newEstimate = {
+        const updatedEstimate = {
             ...editEstimateData,
             estimateName: data.estimateName,
             customerName: data.customerName,
             customerEmail: data.customerEmail,
             customerPhone: data.customerPhone,
             address: data.address,
-            tasks: estimate.tasks
+            dateModified: new Date(),
+            tasks: estimate.tasks,
+            total: estimate.total
         }
-        edit(newEstimate)
+        edit(updatedEstimate)
         setEditEstimateData(null)
         setEstimateFormRendered(false)
+    }
+
+    const calculate = (object, asyncSubtaskTotalData, taskID, mode, editDataTotal, submissionDataTotal) => {
+        let estTotal = 0
+        const calculatedEstimate = {
+          ...estimate,
+          tasks: estimate.tasks.map((task) => {
+            let taskTotal = 0
+            task.subtasks.forEach((subtask) => {
+              taskTotal += subtask.total
+            })
+            if(taskID == task.id) {
+                if(mode == 'add') {
+                    taskTotal += asyncSubtaskTotalData
+                } else if (mode == 'edit') {
+                    if(editDataTotal != submissionDataTotal) {
+                        taskTotal += asyncSubtaskTotalData - editDataTotal
+                    }
+                } else if (mode == 'delete') {
+                    taskTotal = taskTotal - object.total
+                }
+            }
+            estTotal += taskTotal
+            if(mode == 'add') {
+                if(taskID == task.id) {
+                    return {
+                        ...task,
+                        subtasks: task.subtasks.concat(object),
+                        total: taskTotal
+                    }
+                } else {
+                    return {
+                        ...task,
+                        total: taskTotal
+                    }
+                }
+            } else if (mode == 'edit') {
+                if(taskID == task.id) {
+                    if(editDataTotal != submissionDataTotal) {
+                        return {
+                            ...task,
+                            subtasks: task.subtasks.map((subtask) => {
+                                if(subtask.id == object.id) {
+                                    return object
+                                } else {
+                                    return subtask
+                                }
+                            }),
+                            total: taskTotal
+                        }
+                    } else {
+                        return {
+                            ...task,
+                            total: taskTotal
+                        }
+                    }
+                } else {
+                    return {
+                        ...task,
+                        total: taskTotal
+                    }
+                }
+            } else if (mode == 'delete') {
+                if(taskID == task.id) {
+                    return {
+                        ...task,
+                        subtasks: task.subtasks.filter((subtask) => {
+                            if(subtask.id != object.id) {
+                                return subtask
+                            }
+                        }),
+                        total: taskTotal
+                    }
+                } else {
+                    return {
+                        ...task,
+                        total: taskTotal
+                    }
+                } 
+            }
+          }), 
+          total: estTotal
+        }
+        console.log(calculatedEstimate)
+        dispatch({ type: 'calculateEstimate', payload: calculatedEstimate })
+    }
+
+    const calculateOnDeleteTask = (taskData) => {
+        let estTotal = 0
+        const calculatedEstimate = {
+          ...estimate,
+          tasks: estimate.tasks.reduce((arr, task) => {
+            let taskTotal = 0
+            task.subtasks.forEach((subtask) => {
+              taskTotal += subtask.total
+            })
+            if(taskData.id != task.id) {
+                estTotal += taskTotal
+                return arr.concat({
+                    ...task,
+                    total: taskTotal
+                })
+            } else {
+                return arr
+            }
+          }, []), 
+          total: estTotal
+        }
+        dispatch({ type: 'calculateOnDeleteTask', payload: calculatedEstimate })
     }
 
   return (
@@ -162,41 +287,37 @@ const EstimateForm = ({ setEstimateFormRendered,
         <div className='estimate-form'>
             <div className='estimate-template'>
                 <FaTimes 
-                    onClick={() => setEstimateFormRendered(false)}
-                    style={{ color: 'white', 
+                    onClick={() => (setEstimateFormRendered(false), setEditEstimateData(null))}
+                    style={{ color: '#0C243C', 
                              position: 'absolute',
                              top: '.5rem',
                              left: '.5rem'}}/>
                 <form className='heading-and-inputs'>
                     <div className='estimate-name-heading'>
-                        <label>Estimate Name</label>
-                        <input {...register("estimateName", {required: true})}></input>
+                        <label>Estimate Name:</label>
+                        <input {...register("estimateName")}></input>
+                        {errors.estimateName && <p>{errors.estimateName?.message}</p>}
                     </div>
                     <div className='estimate-template-fields'>
                         <label>Customer Name:</label>
-                        <input {...register("customerName", {required: true})}></input>
+                        <input {...register("customerName")}></input>
+                        {errors.customerName && <p>{errors.customerName?.message}</p>}
                     </div>
                     <div className='estimate-template-fields'>
                         <label>Customer Email:</label>
                         <input {...register("customerEmail")}></input>
-                    </div>
-                    <div className='estimate-template-fields'>
-                        <label>Customer Phone:</label>
-                        <input {...register("customerPhone")}></input>
+                        {errors.customerEmail && <p>{errors.customerEmail?.message}</p>}
                     </div>
                     <div className='estimate-template-fields'>
                         <label>Property Address:</label>
-                        <input {...register("address", {required: true})}></input>
-                    </div>
-                    <div className='estimate-template-fields'>
-                        <label>Estimate Number:</label>
-                        <input {...register("estimateNumber")}></input>
+                        <input {...register("address")}></input>
+                        {errors.address && <p>{errors.address?.message}</p>}
                     </div>
                 </form>
-                <div className='tasks'>
+                <div className='form-tasks'>
                     <h2 className='tasks-list-heading'>Tasks</h2>
                     <button onClick={() => setTaskFormRendered(true)} className='add-task-button'>Add Task</button>
-                    <ul className='task-list'>
+                    <ul className='task-form-list'>
                         {estimate.tasks.map((task) => (
                             <li key={task.id}>
                                 <Task 
@@ -205,16 +326,18 @@ const EstimateForm = ({ setEstimateFormRendered,
                                     setSubtaskFormRendered={setSubtaskFormRendered}
                                     setEditSubtaskData={setEditSubtaskData}
                                     setTaskFormRendered={setTaskFormRendered}
-                                    setEditTaskData={setEditTaskData}/>
+                                    setEditTaskData={setEditTaskData}
+                                    calculate={calculate}
+                                    calculateOnDeleteTask={calculateOnDeleteTask}/>
                             </li>
                         ))}
                     </ul>
                 </div>
                 <div className='buttons-and-price'>
-                    <button className='estimate-buttons'>Preview Estimate</button>
-                    <button onClick={handleSubmit(editEstimateData == null || undefined ? addEst : editEst)} className='estimate-buttons'>Save</button>
-                    <button className='estimate-buttons'>Save & Send</button>
-                    <h1 className='estimate-total'>$0.00</h1>
+                    <button className='estimate-form-buttons'>Preview Estimate</button>
+                    <button onClick={handleSubmit(editEstimateData == null || undefined ? addEst : editEst)} className='estimate-form-buttons'>Save</button>
+                    <button className='estimate-form-buttons'>Save & Send</button>
+                    <h1 className='estimate-form-total'>{estimate.total ? `$${estimate.total.toFixed(2)}` : '$0.00'}</h1>
                 </div>
             </div>
             {taskFormRendered === true && <TaskForm 
@@ -225,7 +348,8 @@ const EstimateForm = ({ setEstimateFormRendered,
                 setSubtaskFormRendered={setSubtaskFormRendered}
                 taskID={taskID}
                 editSubtaskData={editSubtaskData}
-                setEditSubtaskData={setEditSubtaskData}/>}
+                setEditSubtaskData={setEditSubtaskData}
+                calculate={calculate}/>}
         </div>
     </EstimateContext.Provider>
   )

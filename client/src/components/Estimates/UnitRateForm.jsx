@@ -6,20 +6,28 @@ import { useFormContext, useController } from 'react-hook-form'
 const UnitRateForm = ({ editSubtaskData }) => {
   const { register, control, setValue } = useFormContext()
   const { field:unitRate } = useController({ name: 'unit', control})
-  const [subtaskData, setSubtaskData] = useState()
+  const [ pricePerUnit, setPricePerUnit ] = useState() 
+  const [ quantity, setQuantity ] = useState() 
+  const [ total, setTotal ] = useState(0.00) 
+
   useEffect(() => {
     if (editSubtaskData != null || undefined) {
       setValue("pricePerUnit", editSubtaskData.pricePerUnit)
+      setPricePerUnit(editSubtaskData.pricePerUnit)
       setValue("quantity", editSubtaskData.quantity)
+      setQuantity(editSubtaskData.quantity)
       setValue("unit", editSubtaskData.unit)
-  }
+      setTotal(calculate())
+    }
   }, [])
 
   useEffect(() => {
-    setSubtaskData(editSubtaskData)
-  }, [editSubtaskData])
-  
-  
+    setTotal(calculate())
+  }, [pricePerUnit, quantity])
+
+  const calculate = () => {
+    return pricePerUnit * quantity
+  }
 
   return (
     <div className='unit-rate-form'>
@@ -34,13 +42,23 @@ const UnitRateForm = ({ editSubtaskData }) => {
         </div>
         <div className='unit-rate-form-fields'>
             <label>Price Per Unit:</label>
-            <input {...register('pricePerUnit')}></input>
+            <input type='number' {...register('pricePerUnit', {
+              onChange: (e) => {
+                setPricePerUnit(e.target.value)
+              },
+              valueAsNumber: true
+            })}></input>
         </div>
         <div className='unit-rate-form-fields'>
             <label>Quantity:</label>
-            <input {...register('quantity')}></input>
+            <input type='number' {...register('quantity', {
+              onChange: (e) => {
+                setQuantity(e.target.value)
+              },
+              valueAsNumber: true
+            })}></input>
         </div>
-        <h2>$0.00</h2>
+        <h2>{`$${total ? total.toFixed(2) : '0.00'}`}</h2>
     </div>
   )
 }

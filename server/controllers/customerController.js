@@ -19,7 +19,9 @@ export const postCustomer = async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             phoneNumber: req.body.phoneNumber,
-            address: req.body.address
+            address: req.body.address,
+            dateCreated: req.body.dateCreated,
+            dateModified: req.body.dateModified
         })
 
         res.status(200).send(customer)

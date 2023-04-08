@@ -3,6 +3,8 @@ import './css/TaskForm.css'
 import { FaTimes } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 import { EstimateContext } from './EstimateForm'
+import { validateTask } from '../../validations/validations.js'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const NewTaskForm = ({ setTaskFormRendered, 
                        editTaskData,
@@ -10,15 +12,16 @@ const NewTaskForm = ({ setTaskFormRendered,
     
     const estimateContext = useContext(EstimateContext)
     const { dispatch } = estimateContext
-    const { register, handleSubmit, setValue } = useForm()
-    const [task, setTask] = useState( 
-    {
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+        resolver: yupResolver(validateTask)
+    })
+    const task = {
         id: 0,
         taskName: "",
-        taskTotal: 0.0,
         taskDescription: "",
+        total: 0.0,
         subtasks: []
-    })
+    }
 
     useEffect(() => {
         if (editTaskData != null || undefined) {
@@ -64,11 +67,13 @@ const NewTaskForm = ({ setTaskFormRendered,
         <div className='new-task-input-feilds-box'>
             <div className='new-task-input-feilds'>
                 <label>Task Name:</label>
-                <input {...register("taskName")} placeholder='First Name:'></input>
+                <input {...register("taskName")}></input>
+                {errors.taskName && <p>{errors.taskName?.message}</p>}
             </div>
             <div className='new-task-input-feilds'>
                 <label>Task Description:</label>
-                <input {...register("taskDescription")} placeholder='Last Name:'></input>
+                <input {...register("taskDescription")}></input>
+                {errors.taskDescription && <p>{errors.taskDescription?.message}</p>}
             </div>
         </div>
         <button className='new-task-form-submit-button'>{editTaskData != null || undefined ? "Edit Task" : "Create New Task"}</button>
