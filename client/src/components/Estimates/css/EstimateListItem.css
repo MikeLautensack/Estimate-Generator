@@ -2,7 +2,7 @@
     border: 2px solid var(--Black);
     border-radius: .5rem;
     display: flex;
-    background-color: var(--Tiara);
+    background-color: var(--White);
 }
 
 .estimate-li-data {

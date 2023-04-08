@@ -1,14 +1,20 @@
 .custom-rate-form {
     background-color: var(--Blue-Zodiac);
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0 1rem;
     z-index: 10000;
 }
 
-.custom-rate-form h1, h2 {
+.custom-rate-form h1 {
     color: var(--White);
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
+}
+
+.custom-rate-form h2 {
+    color: var(--Fountain-Blue);
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .custom-rate-form-fields {
@@ -20,11 +26,10 @@
 .custom-rate-form-fields label {
     color: var(--White);
     font-size: 1rem;
-    font-weight: bold;
 }
 
 .custom-rate-form-fields input {
-    color: var(--Regent-Gray);
+    color: var(--Black);
     background-color: var(--Tiara);
     border-radius: .5rem;
 }

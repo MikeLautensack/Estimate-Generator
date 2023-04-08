@@ -3,13 +3,16 @@ import './css/Task.css'
 import SubTask from './SubTask'
 import { useState, useContext } from 'react'
 import { EstimateContext } from './EstimateForm'
+import { FaTrashAlt } from "react-icons/fa"
 
 const Task = ({ setSubtaskFormRendered,
                 setEditSubtaskData,
                 setTaskFormRendered,
                 setTaskID,
                 setEditTaskData,
-                task }) => {
+                task,
+                calculate,
+                calculateOnDeleteTask }) => {
 
     const [subtasks, setSubtasks] = useState([])
     const estimateContext = useContext(EstimateContext)
@@ -21,17 +24,16 @@ const Task = ({ setSubtaskFormRendered,
 
     const deleteTask = () => {
       dispatch({ type: 'deleteTask', payload: { taskID: task.id}})
+      calculateOnDeleteTask(task)
     }
 
   return (
     <div className='task'>
-        <div className='task-name-and-price'>
+        <div className='task-name-and-delete-icon'>
             <h2 className='task-name'>{task.taskName}</h2>
-            <h3 className='task-price'>{task.taskDescription}</h3>
+            <FaTrashAlt onClick={() => deleteTask()} style={{color: '#B91C1C'}}/>
         </div>
-        <p className='task-description' rows="2">
-
-        </p>
+        <p className='task-description'>{task.taskDescription}</p>
         <ul className='subtask-list'>
             {subtasks.map((subtask) => (
               <li key={subtask.id}>
@@ -40,14 +42,17 @@ const Task = ({ setSubtaskFormRendered,
                   setTaskID={setTaskID}
                   task={task}
                   setEditSubtaskData={setEditSubtaskData}
-                  setSubtaskFormRendered={setSubtaskFormRendered}/>
+                  setSubtaskFormRendered={setSubtaskFormRendered}
+                  calculate={calculate}/>
               </li>
             ))}
         </ul>
         <div className='tasks-subtask-buttons'>
-            <button onClick={() => (setTaskID(task.id), setSubtaskFormRendered(true))} className='add-subtask-button'>Add Sub-Task</button>
-            <button onClick={() => deleteTask()} className='delete-task-button'>Delete Task</button>
+            <button onClick={() => (setTaskID(task.id), setSubtaskFormRendered(true))} className='add-subtask-button'>Add Subtask</button>
             <button onClick={() => (setTaskFormRendered(true), setEditTaskData(task))} className='edit-task-button'>Edit Task</button>
+        </div>
+        <div>
+            <h3>{`$${task.total ? task.total.toFixed(2) : '0.00'}`}</h3>
         </div>
     </div>
   )

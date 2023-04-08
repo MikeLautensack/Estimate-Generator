@@ -17,33 +17,10 @@ const estimateSchema = mongoose.Schema({
     },
     customerPhone: String,
     address: String,
-    tasks: [{
-        id: Number,
-        taskName: String,
-        taskTotal: String,
-        taskDescription: String,
-        subtasks: [{
-            id: Number,
-            taskID: Number,
-            subtaskName: String,
-            subtaskDescription: String,
-            calcMethod: String,
-            timeUnit: String,
-            timePricePerUnit: Number,
-            timeQuantity: Number,
-            timeSubtotal: Number,
-            materialsUnit: String,
-            materialsPricePerUnit: Number,
-            materialsQuantity: Number,
-            materialsSubtotl: Number,
-            unit: String,
-            pricePerUnit: Number,
-            quantity: Number,
-            customSubtotal: Number,
-            subtotal: Number,
-            subtaskTotal: Number
-        }]
-    }]
+    dateCreated: Date,
+    dateModified: Date,
+    tasks: [],
+    total: Number
 })
 
 const estimateModel = mongoose.model('estimates', estimateSchema, 'Estimates')

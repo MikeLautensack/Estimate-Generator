@@ -1,14 +1,20 @@
 .unit-rate-form {
     background-color: var(--Blue-Zodiac);
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0 1rem;
     z-index: 10000;
 }
 
-.unit-rate-form h1, h2 {
+.unit-rate-form h1 {
     color: var(--White);
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
+}
+
+.unit-rate-form h2 {
+    color: var(--Fountain-Blue);
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .unit-rate-form-fields {
@@ -20,7 +26,6 @@
 .unit-rate-form-fields label {
     color: var(--White);
     font-size: 1rem;
-    font-weight: bold;
 }
 
 .unit-rate-form-fields input {

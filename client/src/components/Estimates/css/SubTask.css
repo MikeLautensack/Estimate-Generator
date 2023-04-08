@@ -1,65 +1,53 @@
 .subtask {
-    background-color: var(--Tiara);
+    background-color: var(--White);
     border-radius: .25rem;
+    border: 1px solid var(--Blue-Zodiac);
     padding: .2rem;
     width: 100%;
+}
+
+.subtask-name-and-delete-button {
     display: flex;
     justify-content: space-between;
-}
-
-.subtask-buttons {
-    display: flex;
-    margin: 0 0 0 .5rem;
-}
-
-.edit-subtask-button {
-    color: var(--Blue-Zodiac);
-    font-weight: bold;
-    background-color: var(--Fountain-Blue);
-    margin: 0 .25rem 0 0;
-    padding: 4px 8px;
-    border-radius: 100vw;
-    width: 65px;
-}
-
-.edit-subtask-button:hover {
-    box-shadow: 0 0 .5rem var(--Fountain-Blue);
-}
-
-.delete-subtask-button {
-    color: var(--Blue-Zodiac);
-    background-color: var(--Delete);
-    margin: 0 0 0 .25rem;
-    padding: 4px 8px;
-    border-radius: 100vw;
-    font-weight: bold;
-    width: 65px;
-}
-
-.delete-subtask-button:hover {
-    box-shadow: 0 0 .5rem var(--Delete);
-}
-
-.subtask-fields {
-    display: flex;
-    margin: 0 .5rem;
-}
-
-.subtask-fields h2 {
-    color: var(--Blue-Zodiac);
+    width: 100%;
+    min-height: 20px;
 }
 
 .subtask-name-heading {
-    font-size: 10px;
+    color: var(--Blue-Zodiac);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.subtask-description {
+    font-size: 12px;
+    color: var(--Blue-Zodiac);
+}
+
+.subtask-button-and-total {
     display: flex;
+}
+
+.edit-subtask-button {
+    font-size: 12px;
+    color: var(--Blue-Zodiac);
+    border-radius: 100vw;
+    font-weight: 500;
+    background-color: var(--Fountain-Blue);
+    width: 100%;
+    margin: 0 .5rem;
+    padding: 2px 8px;
+}
+
+.subtask-button-box {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    margin: 0 .2rem 0 0;
+    height: 50%;
 }
 
 .subtask-price-heading {
-    font-weight: bold;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    color: var(--White);
+    color: var(--Blue-Zodiac);
+    text-align: end;
+    margin: 0;
 }
