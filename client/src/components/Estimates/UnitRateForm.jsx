@@ -34,7 +34,7 @@ const UnitRateForm = ({ editSubtaskData }) => {
         <h1>Unit Rate</h1>
         <div className='time-and-materials-input-fields'>
             <label>Unit:</label>
-            <select {...unitRate}>
+            <select className='unit-rate-select' {...unitRate}>
                 <option value='sqft'>Sqft</option>
                 <option value='lnft'>Lnft</option>
                 <option value='piece'>Piece</option>

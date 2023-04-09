@@ -91,7 +91,7 @@ const Dashboard = () => {
 
   return (
     <div className='dashboard'>
-      <button className='dashboard-sidebar-button' onClick={changeNavVis}><FaBars /></button>
+      <button className='dashboard-sidebar-button' onClick={changeNavVis} data-vis={navVis}><FaBars /></button>
       <div className='dashboard-sidebar' data-vis={navVis}>
         <Nav />
       </div>  

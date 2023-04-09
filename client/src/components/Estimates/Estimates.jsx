@@ -87,7 +87,7 @@ const Estimates = () => {
 
   return (
     <div className='estimates'>
-      <button className='estimates-sidebar-button' onClick={changeNavVis}><FaBars /></button>
+      <button className='estimates-sidebar-button' data-vis={navVis} onClick={changeNavVis}><FaBars /></button>
       <div className='estimates-sidebar' data-vis={navVis}>
         <Nav />
       </div>  

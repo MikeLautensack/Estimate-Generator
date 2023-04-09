@@ -1,8 +1,7 @@
 .register {
     width: 350px;
-    height: 465px;
     margin: auto;
-    padding: 2rem;
+    padding: 1.5rem;
     background-color: var(--Blue-Zodiac);
     border: 1px solid var(--Blue-Zodiac);
     border-radius: 1rem;
@@ -30,15 +29,35 @@
     width: 100%;
     height: 40px;
     background-color: var(--Blue-Zodiac);
+    color: var(--White);
     border: 1px solid var(--White);
     border-radius: .5rem;
+    padding: 0 .25rem;
 }
 
-.buttons {
-    position: absolute;
-    bottom: 2rem;
-    width: 286px;
-    margin: 0 auto;
+.username-input:focus,
+.password-input:focus,
+.password1-input:focus,
+.email-input:focus,
+.name-input:focus,
+.phone-number-input:focus  {
+    outline: none;
+    border: 2px solid var(--Fountain-Blue);
+}
+
+.username-input:-webkit-autofill,
+.password-input:-webkit-autofill,
+.password1-input:-webkit-autofill,
+.email-input:-webkit-autofill,
+.name-input:-webkit-autofill,
+.phone-number-input:-webkit-autofill  {
+    -webkit-box-shadow: 0 0 0 1000px var(--Blue-Zodiac) inset !important;
+    -webkit-text-fill-color: var(--White) !important;
+}
+
+.register-buttons {
+    width: 100%;
+    margin: 0;
 }
 
 .button {

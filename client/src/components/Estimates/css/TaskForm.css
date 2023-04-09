@@ -30,6 +30,17 @@
     color: var(--Black);
     background-color: var(--Tiara);
     border-radius: .5rem;
+    padding: 0 .25rem;
+}
+
+.new-task-input-feilds input:focus {
+    outline: none;
+    border: 2px solid var(--Fountain-Blue);
+}
+
+.new-task-input-feilds input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px var(--Tiara) inset !important;
+    -webkit-text-fill-color: var(--Black) !important;
 }
 
 .new-task-form-submit-button {

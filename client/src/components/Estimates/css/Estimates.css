@@ -27,6 +27,15 @@
     color: var(--Blue-Zodiac);
 }
 
+.estimates-sidebar-button[data-vis = true] {
+    position: fixed;
+    display: block;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 2000;
+    color: var(--Fountain-Blue);
+}
+
 .estimates-content {
     width: 100%;
     height: 100%;

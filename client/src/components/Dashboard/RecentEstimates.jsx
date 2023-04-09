@@ -1,6 +1,6 @@
 import React from 'react'
 import './css/RecentEstimates.css'
-import EstimateListItem from '../Estimates/EstimateListItem'
+import RecentEstimate from './RecentEstimate'
 
 const RecentEstimates = ({ calculateRecentEstimates,
                            recentEstimates }) => {
@@ -11,19 +11,16 @@ const RecentEstimates = ({ calculateRecentEstimates,
 
   return (
     <div className='recent-estimates-card'>
-      <div className='recent-estimate-heading-and-select'>
-        <h1>Recent Estimates</h1>
-        <select onChange={handleSelectChange}>
-          <option value='1 Day'>1 Day</option>
-          <option value='7 Days'>7 Days</option>
-          <option value='30 Days'>30 Days</option>
-        </select>
-      </div>
+      <h1 className='recent-estimates-card-heading'>Recent Estimates</h1>
+      <select className='recent-estimates-select' onChange={handleSelectChange}>
+        <option value='1 Day'>1 Day</option>
+        <option value='7 Days'>7 Days</option>
+        <option value='30 Days'>30 Days</option>
+      </select>
       <ul className='recent-estimates-list'>
         {recentEstimates.map((estimate) => (
           <li key={estimate._id}>
-            <EstimateListItem 
-                estimate={estimate} />
+            <RecentEstimate estimate={estimate}/>
           </li>
         ))}
       </ul>

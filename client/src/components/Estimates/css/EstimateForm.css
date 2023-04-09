@@ -40,6 +40,12 @@
     background-color: var(--White);
     height: 2rem;
     color: var(--Blue-Zodiac);
+    padding: 0 .25rem;
+}
+
+.estimate-name-heading input:focus {
+    outline: none;
+    border: 2px solid var(--Fountain-Blue);
 }
 
 .estimate-template-fields {
@@ -60,6 +66,12 @@
     border-radius: 4px;
     background-color: var(--White);
     color: var(--Blue-Zodiac);
+    padding: 0 .25rem;
+}
+
+.estimate-template-fields input:focus {
+    outline: none;
+    border: 2px solid var(--Fountain-Blue);
 }
 
 .form-tasks {

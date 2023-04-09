@@ -27,6 +27,15 @@
     color: var(--Blue-Zodiac);
 }
 
+.customers-sidebar-button[data-vis = true] {
+    position: fixed;
+    display: block;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 2000;
+    color: var(--Fountain-Blue);
+}
+
 .customers-content {
     height: 100%;
     width: 100%;

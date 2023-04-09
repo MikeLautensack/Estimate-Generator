@@ -110,6 +110,7 @@ const EstimateForm = ({ setEstimateFormRendered,
     const [taskFormRendered, setTaskFormRendered] = useState(false)
     const [subtaskFormRendered, setSubtaskFormRendered] = useState(false)
     const [taskID, setTaskID] = useState(0)
+    const [numOfErrors, setNumOfErrors] = useState('')
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(validateEstimate)
     })
@@ -293,25 +294,33 @@ const EstimateForm = ({ setEstimateFormRendered,
                              top: '.5rem',
                              left: '.5rem'}}/>
                 <form className='heading-and-inputs'>
-                    <div className='estimate-name-heading'>
-                        <label>Estimate Name:</label>
-                        <input {...register("estimateName")}></input>
-                        {errors.estimateName && <p>{errors.estimateName?.message}</p>}
+                    <div>
+                        <div className='estimate-name-heading'>
+                            <label>Estimate Name:</label>
+                            <input {...register("estimateName")}></input>
+                        </div>
+                        {errors.estimateName && <p style={{ color: '#C70000'}}>{errors.estimateName?.message}</p>}
                     </div>
-                    <div className='estimate-template-fields'>
-                        <label>Customer Name:</label>
-                        <input {...register("customerName")}></input>
-                        {errors.customerName && <p>{errors.customerName?.message}</p>}
+                    <div>
+                        <div className='estimate-template-fields'>
+                            <label>Customer Name:</label>
+                            <input {...register("customerName")}></input>
+                        </div>
+                        {errors.customerName && <p style={{ color: '#C70000'}}>{errors.customerName?.message}</p>}
                     </div>
-                    <div className='estimate-template-fields'>
-                        <label>Customer Email:</label>
-                        <input {...register("customerEmail")}></input>
-                        {errors.customerEmail && <p>{errors.customerEmail?.message}</p>}
+                    <div>
+                        <div className='estimate-template-fields'>
+                            <label>Customer Email:</label>
+                            <input {...register("customerEmail")}></input>
+                        </div>
+                        {errors.customerEmail && <p style={{ color: '#C70000'}}>{errors.customerEmail?.message}</p>}
                     </div>
-                    <div className='estimate-template-fields'>
-                        <label>Property Address:</label>
-                        <input {...register("address")}></input>
-                        {errors.address && <p>{errors.address?.message}</p>}
+                    <div>
+                        <div className='estimate-template-fields'>
+                            <label>Property Address:</label>
+                            <input {...register("address")}></input>
+                        </div>
+                        {errors.address && <p style={{ color: '#C70000'}}>{errors.address?.message}</p>}
                     </div>
                 </form>
                 <div className='form-tasks'>

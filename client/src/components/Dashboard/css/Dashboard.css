@@ -10,11 +10,11 @@
     height: 100%;
     transform: translateX(100%);
     transition: transform 250ms ease-out;
+    z-index: 100;
 }
 
 .dashboard-sidebar[data-vis = true] {
     transform: translateX(0%);
-
 }
 
 .dashboard-sidebar-button {
@@ -24,6 +24,15 @@
     right: 1.5rem;
     z-index: 2000;
     color: var(--Blue-Zodiac);
+}
+
+.dashboard-sidebar-button[data-vis = true] {
+    position: fixed;
+    display: block;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 5005;
+    color: var(--Fountain-Blue)
 }
 
 .dashboard-content {

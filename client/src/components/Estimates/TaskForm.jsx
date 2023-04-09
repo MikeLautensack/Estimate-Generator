@@ -68,12 +68,12 @@ const NewTaskForm = ({ setTaskFormRendered,
             <div className='new-task-input-feilds'>
                 <label>Task Name:</label>
                 <input {...register("taskName")}></input>
-                {errors.taskName && <p>{errors.taskName?.message}</p>}
+                {errors.taskName && <p style={{ color: '#C70000'}}>{errors.taskName?.message}</p>}
             </div>
             <div className='new-task-input-feilds'>
                 <label>Task Description:</label>
                 <input {...register("taskDescription")}></input>
-                {errors.taskDescription && <p>{errors.taskDescription?.message}</p>}
+                {errors.taskDescription && <p style={{ color: '#C70000'}}>{errors.taskDescription?.message}</p>}
             </div>
         </div>
         <button className='new-task-form-submit-button'>{editTaskData != null || undefined ? "Edit Task" : "Create New Task"}</button>

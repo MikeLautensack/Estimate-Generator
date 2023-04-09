@@ -7,7 +7,7 @@ const Estimate = ({ estimate,
                     setEstimateRendered,
                     setEditEstimateData}) => {
   return (
-    <div onDoubleClick={() => setEstimateRendered(true)} className='estimate-li'>
+    <div onDoubleClick={() => (setEstimateRendered(true), setEditEstimateData(estimate))} className='estimate-li'>
         <div className='estimate-li-data'>
             <p>{estimate.estimateName}</p>
             <p>{estimate.customerName}</p>
