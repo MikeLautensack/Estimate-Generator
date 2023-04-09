@@ -171,12 +171,12 @@ const SubtaskForm = ({ setSubtaskFormRendered,
                 <div className='new-subtask-input-feilds'>
                     <label>Subtask Name:</label>
                     <input {...register("subtaskName")}></input>
-                    {errors.subtaskName && <p>{errors.subtaskName?.message}</p>}
+                    {errors.subtaskName && <p style={{ color: '#C70000'}}>{errors.subtaskName?.message}</p>}
                 </div>
                 <div className='new-subtask-input-feilds'>
                     <label>Subtask Description:</label>
                     <input {...register("subtaskDescription")}></input>
-                    {errors.subtaskDescription && <p>{errors.subtaskDescription?.message}</p>}
+                    {errors.subtaskDescription && <p style={{ color: '#C70000'}}>{errors.subtaskDescription?.message}</p>}
                 </div>
                 <div className='new-subtask-input-feilds'>
                     <label>Method:</label>

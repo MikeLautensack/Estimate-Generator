@@ -23,6 +23,11 @@
     flex-direction: column;
 }
 
+.unit-rate-select:focus {
+    outline: none;
+    border: 2px solid var(--Fountain-Blue);
+}
+
 .unit-rate-form-fields label {
     color: var(--White);
     font-size: 1rem;
@@ -32,4 +37,15 @@
     color: var(--Regent-Gray);
     background-color: var(--Tiara);
     border-radius: .5rem;
+    padding: 0 .25rem;
+}
+
+.unit-rate-form-fields input:focus {
+    outline: none;
+    border: 2px solid var(--Fountain-Blue);
+}
+
+.unit-rate-form-fields input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px var(--Tiara) inset !important;
+    -webkit-text-fill-color: var(--Black) !important;
 }

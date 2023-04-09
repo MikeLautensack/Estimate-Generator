@@ -9,37 +9,59 @@
     position: relative;
 }
 
-.email-label {
+.login-email-label {
     font-size: 22px;
     line-height: 40px;
     font-weight: bold;
     color: #EBF5FF;
 }
 
-.email-input {
-    width: 100%;
-    height: 40px;
-    background-color: var(--Blue-Zodiac);
-    border: 1px solid var(--White);
-    border-radius: .5rem;
-}
-
-.password-label {
+.login-password-label {
     font-size: 22px;
     line-height: 40px;
     font-weight: bold;
     color: var(--White);
 }
 
-.password-input {
+.login-email-input {
     width: 100%;
     height: 40px;
     background-color: var(--Blue-Zodiac);
+    color: var(--White);
     border: 1px solid var(--White);
     border-radius: .5rem;
+    padding: 0 .25rem;
 }
 
-.buttons {
+.login-password-input {
+    width: 100%;
+    height: 40px;
+    background-color: var(--Blue-Zodiac);
+    color: var(--White);
+    border: 1px solid var(--White);
+    border-radius: .5rem;
+    padding: 0 .25rem;
+}
+
+.login-email-input:focus,
+.login-password-input:focus {
+    outline: none;
+    border: 2px solid var(--Fountain-Blue);
+}
+
+.login-email-input:-webkit-autofill,
+.login-email-input:-webkit-autofill:hover,
+.login-email-input:-webkit-autofill:focus,
+.login-email-input:-webkit-autofill:active,
+.login-password-input:-webkit-autofill, 
+.login-password-input:-webkit-autofill:hover, 
+.login-password-input:-webkit-autofill:focus, 
+.login-password-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px var(--Blue-Zodiac) inset !important;
+    -webkit-text-fill-color: var(--White) !important;
+}
+
+.login-buttons {
     position: absolute;
     bottom: 2rem;
     width: 286px;

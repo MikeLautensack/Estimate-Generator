@@ -89,7 +89,7 @@ const Customers = () => {
 
   return (
     <main className='customers'>
-      <button className='customers-sidebar-button' onClick={changeNavVis}><FaBars /></button>
+      <button className='customers-sidebar-button' data-vis={navVis} onClick={changeNavVis}><FaBars /></button>
       <div className='customers-sidebar' data-vis={navVis}>
         <Nav />
       </div>  

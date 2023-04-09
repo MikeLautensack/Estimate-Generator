@@ -3,6 +3,7 @@ import './css/Estimate.css'
 import { FaTimes } from 'react-icons/fa'
 import { useState, useContext } from 'react'
 import DataContext from '../../context/DataContext'
+import TaskListItem from './TaskListItem'
 
 const Estimate = ({ setEstimateRendered, estimate }) => {
 
@@ -16,24 +17,26 @@ const Estimate = ({ setEstimateRendered, estimate }) => {
                          top: '.5rem',
                          left: '.5rem'}}/>
             <div className='customer-data'>
-                <h1 className='name'>Estimate Name</h1>
-                <h2>Customer Name:</h2>
-                <h2>Customer Email:</h2>
-                <h2>Customer Phone:</h2>
-                <h2>Property Address:</h2>
-                <h2>Estimate Number:</h2> 
+                <h1 className='name'>{estimate.estimateName}</h1>
+                <h2>{estimate.customerName}</h2>
+                <h2>{estimate.customerEmail}</h2>
+                <h2>{estimate.address}</h2>
             </div>
             <div className='tasks'>
                 <h2 className='tasks-list-heading'>Tasks</h2>
-                <div className='task-list'>
-                    
-                </div>
+                <ul className='task-list'>
+                    {estimate.tasks.map((task) => (
+                        <li key={task.id}>
+                            <TaskListItem task={task}/>
+                        </li>
+                    ))}
+                </ul>
             </div>
             <div className='buttons-and-price'>
                 <button className='estimate-buttons'>Delete</button>
                 <button className='estimate-buttons'>Edit</button>
                 <button className='estimate-buttons'>Send</button>
-                <h1 className='estimate-total'>$0.00</h1>
+                <h1 className='estimate-total'>{estimate.total ? `$${estimate.total}` : '$0.00'}</h1>
             </div>
         </div>
     </div>

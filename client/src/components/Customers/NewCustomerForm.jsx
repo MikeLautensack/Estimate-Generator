@@ -46,23 +46,23 @@ const NewCustomerForm = ({ setCustomerFormVis,
           <div className='new-customer-input-feilds-box'>
               <div className='new-customer-input-feilds'>
                   <label>First Name:</label>
-                  <input {...register("name", {required: true})}></input>
-                  {errors.name && <p>{errors.name?.message}</p>}
+                  <input {...register("name")}></input>
+                  {errors.name && <p style={{ color: '#C70000'}}>{errors.name?.message}</p>}
               </div>
               <div className='new-customer-input-feilds'>
                   <label>Email:</label>
-                  <input {...register("email", {required: true})}></input>
-                  {errors.email && <p>{errors.email?.message}</p>}
+                  <input {...register("email")}></input>
+                  {errors.email && <p style={{ color: '#C70000'}}>{errors.email?.message}</p>}
               </div>
               <div className='new-customer-input-feilds'>
                   <label>Phone Number:</label>
-                  <input {...register("phoneNumber", {required: true})}></input>
-                  {errors.phoneNumber && <p>{errors.phoneNumber?.message}</p>}
+                  <input {...register("phoneNumber")}></input>
+                  {errors.phoneNumber && <p style={{ color: '#C70000'}}>{errors.phoneNumber?.message}</p>}
               </div>
               <div className='new-customer-input-feilds'>
                   <label>Address:</label>
                   <input {...register("address")}></input>
-                  {errors.address && <p>{errors.address?.message}</p>}
+                  {errors.address && <p style={{ color: '#C70000'}}>{errors.address?.message}</p>}
               </div>
           </div>
           <button className='new-customer-form-submit-button'>{customerData == null || undefined ? "Add New Customer" : "Edit Customer"}</button>

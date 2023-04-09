@@ -54,14 +54,14 @@ const Login = ({ setRegisterFormVis }) => {
 
   return (
     <form onSubmit={handleSubmit(login)} className='login'>
-        <label className='email-label' htmlFor='email'>Email</label>
-        <input {...register("email")} className='email-input' type='email' id='email' name='email'></input>
-        {errors.email && <p>{errors.email?.message}</p>}
-        <label className='password-label' htmlFor='password'>Password</label>
-        <input {...register("password")} className='password-input' type='password' id='password' name='password'></input>
-        {errors.password && <p>{errors.password?.message}</p>}
-        {errors.root?.serverError?.type === 400 && <p>{errors.root?.serverError?.message}</p>}
-        <div className='buttons'>
+        <label className='email-label'>Email</label>
+        <input {...register("email")} className='login-email-input'></input>
+        {errors.email && <p style={{ color: '#C70000'}}>{errors.email?.message}</p>}
+        <label className='password-label'>Password</label>
+        <input {...register("password")} className='login-password-input' type='password'></input>
+        {errors.password && <p style={{ color: '#C70000'}}>{errors.password?.message}</p>}
+        {errors.root?.serverError?.type === 400 && <p style={{ color: '#C70000'}}>{errors.root?.serverError?.message}</p>}
+        <div className='login-buttons'>
           <button type='submit' className='button'>Log In</button>
           <button type='button' onClick={loginAsGuest} className='button'>Log In As Guest</button>
           <button type='button' onClick={() => setRegisterFormVis(true)} className='button'>Create an Accout</button>

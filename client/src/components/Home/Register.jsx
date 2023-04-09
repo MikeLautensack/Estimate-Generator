@@ -54,20 +54,22 @@ const Register = () => {
 
   return (
     <form onSubmit={handleSubmit(createAccount)} className='register'>
-        <label className='username-label' htmlFor='username'>Username</label>
-        <input {...register("username")} className='username-input' type='username' id='username' name='username'></input>
-        {errors.username && <p>{errors.username?.message}</p>}
-        <label className='email-label' htmlFor='email'>Email</label>
-        <input {...register("email")} className='email-input' type='email' id='email' name='email'></input>
-        {errors.email && <p>{errors.email?.message}</p>}
-        <label className='password-label' htmlFor='password'>Password</label>
-        <input {...register("password")} className='password-input' type='password' id='password' name='password'></input>
-        {errors.password && <p>{errors.password?.message}</p>}
-        <label className='password1-label' htmlFor='password1'>Verify Password</label>
-        <input {...register("password1")} className='password1-input' type='password1' id='password1' name='password1'></input>
-        {errors.password1 && <p>{errors.password1?.message}</p>}
-        {errors.root?.serverError?.type === 400 && <p>{errors.root?.serverError?.message}</p>}
-        <div className='buttons'>
+        <div className='register-inputs'>
+          <label className='username-label'>Username</label>
+          <input {...register("username")} className='username-input'></input>
+          {errors.username && <p style={{ color: '#C70000'}}>{errors.username?.message}</p>}
+          <label className='email-label'>Email</label>
+          <input {...register("email")} className='email-input'></input>
+          {errors.email && <p style={{ color: '#C70000'}}>{errors.email?.message}</p>}
+          <label className='password-label'>Password</label>
+          <input {...register("password")} className='password-input' type='password'></input>
+          {errors.password && <p style={{ color: '#C70000'}}>{errors.password?.message}</p>}
+          <label className='password1-label'>Verify Password</label>
+          <input {...register("password1")} className='password1-input' type='password'></input>
+          {errors.password1 && <p style={{ color: '#C70000'}}>{errors.password1?.message}</p>}
+          {errors.root?.serverError?.type === 400 && <p style={{ color: '#C70000'}}>{errors.root?.serverError?.message}</p>}
+        </div>
+        <div className='register-buttons'>
           <button className='button'>Create Account and Login</button>
         </div>
     </form>
