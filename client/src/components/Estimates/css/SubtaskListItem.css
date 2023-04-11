@@ -1,0 +1,24 @@
+.subtask-list-item {
+    border-top: 1px solid var(--Black);
+    border-bottom: 1px solid var(--Black);
+    padding: 0 .15rem;
+}
+
+.subtask-list-item-subtaskname {
+    font-size: .75rem;
+    color: var(--Black);
+    font-weight: 500;
+}
+
+.subtask-list-item-heading {
+    font-size: .75rem;
+    color: var(--Black);
+    font-weight: 400;
+}
+
+.subtask-list-item-total {
+    font-size: .75rem;
+    color: var(--Black);
+    font-weight: 500;
+    text-align: right;
+}

@@ -1,0 +1,30 @@
+.task-list-item {
+    border: 1px solid var(--Black);
+    border-radius: .25rem;
+    padding: 0 .25rem;
+}
+
+.task-list-item-taskname {
+    font-size: 1rem;
+    color: var(--Black);
+    font-weight: 500;
+}
+
+.task-list-item-heading {
+    font-size: 1rem;
+    color: var(--Black);
+    font-weight: 400;
+}
+
+.list-of-subtasks {
+    border: 1px solid var(--Black);
+    border-radius: .25rem;
+    padding: .1rem 0;
+}
+
+.task-list-item-total {
+    font-size: 1rem;
+    color: var(--Black);
+    font-weight: 500;
+    text-align: right;
+}

@@ -33,7 +33,7 @@
 
 .tasks {
     width: 100%;
-    height: calc(100% - 372px);
+    height: calc(100% - 135px);
     background-color: var(--White);
     border-radius: .5rem;
     position: relative;
@@ -52,7 +52,7 @@
     height: calc(100% - 32px);
     border-radius: .5rem;
     border: 2px solid var(--Blue-Zodiac);
-    padding: 0 .25rem; 
+    padding: .25rem; 
 }
 
 .buttons-and-price {
