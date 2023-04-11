@@ -3,10 +3,10 @@ import './css/SubtaskListItem.css'
 
 const SubtaskListItem = ({ subtask }) => {
   return (
-    <div>
-        <h1>{subtask.subtaskName}</h1>
-        <h2>{subtask.subtaskDescription}</h2>
-        <h3>{subtask.total ? `$${subtask.total}` : '$0.00'}</h3>
+    <div className='subtask-list-item'>
+        <h1 className='subtask-list-item-subtaskname'>{subtask.subtaskName}</h1>
+        <h2 className='subtask-list-item-heading'>{subtask.subtaskDescription}</h2>
+        <h3 className='subtask-list-item-total'>{subtask.total ? `$${subtask.total}` : '$0.00'}</h3>
     </div>
   )
 }

@@ -84,6 +84,18 @@
     padding: .25rem;
 }
 
+.oneError {
+    height: calc(100% - 332px);
+}
+
+.twoErrors {
+    height: calc(100% - 360px);
+}
+
+.threeErrors {
+    height: calc(100% - 390px);
+}
+
 .tasks-list-heading {
     font-weight: 500;
     color: var(--Black);

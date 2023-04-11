@@ -33,9 +33,6 @@ const Estimate = ({ setEstimateRendered, estimate }) => {
                 </ul>
             </div>
             <div className='buttons-and-price'>
-                <button className='estimate-buttons'>Delete</button>
-                <button className='estimate-buttons'>Edit</button>
-                <button className='estimate-buttons'>Send</button>
                 <h1 className='estimate-total'>{estimate.total ? `$${estimate.total}` : '$0.00'}</h1>
             </div>
         </div>

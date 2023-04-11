@@ -110,7 +110,9 @@ const EstimateForm = ({ setEstimateFormRendered,
     const [taskFormRendered, setTaskFormRendered] = useState(false)
     const [subtaskFormRendered, setSubtaskFormRendered] = useState(false)
     const [taskID, setTaskID] = useState(0)
-    const [numOfErrors, setNumOfErrors] = useState('')
+    const [oneError, setOneError] = useState()
+    const [twoErrors, setTwoErrors] = useState()
+    const [threeErrors, setThreeErrors] = useState()
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(validateEstimate)
     })
@@ -139,6 +141,43 @@ const EstimateForm = ({ setEstimateFormRendered,
             setValue("estimateNumber", editEstimateData.estimateNumber)
         }
     }, [])
+
+    useEffect(() => {
+        if(errors.estimateName == true && errors.customerName == true && errors.customerEmail == true) {
+            setOneError(false)
+            setTwoErrors(false)
+            setThreeErrors(true)
+        }
+
+        if(errors.estimateName == true && errors.customerName == true && errors.customerEmail == false) {
+            setOneError(false)
+            setTwoErrors(true)
+            setThreeErrors(false)
+        } else if (errors.estimateName == true && errors.customerName == false && errors.customerEmail == true) {
+            setOneError(false)
+            setTwoErrors(true)
+            setThreeErrors(false)
+        } else if (errors.estimateName == false && errors.customerName == true && errors.customerEmail == true) {
+            setOneError(false)
+            setTwoErrors(true)
+            setThreeErrors(false)
+        }
+
+        if(errors.estimateName == true && errors.customerName == false && errors.customerEmail == false) {
+            setOneError(true)
+            setTwoErrors(false)
+            setThreeErrors(false)
+        } else if (errors.estimateName == false && errors.customerName == true && errors.customerEmail == false) {
+            setOneError(true)
+            setTwoErrors(false)
+            setThreeErrors(false)
+        } else if (errors.estimateName == false && errors.customerName == false && errors.customerEmail == true) {
+            setOneError(true)
+            setTwoErrors(false)
+            setThreeErrors(false)
+        }
+        
+    }, [errors])
 
     const addEst = (data) => {
         const newEstimate = {
@@ -172,6 +211,10 @@ const EstimateForm = ({ setEstimateFormRendered,
         edit(updatedEstimate)
         setEditEstimateData(null)
         setEstimateFormRendered(false)
+    }
+
+    const calcErrorMode = () => {
+
     }
 
     const calculate = (object, asyncSubtaskTotalData, taskID, mode, editDataTotal, submissionDataTotal) => {
@@ -323,7 +366,7 @@ const EstimateForm = ({ setEstimateFormRendered,
                         {errors.address && <p style={{ color: '#C70000'}}>{errors.address?.message}</p>}
                     </div>
                 </form>
-                <div className='form-tasks'>
+                <div className={`form-tasks ${oneError ? 'oneError' : ''} ${twoErrors ? 'twoErrors' : ''} ${threeErrors ? 'threeErrors' : ''}`}>
                     <h2 className='tasks-list-heading'>Tasks</h2>
                     <button onClick={() => setTaskFormRendered(true)} className='add-task-button'>Add Task</button>
                     <ul className='task-form-list'>
