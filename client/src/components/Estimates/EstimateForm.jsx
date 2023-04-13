@@ -101,6 +101,7 @@ const reducer = (estimate, action) => {
 export const EstimateContext = createContext()
 
 const EstimateForm = ({ setEstimateFormRendered,
+                        setEstimateRendered,
                         add,
                         edit,
                         editEstimateData,
@@ -198,8 +199,22 @@ const EstimateForm = ({ setEstimateFormRendered,
         setEstimateFormRendered(false)
     }
 
-    const calcErrorMode = () => {
-
+    const previewEstimate = (data) => {
+        const updatedEstimate = {
+            ...editEstimateData,
+            estimateName: data.estimateName,
+            customerName: data.customerName,
+            customerEmail: data.customerEmail,
+            customerPhone: data.customerPhone,
+            address: data.address,
+            dateModified: new Date(),
+            tasks: estimate.tasks,
+            total: estimate.total
+        }
+        edit(updatedEstimate)
+        setEditEstimateData(updatedEstimate)
+        setEstimateFormRendered(false)
+        setEstimateRendered(true)
     }
 
     const calculate = (object, asyncSubtaskTotalData, taskID, mode, editDataTotal, submissionDataTotal) => {
@@ -370,7 +385,7 @@ const EstimateForm = ({ setEstimateFormRendered,
                     </ul>
                 </div>
                 <div className='buttons-and-price'>
-                    <button className='estimate-form-buttons'>Preview Estimate</button>
+                    <button onClick={handleSubmit(previewEstimate)} className='estimate-form-buttons'>Preview Estimate</button>
                     <button onClick={handleSubmit(editEstimateData == null || undefined ? addEst : editEst)} className='estimate-form-buttons'>Save</button>
                     {/*<button className='estimate-form-buttons'>Save & Send</button>*/}
                     <h1 className='estimate-form-total'>{estimate.total ? `$${estimate.total.toFixed(2)}` : '$0.00'}</h1>

@@ -115,6 +115,7 @@ const Estimates = () => {
             estimate={editEstimateData}/>}
         {estimateFormRendered === true && <EstimateForm 
             setEstimateFormRendered={setEstimateFormRendered}
+            setEstimateRendered={setEstimateRendered}
             add={add}
             edit={edit}
             editEstimateData={editEstimateData}
