@@ -3,6 +3,7 @@
     border-radius: .5rem;
     display: flex;
     background-color: var(--White);
+    position: relative;
 }
 
 .customer-text {
@@ -13,38 +14,27 @@
 }
 
 .button-box {
+    position: absolute;
     display: flex;
-    flex-direction: column;
     justify-content: space-evenly;
-    align-items: flex-end;
-    width: 20%;
-    margin: 0 .5rem 0 0;
+    width: 3.75rem;
+    height: 25%;
+    top: .5rem;
+    right: .5rem;
 }
 
 .edit-customer {
-    font-size: 9px;
-    font-weight: bold;
-    color: var(--Blue-Zodiac);
-    line-height: 16px;
-    padding: 4px 13px;
-    background-color: var(--Fountain-Blue);
-    border-radius: 1rem;
+    color: var(--Fountain-Blue);
 }
 
 .edit-customer:hover {
-    box-shadow: 0 0 .5rem var(--Fountain-Blue);
+    text-shadow: 0 0 .5rem var(--Fountain-Blue);
 }
 
 .delete-customer {
-    font-size: 9px;
-    font-weight: bold;
-    color: var(--Blue-Zodiac);
-    line-height: 16px;
-    padding: 4px 8px;
-    background-color: var(--Delete);
-    border-radius: 1rem;
+    color: var(--Delete);
 }
 
 .delete-customer:hover {
-    box-shadow: 0 0 .5rem var(--Delete);
+    text-shadow: 0 0 .5rem var(--Delete);
 }

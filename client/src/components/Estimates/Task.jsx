@@ -52,7 +52,7 @@ const Task = ({ setSubtaskFormRendered,
             <button onClick={() => (setTaskFormRendered(true), setEditTaskData(task))} className='edit-task-button'>Edit Task</button>
         </div>
         <div>
-            <h3>{`$${task.total ? task.total.toFixed(2) : '0.00'}`}</h3>
+            <h3 className='est-form-task-total'>{`$${task.total ? task.total.toFixed(2) : '0.00'}`}</h3>
         </div>
     </div>
   )

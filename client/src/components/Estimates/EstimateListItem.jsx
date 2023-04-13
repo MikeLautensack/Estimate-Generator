@@ -1,5 +1,6 @@
 import React from 'react'
 import './css/EstimateListItem.css'
+import { FaTrashAlt, FaEdit } from "react-icons/fa"
 
 const Estimate = ({ estimate,
                     setEstimateFormRendered,
@@ -14,8 +15,8 @@ const Estimate = ({ estimate,
             <p>{estimate.address}</p>
         </div>
         <div className='estimate-li-button-box'>
-            <button onClick={() => (setEstimateFormRendered(true), setEditEstimateData(estimate))} className='edit-estimate'>Edit</button>
-            <button onClick={() => deleteEst(estimate._id)} className='delete-estimate'>Delete</button>
+            <FaEdit onClick={() => (setEstimateFormRendered(true), setEditEstimateData(estimate))} className='edit-estimate'/>
+            <FaTrashAlt onClick={() => deleteEst(estimate._id)} className='delete-estimate'/>
         </div>
     </div>
   )

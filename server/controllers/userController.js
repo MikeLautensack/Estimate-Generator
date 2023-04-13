@@ -107,6 +107,6 @@ export const deleteUser = async (req, res) => {
 //Generate JWT
 export const generateToken = (id) => {
     return Jwt.sign({ id }, process.env.secret, {
-        expiresIn: '1h'
+        expiresIn: '1d'
     })
 }

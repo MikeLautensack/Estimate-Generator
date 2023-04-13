@@ -1,30 +1,35 @@
 .task-list-item {
-    border: 1px solid var(--Black);
+    border: 2px solid var(--Blue-Zodiac);
     border-radius: .25rem;
     padding: 0 .25rem;
+    background-color: var(--White);
+    margin: .25rem 0;
 }
 
 .task-list-item-taskname {
     font-size: 1rem;
-    color: var(--Black);
+    color: var(--Blue-Zodiac);
     font-weight: 500;
 }
 
 .task-list-item-heading {
     font-size: 1rem;
-    color: var(--Black);
+    color: var(--Blue-Zodiac);
     font-weight: 400;
 }
 
 .list-of-subtasks {
-    border: 1px solid var(--Black);
+    border: 1px solid var(--Blue-Zodiac);
     border-radius: .25rem;
     padding: .1rem 0;
+    background-color: var(--Tiara);
+    display: grid;
+    gap: 1px;
 }
 
 .task-list-item-total {
     font-size: 1rem;
-    color: var(--Black);
+    color: var(--Blue-Zodiac);
     font-weight: 500;
     text-align: right;
 }

@@ -1,12 +1,13 @@
 import React, { useReducer, useState, createContext, useEffect } from 'react'
 import './css/EstimateForm.css'
 import Task from './Task'
-import { FaTimes } from 'react-icons/fa'
+import { FaTimes, FaPlus } from 'react-icons/fa'
 import TaskForm from './TaskForm'
 import SubtaskForm from './SubtaskForm'
 import { useForm } from 'react-hook-form'
 import { validateEstimate } from '../../validations/validations.js'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { number } from 'yup'
 
 const reducer = (estimate, action) => {
     switch(action.type) {
@@ -143,41 +144,25 @@ const EstimateForm = ({ setEstimateFormRendered,
     }, [])
 
     useEffect(() => {
-        if(errors.estimateName == true && errors.customerName == true && errors.customerEmail == true) {
+        const numberOfErrors = Object.keys(errors).length
+        if(numberOfErrors == 1) {
+            setOneError(true)
+            setTwoErrors(false)
+            setThreeErrors(false)
+        } else if (numberOfErrors == 2) {
+            setOneError(false)
+            setTwoErrors(true)
+            setThreeErrors(false)
+        } else if (numberOfErrors == 3) {
             setOneError(false)
             setTwoErrors(false)
             setThreeErrors(true)
-        }
-
-        if(errors.estimateName == true && errors.customerName == true && errors.customerEmail == false) {
+        } else if (numberOfErrors == 0) {
             setOneError(false)
-            setTwoErrors(true)
-            setThreeErrors(false)
-        } else if (errors.estimateName == true && errors.customerName == false && errors.customerEmail == true) {
-            setOneError(false)
-            setTwoErrors(true)
-            setThreeErrors(false)
-        } else if (errors.estimateName == false && errors.customerName == true && errors.customerEmail == true) {
-            setOneError(false)
-            setTwoErrors(true)
-            setThreeErrors(false)
-        }
-
-        if(errors.estimateName == true && errors.customerName == false && errors.customerEmail == false) {
-            setOneError(true)
-            setTwoErrors(false)
-            setThreeErrors(false)
-        } else if (errors.estimateName == false && errors.customerName == true && errors.customerEmail == false) {
-            setOneError(true)
-            setTwoErrors(false)
-            setThreeErrors(false)
-        } else if (errors.estimateName == false && errors.customerName == false && errors.customerEmail == true) {
-            setOneError(true)
             setTwoErrors(false)
             setThreeErrors(false)
         }
-        
-    }, [errors])
+    }, [errors.estimateName, errors.customerName, errors.customerEmail])
 
     const addEst = (data) => {
         const newEstimate = {
@@ -298,7 +283,6 @@ const EstimateForm = ({ setEstimateFormRendered,
           }), 
           total: estTotal
         }
-        console.log(calculatedEstimate)
         dispatch({ type: 'calculateEstimate', payload: calculatedEstimate })
     }
 
@@ -368,7 +352,7 @@ const EstimateForm = ({ setEstimateFormRendered,
                 </form>
                 <div className={`form-tasks ${oneError ? 'oneError' : ''} ${twoErrors ? 'twoErrors' : ''} ${threeErrors ? 'threeErrors' : ''}`}>
                     <h2 className='tasks-list-heading'>Tasks</h2>
-                    <button onClick={() => setTaskFormRendered(true)} className='add-task-button'>Add Task</button>
+                    <FaPlus onClick={() => setTaskFormRendered(true)} className='add-task-button'/>
                     <ul className='task-form-list'>
                         {estimate.tasks.map((task) => (
                             <li key={task.id}>
@@ -388,7 +372,7 @@ const EstimateForm = ({ setEstimateFormRendered,
                 <div className='buttons-and-price'>
                     <button className='estimate-form-buttons'>Preview Estimate</button>
                     <button onClick={handleSubmit(editEstimateData == null || undefined ? addEst : editEst)} className='estimate-form-buttons'>Save</button>
-                    <button className='estimate-form-buttons'>Save & Send</button>
+                    {/*<button className='estimate-form-buttons'>Save & Send</button>*/}
                     <h1 className='estimate-form-total'>{estimate.total ? `$${estimate.total.toFixed(2)}` : '$0.00'}</h1>
                 </div>
             </div>

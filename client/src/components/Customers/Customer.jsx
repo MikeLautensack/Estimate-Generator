@@ -1,5 +1,6 @@
 import React from 'react'
 import './css/Customer.css'
+import { FaTrashAlt, FaEdit } from "react-icons/fa"
 
 const Customer = ({ customer,
                     setCustomerFormVis,
@@ -13,8 +14,8 @@ const Customer = ({ customer,
             <p>{customer.phoneNumber}</p>
         </div>
         <div className='button-box'>
-            <button onClick={() => (setCustomerFormVis(true), setFormData(customer))} className='edit-customer'>Edit</button>
-            <button onClick={() => deleteCust(customer._id)} className='delete-customer'>Delete</button>
+            <FaEdit onClick={() => (setCustomerFormVis(true), setFormData(customer))} className='edit-customer'/>
+            <FaTrashAlt onClick={() => deleteCust(customer._id)} className='delete-customer'/>
         </div>
     </div>
   )
