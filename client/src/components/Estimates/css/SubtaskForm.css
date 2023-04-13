@@ -25,6 +25,21 @@
     overflow-y: scroll;
 }
 
+.method-card::-webkit-scrollbar {
+    width: 10px;
+}
+
+.method-card::-webkit-scrollbar-track {
+    background-color: var(--Blue-Zodiac);
+    border-radius: 100vw;
+    margin-block: .25rem;
+}
+
+.method-card::-webkit-scrollbar-thumb {
+    background-color: var(--Fountain-Blue);
+    border-radius: 100vw;
+}
+
 .new-subtask-input-feilds label {
     color: var(--White);
     font-size: 1rem;

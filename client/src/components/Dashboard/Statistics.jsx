@@ -2,11 +2,13 @@ import React from 'react'
 import './css/Statistics.css'
 import DataContext from '../../context/DataContext'
 import { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Statistics = ({ recentCustomers, recentEstimates }) => {
 
   const data = useContext(DataContext)
   const { customers, estimates } = data
+  const nav = useNavigate()
 
   const calcAveEstTotal = () => {
     if (estimates.length === 0) {
@@ -60,7 +62,7 @@ const Statistics = ({ recentCustomers, recentEstimates }) => {
             </div>      
           </div>
           <div className='new-customer-button-container'>
-            <button className='stats-new-customer-button'>New Customer</button>
+            <button onClick={() => nav('/Customers')} className='stats-new-customer-button'>New Customer</button>
           </div>
         </div>
         <div className='estimate-statistics-card'>
@@ -80,7 +82,7 @@ const Statistics = ({ recentCustomers, recentEstimates }) => {
             </div>
           </div>
           <div className='new-estimate-button-container'>
-            <button className='stats-new-estimate-button'>New Estimate</button>
+            <button onClick={() => nav('/Estimates')} className='stats-new-estimate-button'>New Estimate</button>
           </div>
         </div>
       </div>
