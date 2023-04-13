@@ -1,6 +1,6 @@
 import React, { useReducer, useContext, useEffect } from 'react'
 import Nav from '../Nav/Nav'
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FaBars, FaPlus } from 'react-icons/fa'
 import { useState } from 'react'
 import './css/Estimates.css'
 import EstimateListItem from './EstimateListItem'
@@ -8,7 +8,6 @@ import EstimateForm from './EstimateForm'
 import Estimate from './Estimate'
 import DataContext from '../../context/DataContext'
 import useAPI from '../../hooks/useAPI.js'
-import { FaPlus } from "react-icons/fa"
 
 const reducer = (estimates, action) => {
     switch(action.type) {
@@ -62,14 +61,13 @@ const Estimates = () => {
 
   const edit = (estimate) => {
       dispatch({ type: 'edit', payload: estimate})
-      const list = [...estimates, 
-        estimates.map((est) => {
+      const list = estimates.map((est) => {
           if(est._id === estimate._id) {
             return estimate
           } else {
             return est
           }
-        })]
+        })
       setEstimates(list)
       updateEstimate(jwt, estimate, estimate._id)
   }

@@ -76,7 +76,7 @@
 
 .form-tasks {
     width: 100%;
-    height: calc(100% - 305px);
+    height: calc(100% - 257px);
     background-color: var(--White);
     border: 2px solid var(--Blue-Zodiac);
     border-radius: .5rem;
@@ -85,15 +85,15 @@
 }
 
 .oneError {
-    height: calc(100% - 332px);
+    height: calc(100% - 285px);
 }
 
 .twoErrors {
-    height: calc(100% - 360px);
+    height: calc(100% - 313px);
 }
 
 .threeErrors {
-    height: calc(100% - 390px);
+    height: calc(100% - 341px);
 }
 
 .tasks-list-heading {
@@ -109,20 +109,15 @@
 }
 
 .add-task-button {
-    font-size: 12px;
-    line-height: 20px;
-    padding: 4px 8px;
-    border-radius: 100vw;
-    background-color: var(--Fountain-Blue);
-    color: var(--Blue-Zodiac);
+    font-size: 1.5rem;
+    color: var(--Fountain-Blue);
     position: absolute;
     top: .25rem;
     right: .25rem;
-    font-weight: 500;
 }
 
 .add-task-button:hover {
-    box-shadow: 0 0 .5rem var(--Fountain-Blue);
+    text-shadow: 0 0 .5rem var(--Fountain-Blue);
 }
 
 .task-form-list {
@@ -165,13 +160,13 @@
 }
 
 .task-form-list::-webkit-scrollbar-track {
-    background-color: var(--Regent-Gray);
+    background-color: var(--Tiara);
     border-radius: 100vw;
     margin-block: .25rem;
 }
 
 .task-form-list::-webkit-scrollbar-thumb {
-    background-color: var(--Regent-Gray);
+    background-color: var(--Blue-Zodiac);
     border-radius: 100vw;
 }
 
@@ -187,7 +182,7 @@
         margin: 0 .5rem;
     }
     
-    .estimate-total {
+    .estimate-form-total {
         margin: 0 .5rem;
     }
 

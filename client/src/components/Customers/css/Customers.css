@@ -106,13 +106,13 @@
 }
 
 .customer-list::-webkit-scrollbar-track {
-    background-color: var(--Regent-Gray);
+    background-color: var(--Tiara);
     border-radius: 100vw;
     margin-block: .25rem;
 }
 
 .customer-list::-webkit-scrollbar-thumb {
-    background-color: var(--Fountain-Blue);
+    background-color: var(--Blue-Zodiac);
     border-radius: 100vw;
 }
 

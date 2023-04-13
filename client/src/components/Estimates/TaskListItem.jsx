@@ -9,12 +9,12 @@ const TaskListItem = ({ task }) => {
         <h3 className='task-list-item-heading'>{task.taskDescription}</h3>
         <ul className='list-of-subtasks'>
             {task.subtasks.map((subtask) => (
-                <li>
+                <li key={subtask.id}>
                     <SubtaskListItem subtask={subtask}/>
                 </li>
             ))}
         </ul>
-        <h2 className='task-list-item-total'>{task.total ? `$${task.total}` : '$0.00'}</h2>
+        <h2 className='task-list-item-total'>{task.total ? `$${task.total.toFixed(2)}` : '$0.00'}</h2>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 .estimate {
-    background-color: var(--White);
+    background-color: var(--Regent-Gray);
     width: 100%;
     height: 100%;
     padding: .5rem;
@@ -10,12 +10,17 @@
 }
 
 .estimate-doc {
-    background-color: var(--Blue-Zodiac);
+    background-color: var(--White);
     width: 100%;
     height: 100%;
     border-radius: 1rem;
+    border: 2px solid var(--Blue-Zodiac);
     padding: 0 .5rem .5rem;
     position: relative;
+}
+
+.estimate-preview-data {
+    color: var(--Blue-Zodiac);
 }
 
 .customer-data {
@@ -29,12 +34,14 @@
     font-weight: bold;
     font-size: 28px;
     line-height: 48px;
+    color: var(--Blue-Zodiac);
 }
 
-.tasks {
+.estimate-preview-tasks {
     width: 100%;
-    height: calc(100% - 135px);
+    height: calc(100% - 147px);
     background-color: var(--White);
+    border: 2px solid var(--Blue-Zodiac);
     border-radius: .5rem;
     position: relative;
     padding: .25rem;
@@ -51,11 +58,12 @@
     overflow-y: scroll;
     height: calc(100% - 32px);
     border-radius: .5rem;
+    background-color: var(--Tiara);
     border: 2px solid var(--Blue-Zodiac);
-    padding: .25rem; 
+    padding: 0 .25rem;
 }
 
-.buttons-and-price {
+.estimate-preview-buttons-and-price {
     width: calc(100% - 1rem);
     position: absolute;
     bottom: .5rem;
@@ -75,9 +83,10 @@
     box-shadow: 0 0 .5rem var(--Fountain-Blue);
 }
 
-.estimate-total {
-    text-align: end;
-    color: var(--White);
+.estimate-preview-total {
+    text-align: right;
+    color: var(--Blue-Zodiac);
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -86,21 +95,18 @@
 }
 
 .task-list::-webkit-scrollbar-track {
-    background-color: var(--White);
+    background-color: var(--Tiara);
     border-radius: 100vw;
     margin-block: .25rem;
 }
 
 .task-list::-webkit-scrollbar-thumb {
-    background-color: var(--Blue-Zodiac);
+    background-color: var(--Fountain-Blue);
     border-radius: 100vw;
 }
 
 @media (min-width: 1000px) {
-    .buttons-and-price {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
+    .estimate-preview-buttons-and-price {
         margin-top: .5rem;
     }
 
@@ -108,7 +114,7 @@
         margin: 0 .5rem;
     }
     
-    .estimate-total {
+    .estimate-preview-total {
         margin: 0 .5rem;
     }
 

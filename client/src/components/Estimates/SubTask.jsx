@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import './css/SubTask.css'
 import { EstimateContext } from './EstimateForm'
-import { FaTrashAlt } from "react-icons/fa"
+import { FaTrashAlt, FaEdit } from "react-icons/fa"
 
 const SubTask = ({ subtask, 
                    setEditSubtaskData,
@@ -26,8 +26,8 @@ const SubTask = ({ subtask,
         <div className='subtask-name-and-delete-button'>
             <h2 className='subtask-name-heading'>{subtask.subtaskName}</h2>
             <div className='subtask-button-box'>
-                <button className='edit-subtask-button' onClick={() => editSubtask(subtask)}>Edit</button>
-                <FaTrashAlt onClick={() => deleteSubtask(subtask.id, subtask.taskID)} style={{color: '#B91C1C', fontSize: '1.3rem'}}/>
+                <FaEdit className='edit-subtask-button' onClick={() => editSubtask(subtask)}/>
+                <FaTrashAlt onClick={() => deleteSubtask(subtask.id, subtask.taskID)} style={{color: '#B91C1C', fontSize: '1.2rem'}}/>
             </div>
         </div>
         <p className='subtask-description'>{subtask.subtaskDescription}</p>

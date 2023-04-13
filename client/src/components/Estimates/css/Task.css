@@ -34,13 +34,11 @@
 
 .subtask-list {
     width: 100%;
-    height: 5.5rem;
     margin: .5rem 0;
-    padding: .25rem;
-    overflow-y: scroll;
+    padding: .2rem 0;
     display: grid;
     grid-template-columns: 1fr;
-    gap: .2rem;
+    gap: 1px;
     background-color: var(--Tiara);
     border: 2px solid var(--Blue-Zodiac);
     border-radius: .25rem;
@@ -106,6 +104,11 @@
 
 .delete-task-button:hover {
     box-shadow: 0 0 .5rem var(--Delete);
+}
+
+.est-form-task-total {
+ text-align: right;
+ font-weight: 500;
 }
 
 .subtask-list::-webkit-scrollbar {
