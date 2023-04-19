@@ -3,9 +3,9 @@ import bodyParser from "body-parser"
 import mongoose from "mongoose"
 import cors from "cors"
 import dotenv from 'dotenv'
-import userRoutes from './routes/userRoutes.js'
-import customerRoutes from './routes/customerRoutes.js'
-import estimateRoutes from './routes/estimateRoutes.js'
+import userRoutes from './src/routes/userRoutes.js'
+import customerRoutes from './src/routes/customerRoutes.js'
+import estimateRoutes from './src/routes/estimateRoutes.js'
 
 dotenv.config()
 

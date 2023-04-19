@@ -25,8 +25,8 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    calculateRecentCustomers('1 Day')
-    calculateRecentEstimates('1 Day')
+    calculateRecentCustomers('7 Days')
+    calculateRecentEstimates('7 Days')
   }, [customers, estimates])
 
   const calculateRecentCustomers = (filterSetting) => {
@@ -79,7 +79,7 @@ const Dashboard = () => {
           }
       } else if (filterSetting === '30 Days') {
           if(new Date(estimate.dateModified).getTime() <= today.getTime() && new Date(estimate.dateModified).getTime() >= thirtyDaysAgo.getTime()) {
-            return arr.concat(estimates)
+            return arr.concat(estimate)
           } else {
             return arr
           }

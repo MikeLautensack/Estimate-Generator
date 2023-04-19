@@ -7,7 +7,6 @@ import SubtaskForm from './SubtaskForm'
 import { useForm } from 'react-hook-form'
 import { validateEstimate } from '../../validations/validations.js'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { number } from 'yup'
 
 const reducer = (estimate, action) => {
     switch(action.type) {
@@ -385,8 +384,8 @@ const EstimateForm = ({ setEstimateFormRendered,
                     </ul>
                 </div>
                 <div className='buttons-and-price'>
-                    <button onClick={handleSubmit(previewEstimate)} className='estimate-form-buttons'>Preview Estimate</button>
-                    <button onClick={handleSubmit(editEstimateData == null || undefined ? addEst : editEst)} className='estimate-form-buttons'>Save</button>
+                    <button onClick={handleSubmit(previewEstimate)} className='estimate-form-preview-button'>Preview Estimate</button>
+                    <button onClick={handleSubmit(editEstimateData == null || undefined ? addEst : editEst)} className='estimate-form-save-button'>Save</button>
                     {/*<button className='estimate-form-buttons'>Save & Send</button>*/}
                     <h1 className='estimate-form-total'>{estimate.total ? `$${estimate.total.toFixed(2)}` : '$0.00'}</h1>
                 </div>

@@ -42,7 +42,7 @@ const UnitRateForm = ({ editSubtaskData }) => {
         </div>
         <div className='unit-rate-form-fields'>
             <label>Price Per Unit:</label>
-            <input type='number' {...register('pricePerUnit', {
+            <input {...register('pricePerUnit', {
               onChange: (e) => {
                 setPricePerUnit(e.target.value)
               },
@@ -51,7 +51,7 @@ const UnitRateForm = ({ editSubtaskData }) => {
         </div>
         <div className='unit-rate-form-fields'>
             <label>Quantity:</label>
-            <input type='number' {...register('quantity', {
+            <input {...register('quantity', {
               onChange: (e) => {
                 setQuantity(e.target.value)
               },
