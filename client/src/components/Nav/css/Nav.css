@@ -22,6 +22,9 @@
     width: 6rem;
     height: 6rem;
     border-radius: 3rem;
+    background-image: url(../../assets/MikeLautensack_residential_painting_business_logo_paint_brush_p_77de0025-9771-43f3-b614-66065f62befc.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .username {

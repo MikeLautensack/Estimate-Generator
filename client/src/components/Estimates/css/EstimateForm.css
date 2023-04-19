@@ -135,7 +135,7 @@
     bottom: .5rem;
 }
 
-.estimate-form-buttons {
+.estimate-form-preview-button {
     width: 100%;
     background-color: var(--Fountain-Blue);
     color: var(--Blue-Zodiac);
@@ -145,7 +145,21 @@
     margin: .25rem 0;
 }
 
-.estimate-buttons:hover {
+.estimate-form-preview-button:hover {
+    box-shadow: 0 0 .5rem var(--Fountain-Blue);
+}
+
+.estimate-form-save-button {
+    width: 100%;
+    background-color: var(--Fountain-Blue);
+    color: var(--Blue-Zodiac);
+    font-weight: bold;
+    border-radius: 100vw;
+    padding: .5rem 0;
+    margin: .25rem 0;
+}
+
+.estimate-form-save-button:hover {
     box-shadow: 0 0 .5rem var(--Fountain-Blue);
 }
 
@@ -178,15 +192,31 @@
         margin-top: .5rem;
     }
 
-    .estimate-buttons {
-        margin: 0 .5rem;
+    .estimate-form-preview-button {
+        margin: 0 .25rem 0 0;
+    }
+
+    .estimate-form-save-button {
+        margin: 0 0 0 .25rem;
     }
     
     .estimate-form-total {
         margin: 0 .5rem;
     }
 
-    .tasks {
-        height: calc(100% - 248px);
+    .form-tasks {
+        height: calc(100% - 186px);
+    }
+    
+    .oneError {
+        height: calc(100% - 213px);
+    }
+    
+    .twoErrors {
+        height: calc(100% - 241px);
+    }
+    
+    .threeErrors {
+        height: calc(100% - 270px);
     }
 }
