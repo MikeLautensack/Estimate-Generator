@@ -19,7 +19,7 @@ const Login = ({ setRegisterFormVis }) => {
   const nav = useNavigate()
 
   const loginUser = async (email, password) => {
-    return axios.post('http://localhost:9000/users/login', {
+    return axios.post('http://193.46.198.215:9000/users/login', {
         email,
         password
     })
