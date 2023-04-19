@@ -7,17 +7,17 @@ const useAPI = () => {
     const { setCustomers, setEstimates} = useContext(DataContext)
 
     const getCustomers = async (token) => {
-        const response = await axios.get('http://localhost:9000/customers/get', { headers: { Authorization: `Bearer ${token}` } })
+        const response = await axios.get('http://193.46.198.215:9000/customers/get', { headers: { Authorization: `Bearer ${token}` } })
         setCustomers(response.data)
     }
        
     const getEstimates = async (token) => {
-        const response = await axios.get('http://localhost:9000/estimates/get', { headers: { Authorization: `Bearer ${token}` } })
+        const response = await axios.get('http://193.46.198.215:9000/estimates/get', { headers: { Authorization: `Bearer ${token}` } })
         setEstimates(response.data)
     }
 
     const addCustomer = async (token, customer) => {
-        const response = await axios.post('http://localhost:9000/customers/add', customer, { headers: { Authorization: `Bearer ${token}` } })
+        const response = await axios.post('http://193.46.198.215:9000/customers/add', customer, { headers: { Authorization: `Bearer ${token}` } })
     }
 
     const addEstimate = async (token, estimate) => {
