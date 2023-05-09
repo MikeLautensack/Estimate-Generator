@@ -94,6 +94,8 @@ const reducer = (estimate, action) => {
                     }
                 })
             }
+        default:
+            throw new Error(`Unhandled action type: ${action.type}`)
     }
 }
 
@@ -140,24 +142,26 @@ const EstimateForm = ({ setEstimateFormRendered,
             setValue("customerPhone", editEstimateData.customerPhone)
             setValue("address", editEstimateData.address)
             setValue("estimateNumber", editEstimateData.estimateNumber)
+            localStorage.setItem('estimate', JSON.stringify(editEstimateData))
         }
+        localStorage.setItem('estimate', JSON.stringify(estimate))
     }, [])
 
     useEffect(() => {
         const numberOfErrors = Object.keys(errors).length
-        if(numberOfErrors == 1) {
+        if(numberOfErrors === 1) {
             setOneError(true)
             setTwoErrors(false)
             setThreeErrors(false)
-        } else if (numberOfErrors == 2) {
+        } else if (numberOfErrors === 2) {
             setOneError(false)
             setTwoErrors(true)
             setThreeErrors(false)
-        } else if (numberOfErrors == 3) {
+        } else if (numberOfErrors === 3) {
             setOneError(false)
             setTwoErrors(false)
             setThreeErrors(true)
-        } else if (numberOfErrors == 0) {
+        } else if (numberOfErrors === 0) {
             setOneError(false)
             setTwoErrors(false)
             setThreeErrors(false)
@@ -225,20 +229,20 @@ const EstimateForm = ({ setEstimateFormRendered,
             task.subtasks.forEach((subtask) => {
               taskTotal += subtask.total
             })
-            if(taskID == task.id) {
-                if(mode == 'add') {
+            if(taskID === task.id) {
+                if(mode === 'add') {
                     taskTotal += asyncSubtaskTotalData
-                } else if (mode == 'edit') {
-                    if(editDataTotal != submissionDataTotal) {
+                } else if (mode === 'edit') {
+                    if(editDataTotal !== submissionDataTotal) {
                         taskTotal += asyncSubtaskTotalData - editDataTotal
                     }
-                } else if (mode == 'delete') {
+                } else if (mode === 'delete') {
                     taskTotal = taskTotal - object.total
                 }
             }
             estTotal += taskTotal
-            if(mode == 'add') {
-                if(taskID == task.id) {
+            if(mode === 'add') {
+                if(taskID === task.id) {
                     return {
                         ...task,
                         subtasks: task.subtasks.concat(object),
@@ -250,13 +254,13 @@ const EstimateForm = ({ setEstimateFormRendered,
                         total: taskTotal
                     }
                 }
-            } else if (mode == 'edit') {
-                if(taskID == task.id) {
-                    if(editDataTotal != submissionDataTotal) {
+            } else if (mode === 'edit') {
+                if(taskID === task.id) {
+                    if(editDataTotal !== submissionDataTotal) {
                         return {
                             ...task,
                             subtasks: task.subtasks.map((subtask) => {
-                                if(subtask.id == object.id) {
+                                if(subtask.id === object.id) {
                                     return object
                                 } else {
                                     return subtask
@@ -276,12 +280,12 @@ const EstimateForm = ({ setEstimateFormRendered,
                         total: taskTotal
                     }
                 }
-            } else if (mode == 'delete') {
-                if(taskID == task.id) {
+            } else if (mode === 'delete') {
+                if(taskID === task.id) {
                     return {
                         ...task,
                         subtasks: task.subtasks.filter((subtask) => {
-                            if(subtask.id != object.id) {
+                            if(subtask.id !== object.id) {
                                 return subtask
                             }
                         }),
@@ -298,6 +302,7 @@ const EstimateForm = ({ setEstimateFormRendered,
           total: estTotal
         }
         dispatch({ type: 'calculateEstimate', payload: calculatedEstimate })
+        console.log(calculatedEstimate)
     }
 
     const calculateOnDeleteTask = (taskData) => {
@@ -309,7 +314,7 @@ const EstimateForm = ({ setEstimateFormRendered,
             task.subtasks.forEach((subtask) => {
               taskTotal += subtask.total
             })
-            if(taskData.id != task.id) {
+            if(taskData.id !== task.id) {
                 estTotal += taskTotal
                 return arr.concat({
                     ...task,

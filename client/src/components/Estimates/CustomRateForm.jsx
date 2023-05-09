@@ -21,7 +21,7 @@ const CustomRateForm = ({ editSubtaskData }) => {
         <h1>Custom</h1>
         <div className='custom-rate-form-fields'>
             <label>Subtask total:</label>
-            <input {...register('customSubtotal', {
+            <input type="number" step="any" {...register('customSubtotal', {
               onChange: (e) => {
                 setTotal(e.target.value)
               },

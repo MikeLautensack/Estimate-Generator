@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './css/NewCustomerForm.css'
 import { FaTimes } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
@@ -11,32 +11,32 @@ const NewCustomerForm = ({ setCustomerFormVis,
                            formData,
                            setFormData}) => {
 
-    const [customerData, setCustomerData] = useState()
-
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(validateCustomer)
     })
 
     useEffect(() => {
-        setCustomerData(formData)
+        if (formData != null || undefined) {
+            const { name , email, phoneNumber, address} = formData
+            setValue("name", name)
+            setValue("email", email)
+            setValue("phoneNumber", parsePhoneNumber(phoneNumber))
+            setValue("address", address)
+        }
     }, [])
 
-    if (customerData != null || undefined) {
-        const { name , email, phoneNumber, address} = customerData
-        setValue("name", name)
-        setValue("email", email)
-        setValue("phoneNumber", phoneNumber)
-        setValue("address", address)
+    const parsePhoneNumber = (formattedNumber) => {
+        const digitsOnly = formattedNumber.replace(/\D/g, '')
+        return digitsOnly
     }
 
     const onExit = () => {
         setCustomerFormVis(false)
         setFormData(null)
     }
-    
 
     return (
-      <form onSubmit={handleSubmit(customerData == null || undefined ? add : edit)} className='new-customer-form'>
+      <form onSubmit={handleSubmit(formData == null || undefined ? add : edit)} className='new-customer-form'>
           <FaTimes 
               onClick={() => (onExit())}
               style={{ color: 'white', 
@@ -45,7 +45,7 @@ const NewCustomerForm = ({ setCustomerFormVis,
                            left: '.5rem'}}/>
           <div className='new-customer-input-feilds-box'>
               <div className='new-customer-input-feilds'>
-                  <label>First Name:</label>
+                  <label>Name:</label>
                   <input {...register("name")}></input>
                   {errors.name && <p style={{ color: '#C70000'}}>{errors.name?.message}</p>}
               </div>
@@ -65,7 +65,7 @@ const NewCustomerForm = ({ setCustomerFormVis,
                   {errors.address && <p style={{ color: '#C70000'}}>{errors.address?.message}</p>}
               </div>
           </div>
-          <button className='new-customer-form-submit-button'>{customerData == null || undefined ? "Add New Customer" : "Edit Customer"}</button>
+          <button className='new-customer-form-submit-button'>{formData == null || undefined ? "Add New Customer" : "Edit Customer"}</button>
       </form>
     )
 }

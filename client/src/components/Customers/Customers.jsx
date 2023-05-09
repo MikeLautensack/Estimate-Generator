@@ -11,8 +11,7 @@ import { FaPlus } from "react-icons/fa"
 
 const Customers = () => {
 
-  const data = useContext(DataContext)
-  const { jwt, customers, setCustomers } = data
+  const { jwt, customers, setCustomers } = useContext(DataContext)
   const [customerFormVis, setCustomerFormVis] = useState(false)
   const [formData, setFormData] = useState()
   const [navVis, setNavVis] = useState(false)
@@ -21,6 +20,7 @@ const Customers = () => {
 
   useEffect(() => {
     setCustomerList(customers)
+    console.log(customers)
   }, [])
 
   const changeNavVis = () => {
@@ -37,7 +37,7 @@ const Customers = () => {
         _id: Math.random(),
         name: name,
         email: email,
-        phoneNumber: phoneNumber,
+        phoneNumber: formatPhoneNumber(phoneNumber),
         address: address,
         dateCreated: new Date(),
         dateModified: new Date(),
@@ -47,6 +47,7 @@ const Customers = () => {
       setCustomerList(newCustomerList)
       setCustomerFormVis(false)
       setCustomers(newCustomerList)
+      localStorage.setItem('customers', JSON.stringify(newCustomerList))
       addCustomer(jwt, newCustomer)
   }
 
@@ -58,7 +59,7 @@ const Customers = () => {
             _id: customer._id,
             name: name,
             email: email,
-            phoneNumber: phoneNumber,
+            phoneNumber: formatPhoneNumber(phoneNumber),
             address: address,
             dateModified: new Date(),
             estimates: []
@@ -74,6 +75,7 @@ const Customers = () => {
     setCustomerFormVis(false)
     setFormData(null)
     setCustomers(editedCustomerList)
+    localStorage.setItem('customers', JSON.stringify(editedCustomerList))
   }
 
   const deleteCust = (_id) => {
@@ -85,6 +87,14 @@ const Customers = () => {
       })
       setCustomerList(list)
       setCustomers(list)
+      localStorage.setItem('customers', JSON.stringify(list))
+  }
+
+  const formatPhoneNumber = (number) => {
+    const areaCode = number.slice(0, 3);
+    const prefix = number.slice(3, 6);
+    const lineNumber = number.slice(6, 10);
+    return `(${areaCode}) ${prefix}-${lineNumber}`;
   }
 
   return (

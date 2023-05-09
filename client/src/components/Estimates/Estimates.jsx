@@ -25,6 +25,8 @@ const reducer = (estimates, action) => {
           })
         case 'delete':
           return action.payload
+        default:
+          throw new Error(`Unhandled action type: ${action.type}`)
     }
 }
 
@@ -56,6 +58,7 @@ const Estimates = () => {
       dispatch({ type: 'add', payload: estimate})
       const list = [...estimates, estimate]
       setEstimates(list)
+      localStorage.setItem('estimates', JSON.stringify(list))
       addEstimate(jwt, estimate)
   }
 
@@ -69,6 +72,7 @@ const Estimates = () => {
           }
         })
       setEstimates(list)
+      localStorage.setItem('estimates', JSON.stringify(list))
       updateEstimate(jwt, estimate, estimate._id)
   }
 
@@ -81,6 +85,7 @@ const Estimates = () => {
     })
     dispatch({ type: 'delete', payload: list})
     setEstimates(list)
+    localStorage.setItem('estimates', JSON.stringify(list))
 }
 
   return (

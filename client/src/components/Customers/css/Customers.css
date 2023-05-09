@@ -112,7 +112,7 @@
 }
 
 .customer-list::-webkit-scrollbar-thumb {
-    background-color: var(--Blue-Zodiac);
+    background-color: var(--Fountain-Blue);
     border-radius: 100vw;
 }
 
