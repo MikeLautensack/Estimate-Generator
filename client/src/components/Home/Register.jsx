@@ -27,13 +27,13 @@ const Register = () => {
       password1
     })
     .then((response) => {
-      if(response.status == 201) {
+      if(response.status === 201) {
         setUser(response.data.user)
         setJWT(response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('jwt', JSON.stringify(response.data.token))
         nav('/Dashboard')
-        console.log('test')
       }
-      console.log('test12334')
     })
     .catch((err) => {
       setError('root.serverError', {

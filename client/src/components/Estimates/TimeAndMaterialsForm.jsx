@@ -60,7 +60,7 @@ const TimeAndMaterialsForm = ({ editSubtaskData }) => {
             </div>
             <div className='time-and-materials-input-fields'>
                 <label>Quantity:</label>
-                <input {...register('timeQuantity', {
+                <input type="number" step="any" {...register('timeQuantity', {
               onChange: (e) => {
                 setTimeQuantity(e.target.value)
               },
@@ -69,7 +69,7 @@ const TimeAndMaterialsForm = ({ editSubtaskData }) => {
             </div>
             <div className='time-and-materials-input-fields'>
                 <label>Price Per Unit:</label>
-                <input {...register('timePricePerUnit', {
+                <input type="number" step="any" {...register('timePricePerUnit', {
               onChange: (e) => {
                 setTimePricePerUnit(e.target.value)
               },
@@ -90,7 +90,7 @@ const TimeAndMaterialsForm = ({ editSubtaskData }) => {
             </div>
             <div className='time-and-materials-input-fields'>
                 <label>Quantity:</label>
-                <input {...register('materialsQuantity', {
+                <input type="number" step="any" {...register('materialsQuantity', {
               onChange: (e) => {
                 setMaterialsQuantity(e.target.value)
               },
@@ -99,7 +99,7 @@ const TimeAndMaterialsForm = ({ editSubtaskData }) => {
             </div>
             <div className='time-and-materials-input-fields'>
                 <label>Price Per Unit:</label>
-                <input {...register('materialsPricePerUnit', {
+                <input type="number" step="any" {...register('materialsPricePerUnit', {
               onChange: (e) => {
                 setMaterialsPricePerUnit(e.target.value)
               },

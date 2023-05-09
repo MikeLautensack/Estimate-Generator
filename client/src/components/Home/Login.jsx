@@ -1,7 +1,7 @@
 import React from 'react'
 import './css/Login.css'
 import { useForm } from 'react-hook-form'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import DataContext from '../../context/DataContext.jsx'
 import useAPI from '../../hooks/useAPI.js'
 import axios from 'axios'
@@ -24,11 +24,13 @@ const Login = ({ setRegisterFormVis }) => {
         password
     })
     .then((response) => {
-        if(response.status == 200) {
+        if(response.status === 200) {
             setUser(response.data.user)
             setJWT(response.data.token)
             getCustomers(response.data.token)
             getEstimates(response.data.token)
+            localStorage.setItem('user', JSON.stringify(response.data.user))
+            localStorage.setItem('jwt', JSON.stringify(response.data.token))
             nav('/Dashboard')
         }
     })

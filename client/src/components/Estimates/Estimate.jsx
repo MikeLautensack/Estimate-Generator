@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './css/Estimate.css'
 import { FaTimes } from 'react-icons/fa'
-import { useState, useContext } from 'react'
-import DataContext from '../../context/DataContext'
 import TaskListItem from './TaskListItem'
 
 const Estimate = ({ setEstimateRendered, estimate }) => {
+
+    useEffect(() => {
+        localStorage.setItem('estimate', JSON.stringify(estimate))
+    }, [])
 
   return (
     <div className='estimate'>

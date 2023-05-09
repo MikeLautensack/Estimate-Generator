@@ -15,7 +15,7 @@ export const validateRegister = Yup.object().shape({
 export const validateCustomer = Yup.object().shape({
     name: Yup.string().required('Name is required'),
     email: Yup.string().email('Please enter a valid email').required('Email is required'),
-    phoneNumber: Yup.string(),
+    phoneNumber: Yup.string().matches(/^[0-9]+$/, 'Must be only digits').min(10, 'Number must be 10 digits').max(10, 'Number must be 10 digits'),
     address: Yup.string()
 })
 
@@ -33,5 +33,5 @@ export const validateTask = Yup.object().shape({
 
 export const validateSubtask = Yup.object().shape({
     subtaskName: Yup.string().required('Subask name is required').max(50, 'Subtask name must be less than 80 characters'),
-    subtaskDescription: Yup.string().max(200, 'Subtask description must be less than 200 characters')
+    subtaskDescription: Yup.string().max(200, 'Subtask description must be less than 200 characters'),
 })

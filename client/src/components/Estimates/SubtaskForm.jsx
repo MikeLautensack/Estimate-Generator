@@ -24,7 +24,7 @@ const SubtaskForm = ({ setSubtaskFormRendered,
     const { register, handleSubmit, control, setValue, formState: { errors } } = methods
     const { field } = useController({ name: 'method', control})
     const estimateContext = useContext(EstimateContext)
-    const { estimate, dispatch } = estimateContext
+    const { dispatch } = estimateContext
     
     const subtask = {
         id: 1,
@@ -134,6 +134,7 @@ const SubtaskForm = ({ setSubtaskFormRendered,
                                   data.customSubtotal)
         }
         dispatch({ type: 'editSubtask', payload: newSubtask})
+        console.log(newSubtask)
         setEditSubtaskData(null)
         setSubtaskFormRendered(false)
         calculate(newSubtask, newSubtask.total, newSubtask.taskID, 'edit', editSubtaskData.total, newSubtask.total)

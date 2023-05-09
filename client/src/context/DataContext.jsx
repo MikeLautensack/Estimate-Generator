@@ -8,6 +8,7 @@ export const DataProvider = ({ children }) => {
     const [jwt, setJWT] = useState()
     const [customers, setCustomers] = useState([])
     const [estimates, setEstimates] = useState([])
+    const [estimate, setEstimate] = useState([])
 
     return (
         <DataContext.Provider value={{user,
@@ -17,7 +18,9 @@ export const DataProvider = ({ children }) => {
                                       customers,
                                       setCustomers,
                                       estimates,
-                                      setEstimates}}>
+                                      setEstimates,
+                                      estimate,
+                                      setEstimate}}>
             {children}
         </DataContext.Provider>
     )

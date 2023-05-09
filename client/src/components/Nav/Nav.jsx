@@ -16,6 +16,11 @@ const Nav = () => {
     setJWT('')
     setCustomers([])
     setEstimates([])
+    localStorage.setItem('user', JSON.stringify({}))
+    localStorage.setItem('jwt', JSON.stringify({}))
+    localStorage.setItem('customers', JSON.stringify({}))
+    localStorage.setItem('estimates', JSON.stringify({}))
+    localStorage.setItem('estimate', JSON.stringify({}))
     nav('/')
   }
 
