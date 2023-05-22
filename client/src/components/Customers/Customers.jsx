@@ -15,13 +15,7 @@ const Customers = () => {
   const [customerFormVis, setCustomerFormVis] = useState(false)
   const [formData, setFormData] = useState()
   const [navVis, setNavVis] = useState(false)
-  const [customerList, setCustomerList] = useState([])
   const { addCustomer, updateCustomer, deleteCustomer } = useAPI()
-
-  useEffect(() => {
-    setCustomerList(customers)
-    console.log(customers)
-  }, [])
 
   const changeNavVis = () => {
       if (navVis === false) {
@@ -43,8 +37,7 @@ const Customers = () => {
         dateModified: new Date(),
         estimates: []
       }
-      const newCustomerList = [...customerList, newCustomer]
-      setCustomerList(newCustomerList)
+      const newCustomerList = [...customers, newCustomer]
       setCustomerFormVis(false)
       setCustomers(newCustomerList)
       localStorage.setItem('customers', JSON.stringify(newCustomerList))
@@ -53,7 +46,7 @@ const Customers = () => {
 
   const edit = (inputData) => {
     const { name, email, phoneNumber, address } = inputData
-    const editedCustomerList = customerList.map((customer) => {
+    const editedCustomerList = customers.map((customer) => {
         if (customer._id === formData._id) {
           const editedCustomer = {
             _id: customer._id,
@@ -71,7 +64,6 @@ const Customers = () => {
         }
  
     })
-    setCustomerList(editedCustomerList)
     setCustomerFormVis(false)
     setFormData(null)
     setCustomers(editedCustomerList)
@@ -79,13 +71,12 @@ const Customers = () => {
   }
 
   const deleteCust = (_id) => {
-      const list = customerList.filter((customer) => {
+      const list = customers.filter((customer) => {
         if(customer._id !== _id) {
           return customer
         }
         deleteCustomer(jwt, customer, customer._id)
       })
-      setCustomerList(list)
       setCustomers(list)
       localStorage.setItem('customers', JSON.stringify(list))
   }
@@ -112,7 +103,7 @@ const Customers = () => {
                   <FaPlus onClick={() => setCustomerFormVis(true)} className='add-customer-icon'/>
               </div>
               <ul className='customer-list'>
-                  {customerList.map((customer) => (
+                  {customers.map((customer) => (
                     <li className='customer-list-item' key={customer._id}>
                         <Customer 
                             customer={customer}

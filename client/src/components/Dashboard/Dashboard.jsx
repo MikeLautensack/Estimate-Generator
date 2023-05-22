@@ -10,8 +10,7 @@ import { useContext, useEffect } from 'react'
 
 const Dashboard = () => {
 
-  const data = useContext(DataContext)
-  const { customers, estimates } = data
+  const { customers, estimates } = useContext(DataContext)
   const [ recentCustomers, setRecentCustomers ] = useState([])
   const [ recentEstimates, setRecentEstimates ] = useState([])
   const [navVis, setNavVis] = useState(false)
