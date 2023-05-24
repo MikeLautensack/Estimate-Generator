@@ -32,8 +32,7 @@ const reducer = (estimates, action) => {
 
 const Estimates = () => {
 
-  const data = useContext(DataContext)
-  const { jwt, estimates, setEstimates } = data
+  const { jwt, estimates, setEstimates } = useContext(DataContext)
   const [estimatesList, dispatch] = useReducer(reducer, [])
   const [editEstimateData, setEditEstimateData] = useState()
   const [estimateRendered, setEstimateRendered] = useState(false)

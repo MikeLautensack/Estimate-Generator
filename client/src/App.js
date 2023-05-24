@@ -22,6 +22,7 @@ function App() {
     setCustomers(JSON.parse(localStorage.getItem('customers')))
     setEstimates(JSON.parse(localStorage.getItem('estimates')))
     setEstimate(JSON.parse(localStorage.getItem('estimate')))
+    console.log('2')
   }, [])
 
   return (

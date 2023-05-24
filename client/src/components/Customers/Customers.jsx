@@ -17,6 +17,10 @@ const Customers = () => {
   const [navVis, setNavVis] = useState(false)
   const { addCustomer, updateCustomer, deleteCustomer } = useAPI()
 
+  useEffect(() => {
+    console.log('1')
+  }, [])
+
   const changeNavVis = () => {
       if (navVis === false) {
         setNavVis(true)
