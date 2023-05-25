@@ -33,7 +33,7 @@ const Customers = () => {
       const { name, email, phoneNumber, address } = inputData
       const newCustomer = {
         _id: Math.random(),
-        id: Math.random(),
+        customerID: Math.random(),
         name: name,
         email: email,
         phoneNumber: formatPhoneNumber(phoneNumber),

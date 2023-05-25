@@ -15,7 +15,7 @@ export const getCustomer = async (req, res) => {
 export const postCustomer = async (req, res) => {
     try {
         const customer = await customerModel.create({
-            id: req.body.id,
+            customerID: req.body.customerID,
             user: req.user,
             name: req.body.name,
             email: req.body.email,
@@ -33,55 +33,41 @@ export const postCustomer = async (req, res) => {
 }
 
 export const putCustomer = async (req, res) => {
-    try {
-        const customer = await customerModel.findById(req.params.id)
+    
+    console.log('ID logs')
+    console.log(req.params.id)
+    console.log(req.body._id)
+    console.log(req.body.customerID)
 
+    try {
+        const updatedCustomer = await customerModel.findOneAndUpdate({customerID: req.body.customerID}, req.body, {
+            new: true,
+        })
         if(!customer) {
             res.status(400).send('Customer not found')
         }
-   
-        const user = await userModel.findById(req.user)
-    
-        if(!user) {
-            res.status(401).send('User not found')
-        }
-
-        const updatedCustomer = await customerModel.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-        })
-   
-        // Make sure logged in user matches goal user
-        if(customer) {
-            if(customer.user.toString() !== user._id.toString()) {
-                res.status(401).send('User not authorized')
-            } else {
-                res.status(200).send(updatedCustomer)
-            }
-        }
+        res.status(200).send(updatedCustomer)
     } catch (error) {
         console.log(error)
-        res.status(400).send('error')
+        res.status(400).send(error)
     }
 }
 
 export const deleteCustomer = async (req, res) => {
+
+    console.log('ID logs')
+    console.log(req.params.id)
+    console.log(req.body._id)
+    console.log(req.body.id)
+
     try {
         const customer = await customerModel.findById(req.params.id)
 
         if(!customer) {
             res.status(400).send('Customer not found')
         } else {
-            const user = await userModel.findById(req.user._id)
-
-            if(!user) {
-                res.status(401).send('User not found')
-            }
-            if(customer.user.toString() !== user._id.toString()) {
-                res.status(401).send('User not authorized')
-            }
             await customer.remove()
-
-            res.status(200).send(`Deleted Customer ${req.params.id}`)
+            res.status(200).send(`Deleted Customer ${customer.id}`)
         }
     } catch (error) {
         console.log(error)
