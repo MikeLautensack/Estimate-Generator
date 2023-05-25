@@ -16,7 +16,6 @@ const customerSchema = mongoose.Schema({
     address: String,
     dateCreated: Date,
     dateModified: Date,
-    estimates: []
 })
 
 const customerModel = mongoose.model('customers', customerSchema, 'Customers')

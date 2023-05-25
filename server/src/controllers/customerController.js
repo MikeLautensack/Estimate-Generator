@@ -15,6 +15,7 @@ export const getCustomer = async (req, res) => {
 export const postCustomer = async (req, res) => {
     try {
         const customer = await customerModel.create({
+            id: req.body.id,
             user: req.user,
             name: req.body.name,
             email: req.body.email,
