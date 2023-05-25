@@ -33,13 +33,13 @@ const Customers = () => {
       const { name, email, phoneNumber, address } = inputData
       const newCustomer = {
         _id: Math.random(),
+        id: Math.random(),
         name: name,
         email: email,
         phoneNumber: formatPhoneNumber(phoneNumber),
         address: address,
         dateCreated: new Date(),
         dateModified: new Date(),
-        estimates: []
       }
       const newCustomerList = [...customers, newCustomer]
       setCustomerFormVis(false)
@@ -53,13 +53,12 @@ const Customers = () => {
     const editedCustomerList = customers.map((customer) => {
         if (customer._id === formData._id) {
           const editedCustomer = {
-            _id: customer._id,
+            ... customer,
             name: name,
             email: email,
             phoneNumber: formatPhoneNumber(phoneNumber),
             address: address,
             dateModified: new Date(),
-            estimates: []
           }
           updateCustomer(jwt, editedCustomer, editedCustomer._id)
           return editedCustomer
@@ -79,7 +78,7 @@ const Customers = () => {
         if(customer._id !== _id) {
           return customer
         }
-        deleteCustomer(jwt, customer, customer._id)
+        deleteCustomer(jwt, customer, _id)
       })
       setCustomers(list)
       localStorage.setItem('customers', JSON.stringify(list))
