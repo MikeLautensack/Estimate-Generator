@@ -11,7 +11,7 @@ export const getCustomer = async (req, res) => {
         res.status(400).send('error')
     }
 }
-
+//testing
 export const postCustomer = async (req, res) => {
     try {
         const customer = await customerModel.create({
