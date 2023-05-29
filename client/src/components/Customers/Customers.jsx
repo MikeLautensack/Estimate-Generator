@@ -60,7 +60,7 @@ const Customers = () => {
             address: address,
             dateModified: new Date(),
           }
-          updateCustomer(jwt, editedCustomer, editedCustomer._id)
+          updateCustomer(jwt, editedCustomer, editedCustomer.customerID)
           return editedCustomer
         } else {
           return customer
