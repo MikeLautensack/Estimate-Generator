@@ -43,7 +43,7 @@ export const putCustomer = async (req, res) => {
         const updatedCustomer = await customerModel.findOneAndUpdate({customerID: req.body.customerID}, req.body, {
             new: true,
         })
-        if(!customer) {
+        if(!updatedCustomer) {
             res.status(400).send('Customer not found')
         }
         res.status(200).send(updatedCustomer)
