@@ -29,11 +29,16 @@ const Customers = () => {
       }
   }
 
+  const generateID = (min, max) => {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+
   const add = (inputData) => {
       const { name, email, phoneNumber, address } = inputData
       const newCustomer = {
-        _id: Math.random(),
-        customerID: Math.random(),
+        customer_id: generateID(1, 1000000000),
         name: name,
         email: email,
         phoneNumber: formatPhoneNumber(phoneNumber),
@@ -51,7 +56,7 @@ const Customers = () => {
   const edit = (inputData) => {
     const { name, email, phoneNumber, address } = inputData
     const editedCustomerList = customers.map((customer) => {
-        if (customer._id === formData._id) {
+        if (customer.customer_id === formData.customer_id) {
           const editedCustomer = {
             ... customer,
             name: name,
@@ -60,7 +65,7 @@ const Customers = () => {
             address: address,
             dateModified: new Date(),
           }
-          updateCustomer(jwt, editedCustomer, editedCustomer.customerID)
+          updateCustomer(jwt, editedCustomer, editedCustomer.customer_id)
           return editedCustomer
         } else {
           return customer
@@ -73,12 +78,12 @@ const Customers = () => {
     localStorage.setItem('customers', JSON.stringify(editedCustomerList))
   }
 
-  const deleteCust = (_id) => {
+  const deleteCust = (customer_id) => {
       const list = customers.filter((customer) => {
-        if(customer._id !== _id) {
+        if(customer.customer_id !== customer_id) {
           return customer
         }
-        deleteCustomer(jwt, customer, _id)
+        deleteCustomer(jwt, customer, customer_id)
       })
       setCustomers(list)
       localStorage.setItem('customers', JSON.stringify(list))

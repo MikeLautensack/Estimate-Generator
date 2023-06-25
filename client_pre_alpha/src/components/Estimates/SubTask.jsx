@@ -27,7 +27,7 @@ const SubTask = ({ subtask,
             <h2 className='subtask-name-heading'>{subtask.subtaskName}</h2>
             <div className='subtask-button-box'>
                 <FaEdit className='edit-subtask-button' onClick={() => editSubtask(subtask)}/>
-                <FaTrashAlt onClick={() => deleteSubtask(subtask.id, subtask.taskID)} style={{color: '#B91C1C', fontSize: '1.2rem'}}/>
+                <FaTrashAlt onClick={() => deleteSubtask(subtask.subtask_id, subtask.taskID)} style={{color: '#B91C1C', fontSize: '1.2rem'}}/>
             </div>
         </div>
         <p className='subtask-description'>{subtask.subtaskDescription}</p>

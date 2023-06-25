@@ -17,7 +17,7 @@ const reducer = (estimates, action) => {
           return [...estimates, action.payload]
         case 'edit':
           return estimates.map((estimate) => {
-            if(estimate._id === action.payload._id) {
+            if(estimate.estimate_id === action.payload.estimate_id) {
               return action.payload
             } else {
               return estimate
@@ -64,7 +64,7 @@ const Estimates = () => {
   const edit = (estimate) => {
       dispatch({ type: 'edit', payload: estimate})
       const list = estimates.map((est) => {
-          if(est._id === estimate._id) {
+          if(est.estimate_id === estimate.estimate_id) {
             return estimate
           } else {
             return est
@@ -72,15 +72,15 @@ const Estimates = () => {
         })
       setEstimates(list)
       localStorage.setItem('estimates', JSON.stringify(list))
-      updateEstimate(jwt, estimate, estimate._id)
+      updateEstimate(jwt, estimate, estimate.estimate_id)
   }
 
-  const deleteEst = (_id) => {
+  const deleteEst = (estimate_id) => {
     const list = estimatesList.filter((estimate) => {
-      if(estimate._id !== _id) {
+      if(estimate.estimate_id !== estimate_id) {
         return estimate
       }
-      deleteEstimate(jwt, estimate, estimate._id)
+      deleteEstimate(jwt, estimate, estimate.estimate_id)
     })
     dispatch({ type: 'delete', payload: list})
     setEstimates(list)
