@@ -9,7 +9,7 @@ const TaskListItem = ({ task }) => {
         <h3 className='task-list-item-heading'>{task.taskDescription}</h3>
         <ul className='list-of-subtasks'>
             {task.subtasks.map((subtask) => (
-                <li key={subtask.id}>
+                <li key={subtask.subtask_id}>
                     <SubtaskListItem subtask={subtask}/>
                 </li>
             ))}

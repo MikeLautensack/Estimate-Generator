@@ -16,7 +16,7 @@ const Estimate = ({ estimate,
         </div>
         <div className='estimate-li-button-box'>
             <FaEdit onClick={() => (setEstimateFormRendered(true), setEditEstimateData(estimate))} className='edit-estimate'/>
-            <FaTrashAlt onClick={() => deleteEst(estimate._id)} className='delete-estimate'/>
+            <FaTrashAlt onClick={() => deleteEst(estimate.estimate_id)} className='delete-estimate'/>
         </div>
     </div>
   )

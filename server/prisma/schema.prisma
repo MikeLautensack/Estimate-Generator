@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model customers {
+  customer_id  Int         @id
+  first_name   String?     @db.VarChar(100)
+  last_name    String?     @db.VarChar(100)
+  full_name    String?     @db.VarChar(100)
+  email        String?     @db.VarChar(100)
+  phone_number Int?
+  address      String?     @db.VarChar(255)
+  user_id      Int?
+  users        users?      @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "customers_ibfk_1")
+  estimates    estimates[]
+
+  @@index([user_id], map: "user_id")
+}
+
+model estimates {
+  estimate_id    Int        @id
+  estimate_name  String?    @db.VarChar(100)
+  customer_name  String?    @db.VarChar(100)
+  customer_email String?    @db.VarChar(100)
+  customer_phone String?    @db.VarChar(100)
+  address        String?    @db.VarChar(100)
+  date_created   DateTime?  @db.Date
+  date_modified  DateTime?  @db.Date
+  total          Decimal?   @db.Decimal(50, 2)
+  user_id        Int?
+  customer_id    Int?
+  users          users?     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "estimates_ibfk_1")
+  customers      customers? @relation(fields: [customer_id], references: [customer_id], onDelete: NoAction, onUpdate: NoAction, map: "estimates_ibfk_2")
+  tasks          tasks[]
+
+  @@index([customer_id], map: "customer_id")
+  @@index([user_id], map: "user_id")
+}
+
+model subtasks {
+  subtasks                 Int      @id
+  subtask_name             String?  @db.VarChar(45)
+  subtask_description      String?  @db.VarChar(100)
+  calc_method              String?  @db.VarChar(45)
+  time_unit                String?  @db.VarChar(45)
+  time_price_per_unit      Decimal? @db.Decimal(50, 2)
+  time_quantity            Decimal? @db.Decimal(50, 2)
+  time_subtotal            Decimal? @db.Decimal(50, 2)
+  materials_unit           String?  @db.VarChar(45)
+  materials_price_per_unit Decimal? @db.Decimal(50, 2)
+  materials_quantitly      Decimal? @db.Decimal(50, 2)
+  materials_subtotal       Decimal? @db.Decimal(50, 2)
+  unit                     String?  @db.VarChar(45)
+  price_per_unit           Decimal? @db.Decimal(50, 2)
+  quantity                 Decimal? @db.Decimal(50, 2)
+  custom_subtotal          Decimal? @db.Decimal(50, 2)
+  subtotal                 Decimal? @db.Decimal(50, 2)
+  subtask_total            Decimal? @db.Decimal(50, 2)
+  task_id                  Int?
+  tasks                    tasks?   @relation(fields: [task_id], references: [task_id], onDelete: NoAction, onUpdate: NoAction, map: "subtasks_ibfk_1")
+
+  @@index([task_id], map: "task_id")
+}
+
+model tasks {
+  task_id          Int        @id
+  task_name        String?    @db.VarChar(100)
+  task_description String?    @db.VarChar(255)
+  total            Decimal?   @db.Decimal(50, 2)
+  estimate_id      Int?
+  subtasks         subtasks[]
+  estimates        estimates? @relation(fields: [estimate_id], references: [estimate_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tasks_estimates")
+
+  @@index([estimate_id], map: "fk_tasks_estimates")
+}
+
+model users {
+  user_id   Int         @id
+  username  String?     @db.VarChar(100)
+  email     String?     @db.VarChar(100)
+  password  String?     @db.VarChar(100)
+  customers customers[]
+  estimates estimates[]
+}

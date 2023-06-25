@@ -1,30 +1,33 @@
-import customerModel from "../models/customerModel.js"
-import userModel from "../models/userModel.js"
-
+import { prisma } from '../../prisma/client'
 
 export const getCustomer = async (req, res) => {
     try {
-        const customers = await customerModel.find({ user: req.user })
+        const customers = await prisma.customers.findMany({
+            where: {
+              user_id: req.user
+            }
+          })
         res.status(200).send(customers)
     } catch (error) {
         console.log(error)
         res.status(400).send('error')
     }
 }
-//testing
+
 export const postCustomer = async (req, res) => {
     try {
-        const customer = await customerModel.create({
-            customerID: req.body.customerID,
-            user: req.user,
-            name: req.body.name,
-            email: req.body.email,
-            phoneNumber: req.body.phoneNumber,
-            address: req.body.address,
-            dateCreated: req.body.dateCreated,
-            dateModified: req.body.dateModified
+        const customer = await prisma.customers.create({
+            data: {
+                customerID: req.body.customerID,
+                user: req.user,
+                name: req.body.name,
+                email: req.body.email,
+                phoneNumber: req.body.phoneNumber,
+                address: req.body.address,
+                dateCreated: req.body.dateCreated,
+                dateModified: req.body.dateModified
+            }
         })
-
         res.status(200).send(customer)
     } catch (error) {
         console.log(error)
@@ -33,16 +36,13 @@ export const postCustomer = async (req, res) => {
 }
 
 export const putCustomer = async (req, res) => {
-    
-    console.log('ID logs')
-    console.log(req.params.id)
-    console.log(req.body._id)
-    console.log(req.body.customerID)
-
     try {
-        const updatedCustomer = await customerModel.findOneAndUpdate({customerID: req.body.customerID}, req.body, {
-            new: true,
-        })
+        const updatedCustomer = await prisma.customers.update({
+            where: {
+                customer_id: req.body.customerID
+            },
+            data: req.body
+          })
         if(!updatedCustomer) {
             res.status(400).send('Customer not found')
         }
@@ -54,14 +54,12 @@ export const putCustomer = async (req, res) => {
 }
 
 export const deleteCustomer = async (req, res) => {
-
-    console.log('ID logs')
-    console.log(req.params.id)
-    console.log(req.body._id)
-    console.log(req.body.id)
-
     try {
-        const customer = await customerModel.findById(req.params.id)
+        const customer = await prisma.customers.delete({
+            where: {
+              customer_id: req.params.id,
+            },
+          })
 
         if(!customer) {
             res.status(400).send('Customer not found')

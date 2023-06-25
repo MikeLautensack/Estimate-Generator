@@ -25,7 +25,7 @@ const reducer = (estimate, action) => {
             return {
                 ...estimate,
                 tasks: estimate.tasks.map((task) => {
-                    if(task.id === action.payload.id) {
+                    if(task.task_id === action.payload.id) {
                         return action.payload
                     } else {
                         return task
@@ -35,13 +35,13 @@ const reducer = (estimate, action) => {
         case 'deleteTask':
             return {
                 ...estimate,
-                tasks: estimate.tasks.filter((task) => task.id !== action.payload.taskID)
+                tasks: estimate.tasks.filter((task) => task._task_id !== action.payload.taskID)
             }
         case 'addSubtask':
             return {
                 ...estimate,
                 tasks: estimate.tasks.map((task) => {
-                    if(task.id === action.payload.taskID) {
+                    if(task.task_id === action.payload.taskID) {
                         return {
                             ...task,
                             subtasks: [...task.subtasks, action.payload]
@@ -58,11 +58,11 @@ const reducer = (estimate, action) => {
             return {
                 ...estimate,
                 tasks: estimate.tasks.map((task) => {
-                    if(task.id === action.payload.taskID) {
+                    if(task.task_id === action.payload.taskID) {
                         return {
                             ...task,
                             subtasks: task.subtasks.map((subtask) => {
-                                if(subtask.id === action.payload.id) {
+                                if(subtask.subtask_id === action.payload.id) {
                                     return action.payload
                                 } else {
                                     return subtask
@@ -81,7 +81,7 @@ const reducer = (estimate, action) => {
             return {
                 ...estimate,
                 tasks: estimate.tasks.map((task) => {
-                    if(task.id === action.payload.subtasksTaskID) {
+                    if(task.task_id === action.payload.subtasksTaskID) {
                         return {
                             ...task,
                             subtasks: task.subtasks.filter((subtask) => subtask.id !== action.payload.subtaskID)
@@ -121,7 +121,7 @@ const EstimateForm = ({ setEstimateFormRendered,
     })
     const [estimate, dispatch] = useReducer(reducer, 
     {
-        _id: 0,
+        estimate_id: 0,
         estimateName: "",
         customerName: "",
         customerEmail: "",
@@ -168,10 +168,16 @@ const EstimateForm = ({ setEstimateFormRendered,
         }
     }, [errors.estimateName, errors.customerName, errors.customerEmail])
 
+    const generateID = (min, max) => {
+        min = Math.ceil(min)
+        max = Math.floor(max)
+        return Math.floor(Math.random() * (max - min + 1)) + min
+    }
+
     const addEst = (data) => {
         const newEstimate = {
             ...estimate,
-            _id: Math.random(),
+            estimate_id: generateID(1, 1000000000),
             estimateName: data.estimateName,
             customerName: data.customerName,
             customerEmail: data.customerEmail,
@@ -229,7 +235,7 @@ const EstimateForm = ({ setEstimateFormRendered,
             task.subtasks.forEach((subtask) => {
               taskTotal += subtask.total
             })
-            if(taskID === task.id) {
+            if(taskID === task.task_id) {
                 if(mode === 'add') {
                     taskTotal += asyncSubtaskTotalData
                 } else if (mode === 'edit') {
@@ -242,7 +248,7 @@ const EstimateForm = ({ setEstimateFormRendered,
             }
             estTotal += taskTotal
             if(mode === 'add') {
-                if(taskID === task.id) {
+                if(taskID === task.task_id) {
                     return {
                         ...task,
                         subtasks: task.subtasks.concat(object),
@@ -255,12 +261,12 @@ const EstimateForm = ({ setEstimateFormRendered,
                     }
                 }
             } else if (mode === 'edit') {
-                if(taskID === task.id) {
+                if(taskID === task.task_id) {
                     if(editDataTotal !== submissionDataTotal) {
                         return {
                             ...task,
                             subtasks: task.subtasks.map((subtask) => {
-                                if(subtask.id === object.id) {
+                                if(subtask.subtask_id === object.id) {
                                     return object
                                 } else {
                                     return subtask
@@ -285,7 +291,7 @@ const EstimateForm = ({ setEstimateFormRendered,
                     return {
                         ...task,
                         subtasks: task.subtasks.filter((subtask) => {
-                            if(subtask.id !== object.id) {
+                            if(subtask.subtask_id !== object.id) {
                                 return subtask
                             }
                         }),
@@ -314,7 +320,7 @@ const EstimateForm = ({ setEstimateFormRendered,
             task.subtasks.forEach((subtask) => {
               taskTotal += subtask.total
             })
-            if(taskData.id !== task.id) {
+            if(taskData.task_id !== task.task_id) {
                 estTotal += taskTotal
                 return arr.concat({
                     ...task,

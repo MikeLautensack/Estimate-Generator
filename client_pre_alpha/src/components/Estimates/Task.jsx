@@ -23,7 +23,7 @@ const Task = ({ setSubtaskFormRendered,
     }, [task.subtasks])
 
     const deleteTask = () => {
-      dispatch({ type: 'deleteTask', payload: { taskID: task.id}})
+      dispatch({ type: 'deleteTask', payload: { taskID: task.task_id}})
       calculateOnDeleteTask(task)
     }
 

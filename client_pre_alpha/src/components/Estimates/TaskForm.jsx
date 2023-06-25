@@ -16,7 +16,7 @@ const NewTaskForm = ({ setTaskFormRendered,
         resolver: yupResolver(validateTask)
     })
     const task = {
-        id: 0,
+        task_id: 0,
         taskName: "",
         taskDescription: "",
         total: 0.0,
@@ -33,9 +33,9 @@ const NewTaskForm = ({ setTaskFormRendered,
     const createNewTask = (data) => {
         const newTask = {
             ...task,
+            task_id: generateID(1, 1000000000),
             taskName: data.taskName,
-            taskDescription: data.taskDescription,
-            id: generateID()
+            taskDescription: data.taskDescription
         }
         dispatch({ type: 'addTask', payload: newTask})
         setTaskFormRendered(false)
@@ -52,9 +52,11 @@ const NewTaskForm = ({ setTaskFormRendered,
         setEditTaskData(null)
     }
 
-    const generateID = () => {
-        return Math.random()
-    }
+    const generateID = (min, max) => {
+        min = Math.ceil(min)
+        max = Math.floor(max)
+        return Math.floor(Math.random() * (max - min + 1)) + min
+      }
 
   return (
     <form onSubmit={handleSubmit(editTaskData == null || undefined ? createNewTask : editTask)} className='new-task-form'>

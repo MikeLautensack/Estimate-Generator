@@ -27,8 +27,8 @@ const SubtaskForm = ({ setSubtaskFormRendered,
     const { dispatch } = estimateContext
     
     const subtask = {
-        id: 1,
-        taskID: taskID,
+        subtask_id: 1,
+        task_id: taskID,
         subtaskName: "",
         subtaskDescription: "",
         calcMethod: "",
@@ -79,7 +79,7 @@ const SubtaskForm = ({ setSubtaskFormRendered,
     const addSubtask = (data) => {
         const newSubtask = {
             ...subtask,
-            id: generateID(),
+            subtask_id: generateID(1, 1000000000),
             subtaskName: data.subtaskName,
             subtaskDescription: data.subtaskDescription,
             calcMethod: data.method,
@@ -154,10 +154,11 @@ const SubtaskForm = ({ setSubtaskFormRendered,
         }
     }
 
-    const generateID = () => {
-        const ID = Math.random()
-        return ID
-    }
+    const generateID = (min, max) => {
+        min = Math.ceil(min)
+        max = Math.floor(max)
+        return Math.floor(Math.random() * (max - min + 1)) + min
+      }
 
   return (
     <FormProvider {...methods}>
