@@ -19,7 +19,7 @@ const Login = ({ setRegisterFormVis }) => {
   const nav = useNavigate()
 
   const loginUser = async (email, password) => {
-    return axios.post('http://193.46.198.215:9000/users/login', {
+    return axios.post('http://localhost:9000/users/login', {
         email,
         password
     })
@@ -38,7 +38,7 @@ const Login = ({ setRegisterFormVis }) => {
       setError('root.serverError', {
         type: 400,
         message: err.response.data.message
-      })
+      }) 
     })
 }
   

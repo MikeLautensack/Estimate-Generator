@@ -30,23 +30,23 @@ const useAPI = () => {
         console.log('Response object:', response)
     }
 
-    const updateCustomer = async (token, customer, customerID) => {
-        const response = await axios.put(`http://localhost:9000/customers/update/${customerID}}`, customer, { headers: { Authorization: `Bearer ${token}` }})
+    const updateCustomer = async (token, customer, customer_id) => {
+        const response = await axios.put(`http://localhost:9000/customers/update/${customer_id}}`, customer, { headers: { Authorization: `Bearer ${token}` }})
         console.log(response)
     }
 
-    const updateEstimate = async (token, estimate, customerID) => {
-        const response = await axios.put(`http://localhost:9000/estimates/update/${customerID}`, estimate, { headers: { Authorization: `Bearer ${token}` }})
+    const updateEstimate = async (token, estimate, customer_id) => {
+        const response = await axios.put(`http://localhost:9000/estimates/update/${customer_id}`, estimate, { headers: { Authorization: `Bearer ${token}` }})
         console.log(response)
     }
 
-    const deleteCustomer = async (token, customer, customerID) => {
-        const response = await axios.delete(`http://localhost:9000/customers/delete/${customerID}`, { headers: { Authorization: `Bearer ${token}` }})
+    const deleteCustomer = async (token, customer_id) => {
+        const response = await axios.delete(`http://localhost:9000/customers/delete/${customer_id}`, { headers: { Authorization: `Bearer ${token}` }})
         console.log(response)
     }
 
-    const deleteEstimate = async (token, estimate, customerID) => {
-        const response = await axios.delete(`http://localhost:9000/estimates/delete/${customerID}`, { headers: { Authorization: `Bearer ${token}` }})
+    const deleteEstimate = async (token, customer_id) => {
+        const response = await axios.delete(`http://localhost:9000/estimates/delete/${customer_id}`, { headers: { Authorization: `Bearer ${token}` }})
         console.log(response)
     }
 

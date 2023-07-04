@@ -11,11 +11,11 @@ const Customer = ({ customer,
         <div className='customer-text'>
             <p>{customer.name}</p>
             <p>{customer.email}</p>
-            <p>{customer.phoneNumber}</p>
+            <p>{customer.phone_number}</p>
         </div>
         <div className='button-box'>
             <FaEdit onClick={() => (setCustomerFormVis(true), setFormData(customer))} className='edit-customer'/>
-            <FaTrashAlt onClick={() => deleteCust(customer._id)} className='delete-customer'/>
+            <FaTrashAlt onClick={() => deleteCust(customer.customer_id)} className='delete-customer'/>
         </div>
     </div>
   )

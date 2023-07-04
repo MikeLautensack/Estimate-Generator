@@ -1,4 +1,4 @@
-import { prisma } from '../../prisma/client'
+import {prisma} from '../client.js'
 
 export const getEstimate = async (req, res) => {
     try {

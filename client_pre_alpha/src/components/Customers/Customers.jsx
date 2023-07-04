@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import Nav from '../Nav/Nav'
 import { FaBars } from 'react-icons/fa'
 import { useState } from 'react'
@@ -17,10 +17,6 @@ const Customers = () => {
   const [navVis, setNavVis] = useState(false)
   const { addCustomer, updateCustomer, deleteCustomer } = useAPI()
 
-  useEffect(() => {
-    console.log('1')
-  }, [])
-
   const changeNavVis = () => {
       if (navVis === false) {
         setNavVis(true)
@@ -36,12 +32,12 @@ const Customers = () => {
   }
 
   const add = (inputData) => {
-      const { name, email, phoneNumber, address } = inputData
+      const { name, email, phone_number, address } = inputData
       const newCustomer = {
         customer_id: generateID(1, 1000000000),
         name: name,
         email: email,
-        phoneNumber: formatPhoneNumber(phoneNumber),
+        phone_number: formatPhoneNumber(phone_number),
         address: address,
         dateCreated: new Date(),
         dateModified: new Date(),
@@ -54,14 +50,14 @@ const Customers = () => {
   }
 
   const edit = (inputData) => {
-    const { name, email, phoneNumber, address } = inputData
+    const { name, email, phone_number, address } = inputData
     const editedCustomerList = customers.map((customer) => {
         if (customer.customer_id === formData.customer_id) {
           const editedCustomer = {
             ... customer,
             name: name,
             email: email,
-            phoneNumber: formatPhoneNumber(phoneNumber),
+            phone_number: formatPhoneNumber(phone_number),
             address: address,
             dateModified: new Date(),
           }
@@ -83,7 +79,7 @@ const Customers = () => {
         if(customer.customer_id !== customer_id) {
           return customer
         }
-        deleteCustomer(jwt, customer, customer_id)
+        deleteCustomer(jwt, customer_id)
       })
       setCustomers(list)
       localStorage.setItem('customers', JSON.stringify(list))
@@ -112,7 +108,7 @@ const Customers = () => {
               </div>
               <ul className='customer-list'>
                   {customers.map((customer) => (
-                    <li className='customer-list-item' key={customer._id}>
+                    <li className='customer-list-item' key={customer.customer_id}>
                         <Customer 
                             customer={customer}
                             setCustomerFormVis={setCustomerFormVis}
