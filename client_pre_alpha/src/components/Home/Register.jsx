@@ -20,7 +20,7 @@ const Register = () => {
                               email, 
                               password, 
                               password1) => {
-    return axios.post('http://193.46.198.215:9000/users/register', {
+    return axios.post('http://localhost:9000/users/register', {
       username,
       email,
       password,

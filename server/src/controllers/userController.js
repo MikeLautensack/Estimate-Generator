@@ -1,16 +1,16 @@
 import Jwt  from'jsonwebtoken'
 import bcrypt from 'bcryptjs'
-import { prisma } from '../../prisma/client'
+import {prisma} from '../client.js'
 
 export const getUser = async (req, res) => {
     try {
-        const { _id, username, email } = await prisma.users.findUnique({
+        const { user_id, username, email } = await prisma.users.findUnique({
             where: {
-                user_id: req.user._id
+                user_id: req.user.user_id
             }
         })
         res.status(200).json({
-            _id,
+            user_id,
             username,
             email
         })
@@ -41,6 +41,7 @@ export const registerUser = async (req, res) => {
         // Create user 
         const user = await prisma.users.create({
             data: {
+                user_id: generateID(1, 100000000),
                 username: username,
                 password: hashedPassword,
                 email: email
@@ -49,7 +50,7 @@ export const registerUser = async (req, res) => {
         if(user) {
             res.status(201).json({
                 user: user,
-                token: generateToken(user._id)
+                token: generateToken(user.user_id)
             })
         } else {
             res.status(400).json({
@@ -71,10 +72,10 @@ export const loginUser = async (req, res) => {
                 email: email
             }
         })
-        if(user && (await bcrypt.compare(password, user.password))) {
+        if(user && (bcrypt.compare(password, user.password))) {
             res.status(200).json({
                 user: user,
-                token: generateToken(user._id)
+                token: generateToken(user.user_id)
             })
         } else {
             res.status(400).json({
@@ -91,17 +92,17 @@ export const deleteUser = async (req, res) => {
     try {
         const user = await prisma.users.delete({
             where: {
-                user_id: req.params.id
+                user_id: req.params.user_id
             }
         })
         if(!user) {
             res.status(400).send('User not found')
         } else {
-        if(user._id.toString() !== req.user._id.toString()) {
+        if(user.user_id.toString() !== req.user.user_id.toString()) {
             res.status(401).send('User not authorized')
         }
         await user.remove()
-        res.status(200).send(`Deleted User ${req.params.id}`)
+        res.status(200).send(`Deleted User ${req.params.user_id}`)
         }
     } catch (error) {
         console.log(error)
@@ -115,3 +116,9 @@ export const generateToken = (id) => {
         expiresIn: '1d'
     })
 }
+
+const generateID = (min, max) => {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }

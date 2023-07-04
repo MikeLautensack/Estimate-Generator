@@ -9,15 +9,15 @@ datasource db {
 
 model customers {
   customer_id  Int         @id
-  first_name   String?     @db.VarChar(100)
-  last_name    String?     @db.VarChar(100)
-  full_name    String?     @db.VarChar(100)
-  email        String?     @db.VarChar(100)
-  phone_number Int?
-  address      String?     @db.VarChar(255)
   user_id      Int?
+  name         String?     @db.VarChar(100)
+  email        String?     @db.VarChar(100)
+  phone_number BigInt?
+  address      String?     @db.VarChar(255)
   users        users?      @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "customers_ibfk_1")
   estimates    estimates[]
+  dateCreated  DateTime    @db.DateTime()
+  dateModified DateTime    @db.DateTime()
 
   @@index([user_id], map: "user_id")
 }
@@ -27,7 +27,7 @@ model estimates {
   estimate_name  String?    @db.VarChar(100)
   customer_name  String?    @db.VarChar(100)
   customer_email String?    @db.VarChar(100)
-  customer_phone String?    @db.VarChar(100)
+  customer_phone BigInt?
   address        String?    @db.VarChar(100)
   date_created   DateTime?  @db.Date
   date_modified  DateTime?  @db.Date
@@ -82,7 +82,7 @@ model tasks {
 model users {
   user_id   Int         @id
   username  String?     @db.VarChar(100)
-  email     String?     @db.VarChar(100)
+  email     String?     @unique @db.VarChar(100)
   password  String?     @db.VarChar(100)
   customers customers[]
   estimates estimates[]

@@ -17,10 +17,10 @@ const NewCustomerForm = ({ setCustomerFormVis,
 
     useEffect(() => {
         if (formData != null || undefined) {
-            const { name , email, phoneNumber, address} = formData
+            const { name , email, phone_number, address} = formData
             setValue("name", name)
             setValue("email", email)
-            setValue("phoneNumber", parsePhoneNumber(phoneNumber))
+            setValue("phone_number", parsePhoneNumber(phone_number))
             setValue("address", address)
         }
     }, [])
@@ -56,8 +56,8 @@ const NewCustomerForm = ({ setCustomerFormVis,
               </div>
               <div className='new-customer-input-feilds'>
                   <label>Phone Number:</label>
-                  <input {...register("phoneNumber")}></input>
-                  {errors.phoneNumber && <p style={{ color: '#C70000'}}>{errors.phoneNumber?.message}</p>}
+                  <input {...register("phone_number")}></input>
+                  {errors.phone_number && <p style={{ color: '#C70000'}}>{errors.phone_number?.message}</p>}
               </div>
               <div className='new-customer-input-feilds'>
                   <label>Address:</label>
