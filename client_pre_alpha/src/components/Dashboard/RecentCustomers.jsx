@@ -19,7 +19,7 @@ const RecentCustomers = ({ calculateRecentCustomers,
       </select>
       <ul className='recent-customers-list'>
         {recentCustomers.map((customer) => (
-          <li key={customer._id}>
+          <li key={customer.customer_id}>
             <RecentCustomer customer={customer}/>
           </li>
         ))}
