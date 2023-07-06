@@ -19,7 +19,7 @@ const RecentEstimates = ({ calculateRecentEstimates,
       </select>
       <ul className='recent-estimates-list'>
         {recentEstimates.map((estimate) => (
-          <li key={estimate._id}>
+          <li key={estimate.estimate_id}>
             <RecentEstimate estimate={estimate}/>
           </li>
         ))}

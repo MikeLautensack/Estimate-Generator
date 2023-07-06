@@ -12,7 +12,7 @@ model customers {
   user_id      Int?
   name         String?     @db.VarChar(100)
   email        String?     @db.VarChar(100)
-  phone_number BigInt?
+  phone_number String?     @db.VarChar(15)
   address      String?     @db.VarChar(255)
   users        users?      @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "customers_ibfk_1")
   estimates    estimates[]
@@ -27,7 +27,7 @@ model estimates {
   estimate_name  String?    @db.VarChar(100)
   customer_name  String?    @db.VarChar(100)
   customer_email String?    @db.VarChar(100)
-  customer_phone BigInt?
+  customer_phone String?    @db.VarChar(15)
   address        String?    @db.VarChar(100)
   date_created   DateTime?  @db.Date
   date_modified  DateTime?  @db.Date

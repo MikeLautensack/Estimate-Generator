@@ -4,7 +4,7 @@ export const getEstimate = async (req, res) => {
     try {
         const estimates = await prisma.estimates.findMany({
             where: {
-                user_id: req.user._id
+                user_id: req.user.user_id
             }
         })
         res.status(200).send(estimates)
