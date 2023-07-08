@@ -1,4 +1,4 @@
-import {prisma} from '../client.js'
+    import {prisma} from '../client.js'
 
 export const getEstimate = async (req, res) => {
     try {
@@ -18,16 +18,45 @@ export const postEstimate = async (req, res) => {
     try {
         const estimate = await prisma.estimates.create({
             data: {
-                user: req.user,
-                estimateName: req.body.estimateName,
-                customerName: req.body.customerName,
-                customerEmail: req.body.customerEmail,
-                customerPhone: req.body.customerPhone,
+                estimate_id: req.body.estimate_id,
+                estimate_name: req.body.estimateName,
+                customer_name: req.body.customerName,
+                customer_email: req.body.customerEmail,
+                customer_phone: req.body.customerPhone,
                 address: req.body.address,
-                dateCreated: req.body.dateCreated,
-                dateModified: req.body.dateModified,
-                tasks: req.body.tasks,
-                total: req.body.total
+                date_created: req.body.dateCreated,
+                date_modified: req.body.dateModified,
+                tasks: {
+                    create: req.body.tasks.map((task) => ({
+                        task_id: task.task_id,
+                        estimate_id: req.body.estimate_id,
+                        task_name: task.taskName,
+                        task_description: task.taskDescription,
+                        total: task.total,
+                        subtasks: task.subtasks.map((subtask) => ({
+                            subtask_id: subtask.subtask_id,
+                            task_id: task.task_id,
+                            subtask_description: subtask.subtaskDescription,
+                            calc_method: subtask.calcMethod,
+                            time_unit: subtask.timeUnit,
+                            time_price_per_unit: subtask.timePricePerUnit,
+                            time_quantity: subtask.timeQuantity,
+                            time_subtotal: subtask.timeSubtotal,
+                            materials_unit: subtask.materialsUnit,
+                            materials_price_per_unit: subtask.materialsPricePerUnit,
+                            materials_quantitly: subtask.materialsQuantity,
+                            materials_subtotal: subtask.materialsSubtotal,
+                            unit: subtask.unit,
+                            price_per_unit: subtask.pricePerUnit,
+                            quantity: subtask.quantity,
+                            custom_subtotal: subtask.customSubtotal,
+                            subtotal: subtask.subtotal,
+                            subtask_total: subtask.subtaskTotal 
+                        }))
+                    }))
+                },
+                total: req.body.total,
+                user: req.user,
             }
         })
         res.status(200).send(estimate)

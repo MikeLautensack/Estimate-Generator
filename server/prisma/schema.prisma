@@ -43,7 +43,7 @@ model estimates {
 }
 
 model subtasks {
-  subtasks                 Int      @id
+  subtask_id               Int      @id
   subtask_name             String?  @db.VarChar(45)
   subtask_description      String?  @db.VarChar(100)
   calc_method              String?  @db.VarChar(45)
