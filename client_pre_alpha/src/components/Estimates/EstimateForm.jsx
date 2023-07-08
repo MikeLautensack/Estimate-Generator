@@ -25,7 +25,7 @@ const reducer = (estimate, action) => {
             return {
                 ...estimate,
                 tasks: estimate.tasks.map((task) => {
-                    if(task.task_id === action.payload.id) {
+                    if(task.task_id === action.payload.task_id) {
                         return action.payload
                     } else {
                         return task
@@ -35,13 +35,13 @@ const reducer = (estimate, action) => {
         case 'deleteTask':
             return {
                 ...estimate,
-                tasks: estimate.tasks.filter((task) => task._task_id !== action.payload.taskID)
+                tasks: estimate.tasks.filter((task) => task.task_id !== action.payload.task_id)
             }
         case 'addSubtask':
             return {
                 ...estimate,
                 tasks: estimate.tasks.map((task) => {
-                    if(task.task_id === action.payload.taskID) {
+                    if(task.task_id === action.payload.task_id) {
                         return {
                             ...task,
                             subtasks: [...task.subtasks, action.payload]
@@ -58,11 +58,11 @@ const reducer = (estimate, action) => {
             return {
                 ...estimate,
                 tasks: estimate.tasks.map((task) => {
-                    if(task.task_id === action.payload.taskID) {
+                    if(task.task_id === action.payload.task_id) {
                         return {
                             ...task,
                             subtasks: task.subtasks.map((subtask) => {
-                                if(subtask.subtask_id === action.payload.id) {
+                                if(subtask.subtask_id === action.payload.subtask_id) {
                                     return action.payload
                                 } else {
                                     return subtask
@@ -84,7 +84,7 @@ const reducer = (estimate, action) => {
                     if(task.task_id === action.payload.subtasksTaskID) {
                         return {
                             ...task,
-                            subtasks: task.subtasks.filter((subtask) => subtask.id !== action.payload.subtaskID)
+                            subtasks: task.subtasks.filter((subtask) => subtask.subtask_id !== action.payload.subtask_id)
                         }
                     } else {
                         return {
