@@ -9,21 +9,21 @@ export default function HeroSection() {
         {/**
          *  Hero Top
          */}
-        <div id='hero top' className='flex flex-col justify-center items-center h-[32rem] tablet:items-start bg-primary500'>
+        <div id='hero top' className='flex flex-col justify-center items-center tablet:items-start h-[32rem]'>
           
           {/**
            *  Hero Content
            */}
           <div id='hero content' className='flex flex-col gap-2 tablet:mx-16 tablet:max-w-[35rem] desktop:ml-32 desktop:max-w-[40rem]'>
             <h1 className='text-secondary500 text-[24px] font-bold text-center tablet:text-[54px] tablet:text-left'>Welcome to Estimate Generator</h1>
-            <div className='w-full flex gap-2'>
+            <div className='w-full flex gap-4 my-8'>
               <Button
-                  className='w-[50%] bg-accent500 text-primary500 p-2 text-[14px] font-medium max-w-[248px]'
+                  className='w-[50%] bg-primary500 text-primary100 p-2 text-[14px] font-semibold max-w-[248px]'
               >
                 Sign Up
               </Button>
               <Button
-                  className='w-[50%] bg-primary500 border-2 border-accent500 text-accent500 p-2 font-medium text-[14px] max-w-[248px] font text-base tablet:hidden'
+                  className='w-[50%] bg-primar100 border-2 border-primary500 text-primary500 p-2 font-medium text-[14px] max-w-[248px] font text-base tablet:hidden'
               >
                   Log In
               </Button>
@@ -47,11 +47,13 @@ export default function HeroSection() {
 
           <div className='flex flex-col mx-[64px] my-4 gap-8 tablet:flex-row'>
             {features.map((feature) => (
-              <FeatureCard
-                icon={feature.icon}
-                heading={feature.heading}
-                paragraph={feature.paragraph}
-              />
+              <div className='basis-full' key={features.indexOf(feature)}>
+                <FeatureCard
+                  icon={feature.icon}
+                  heading={feature.heading}
+                  paragraph={feature.paragraph}
+                />
+              </div>
             ))}
           </div>
 

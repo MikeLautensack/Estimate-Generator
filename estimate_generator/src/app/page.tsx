@@ -4,7 +4,7 @@ import HeroSection from './components/pageSections/homePage/HeroSection'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between bg-primary500">
+    <main className="flex min-h-screen flex-col items-center justify-between bg-primary100 font-sans">
       <HeroSection />
       <PricingSection />
       <FAQSection />

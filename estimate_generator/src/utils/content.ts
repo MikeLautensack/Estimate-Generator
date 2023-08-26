@@ -45,3 +45,36 @@ export const features = [
       featuresArray: ['one','two','three']
     }
   ]
+
+  export const FAQItemContent = [
+    {
+      _id: '1',
+      question: 'Who should use the app?',
+      answer: 'dkfhsdfhfhl;',
+      opened: false
+    },
+    {
+      _id: '2',
+      question: 'What is included with my subscription?',
+      answer: 'Will my customers need to make an Estimate Generator account as well?  What if Estimate Generator does not work for my business?',
+      opened: false
+    },
+    {
+      _id: '3',
+      question: 'How do I suggest a new feature or report a bug?',
+      answer: 'fgafgagafgafgafgafgafgfag',
+      opened: false
+    },
+    {
+      _id: '4',
+      question: 'Will my customers need to make an Estimate Generator account as well?',
+      answer: 'bgzfhfhahagfhahathathtgRT4',
+      opened: false
+    },
+    {
+      _id: '5',
+      question: 'What if Estimate Generator does not work for my business?',
+      answer: 'juokuieuikjswtjsgjsdhkuyisyhsfytja',
+      opened: false
+    }
+  ]

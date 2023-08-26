@@ -5,10 +5,10 @@ import { FAQProps } from '../../types/types'
 import Button from './buttonComponents/Button'
 import { FaChevronDown } from "react-icons/fa"
 
-export default function FAQ({ question, answer, opened, dispatch }: FAQProps) {
+export default function FAQ({ _id, question, answer, opened, dispatch }: FAQProps) {
 
   const click = () => {
-    dispatch({ type: 'changeFAQ'})
+    dispatch({ type: 'action', payload: _id})
   }
 
   return (
@@ -19,7 +19,7 @@ export default function FAQ({ question, answer, opened, dispatch }: FAQProps) {
               className=''
               onClick={click}
           >
-            <FaChevronDown className='textsecondary500'/>
+            <FaChevronDown className='text-secondary500'/>
           </Button>
         </div>
         {opened  && <div className='flex flex-col justify-start items-start gap-2 border-l border-r border-b border-secondary500 p-2 max-w-full'>

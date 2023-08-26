@@ -29,19 +29,19 @@ export default function SubscriptionCard({ heading,
   }
 
   return (
-    <div className='flex flex-col gap-2 items-center border border-secondary500 px-6 py-12 basis-full'>
+    <div className='flex flex-col gap-2 items-center border border-secondary500 px-6 py-12 basis-full h-full'>
         <h4 className='text-[32px] font-bold text-secondary500 text-center'>{heading}</h4>
         <p className='text-base font-normal text-secondary500 text-center'>{paragraph}</p>
         <h1 className='text-[54px] font-bold text-center text-secondary500'>{`${displayPrice()}`}</h1>
         <p className='text-base font-normal text-secondary500 text-center'>{displaySubHeading()}</p>
         <Button
-            className='bg-accent500 text-primary500 text-xl font-medium p-4'
+            className='bg-primary500 text-primary100 text-xl font-medium p-4'
         >
             Get Started
         </Button>
         <div className=''>
             {<ul className=''>{featuresArray.map((feature) => (
-                <li className='flex gap-2 items-center text-[18px] font-normal'>
+                <li className='flex gap-2 items-center text-[18px] font-normal' key={featuresArray.indexOf(feature)}>
                     <FaCheck className='text-succcess500'/>
                     <p className='text-secondary500'>{feature}</p>
                 </li>
