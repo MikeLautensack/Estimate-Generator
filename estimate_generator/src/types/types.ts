@@ -21,22 +21,20 @@ export interface SubscriptionCardProps {
     state: boolean
 }
 
-export interface FAQProps { 
+export interface FAQProps {
+    _id: string,
     question: string,
     answer: string
     opened: boolean
     dispatch: Dispatch<Action>
 }
 export interface FAQItem  { 
+    _id: string
     question: string,
     answer: string
     opened: boolean
 }
-
-export interface State {
-    
-}
-
 export interface Action { 
-    
+    type: string
+    payload: string
 }
