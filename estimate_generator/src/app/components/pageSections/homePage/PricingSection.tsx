@@ -19,7 +19,7 @@ export default function PricingSection() {
   }
 
   return (
-    <section id='pricing' className='w-full flex flex-col items-center h-screen'>
+    <section id='pricing' className='w-full flex flex-col items-center h-screen bg-primary100'>
 
         <div className='my-4'>
           {/**

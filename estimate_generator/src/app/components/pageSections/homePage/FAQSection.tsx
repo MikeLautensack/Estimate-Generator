@@ -27,7 +27,7 @@ const reducer = (state: FAQItem[], action: Action): FAQItem[] => {
           }
         })
       default:
-        return []
+        return state
     }
   };
 

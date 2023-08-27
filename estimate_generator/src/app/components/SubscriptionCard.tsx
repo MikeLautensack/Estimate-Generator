@@ -29,7 +29,7 @@ export default function SubscriptionCard({ heading,
   }
 
   return (
-    <div className='flex flex-col gap-2 items-center border border-secondary500 px-6 py-12 basis-full h-full'>
+    <div className='flex flex-col gap-2 items-center border border-primary800 px-6 py-12 basis-full h-full bg-primary200 rounded'>
         <h4 className='text-[32px] font-bold text-secondary500 text-center'>{heading}</h4>
         <p className='text-base font-normal text-secondary500 text-center'>{paragraph}</p>
         <h1 className='text-[54px] font-bold text-center text-secondary500'>{`${displayPrice()}`}</h1>

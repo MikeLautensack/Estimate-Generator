@@ -12,8 +12,8 @@ export default function FAQ({ _id, question, answer, opened, dispatch }: FAQProp
   }
 
   return (
-    <div className='flex flex-col max-w-full'>
-        <div className='flex justify-between items-center p-2 border border-secondary500 max-w-full'>
+    <div className='flex flex-col max-w-full bg-primary200 rounded '>
+        <div className='flex justify-between items-center p-2 border rounded border-primary800 max-w-full'>
           <h6 className='text-[18px] font-bold text-secondary500'>{question}</h6>
           <Button
               className=''
@@ -22,7 +22,7 @@ export default function FAQ({ _id, question, answer, opened, dispatch }: FAQProp
             <FaChevronDown className='text-secondary500'/>
           </Button>
         </div>
-        {opened  && <div className='flex flex-col justify-start items-start gap-2 border-l border-r border-b border-secondary500 p-2 max-w-full'>
+        {opened  && <div className='flex flex-col justify-start items-start gap-2 border-l border-r border-b border-primary800 p-2 max-w-full'>
                       <h6 className='underline text-xl text-secondary500 font-medium'>Answer</h6>
                       <p className='text-base text-secondary500 font-normal'>{answer}</p>
                     </div>}

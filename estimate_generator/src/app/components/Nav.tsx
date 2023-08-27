@@ -4,16 +4,16 @@ import { FaBars } from "react-icons/fa"
 
 export default function Nav() {
   return (
-    <nav className='flex justify-between items-center bg-secondary500 h-auto font-sans'>
-        <h2 className='mx-5 text-accent500 font-medium text-[24px]'>Estimate Generator</h2>
+    <nav className='flex justify-between items-center bg-primary100 h-[52px] font-sans'>
+        <h2 className='mx-5 text-primary500 font-medium text-[24px]'>Estimate Generator</h2>
         <div className='hidden tablet:flex gap-2 m-2'>
             <Button
-                className='bg-secondary500 border-2 border-accent500 text-accent500 p-1 font-medium font text-base'
+                className='bg-primary500 text-primary100 text-base font-medium rounded p-1'
             >
                 Log In
             </Button>
             <Button
-                className='bg-accent500 text-secondary500 p-1 font-medium font text-base'
+                className='bg-primary100 text-primary500 text-base font-medium rounded p-1 border-2 border-primary500'
             >
                 Sign Up
             </Button>
