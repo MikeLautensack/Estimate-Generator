@@ -17,7 +17,7 @@ export default function FeatureCard({ icon, heading, paragraph }: FeatureCardPro
   }
 
   return (
-    <div className='flex flex-col gap-2 basis-full h-full'>
+    <div className='flex flex-col gap-2 basis-full h-full bg-primary100 p-2 rounded border border-primary800'>
         <div className='text-secondary500'>{stringToIcon(icon)}</div>
         <h3 className='text-xl font-bold text-secondary500 tablet:h-[56px]'>{heading}</h3>
         <p className='text-base font-normal text-secondary500 tablet:h-[96px]'>{paragraph}</p>
