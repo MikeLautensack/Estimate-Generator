@@ -6,34 +6,57 @@ import Button from '../buttonComponents/Button'
 import { FaRegEye, FaRegEyeSlash, FaFacebook, FaTwitter } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { useForm, SubmitHandler  } from 'react-hook-form'
-import { LoginFormValues } from '@/types/types'
+import { RegisterFormValues } from '@/types/types'
 
-const LoginForm = () => {
+const RegisterForm = () => {
 
-  const [ eyeOpen, setEyeOpen ] = useState(false)
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<LoginFormValues>()
+  const [ passwordEyeOpen, setPasswordEyeOpen ] = useState(false)
+  const [ confirmEyeOpen, setConfirmEyeOpen ] = useState(false)
+  const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormValues>()
 
-  const renderEye = () => {
-    if(eyeOpen) {
+  const renderPasswordEye = () => {
+    if(passwordEyeOpen) {
         return <FaRegEye />
     } else {
         return <FaRegEyeSlash />
     }
   }
 
-  const toggleEye = (event: any) => {
-    event.preventDefault()
-    setEyeOpen(!eyeOpen)
+  const renderConfirmEye = () => {
+    if(confirmEyeOpen) {
+        return <FaRegEye />
+    } else {
+        return <FaRegEyeSlash />
+    }
   }
 
-  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
+  const togglePasswordEye = (event: any) => {
+    event.preventDefault()
+    setPasswordEyeOpen(!passwordEyeOpen)
+  }
+
+  const toggleConfirmEye = (event: any) => {
+    event.preventDefault()
+    setConfirmEyeOpen(!confirmEyeOpen)
+  }
+
+  const onSubmit: SubmitHandler<RegisterFormValues> = (data) => {
     console.log(data)
   }
 
   return (
     <form className='bg-primary50 m-8 p-4 rounded w-4/5 tablet:w-3/5 desktop:w-1/2 max-w-xl' onSubmit={handleSubmit(onSubmit)}>
-        <h1 className='text-[32px] font-bold font-sans text-secondary500 text-center'>Welcome Back</h1>
-        <p className='text-base text-normal text-secondary500 text-center font-sans'>Please log in to continue</p>
+        <h1 className='text-[32px] font-bold font-sans text-secondary500 text-center'>Sign Up Free</h1>
+        <div className='flex flex-col gap-2 tablet:flex-row'>
+            <div className=''>
+                <label className=''>First Name</label>
+                <input className='w-full rounded p-1' {...register("firstName", { required: true })}></input>
+            </div>
+            <div className=''>
+                <label className=''>Last Name</label>
+                <input className='w-full rounded p-1' {...register("lastName", { required: true })}></input>
+            </div>
+        </div>
         <div className='my-2'>
             <label className=''>Email Address</label>
             <input className='w-full rounded p-1' {...register("email", { required: true })}></input>
@@ -41,12 +64,24 @@ const LoginForm = () => {
         <div className='my-2'>
             <label className=''>Password</label>
             <div className='relative'>
-                <input className='w-full rounded p-1' type={eyeOpen ? 'text' : 'password'} {...register("password", { required: true })}></input>
+                <input className='w-full rounded p-1' type={passwordEyeOpen ? 'text' : 'password'} {...register("password", { required: true })}></input>
                 <Button
                     className='absolute top-2 right-2'
-                    onClick={toggleEye}
+                    onClick={togglePasswordEye}
                 >
-                    {renderEye()}
+                    {renderPasswordEye()}
+                </Button>
+            </div>
+        </div>
+        <div className='my-2'>
+            <label className=''>Confirm Password</label>
+            <div className='relative'>
+                <input className='w-full rounded p-1' type={confirmEyeOpen ? 'text' : 'confirmPassword'} {...register("password", { required: true })}></input>
+                <Button
+                    className='absolute top-2 right-2'
+                    onClick={toggleConfirmEye}
+                >
+                    {renderConfirmEye()}
                 </Button>
             </div>
         </div>
@@ -64,7 +99,7 @@ const LoginForm = () => {
         <Button                          
             className='w-full bg-primary500 text-primary100 py-2 font-sans rounded'
         >
-            Log In
+            Sign Up FREE
         </Button>
         <div id='divider' className='w-full border border-secondary300 my-4'></div>
         <p className='text-base font-normal text-secondary500 text-center m-2 font-sans'>Or log in with:</p>
@@ -107,4 +142,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default RegisterForm
