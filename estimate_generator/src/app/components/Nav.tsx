@@ -8,12 +8,12 @@ export default function Nav() {
         <h2 className='mx-5 text-primary500 font-medium text-[24px]'>Estimate Generator</h2>
         <div className='hidden tablet:flex gap-2 m-2'>
             <Button
-                className='bg-primary500 text-primary100 text-base font-medium rounded p-1'
+                className='bg-primary500 text-primary100 text-base font-medium rounded p-1 w-[70px]'
             >
                 Log In
             </Button>
             <Button
-                className='bg-primary100 text-primary500 text-base font-medium rounded p-1 border-2 border-primary500'
+                className='bg-primary100 text-primary500 text-base font-medium rounded p-1 border-2 border-primary500 w-[70px]'
             >
                 Sign Up
             </Button>
