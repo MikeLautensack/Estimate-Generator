@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useState } from 'react'
-import Button from '../buttonComponents/Button'
+import Button from '../Button'
 import { FaRegEye, FaRegEyeSlash, FaFacebook, FaTwitter } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { useForm, SubmitHandler  } from 'react-hook-form'

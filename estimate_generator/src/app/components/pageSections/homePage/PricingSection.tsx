@@ -19,7 +19,7 @@ export default function PricingSection() {
   }
 
   return (
-    <section id='pricing' className='w-full flex flex-col items-center h-screen bg-primary100'>
+    <section id='pricing' className='w-full flex flex-col items-center desktop:h-screen bg-primary200'>
 
         <div className='my-4'>
           {/**
@@ -27,7 +27,7 @@ export default function PricingSection() {
           */}
           <div className='flex flex-col items-center justify-center'>
             <h5 className='text-xl font-bold text-primary500'>PRICING</h5>
-            <h3 className='text-2xl font-bold text-secondary500 text-center'>Choose the Estimate Generator plan that fits your needs</h3>
+            <h3 className='text-2xl font-bold text-primary500 text-center'>Choose the Estimate Generator plan that fits your needs</h3>
           </div>
 
           {/**
@@ -35,19 +35,19 @@ export default function PricingSection() {
            */}
           <div className='flex justify-center items-center gap-4 mt-4'>
             <div>
-              <p className='text-secondary500'>10% off</p>
-              <h4 className='text-secondary500'>Annual</h4>
+              <p className='text-primary500'>10% off</p>
+              <h4 className='text-primary500'>Annual</h4>
             </div>
             <ReactSwitch
               onChange={click}
               checked={subRateType}
-              offColor='#0077b6'
-              onColor='#0077b6'
+              offColor='#d4af37'
+              onColor='#d4af37'
               uncheckedIcon={false}
               checkedIcon={false}
             />
             <div className='flex flex-col'>
-              <h4 className='text-secondary500'>Monthly</h4>
+              <h4 className='text-primary500'>Monthly</h4>
             </div>
           </div>
         </div>

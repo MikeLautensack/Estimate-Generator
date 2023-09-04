@@ -27,7 +27,7 @@ const reducer = (state: FAQItem[], action: Action): FAQItem[] => {
           }
         })
       default:
-        return state
+        return FAQItemContent
     }
   };
 
@@ -39,8 +39,8 @@ export default function FAQSection() {
   return (
     <section id='faq' className='px-4 w-full'>
       <h5 className='text-xl text-primary500 font-bold text-center my-4'>FREQUENTLY ASKED QUESTIONS</h5>
-      <div className='max-w-[75% flex justify-center'>
-        <div className='flex flex-col gap-4 mb-16 mt-4 max-w-full'>
+      <div className='flex justify-center'>
+        <div className='flex flex-col gap-4 mb-16 mt-4 w-[50%] max-w-[50%]'>
           {FAQs.map((faq: FAQItem) => (
             <div key={FAQs.indexOf(faq)}>
               <FAQ
