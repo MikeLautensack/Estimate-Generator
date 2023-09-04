@@ -5,6 +5,7 @@ import Nav from '../../Nav'
 import { motion } from "framer-motion"
 import { Canvas } from '@react-three/fiber'
 import ThreeDLogo from '../../ThreeDLogo'
+import { OrbitControls } from '@react-three/drei'
 
 export default function HeroSection() {
   return (
@@ -51,6 +52,7 @@ export default function HeroSection() {
               id='canvas'
               className=''
             >
+              <OrbitControls enableZoom={false}/>
               <ambientLight intensity={0.5} />
               <directionalLight position={[-2,5,2]} intensity={1} color='blue'/>
               <ThreeDLogo />
