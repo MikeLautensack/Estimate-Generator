@@ -1,61 +1,61 @@
-import Button from '../../../components/buttonComponents/Button'
-import FeatureCard from '../../../components/FeatureCard'
-import { features } from '../../../../utils/content'
+'use client'
+
+import Button from '../../Button'
+import Nav from '../../Nav'
+import { motion } from "framer-motion"
+import { Canvas } from '@react-three/fiber'
+import ThreeDLogo from '../../ThreeDLogo'
 
 export default function HeroSection() {
   return (
-    <section id='hero' className='flex flex-col w-full h-[calc(100vh-52px)]'>
+    <section 
+      id='hero' 
+      className='flex flex-col w-full bg-gradient-to-b from-primary400 to-primary200 h-screen'
+    >
 
-        {/**
-         *  Hero Top
-         */}
-        <div id='hero top' className='flex flex-col flex-grow justify-center items-center tablet:items-start'>
+        <Nav />
+
+        <div className='flex flex-col flex-grow justify-center desktop:justify-between items-center desktop:items-center desktop:flex-row'>
           
-          {/**
-           *  Hero Content
-           */}
-          <div id='hero content' className='flex flex-col gap-2 tablet:mx-16 tablet:max-w-[35rem] desktop:ml-32 desktop:max-w-[40rem]'>
-            <h1 className='text-secondary500 text-[24px] font-bold text-center tablet:text-[54px] tablet:text-left'>Welcome to Estimate Generator</h1>
-            <div className='w-full flex gap-4 my-8'>
+          <motion.div 
+            id='hero content' 
+            className='flex flex-col gap-2 tablet:mx-16 tablet:max-w-[35rem] desktop:ml-32 desktop:max-w-[40rem]'
+            initial={{ opacity: 0, y: 600 }}
+            animate={{ y: 0 }}
+            transition={{ ease: "easeOut", duration: 1.3 }}
+            whileInView={{ opacity: 1 }}
+          >
+            <h1 className='text-primary500 text-[24px] font-bold text-center tablet:text-[54px] tablet:text-left'>Welcome to Estimate Generator</h1>
+            <div className='w-full flex gap-4 my-4'>
               <Button
                   className='w-[50%] bg-primary500 text-primary100 p-2 text-[14px] font-semibold max-w-[248px] rounded'
               >
                 Sign Up
               </Button>
               <Button
-                  className='w-[50%] bg-primar100 border-2 border-primary500 text-primary500 p-2 font-medium text-[14px] max-w-[248px] font text-base tablet:hidden rounded'
+                  className='w-[50%] bg-primary100 border-2 border-primary500 text-primary500 p-2 font-medium text-[14px] max-w-[248px] font text-base tablet:hidden rounded'
               >
                   Log In
               </Button>
             </div>
-          </div>
+          </motion.div>
 
-          <div id='hero img'>
-
-          </div>
-
-        </div>
-
-        {/**
-         *  Hero Bottom
-         */}
-        <div id='hero bottom' className='w-full flex flex-col gap-2 items-center desktop:flex-row desktop:items-start py-4 bg-primary200'>
-
-          <div className='w-full flex flex-col justify-start items-start'>
-            <h3 className='font-bold text-[36px] text-center w-full my-4 desktop:pl-32 desktop:text-left text-secondary500'>Check out Estimate Generators features</h3>
-          </div>
-
-          <div className='flex flex-col mx-[64px] gap-8 tablet:flex-row'>
-            {features.map((feature) => (
-              <div className='basis-full' key={features.indexOf(feature)}>
-                <FeatureCard
-                  icon={feature.icon}
-                  heading={feature.heading}
-                  paragraph={feature.paragraph}
-                />
-              </div>
-            ))}
-          </div>
+          <motion.div 
+            id='canvas-container'
+            className='w-50 aspect-square desktop:mr-32'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ ease: "easeOut", delay: 1.75, duration: 3 }}
+          >
+            <Canvas
+              id='canvas'
+              className=''
+            >
+              <ambientLight intensity={0.5} />
+              <directionalLight position={[-2,5,2]} intensity={1} color='blue'/>
+              <ThreeDLogo />
+            </Canvas>
+          </motion.div>
 
         </div>
 
