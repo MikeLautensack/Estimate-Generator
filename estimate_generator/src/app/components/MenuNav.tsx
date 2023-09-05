@@ -6,7 +6,7 @@ import { LuLayoutDashboard } from 'react-icons/lu'
 import { BsFilePerson } from 'react-icons/bs'
 import { FcDocument } from 'react-icons/fc'
 
-const SideMenuNav = () => {
+const MenuNav = () => {
   return (
     <nav className='w-full flex flex-col items-start gap-2'>
         <Button
@@ -34,4 +34,4 @@ const SideMenuNav = () => {
   )
 }
 
-export default SideMenuNav
+export default MenuNav

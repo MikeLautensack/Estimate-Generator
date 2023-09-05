@@ -1,5 +1,5 @@
 import '../globals.css'
-import SideMenu from "../components/SideMenu"
+import Menu from "../components/Menu"
 
 export const metadata = {
   title: 'Next.js',
@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className='flex min-h-screen'>
-        <SideMenu />
+        <Menu />
         {children}
       </body>
     </html>

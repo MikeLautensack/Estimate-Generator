@@ -2,17 +2,17 @@
 
 import React from 'react'
 import { useState } from 'react'
-import SideMenuSearchForm from './forms/SideMenuSearchForm'
+import SearchForm from './forms/SearchForm'
 
-const SideMenuSearch = () => {
+const MenuSearch = () => {
 
   const [ serachQuery, setSearchQuery ] = useState('')
 
   return (
     <div className='w-full'>
-        <SideMenuSearchForm />
+        <SearchForm />
     </div>
   )
 }
 
-export default SideMenuSearch
+export default MenuSearch
