@@ -1,7 +1,7 @@
 import { Dispatch } from 'react'
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> { 
-    children?: string | JSX.Element | JSX.Element[],
+    children?: string | JSX.Element | JSX.Element[] | [ JSX.Element, string ],
 }
 
 export interface FeatureCardProps {
@@ -50,4 +50,8 @@ export interface RegisterFormValues {
     email: string,
     password: string
     confirmPassword: string
+}
+
+export interface SideMenuSearchFormProps {
+    search: string
 }
