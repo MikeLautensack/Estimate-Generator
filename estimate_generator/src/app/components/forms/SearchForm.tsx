@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { SideMenuSearchFormProps } from '../../../types/types'
 import { FiSearch } from 'react-icons/fi'
 
-const SideMenuSearchForm = () => {
+const SearchForm = ({}) => {
 
   const {
     register,
@@ -27,4 +27,4 @@ const SideMenuSearchForm = () => {
   )
 }
 
-export default SideMenuSearchForm
+export default SearchForm

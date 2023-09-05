@@ -55,3 +55,8 @@ export interface RegisterFormValues {
 export interface SideMenuSearchFormProps {
     search: string
 }
+
+export interface SmallStatCardProps {
+    heading: string,
+    data: string
+}
