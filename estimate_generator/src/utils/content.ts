@@ -78,3 +78,49 @@ export const features = [
       opened: false
     }
   ]
+
+  export const SMALLSTATCARDDATA = [
+    {
+        heading: 'Total Customers',
+        data: '23'
+    },
+    {
+        heading: 'Total Estimates',
+        data: '54'
+    },
+    {
+        heading: 'Total Accepted Estimates',
+        data: '2'
+    },
+    {
+        heading: 'Total Sales',
+        data: '96'
+    }
+  ]
+
+  export const CHANGEORDERS = [
+    {
+      _id: '1',
+      estimateName: 'FRHHRHR',
+      description: 'FRHHRHR',
+      customerName: 'FRHHRHR',
+      address: 'FRHHRHR',
+      status: 'FRHHRHR'
+    },
+    {
+      _id: '2',
+      estimateName: 'FRHHRHR',
+      description: 'FRHHRHR',
+      customerName: 'FRHHRHR',
+      address: 'FRHHRHR',
+      status: 'FRHHRHR'
+    },
+    {
+      _id: '3',
+      estimateName: 'FRHHRHR',
+      description: 'FRHHRHR',
+      customerName: 'FRHHRHR',
+      address: 'FRHHRHR',
+      status: 'FRHHRHR'
+    },
+  ]

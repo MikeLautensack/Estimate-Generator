@@ -1,38 +1,42 @@
 import React from 'react'
 import Button from '../../Button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
+import Overview from './Overview'
+import ChangeOrders from './ChangeOrders'
+import Emails from './Emails'
+
 
 const DashboardContent = () => {
   return (
-    <section>
-        <div
-            id='dashboard-tabs'
+    <section
+        id='dashboard-content'
+        className=''
+    >
+        <Tabs
+            defaultValue='overview'
             className=''
         >
-            <Button
-                id='overview-tabs-button'
-                className=''
+            <TabsList>
+                <TabsTrigger value='overview'>Overview</TabsTrigger>
+                <TabsTrigger value='change-orders'>Change Orders</TabsTrigger>
+                <TabsTrigger value='emails'>Emails</TabsTrigger>
+            </TabsList>
+            <TabsContent
+                value='overview'
             >
-                Overview
-            </Button>
-            <Button
-                id='change-orders-tab-button'
-                className=''
+                <Overview />
+            </TabsContent>
+            <TabsContent
+                value='change-orders'
             >
-                Change Orders
-            </Button>
-            <Button
-                id='emails-tab-button'
-                className=''
+                <ChangeOrders />
+            </TabsContent>
+            <TabsContent
+                value='emails'
             >
-                Email
-            </Button>
-        </div>
-        <div
-            id='dashboard-pages'
-            className=''
-        >
-
-        </div>
+                <Emails />
+            </TabsContent>
+        </Tabs>
     </section>
   )
 }

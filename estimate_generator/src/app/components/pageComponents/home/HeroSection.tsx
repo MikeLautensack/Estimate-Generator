@@ -1,11 +1,11 @@
 'use client'
 
-import Button from '../../Button'
 import Nav from '../../Nav'
 import { motion } from "framer-motion"
 import { Canvas } from '@react-three/fiber'
 import ThreeDLogo from '../../ThreeDLogo'
 import { OrbitControls } from '@react-three/drei'
+import Link from 'next/link'
 
 export default function HeroSection() {
   return (
@@ -28,16 +28,20 @@ export default function HeroSection() {
           >
             <h1 className='text-primary500 text-[24px] font-bold text-center tablet:text-[54px] tablet:text-left'>Welcome to Estimate Generator</h1>
             <div className='w-full flex gap-4 my-4'>
-              <Button
+              <Link
+                  id='signup-button'
                   className='w-[50%] bg-primary500 text-primary100 p-2 text-[14px] font-semibold max-w-[248px] rounded'
+                  href='/register'
               >
                 Sign Up
-              </Button>
-              <Button
+              </Link>
+              <Link
+                  id='login-button'
                   className='w-[50%] bg-primary100 border-2 border-primary500 text-primary500 p-2 font-medium text-[14px] max-w-[248px] font text-base tablet:hidden rounded'
+                  href='/login'
               >
                   Log In
-              </Button>
+              </Link>
             </div>
           </motion.div>
 

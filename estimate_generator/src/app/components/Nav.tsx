@@ -2,6 +2,7 @@ import React from 'react'
 import Button from './Button'
 import { FaBars } from "react-icons/fa"
 import { motion } from "framer-motion"
+import Link from 'next/link'
 
 export default function Nav() {
   return (
@@ -14,16 +15,20 @@ export default function Nav() {
     >
         <h2 className='mx-5 text-primary500 font-medium text-[24px]'>Estimate Generator</h2>
         <div className='hidden tablet:flex gap-2 m-2'>
-            <Button
+            <Link
+                id='login-button'
                 className='bg-primary500 text-primary100 text-base font-medium rounded p-1 w-[70px]'
+                href='/login'
             >
                 Log In
-            </Button>
-            <Button
+            </Link>
+            <Link
+                id='signup-button'
                 className='text-primary100 text-base font-medium rounded p-1 border-2 border-primary500 w-[70px]'
+                href='/register'
             >
                 Sign Up
-            </Button>
+            </Link>
         </div>
         <FaBars className='m-5 tablet:hidden text-primary500'/>
     </motion.nav>

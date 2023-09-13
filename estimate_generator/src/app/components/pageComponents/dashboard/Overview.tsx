@@ -3,31 +3,13 @@ import HighProfitCustomersGraph from "./HighProfitCustomersGraph"
 import NewCustomersGraph from "./NewCustomersGraph"
 import NewEstimateGraph from "./NewEstimateGraph"
 import SmallStatCard from "./SmallStatCard"
+import { SMALLSTATCARDDATA } from "@/utils/content"
 
 export default function Overview() {
 
-  const SMALLSTATCARDDATA = [
-    {
-        heading: '',
-        data: ''
-    },
-    {
-        heading: '',
-        data: ''
-    },
-    {
-        heading: '',
-        data: ''
-    },
-    {
-        heading: '',
-        data: ''
-    }
-  ]
-
   return (
-    <div className=''>
-        <div className=''>
+    <div className='flex flex-col gap-4'>
+        <div className='grid gap-4 desktop:grid-cols-4'>
             {SMALLSTATCARDDATA.map((statCard) => (
                 <SmallStatCard
                     heading={statCard.heading} 
@@ -35,7 +17,7 @@ export default function Overview() {
                 />
             ))}
         </div>
-        <div className=''>
+        <div className='grid gap-4 desktop:grid-cols-2'>
             <NewCustomersGraph />
             <NewEstimateGraph />
             <HighProfitCustomersGraph />
