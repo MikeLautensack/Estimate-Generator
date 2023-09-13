@@ -1,4 +1,6 @@
+import { ColumnDef, Table } from '@tanstack/react-table'
 import { Dispatch } from 'react'
+
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> { 
     children?: string | JSX.Element | JSX.Element[] | [ JSX.Element, string ],
@@ -59,4 +61,22 @@ export interface SideMenuSearchFormProps {
 export interface SmallStatCardProps {
     heading: string,
     data: string
+}
+
+export interface ChangeOrder {
+    _id: string,
+    estimateName: string,
+    description: string,
+    customerName: string,
+    address: string,
+    status: string
+}
+
+export interface ChangeOrderTableProps<TData, TValue> {
+    columns: ColumnDef<TData, TValue>[]
+    data: TData[]
+}
+
+export interface DataTablePaginationProps<TData> {
+    table: Table<TData>
 }

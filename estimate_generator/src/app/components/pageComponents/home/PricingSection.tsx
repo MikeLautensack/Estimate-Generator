@@ -4,14 +4,14 @@ import React from 'react'
 import { useState } from 'react'
 import SubscriptionCard from '../../SubscriptionCard'
 import { subscriptionCards } from '../../../../utils/content'
-import ReactSwitch from 'react-switch'
+import { Switch } from "../../ui/switch"
 
 export default function PricingSection() {
 
   const [ subRateType, setSubRateType ] = useState(false)
 
-  const click = () => {
-    if(subRateType) {
+  const click = (checked: boolean) => {
+    if(checked) {
         setSubRateType(false)
     } else {
         setSubRateType(true)
@@ -38,13 +38,9 @@ export default function PricingSection() {
               <p className='text-primary500'>10% off</p>
               <h4 className='text-primary500'>Annual</h4>
             </div>
-            <ReactSwitch
-              onChange={click}
-              checked={subRateType}
-              offColor='#d4af37'
-              onColor='#d4af37'
-              uncheckedIcon={false}
-              checkedIcon={false}
+            <Switch
+              className=''
+              onCheckedChange={() => click(subRateType)}
             />
             <div className='flex flex-col'>
               <h4 className='text-primary500'>Monthly</h4>

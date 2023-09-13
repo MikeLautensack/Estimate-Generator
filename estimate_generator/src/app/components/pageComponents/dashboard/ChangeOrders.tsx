@@ -1,47 +1,14 @@
-import Button from "../../Button";
-import SearchForm from "../../SearchForm";
+import ChangeOrderButtonsAndSearch from "./ChangeOrderButtonsAndSearch"
+import ChangeOrdersTable from "../../tables/shadcn_ui_tables/changeOrderTable/ChangeOrdersTable"
+import ChangeOrdersPagination from "../../tables/shadcn_ui_tables/changeOrderTable/ChangeOrdersPagination"
+import { columns } from '../../tables/shadcn_ui_tables/changeOrderTable/columns'
+import { CHANGEORDERS } from '../../../../utils/content'
 
 export default function ChangeOrders() {
   return (
     <div>
-      <div
-        id='buttons-and-search'
-        className=''
-      >
-        <div className=''>
-          <Button
-            id='new-change-order-button'
-            className=''
-          >
-            New Change Order
-          </Button>
-          <Button
-            id='filter-button'
-            className=''
-          >
-            Filter
-          </Button>
-          <Button
-            id='sort-button'
-            className=''
-          >
-            Sort
-          </Button>
-        </div>
-        <SearchForm />
-      </div>
-      <div
-        id='change-order-list'
-        className=''
-      >
-
-      </div>
-      <div
-        id='pagination-buttons'
-        className=''
-      >
-
-      </div>
+      <ChangeOrderButtonsAndSearch />
+      <ChangeOrdersTable columns={columns} data={CHANGEORDERS} />
     </div>
   )
 }

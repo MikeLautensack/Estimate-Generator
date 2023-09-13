@@ -1,5 +1,10 @@
 export default function NewCustomersGraph() {
   return (
-    <div>NewCustomersGraph</div>
+    <div
+      id='new-customer-graph'
+      className='border border-primary500 p-4'
+    >
+      NewCustomersGraph
+    </div>
   )
 }

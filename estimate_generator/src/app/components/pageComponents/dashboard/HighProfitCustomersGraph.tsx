@@ -1,5 +1,10 @@
 export default function HighProfitCustomersGraph() {
   return (
-    <div>HighProfitCustomersGraph</div>
+    <div
+      id='high-profit-customer-graph'
+      className='border border-primary500 p-4'
+    >
+      HighProfitCustomersGraph
+    </div>
   )
 }
