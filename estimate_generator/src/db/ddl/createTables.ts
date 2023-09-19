@@ -1,15 +1,45 @@
 import { devPool, prodPool } from '../config/dbConfig'
 
-const seedDatabases = () => {
-    
+const seedDatabases = async () => {
+  try {
+    await seedDevDB();
+    await seedProdDB();
+    console.log('Databases seeded successfully.');
+  } catch (error) {
+    console.error('Error seeding databases:', error);
+  }
 }
 
-const seedDevDB = () => {
-    
+const seedDevDB = async () => {
+  try {
+    const devClient = await devPool.connect();
+    await devClient.query(createUsersTableQuery)
+    await devClient.query(createCustomersTableQuery)
+    await devClient.query(createEstimatesTableQuery)
+    await devClient.query(createChangeOrdersTableQuery)
+    await devClient.query(createUserProfileTableQuery)
+    await devClient.query(createEmailsTableQuery)
+    await devClient.query(createNotificationTableQuery)
+    devClient.release();
+  } catch (error) {
+    console.error('Error seeding development database:', error);
+  }
 }
 
-const seedProdDB = () => {
-    
+const seedProdDB = async () => {
+  try {
+    const prodClient = await prodPool.connect();
+    await prodClient.query(createUsersTableQuery)
+    await prodClient.query(createCustomersTableQuery)
+    await prodClient.query(createEstimatesTableQuery)
+    await prodClient.query(createChangeOrdersTableQuery)
+    await prodClient.query(createUserProfileTableQuery)
+    await prodClient.query(createEmailsTableQuery)
+    await prodClient.query(createNotificationTableQuery)
+    prodClient.release();
+  } catch (error) {
+    console.error('Error seeding production database:', error);
+  }
 }
 
 const createUsersTableQuery = `
@@ -38,7 +68,7 @@ const createEstimatesTableQuery = `
     estimate_id INT PRIMARY KEY,
     customer_id INT,
     contractor_business_name VARCHAR(255),
-    contractor_business_address VARCHAR(255),
+    contractor_business_address VARCHAR(255), 
     contractor_business_phone VARCHAR(255),
     contractor_business_email VARCHAR(255),
     customer_name VARCHAR(255),
@@ -56,21 +86,43 @@ const createEstimatesTableQuery = `
 
 const createChangeOrdersTableQuery = `
   CREATE TABLE IF NOT EXISTS changeorders (
-    
+    changeorder_id INT PRIMARY KEY,
+    estimate_name VARCHAR(255),
+    descripion VARCHAR(255),
+    customer_name VARCHAR(255),
+    work_address VARCHAR(255),
+    order_status VARCHAR(255),
   );
 `
 const createUserProfileTableQuery = `
   CREATE TABLE IF NOT EXISTS userprofile (
-    
+    profile_id INT PRIMARY KEY,
+    user_id INT,
+    name VARCHAR(255),
+    business_address VARCHAR(255),
+    business_phone VARCHAR(255),
+    business_email VARCHAR(255),
   );
 `
 const createEmailsTableQuery = `
   CREATE TABLE IF NOT EXISTS emails (
-    
+    email_id INT PRIMARY KEY,
+    sender VARCHAR(255),
+    subject VARCHAR(255),
+    body VARCHAR(255),
   );
 `
-const createNotificationTableQuery = `
+const createNotificationTableQuery = `  
   CREATE TABLE IF NOT EXISTS notification (
-    
+    notification_id INT PRIMARY KEY,
+    user_id INT,
+    title VARCHAR(255),
+    body VARCHAR(255),
   );
 `
+
+export {
+  seedDatabases,
+  seedDevDB,
+  seedProdDB
+}
