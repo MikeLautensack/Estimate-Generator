@@ -16,8 +16,8 @@ const authOptions = {
             // e.g. domain, username, password, 2FA token, etc.
             // You can pass any HTML attribute to the <input> tag through the object.
             credentials: {
-              username: { label: "Username", type: "text", placeholder: "jsmith" },
-              password: { label: "Password", type: "password" }
+              email: { label: "Email", type: "email", placeholder: "email" },
+              password: { label: "Password", type: "password", placeholder: "password" }
             },
             async authorize(credentials, req) {
               // You need to provide your own logic here that takes the credentials
@@ -44,6 +44,10 @@ const authOptions = {
           
       // ...add more providers here
     ],
+    pages: {
+      signIn: '/login',
+      signUp: '/register'
+    }
   }
 
 const handler = NextAuth(authOptions)

@@ -1,14 +1,14 @@
-import { devPool, prodPool } from './config/dbConfig'
-import { seedDatabases, seedDevDB, seedProdDB } from './ddl/createTables'
-import { dropDatabases, dropDevDB, dropProdDB } from './ddl/dropTables'
+import { drizzle } from "drizzle-orm/planetscale-serverless"
+import { connect } from "@planetscale/database"
+import dotenv from "dotenv"
 
-export {
-    devPool,
-    prodPool,
-    seedDatabases,
-    seedDevDB,
-    seedProdDB,
-    dropDatabases,
-    dropDevDB,
-    dropProdDB,
-}
+dotenv.config({ path: ".env.local" })
+ 
+// create the connection
+const connection = connect({
+  host: process.env["DATABASE_HOST"],
+  username: process.env["DATABASE_USERNAME"],
+  password: process.env["DATABASE_PASSWORD"],
+})
+ 
+  const db = drizzle(connection)
