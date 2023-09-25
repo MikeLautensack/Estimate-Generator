@@ -11,4 +11,9 @@ const connection = connect({
   password: process.env["DATABASE_PASSWORD"],
 })
  
-  const db = drizzle(connection)
+const db = drizzle(connection)
+export type DbClient = typeof db
+
+export {
+  db
+}
