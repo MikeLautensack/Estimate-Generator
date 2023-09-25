@@ -4,8 +4,11 @@ import bcrypt from 'bcrypt'
 import GoogleProvider from "next-auth/providers/google"
 import TwitterProvider from "next-auth/providers/twitter"
 import FacebookProvider from "next-auth/providers/facebook"
+import { PlanetScaleAdapter } from "../../../../db/schemas/planetScaleAdapter"
+import { db } from '../../../../db/index'
 
 const authOptions = {
+  adapter: PlanetScaleAdapter(db),
     // Configure one or more authentication providers
     providers: [
         CredentialsProvider({
