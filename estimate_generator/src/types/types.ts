@@ -47,8 +47,7 @@ export interface LoginFormValues {
 }
 
 export interface RegisterFormValues {
-    firstName: string,
-    lastName: string,
+    name: string,
     email: string,
     password: string
     confirmPassword: string

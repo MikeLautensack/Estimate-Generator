@@ -40,22 +40,24 @@ const RegisterForm = () => {
     setConfirmEyeOpen(!confirmEyeOpen)
   }
 
-  const onSubmit: SubmitHandler<RegisterFormValues> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
+    const res = await fetch('http://localhost:3000/api/users/createuser', {
+    method: 'POST',
+    body: JSON.stringify({
+        name: data.name,
+        email: data.email,
+        password: data.password
+    }),
+  }) 
+  console.log(res)
   }
 
   return (
     <form className='bg-primary50 m-8 p-4 rounded w-4/5 tablet:w-3/5 desktop:w-1/2 max-w-xl' onSubmit={handleSubmit(onSubmit)}>
         <h1 className='text-[32px] font-bold font-sans text-secondary500 text-center'>Sign Up Free</h1>
-        <div className='flex flex-col gap-2 tablet:flex-row'>
-            <div className=''>
-                <label className=''>First Name</label>
-                <input className='w-full rounded p-1' {...register("firstName", { required: true })}></input>
-            </div>
-            <div className=''>
-                <label className=''>Last Name</label>
-                <input className='w-full rounded p-1' {...register("lastName", { required: true })}></input>
-            </div>
+        <div className='my-2'>
+            <label className=''>Name</label>
+            <input className='w-full rounded p-1' {...register("name", { required: true })}></input>
         </div>
         <div className='my-2'>
             <label className=''>Email Address</label>
@@ -76,7 +78,7 @@ const RegisterForm = () => {
         <div className='my-2'>
             <label className=''>Confirm Password</label>
             <div className='relative'>
-                <input className='w-full rounded p-1' type={confirmEyeOpen ? 'text' : 'confirmPassword'} {...register("password", { required: true })}></input>
+                <input className='w-full rounded p-1' type={confirmEyeOpen ? 'text' : 'password'} {...register("confirmPassword", { required: true })}></input>
                 <Button
                     className='absolute top-2 right-2'
                     onClick={toggleConfirmEye}
@@ -98,6 +100,7 @@ const RegisterForm = () => {
         </div>
         <Button                          
             className='w-full bg-primary500 text-primary100 py-2 font-sans rounded'
+            
         >
             Sign Up FREE
         </Button>
@@ -131,11 +134,11 @@ const RegisterForm = () => {
         </div>
         <div id='divider2' className='w-full border border-secondary300 my-4'></div>
         <div className='flex justify-center'>
-            <p className='text-[14px] text-secondary500 font-normal font-sans'>No account yet?</p>
+            <p className='text-[14px] text-secondary500 font-normal font-sans'>Already have an account?</p>
             <Button
                 className='text-[14px] font-sans font-normal text-secondary500'
             >
-                Sign Up
+                Login
             </Button>
         </div>
     </form>
