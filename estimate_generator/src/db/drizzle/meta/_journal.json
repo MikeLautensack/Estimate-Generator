@@ -15,6 +15,13 @@
       "when": 1695613333479,
       "tag": "0001_tense_shinobi_shaw",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1695707114194,
+      "tag": "0002_red_loki",
+      "breakpoints": true
     }
   ]
 }
