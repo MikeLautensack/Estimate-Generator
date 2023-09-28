@@ -7,6 +7,7 @@ import { FaRegEye, FaRegEyeSlash, FaFacebook, FaTwitter } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { useForm, SubmitHandler  } from 'react-hook-form'
 import { LoginFormValues } from '@/types/types'
+import { signIn } from "next-auth/react"
 
 const LoginForm = () => {
 
@@ -28,6 +29,12 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
     console.log(data)
+    signIn('credentials', {
+        email: data.email, 
+        password: data.password, 
+        redirect: true, 
+        callbackUrl: 'http://localhost:3000/dashboard' 
+    })
   }
 
   return (

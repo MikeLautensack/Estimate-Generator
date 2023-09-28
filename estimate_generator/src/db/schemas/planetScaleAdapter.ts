@@ -7,6 +7,7 @@ import type { Adapter } from "@auth/core/adapters"
 export const defaultSchema = { users, accounts, sessions, verificationTokens }
 export type DefaultSchema = typeof defaultSchema
 interface CustomSchema extends DefaultSchema { }
+
 export function PlanetScaleAdapter(
   client: DbClient,
   _schema?: Partial<CustomSchema>
