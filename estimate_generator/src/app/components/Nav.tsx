@@ -3,6 +3,7 @@ import Button from './Button'
 import { FaBars } from "react-icons/fa"
 import { motion } from "framer-motion"
 import Link from 'next/link'
+import { signIn } from "next-auth/react"
 
 export default function Nav() {
   return (
@@ -19,6 +20,7 @@ export default function Nav() {
                 id='login-button'
                 className='bg-primary500 text-primary100 text-base font-medium rounded p-1 w-[70px]'
                 href='/login'
+                onClick={() => signIn()}
             >
                 Log In
             </Link>

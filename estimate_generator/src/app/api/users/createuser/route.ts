@@ -2,15 +2,22 @@ import { NextResponse } from 'next/server'
 import { db } from '../../../../db'
 import { users } from '../../../../db/schemas/auth'
 import bcrypt from 'bcrypt'
+import { eq, lt, gte, ne } from "drizzle-orm"
 
 export async function POST(request: Request) {
-    const allUsers = await db.select().from(users)
     const data = await request.json()
-    allUsers.map((user) => {
-        if(user.email === data.email) {
-            return NextResponse.json({ error: 'User already registered' }, { status: 500 })
-        }
-    })
+    const existingUser = await db
+    .select()
+    .from(users)
+    .where(eq(data.email, users.email));
+
+    console.log(existingUser.length)
+    console.log(data.email)
+
+    if (existingUser.length === 1) {
+        return NextResponse.json({ error: 'User already registered' }, { status: 501 });
+    }
+
     await db.insert(users).values({
         id: Math.random().toString(),
         name: data.name,

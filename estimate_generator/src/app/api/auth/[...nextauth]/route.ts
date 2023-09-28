@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth'
+import NextAuth, { SessionStrategy } from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from 'bcrypt'
 import GoogleProvider from "next-auth/providers/google"
@@ -6,6 +6,8 @@ import TwitterProvider from "next-auth/providers/twitter"
 import FacebookProvider from "next-auth/providers/facebook"
 import { PlanetScaleAdapter } from "../../../../db/schemas/planetScaleAdapter"
 import { db } from '../../../../db/index'
+import { users } from '../../../../db/schemas/auth'
+import { eq, lt, gte, ne } from "drizzle-orm"
 
 const authOptions = {
   adapter: PlanetScaleAdapter(db),
@@ -29,17 +31,23 @@ const authOptions = {
               // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
               // You can also use the `req` object to obtain additional parameters
               // (i.e., the request IP address)
-              const res = await fetch("/your/endpoint", {
-                method: 'POST',
-                body: JSON.stringify(credentials),
-                headers: { "Content-Type": "application/json" }
-              })
-              const user = await res.json()
-        
-              // If no error and we have user data, return it
-              if (res.ok && user) {
+              const { email, password } = credentials as {
+                email: string;
+                password: string;
+              }
+
+              const res = await db
+                  .select()
+                  .from(users)
+                  .where(eq(users.email, email));
+
+              const user = res[0]
+              const passMatch = await bcrypt.compare(password, user.password!)
+              
+              if(passMatch) {
                 return user
               }
+
               // Return null if user data could not be retrieved
               return null
             }
@@ -47,10 +55,13 @@ const authOptions = {
           
       // ...add more providers here
     ],
+    session: {
+      strategy: 'jwt' as SessionStrategy
+    },
     pages: {
       signIn: '/login',
       signUp: '/register'
-    }
+    },
   }
 
 const handler = NextAuth(authOptions)
