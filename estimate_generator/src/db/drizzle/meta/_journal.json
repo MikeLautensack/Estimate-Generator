@@ -22,6 +22,27 @@
       "when": 1695707114194,
       "tag": "0002_red_loki",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1696300096270,
+      "tag": "0003_green_shatterstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1696389675345,
+      "tag": "0004_certain_wrecking_crew",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1696424108349,
+      "tag": "0005_tiny_lady_bullseye",
+      "breakpoints": true
     }
   ]
 }

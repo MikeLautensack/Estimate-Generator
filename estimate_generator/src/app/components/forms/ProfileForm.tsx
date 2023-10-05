@@ -2,11 +2,35 @@
 
 import React from 'react'
 import Button from '../Button'
-import Image from 'next/image'
+import { useForm, SubmitHandler } from "react-hook-form"
+import { profileFormProps } from '../../../types/formTypes'
 
-const CompleteProfile = () => {
+const ProfileForm = () => {
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<profileFormProps>()
+
+  const onSubmit: SubmitHandler<profileFormProps> = async (data) => {
+    const res = await fetch('http://localhost:3000/api/users/createuser', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    console.log('Form data: ', data)
+    console.log('Response: ', res)
+  }
+
   return (
-    <form className='bg-primary50 p-4 w-4/5 rounded tablet:w-3/5 desktop:w-1/2 max-w-xl'>
+    <form
+        className='bg-primary50 p-4 w-4/5 rounded tablet:w-3/5 desktop:w-1/2 max-w-xl'
+        onClick={handleSubmit(onSubmit)}
+    >
         <h1 className='text-[32px] font-bold font-sans text-secondary500 text-center'>Complete Profle</h1>
         <div className='flex flex-col items-center tablet:flex-row'>
             <div className='flex flex-col w-1/2 p-2'>
@@ -43,19 +67,31 @@ const CompleteProfile = () => {
             <h3 className='text-[18px] font-bold font-sans text-secondary500'>Profile Details</h3>
             <div className=''>
                 <label className=''>Business or Contractor Name</label>
-                <input className='w-full rounded p-1'></input>
+                <input
+                    className='w-full rounded p-1'
+                    {...register("businessName")}
+                ></input>
             </div>
             <div className=''>
                 <label className=''>Business Address</label>
-                <input className='w-full rounded p-1'></input>
+                <input
+                    className='w-full rounded p-1'
+                    {...register("businessAddress")}
+                ></input>
             </div>
             <div className=''>
                 <label className=''>Business Email</label>
-                <input className='w-full rounded p-1'></input>
+                <input
+                    className='w-full rounded p-1'
+                    {...register("businessEmail")}
+                ></input>
             </div>
             <div className=''>
                 <label className=''>Business Phone</label>
-                <input className='w-full rounded p-1'></input>
+                <input
+                    className='w-full rounded p-1'
+                    {...register("businessPhone")}
+                ></input>
             </div>
             <div className='w-full flex justify-end'>
                 <Button
@@ -69,4 +105,4 @@ const CompleteProfile = () => {
   )
 }
 
-export default CompleteProfile
+export default ProfileForm
