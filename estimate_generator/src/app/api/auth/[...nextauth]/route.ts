@@ -7,7 +7,7 @@ import FacebookProvider from "next-auth/providers/facebook"
 import { PlanetScaleAdapter } from "../../../../db/schemas/planetScaleAdapter"
 import { db } from '../../../../db/index'
 import { users } from '../../../../db/schemas/auth'
-import { eq, lt, gte, ne } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 
 const authOptions = {
   adapter: PlanetScaleAdapter(db),
@@ -51,8 +51,19 @@ const authOptions = {
               // Return null if user data could not be retrieved
               return null
             }
+          }),
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+          }),
+          FacebookProvider({
+            clientId: process.env.FACEBOOK_CLIENT_ID as string,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string
+          }),
+          TwitterProvider({
+            clientId: process.env.TWITTER_CLIENT_ID as string,
+            clientSecret: process.env.TWITTER_CLIENT_SECRET as string
           })
-          
       // ...add more providers here
     ],
     session: {

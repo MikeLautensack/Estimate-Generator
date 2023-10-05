@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { db } from '../../../../db'
 import { users } from '../../../../db/schemas/auth'
 import bcrypt from 'bcrypt'
-import { eq, lt, gte, ne } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 
 export async function POST(request: Request) {
     const data = await request.json()

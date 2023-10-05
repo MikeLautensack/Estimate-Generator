@@ -78,6 +78,7 @@ const LoginForm = () => {
         <div className='flex flex-col gap-2 tablet:flex-row justify-evenly'>
             <Button
                 className='border-2 border-primary500 text-primary500 text-base font-sans font-medium flex-grow rounded'
+                onClick={() => signIn('google')}
             >
                 <div className='flex gap-2 justify-center items-center'>
                     <FcGoogle />

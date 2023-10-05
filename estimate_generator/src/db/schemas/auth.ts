@@ -7,8 +7,13 @@ import {
   text
 } from "drizzle-orm/mysql-core"
 import type { AdapterAccount } from "@auth/core/adapters"
+import { relations } from 'drizzle-orm'
+import { profiles } from './userProfile'
+import { customers } from './customers'
 
-export const users = mysqlTable("users", {
+export const users = mysqlTable(
+    "users", 
+{
   id: varchar("id", { length: 255 }).notNull().primaryKey(),
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
@@ -18,8 +23,19 @@ export const users = mysqlTable("users", {
   updatedAt: timestamp("updated_at"),
 })
 
+export const userProfileRelationship = relations(users, ({ one }) => ({
+	profile: one(profiles, {
+		fields: [users.id],
+		references: [profiles.user_id],
+	}),
+}))
+
+export const userCustomerRelationship = relations(users, ({ many }) => ({
+	posts: many(customers),
+}))
+
 export const accounts = mysqlTable(
-  "accounts",
+      "accounts",
   {
     userId: varchar("userId", { length: 255 }).notNull(),
     type: varchar("type", { length: 255 }).$type<AdapterAccount["type"]>().notNull(),
@@ -39,14 +55,16 @@ export const accounts = mysqlTable(
   })
 )
 
-export const sessions = mysqlTable("sessions", {
+export const sessions = mysqlTable(
+    "sessions", 
+{
   sessionToken: varchar("sessionToken", { length: 255 }).notNull().primaryKey(),
   userId: varchar("userId", { length: 255 }).notNull(),
   expires: timestamp("expires", { mode: "date" }).notNull(),
 })
 
 export const verificationTokens = mysqlTable(
-  "verificationToken",
+    "verificationToken",
   {
     identifier: varchar("identifier", { length: 255 }).notNull(),
     token: varchar("token", { length: 255 }).notNull(),
