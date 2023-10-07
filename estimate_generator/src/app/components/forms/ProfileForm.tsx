@@ -15,21 +15,19 @@ const ProfileForm = () => {
   } = useForm<profileFormProps>()
 
   const onSubmit: SubmitHandler<profileFormProps> = async (data) => {
-    const res = await fetch('http://localhost:3000/api/users/createuser', {
-        method: 'POST',
+    const res = await fetch('http://localhost:3000/api/users/profile/editprofile', {
+        method: 'PUT',
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     })
-    console.log('Form data: ', data)
-    console.log('Response: ', res)
   }
 
   return (
     <form
         className='bg-primary50 p-4 w-4/5 rounded tablet:w-3/5 desktop:w-1/2 max-w-xl'
-        onClick={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
     >
         <h1 className='text-[32px] font-bold font-sans text-secondary500 text-center'>Complete Profle</h1>
         <div className='flex flex-col items-center tablet:flex-row'>

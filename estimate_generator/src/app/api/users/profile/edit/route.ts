@@ -7,7 +7,12 @@ export async function PUT(request: Request) {
     const data = await request.json()
     try {
         await db.update(profiles)
-                .set(data)
+                .set({
+                    business_name: data.businessName,
+                    business_address: data.businessAddress,
+                    business_email: data.businessEmail,
+                    business_phone: data.businessPhone,
+                })
                 .where(eq(profiles.id, data.id))
         return NextResponse.json('Profile sucsussfully updated')
     } catch (error) {

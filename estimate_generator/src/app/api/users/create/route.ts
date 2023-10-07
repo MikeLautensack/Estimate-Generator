@@ -11,15 +11,12 @@ export async function POST(request: Request) {
     .from(users)
     .where(eq(data.email, users.email));
 
-    console.log(existingUser.length)
-    console.log(data.email)
-
     if (existingUser.length === 1) {
         return NextResponse.json({ error: 'User already registered' }, { status: 501 });
     }
 
     await db.insert(users).values({
-        id: Math.random().toString(),
+        id: Math.floor(Math.random() * 100000000).toString(),
         name: data.name,
         email: data.email,
         password: bcrypt.hashSync(data.password, 10),

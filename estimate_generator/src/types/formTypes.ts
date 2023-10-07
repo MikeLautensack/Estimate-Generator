@@ -4,3 +4,10 @@ export interface profileFormProps {
     businessEmail: string,
     businessPhone: string
 }
+
+export interface customerFormProps {
+    name: string,
+    address: string,
+    email: string,
+    phone: string
+}
