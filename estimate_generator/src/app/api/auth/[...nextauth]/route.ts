@@ -8,8 +8,10 @@ import { PlanetScaleAdapter } from "../../../../db/schemas/planetScaleAdapter"
 import { db } from '../../../../db/index'
 import { users } from '../../../../db/schemas/auth'
 import { eq } from "drizzle-orm"
+import { JWT } from "next-auth/jwt"
+import { Session } from "next-auth"
 
-const authOptions = {
+export const authOptions = {
   adapter: PlanetScaleAdapter(db),
     // Configure one or more authentication providers
     providers: [
@@ -73,6 +75,26 @@ const authOptions = {
       signIn: '/login',
       signUp: '/register'
     },
+    callbacks: {
+      async session({ session, token }:any) {
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            id: token.id
+          }
+        }
+      },
+      async jwt({ token, user }:any) {
+        if(user) {
+          return {
+            ...token,
+            id: user.id
+          }
+        }
+        return token
+      }
+    }
   }
 
 const handler = NextAuth(authOptions)
