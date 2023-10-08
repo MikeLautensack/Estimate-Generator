@@ -17,7 +17,7 @@ export const customers = mysqlTable(
   user_id: bigint('user_id', { mode: 'number' })
 })
 
-export const postsRelations = relations(customers, ({ one }) => ({
+export const userCustomerRelationship = relations(customers, ({ one }) => ({
 	author: one(users, {
 		fields: [customers.user_id],
 		references: [users.id],
