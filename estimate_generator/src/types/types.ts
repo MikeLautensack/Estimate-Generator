@@ -79,3 +79,14 @@ export interface ChangeOrderTableProps<TData, TValue> {
 export interface DataTablePaginationProps<TData> {
     table: Table<TData>
 }
+
+export interface lineItem {
+    id: number,
+    description: string,
+    quantity:  number,
+    rateType: string,
+    unitType: string,
+    unitRate: number,
+    total: number,
+    estimateId: number
+}

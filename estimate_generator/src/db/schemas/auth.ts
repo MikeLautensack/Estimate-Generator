@@ -10,6 +10,7 @@ import type { AdapterAccount } from "@auth/core/adapters"
 import { relations } from 'drizzle-orm'
 import { profiles } from './userProfile'
 import { customers } from './customers'
+import { estimates } from './estimates'
 
 export const users = mysqlTable(
     "users", 
@@ -32,6 +33,10 @@ export const userProfileRelationship = relations(users, ({ one }) => ({
 
 export const userCustomerRelationship = relations(users, ({ many }) => ({
 	posts: many(customers),
+}))
+
+export const userEstimateRelationship = relations(users, ({ many }) => ({
+	posts: many(estimates),
 }))
 
 export const accounts = mysqlTable(
