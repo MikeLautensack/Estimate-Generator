@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server'
-import { db } from '../../../../db'
-import { customers } from '../../../../db/schemas/customers'
+import { db } from '../../../../../db'
+import { customers } from '../../../../../db/schemas/customers'
 import { eq } from "drizzle-orm"
 
-export async function PUT(request: Request) {
+export async function PUT(
+    request: NextResponse,
+    { params }: { params: { id: string } }
+) {
     const data = await request.json()
     try {
         await db.update(customers)
