@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from '../../auth/[...nextauth]/route'
 import { eq, lt, gte, ne } from "drizzle-orm"
 
-export async function GET(request: Request) {
+export async function GET(request: NextResponse) {
     const data = await request.json()
     const session = await getServerSession(authOptions)
     try {

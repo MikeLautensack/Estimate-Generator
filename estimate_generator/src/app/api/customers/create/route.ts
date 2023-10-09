@@ -4,7 +4,7 @@ import { db } from '../../../../db'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '../../auth/[...nextauth]/route'
 
-export async function POST(request: Request) {
+export async function POST(request: NextResponse) {
     const data = await request.json()
     const session = await getServerSession(authOptions)
     try {
