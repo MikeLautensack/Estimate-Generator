@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import Button from './Button'
 import MenuNav from './MenuNav'
@@ -6,10 +8,15 @@ import { BsPerson } from 'react-icons/bs'
 import { FcSettings } from 'react-icons/fc'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import LogoutButton from './LogoutButton'
+import { useState } from 'react'
+import { FaBars } from 'react-icons/fa'
 
-export default function Menu() {
+const Menu = () => {
+
+ const [ open, setOpen ] = useState(false)
+
  return (
-    <div className='w-[256px] flex flex-col gap-4 bg-primary100 p-4'>
+    <div className='flex gap-4 w-full bg-primary100 p-4'>
         <h1 className='text-2xl font-bold font-sans text-primary500'>Estimate Generator</h1>
         <nav className='flex gap-4 justify-center items-center'>
             <Link
@@ -33,9 +40,23 @@ export default function Menu() {
                 <IoMdNotificationsOutline />
             </Button>
         </nav>
-        <MenuSearch />
-        <MenuNav />
-        <LogoutButton />
+        <MenuSearch
+            className='hidden'
+        />
+        <MenuNav
+            className={`${open ? 'flex' : 'hidden'} desktop:flex flex-col items-start gap-2`}
+        />
+        <LogoutButton
+            className={`${open ? 'flex' : 'hidden'} desktop:flex`}
+        />
+        <Button
+            className={`${open ? 'hidden' : 'flex'} desktop:hidden`}
+            onClick={() => setOpen(!open)}
+        >
+            <FaBars />
+        </Button>
     </div>
   )
 }
+
+export default Menu

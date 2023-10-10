@@ -7,9 +7,11 @@ export default function WebappLayout({
   children: React.ReactNode
 }) {
   return (
-    <section>
+    <div
+      className='bg-primary600'
+    >
       <Menu />
       {children}
-    </section>
+    </div>
   )
 }

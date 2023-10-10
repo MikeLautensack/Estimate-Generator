@@ -3,7 +3,7 @@ import { Dispatch } from 'react'
 
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> { 
-    children?: string | JSX.Element | JSX.Element[] | [ JSX.Element, string ],
+    children?: string | JSX.Element | JSX.Element[] | [ JSX.Element, string ]
 }
 
 export interface FeatureCardProps {
