@@ -7,9 +7,11 @@ import { BsFilePerson } from 'react-icons/bs'
 import { FcDocument } from 'react-icons/fc'
 import Link from 'next/link'
 
-const MenuNav = () => {
+const MenuNav = ({ ...props }) => {
   return (
-    <nav className='w-full flex flex-col items-start gap-2'>
+    <nav 
+        {...props}
+    >
         <Link
             id='dashboard-button'
             className='text-base font-medium font-sans text-primary500 flex gap-2 items-center'
