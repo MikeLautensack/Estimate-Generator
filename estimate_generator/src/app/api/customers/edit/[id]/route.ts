@@ -9,15 +9,15 @@ export async function PUT(
 ) {
     const data = await request.json()
     try {
-        await db.update(customers)
+        const customer = await db.update(customers)
                 .set({
                     name: data.name,
                     address: data.address,
                     email: data.email,
                     phone: data.phone,
                 })
-                .where(eq(customers.id, data.id))
-        return NextResponse.json('Profile sucsussfully updated')
+                .where(eq(customers.id, parseInt(params.id)))
+        return NextResponse.json(customer)
     } catch (error) {
         return NextResponse.json(error)
     }

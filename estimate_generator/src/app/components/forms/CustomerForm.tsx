@@ -1,28 +1,52 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { customerFormProps } from '../../../types/formTypes'
 import { Button } from '../ui/button'
+import { CustomerForm } from '@/types/customers'
 
-const CustomerForm = () => {
-
+const CustomerForm = (data:CustomerForm) => {
+    console.log(data)
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<customerFormProps>()
 
-  const onSubmit: SubmitHandler<customerFormProps> = async (data) => {
-    const res = await fetch('http://localhost:3000/api/customers/delete', {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
+  const onSubmit: SubmitHandler<customerFormProps> = async (formData) => {
+    if(data.data != null) {
+        const res = await fetch(`http://localhost:3000/api/customers/edit/${data.data.id}`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        console.log(res)
+    } else {
+        const res = await fetch('http://localhost:3000/api/customers/create', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        console.log(res)
+    }
   }
+
+  useEffect(() =>{
+      if(data.data != null) {
+        setValue('name', data.data.name as string)
+        setValue('address', data.data.address as string)
+        setValue('email', data.data.email as string)
+        setValue('phone', data.data.phone as string)
+      }
+  }, [])
+
 
   return (
     <form

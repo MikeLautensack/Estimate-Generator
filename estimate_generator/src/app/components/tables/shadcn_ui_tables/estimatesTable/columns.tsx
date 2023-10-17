@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Customers } from "@/types/customers"
+import { Estimates } from "@/types/estimates"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,13 +9,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../../components/ui/dropdown-menu"
+} from "../../../ui/dropdown-menu"
 import { Button } from "../../../ui/button"
 import { Checkbox } from "../../../ui/checkbox"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import Link from 'next/link';
 
-export const columns: ColumnDef<Customers>[] = [
+export const columns: ColumnDef<Estimates>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -36,35 +35,35 @@ export const columns: ColumnDef<Customers>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: "estimate_name",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          Estimate Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "customer_name",
+    header: "Customer Name",
   },
   {
-    accessorKey: "address",
-    header: "Address",
+    accessorKey: "project_address",
+    header: "Project Address",
   },
   {
-    accessorKey: "phone",
-    header: "Phone",
+    accessorKey: "total",
+    header: "Total",
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const customer = row.original
+      const estimates = row.original
  
       return (
         <DropdownMenu>
@@ -75,27 +74,11 @@ export const columns: ColumnDef<Customers>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Estimate Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <Link
-              href={`http://localhost:3000/customers/${customer.id}`}
-            >
-              <DropdownMenuItem>View Customer</DropdownMenuItem>
-            </Link>
-            <Link
-              href={`http://localhost:3000/customers/form/${customer.id}`}
-            >
-              <DropdownMenuItem>Edit Customer</DropdownMenuItem>
-            </Link>
-            <DropdownMenuItem
-              onClick={() => {
-                fetch(`http://localhost:3000/api/customers/delete/${customer.id}`, {
-                  method: 'DELETE',
-                })
-              }}
-            >
-              Delete Customer
-            </DropdownMenuItem>
+            <DropdownMenuItem>View Estimates</DropdownMenuItem>
+            <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
+            <DropdownMenuItem>Delete Estimates</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

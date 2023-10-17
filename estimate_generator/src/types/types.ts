@@ -71,7 +71,7 @@ export interface ChangeOrder {
     status: string
 }
 
-export interface ChangeOrderTableProps<TData, TValue> {
+export interface TableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
 }

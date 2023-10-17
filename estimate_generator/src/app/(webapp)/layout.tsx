@@ -2,13 +2,13 @@ import '../globals.css'
 import Menu from "../components/Menu"
 
 export default function WebappLayout({
-  children,
+  children, 
 }: {
   children: React.ReactNode
 }) {
   return (
     <div
-      className='bg-primary600'
+      className='desktop:flex bg-primary600 min-h-screen'
     >
       <Menu />
       {children}

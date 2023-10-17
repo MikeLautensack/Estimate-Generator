@@ -3,6 +3,7 @@ import { customers } from '../../../../db/schemas/customers'
 import { db } from '../../../../db'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '../../auth/[...nextauth]/route'
+import { revalidatePath } from 'next/cache'
 
 export async function POST(request: NextResponse) {
     const data = await request.json()
@@ -15,7 +16,7 @@ export async function POST(request: NextResponse) {
             phone: data.phone,
             email: data.email,
             user_id: session.user.id,
-        })    
+        })
         return NextResponse.json('Customer sucsessfully created')
     } catch (error) {
         return NextResponse.json(error)

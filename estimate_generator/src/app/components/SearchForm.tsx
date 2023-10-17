@@ -4,17 +4,17 @@ import React from 'react'
 import { FcSearch } from 'react-icons/fc'
 import { Button } from './ui/button'
 
-const SearchForm = () => {
+const SearchForm = ({...props}) => {
   return (
-    <form className='flex rounded p-2 relative'>
+    <form {...props}>
         <input
           id='search-input'
-          className='search-input rounded'
+          className='search-input rounded w-full h-[32px]'
         >
         </input>
         <Button
           id='search-button'
-          className='absolute left-2 m-0 p-0'
+          className='absolute h-[32px] top-0 left-0 p-2'
           variant={'ghost'}
         >
           <FcSearch />

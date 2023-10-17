@@ -18,7 +18,7 @@ import {
 
 import { DataTablePaginationProps } from '../../../../../types/types'
 
-export default function ChangeOrderPagination<TData>({
+export default function EstimatePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
   return (
@@ -40,7 +40,7 @@ export default function ChangeOrderPagination<TData>({
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
-              {[10, 20, 30, 40, 50].map((pageSize) => (
+              {[5, 10, 20, 30, 40, 50].map((pageSize) => (
                 <SelectItem key={pageSize} value={`${pageSize}`}>
                   {pageSize}
                 </SelectItem>
@@ -94,3 +94,4 @@ export default function ChangeOrderPagination<TData>({
     </div>
   )
 }
+  
