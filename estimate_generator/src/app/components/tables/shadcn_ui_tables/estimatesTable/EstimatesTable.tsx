@@ -5,12 +5,12 @@ import {
   flexRender,
   SortingState,
   ColumnFiltersState,
-  RowSelectionState,
   getCoreRowModel,
   getSortedRowModel,
   getFilteredRowModel,
   useReactTable,
   getPaginationRowModel,
+  RowSelectionState,
 } from "@tanstack/react-table"
 
 import {
@@ -24,13 +24,13 @@ import {
 } from "@/app/components/ui/table"
 
 import { TableProps } from "@/types/types"
-import CustomersPagination from "./CustomersPagination"
+import EstimatesPagination from "./EstimatesPagination"
 import { useState } from "react"
-import { Input } from "../../../../../app/components/ui/input"
+import { Input } from "../../../ui/input"
 
 
 
-export default function ChangeOrdersTable<TData, TValue>({
+export default function EstimatesTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {
@@ -59,10 +59,10 @@ export default function ChangeOrdersTable<TData, TValue>({
     <div className="">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter customer..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter estimate..."
+          value={(table.getColumn("estimate_name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("estimate_name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -109,7 +109,7 @@ export default function ChangeOrdersTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <CustomersPagination
+      <EstimatesPagination
         table={table}
       />
     </div>

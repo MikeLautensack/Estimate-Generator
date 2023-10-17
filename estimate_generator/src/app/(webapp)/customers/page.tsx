@@ -1,9 +1,35 @@
-import CustomersButtonsAndSearch from "@/app/components/pageComponents/customers/CustomersButtonsAndSearch";
+import CustomersTable from "@/app/components/tables/shadcn_ui_tables/customersTable/CustomersTable";
+import { columns } from "@/app/components/tables/shadcn_ui_tables/customersTable/columns";
+import { customers } from '../../../db/schemas/customers'
+import { db } from '../../../db'
+import Link from "next/link";
+import { Button } from "@/app/components/ui/button";
 
-export default function Page() {
+async function getData() {
+  const res = await db.select()
+                .from(customers)
+  return res
+}
+
+export default async function Page() {
+
+  const data = await getData()
+
   return (
-    <main className='bg-primary200 flex-grow p-4'>
-        <CustomersButtonsAndSearch />
+    <main className='bg-secondary300 flex-grow p-4'>
+        <h1 className='mb-[8px]'>Customers</h1>
+        <Link
+          href={'http://localhost:3000/customers/form'}
+        >
+          <Button
+            id='new-change-order-button'
+            className='flex-1'
+            variant={"outline"}
+          >
+            New Customer
+          </Button>
+        </Link>
+        <CustomersTable columns={columns} data={data} />
     </main>
   )
 }

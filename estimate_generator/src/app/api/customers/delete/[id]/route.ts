@@ -1,18 +1,18 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { db } from '../../../../../db'
 import { customers } from '../../../../../db/schemas/customers'
 import { eq } from "drizzle-orm"
 
 export async function DELETE(
-    request: NextResponse,
+    req: NextRequest,
     { params }: { params: { id: string } }
 ) {
-    const data = await request.json()
     try {
         await db.delete(customers)
-                .where(eq(customers.id, 2585119))
+        .where(eq(customers.id, parseInt(params.id)))
         return NextResponse.json('Profile sucsussfully updated')
     } catch (error) {
+        console.log(error)
         return NextResponse.json(error)
     }
 }

@@ -8,17 +8,38 @@ import { BsPerson } from 'react-icons/bs'
 import { FcSettings } from 'react-icons/fc'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import LogoutButton from './LogoutButton'
-import { useState } from 'react'
-import { FaBars } from 'react-icons/fa'
+import { useState, useEffect } from 'react'
+import { FaBars, FaTimes } from 'react-icons/fa'
+import { useMediaQuery } from 'react-responsive'
 
 const Menu = () => {
 
- const [ open, setOpen ] = useState(false)
+ const [ isOpen, setIsOpen ] = useState(false)
+ const isDesktop = useMediaQuery({
+    query: '(min-width: 1024px)'
+  })
+
+  const close = () => {
+      if (isDesktop && isOpen) {
+        setIsOpen(false)
+      }
+  }
+  close()
+
+  useEffect(() => {
+    console.log(isOpen)
+  }, [isOpen])
 
  return (
-    <div className='flex gap-4 w-full bg-primary100 p-4'>
+    <div className={`${isOpen ? 'fixed h-screen w-full max-w-sm flex-col justify-start items-center right-0 top-0 z-10 gap-4' : 'justify-between h-14 p-4'} flex items-center w-full bg-primary100 desktop:h-screen desktop:max-w-sm desktop:flex-col desktop:justify-start desktop:items-start desktop:gap-6`}>
+        <Button
+            className={`${isOpen ? 'absolute top-4 right-4' : 'hidden'}`}
+            onClick={() => setIsOpen(!open)}
+        >
+            <FaTimes />
+        </Button>
         <h1 className='text-2xl font-bold font-sans text-primary500'>Estimate Generator</h1>
-        <nav className='flex gap-4 justify-center items-center'>
+        <nav className={`${isOpen ? 'flex' : 'hidden'} desktop:flex justify-center items-center gap-4 w-full`}>
             <Link
                 id='profile-button'
                 className='bg-primary200 aspect-square rounded-full p-2'
@@ -41,17 +62,17 @@ const Menu = () => {
             </Button>
         </nav>
         <MenuSearch
-            className='hidden'
+            className={`${isOpen ? 'flex' : 'hidden'} desktop:flex`}
         />
         <MenuNav
-            className={`${open ? 'flex' : 'hidden'} desktop:flex flex-col items-start gap-2`}
+            className={`${isOpen ? 'flex gap-2' : 'hidden'} desktop:gap-2 desktop:flex flex-col`}
         />
         <LogoutButton
-            className={`${open ? 'flex' : 'hidden'} desktop:flex`}
+            className={`${isOpen ? 'flex' : 'hidden'} desktop:flex`}
         />
         <Button
-            className={`${open ? 'hidden' : 'flex'} desktop:hidden`}
-            onClick={() => setOpen(!open)}
+            className={`${isOpen ? 'hidden' : 'flex'} desktop:hidden`}
+            onClick={() => setIsOpen(!isOpen)}
         >
             <FaBars />
         </Button>

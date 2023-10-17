@@ -18,13 +18,13 @@ import {
   TableRow,
 } from "@/app/components/ui/table"
 
-import { ChangeOrderTableProps } from "@/types/types"
+import { TableProps } from "@/types/types"
 import ChangeOrdersPagination from "./ChangeOrdersPagination"
 
 export default function ChangeOrdersTable<TData, TValue>({
   columns,
   data,
-}: ChangeOrderTableProps<TData, TValue>) {
+}: TableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,

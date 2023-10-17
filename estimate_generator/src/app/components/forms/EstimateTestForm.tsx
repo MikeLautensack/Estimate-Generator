@@ -18,8 +18,8 @@ const EstimateTestForm = () => {
     const id = Math.floor(Math.random() * 100000000)
     const testEstimate = {
         id: id,
-        estimateName: 'name',
-        customerName: 'name',
+        estimateName: 'test',
+        customerName: 'test',
         customerBusinessName: 'name',
         projectAddress: 'address',
         contractorName: 'name',

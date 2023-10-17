@@ -38,7 +38,7 @@ export async function POST(request: Request) {
                 estimate_id: estimateId
             }
         }))
-        return NextResponse.json('Customer sucsessfully created')
+        return NextResponse.json('Estimate sucsessfully created')
     } catch (error) {
         return NextResponse.json(error)
     }
