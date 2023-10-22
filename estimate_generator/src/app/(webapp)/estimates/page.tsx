@@ -18,19 +18,19 @@ const data: Estimates[] = await getData() as Estimates[]
 
   return (
     <main className='bg-primary200 flex-grow p-4'>
-        <h1 className='text-2xl desktop:text-[42px] font-bold font-sans text-primary500'>Estimates</h1>
-        <Link
-          href={'http://localhost:3000/customerform'}
+      <h1 className='text-2xl desktop:text-[42px] font-bold font-sans text-primary500'>Estimates</h1>
+      <Link
+        href={'http://localhost:3000/customerform'}
+      >
+        <Button
+          id='new-change-order-button'
+          className='flex-1'
+          variant={"outline"}
         >
-          <Button
-            id='new-change-order-button'
-            className='flex-1'
-            variant={"outline"}
-          >
-            New Estimate
-          </Button>
-        </Link>
-        <EstimatesTable columns={columns} data={data} />
+          New Estimate
+        </Button>
+      </Link>
+      <EstimatesTable columns={columns} data={data} />
     </main>
   )
 }
