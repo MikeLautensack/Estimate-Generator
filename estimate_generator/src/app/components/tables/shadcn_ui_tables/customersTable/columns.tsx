@@ -14,6 +14,7 @@ import { Button } from "../../../ui/button"
 import { Checkbox } from "../../../ui/checkbox"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
 
 export const columns: ColumnDef<Customers>[] = [
   {
@@ -65,7 +66,16 @@ export const columns: ColumnDef<Customers>[] = [
     id: "actions",
     cell: ({ row }) => {
       const customer = row.original
- 
+      const router = useRouter()
+      const deleteCustomer = async () => {
+        const res = await fetch(`http://localhost:3000/api/customers/delete/${customer.id}`, {
+          method: 'DELETE',
+        })
+
+        if(res.ok) {
+          router.refresh()
+        }
+      }
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -88,11 +98,7 @@ export const columns: ColumnDef<Customers>[] = [
               <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>
             <DropdownMenuItem
-              onClick={() => {
-                fetch(`http://localhost:3000/api/customers/delete/${customer.id}`, {
-                  method: 'DELETE',
-                })
-              }}
+              onClick={() => deleteCustomer()}
             >
               Delete Customer
             </DropdownMenuItem>

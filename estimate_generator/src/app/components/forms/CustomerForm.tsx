@@ -5,6 +5,8 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { customerFormProps } from '../../../types/formTypes'
 import { Button } from '../ui/button'
 import { CustomerForm } from '@/types/customers'
+import { redirect } from 'next/dist/server/api-utils'
+import { useRouter } from 'next/navigation'
 
 const CustomerForm = (data:CustomerForm) => {
     console.log(data)
@@ -16,6 +18,8 @@ const CustomerForm = (data:CustomerForm) => {
     formState: { errors },
   } = useForm<customerFormProps>()
 
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<customerFormProps> = async (formData) => {
     if(data.data != null) {
         const res = await fetch(`http://localhost:3000/api/customers/edit/${data.data.id}`, {
@@ -25,6 +29,8 @@ const CustomerForm = (data:CustomerForm) => {
             },
             body: JSON.stringify(formData)
         })
+        router.push('http://localhost:3000/customers')
+        router.refresh()
         console.log(res)
     } else {
         const res = await fetch('http://localhost:3000/api/customers/create', {
@@ -34,6 +40,8 @@ const CustomerForm = (data:CustomerForm) => {
             },
             body: JSON.stringify(formData)
         })
+        router.push('http://localhost:3000/customers')
+        router.refresh()
         console.log(res)
     }
   }

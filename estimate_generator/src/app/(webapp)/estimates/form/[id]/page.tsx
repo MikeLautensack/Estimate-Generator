@@ -1,5 +1,5 @@
-import { db } from '../../../../db'
-import { customers } from '../../../../db/schemas/customers'
+import { db } from '../../../../../db'
+import { customers } from '../../../../../db/schemas/customers'
 import { eq } from "drizzle-orm"
 
 async function getData(id: number) {
@@ -12,14 +12,8 @@ async function getData(id: number) {
 export default async function page({ params }: { params: { id: string } }) {
   const data = await getData(parseInt(params.id))
   return (
-    <main
-      className='bg-secondary200 flex-1 p-8'
-    >
-      <p>{data[0].id}</p>
-      <p>{data[0].name}</p>
-      <p>{data[0].email}</p>
-      <p>{data[0].address}</p>
-      <p>{data[0].phone}</p>
+    <main className='bg-primary200 p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1'>
+
     </main>
   )
 }

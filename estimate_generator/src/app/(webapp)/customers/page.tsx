@@ -17,19 +17,19 @@ export default async function Page() {
 
   return (
     <main className='bg-secondary300 flex-grow p-4'>
-        <h1 className='mb-[8px]'>Customers</h1>
-        <Link
-          href={'http://localhost:3000/customers/form'}
+      <h1 className='mb-[8px]'>Customers</h1>
+      <Link
+        href={'http://localhost:3000/customers/form'}
+      >
+        <Button
+          id='new-change-order-button'
+          className='flex-1'
+          variant={"outline"}
         >
-          <Button
-            id='new-change-order-button'
-            className='flex-1'
-            variant={"outline"}
-          >
-            New Customer
-          </Button>
-        </Link>
-        <CustomersTable columns={columns} data={data} />
+          New Customer
+        </Button>
+      </Link>
+      <CustomersTable columns={columns} data={data} />
     </main>
   )
 }
