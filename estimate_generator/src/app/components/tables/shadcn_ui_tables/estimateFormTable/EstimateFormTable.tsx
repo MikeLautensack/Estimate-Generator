@@ -1,23 +1,14 @@
 'use client'
 
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/app/components/ui/table"
-import { useState } from "react"
-import { Input } from "../../../ui/input"
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/app/components/ui/table"
 import React from 'react'
 import { EstimateFormTableProps } from '../../../../../types/estimates'
 import LineItemFormField from "./LineItemFormField"
 
 const EstimateFormTable = ({ 
   fields,
-  register
+  applyTotal,
+  remove
 }: EstimateFormTableProps) => {
   return (
     <div>
@@ -28,14 +19,21 @@ const EstimateFormTable = ({
             <TableHead>Quantity</TableHead>
             <TableHead>Rate</TableHead>
             <TableHead className="">Amount</TableHead>
+            <TableHead className=""></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {fields.map((field: any, index: any) => (
+          {fields.map((
+            field: any, 
+            index: any
+          ) => (
             <LineItemFormField 
+              key={field.id}
               field={field}
+              fields={fields}
               index={index}
-              register={register}
+              applyTotal={applyTotal}
+              remove={remove}
             />
           ))}
         </TableBody>

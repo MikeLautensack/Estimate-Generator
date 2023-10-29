@@ -11,6 +11,20 @@ const EstimateForms = ({
 }:EstimateFormsProps) => {
 
   const [ isAddMode, setIsAddMode ] = useState(true)
+  const [ formOneData, setFormOneData ] = useState({
+    customer: {
+      id: 0,
+      name: '',
+      address: '',
+      email: '',
+      phone: '',
+      user_id: 0
+    },
+    name: '',
+    email: '',
+    phone: '',
+    address: ''
+  })
 
   return (
     <div>
@@ -26,13 +40,16 @@ const EstimateForms = ({
             value='estimate-form-one'
         >
           <EstimateFormOne
-            customers={customers} 
+            customers={customers}
+            setFormOneData={setFormOneData} 
           />
         </TabsContent>
         <TabsContent
             value='estimate-form-two'
         >
-          <EstimateFormTwo />
+          <EstimateFormTwo
+            formOneData={formOneData} 
+          />
         </TabsContent>
       </Tabs>
     </div>
