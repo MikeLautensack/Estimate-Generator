@@ -26,10 +26,6 @@ const Menu = () => {
   }
   close()
 
-  useEffect(() => {
-    console.log(isOpen)
-  }, [isOpen])
-
  return (
     <div className={`${isOpen ? 'fixed h-screen w-full max-w-sm flex-col justify-start items-center right-0 top-0 z-10 gap-4' : 'justify-between h-14 p-4'} flex items-center w-full bg-primary100 desktop:h-screen desktop:max-w-sm desktop:flex-col desktop:justify-start desktop:items-start desktop:gap-6`}>
         <Button

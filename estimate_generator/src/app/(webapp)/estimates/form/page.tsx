@@ -1,4 +1,4 @@
-import EstimateForms from "@/app/components/pageComponents/estimates/EstimateForms";
+import EstimateForm from "@/app/components/forms/EstimateForm";
 import { db } from "@/db";
 import { customers } from "@/db/schemas/customers";
 
@@ -16,7 +16,7 @@ export default async function Page() {
       <div
         className='flex justify-center items-center flex-1 w-full'
       >
-        <EstimateForms
+        <EstimateForm
           customers={customers} 
         />
       </div>

@@ -3,7 +3,7 @@
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/app/components/ui/table"
 import React from 'react'
 import { EstimateFormTableProps } from '../../../../../types/estimates'
-import LineItemFormField from "./LineItemFormField"
+import LineItemFormField from "../../../forms/LineItemFormField"
 
 const EstimateFormTable = ({ 
   fields,
