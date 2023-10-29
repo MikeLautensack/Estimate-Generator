@@ -18,7 +18,7 @@ const LineItemFormField = ({
     remove
 }: LineItemFormFieldProps) => {
 
-  const { register, watch, setValue,getValues,control } = useFormContext()
+  const { register, watch, setValue, getValues, control } = useFormContext()
   const [ amount, setAmount ] = useState(0)
 
   const calculateAmount = (quantity: number, price: number): number => {
@@ -69,14 +69,15 @@ const LineItemFormField = ({
             <FormField
               control={control}
               name={`lineItems.${index}.rateType`}
-              render={({ field: { onChange, onBlur, value, ref } }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>Rate Type</FormLabel>
-                  <FormControl>
-                    <Select value={value} onValueChange={onChange} {...register(`lineItems.${index}.rateType` as const)}>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Rate Type" />
-                      </SelectTrigger>
+                    <Select value={field.value} onValueChange={field.onChange} {...register(`lineItems.${index}.rateType` as const)}>
+                      <FormControl>                        
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Rate Type" />
+                        </SelectTrigger>
+                      </FormControl>
                       <SelectContent>
                         <SelectItem value="unit">Unit Rate</SelectItem>
                         <SelectItem value="sqft">SQFT</SelectItem>
@@ -86,7 +87,6 @@ const LineItemFormField = ({
                         <SelectItem value="flat">Flat Rate</SelectItem>
                       </SelectContent>
                     </Select>
-                  </FormControl>
                 </FormItem>
               )}
             />

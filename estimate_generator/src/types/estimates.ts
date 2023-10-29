@@ -30,27 +30,44 @@ export interface LineItems {
 
 }
 
-export interface EstimateFormsProps {
+export interface EstimateFormProps {
   customers: Customers[]
 }
 
-export interface EstimateFormOneProps {
+export interface EstimateFormValues {
   customers: Customers[],
-  setFormOneData: any
+  customer?: any,
+  name?: string,
+  email?: string,
+  address?: string,
+  estimateName: string,
+  lineItems: {
+    item: string,
+    description: string,
+    quantity: number | null,
+    rateType: string,
+    price: number | null,
+    amount: number
+  }[],
+  taxRate: number,
+  message: string,
+  subtotal: number,
+  tax: number,
+  total: number
 }
 
-export interface EstimateFormTwoProps {
-  formOneData: EstimateFormOneValues
+export interface EstimateFormPartOneProps {
+  customers: Customers[]
 }
 
-export interface EstimateFormOneValues {
+export interface EstimateFormPartOneValues {
   customer?: any,
   name?: string,
   email?: string,
   address?: string
 }
 
-export interface EstimateFormTwoValues {
+export interface EstimateFormPartTwoValues {
   estimateName: string,
   lineItems: {
     item: string,
@@ -84,4 +101,9 @@ export interface LineItemFormFieldProps {
 export interface TaxSelectorProps {
   taxRate: any,
   setTaxRate: any
+}
+
+export interface EstimateFormPartOneSelectProps {
+  customers: any,
+  field: any
 }
