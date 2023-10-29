@@ -41,7 +41,7 @@ const RegisterForm = () => {
   }
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
-    const res = await fetch('http://localhost:3000/api/users/createuser', {
+    const res = await fetch('http://localhost:3000/api/users/create', {
     method: 'POST',
     body: JSON.stringify({
         name: data.name,

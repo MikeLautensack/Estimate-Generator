@@ -1,15 +1,50 @@
 'use client'
 
 import { TableCell, TableRow } from '@/app/components/ui/table'
-import React from 'react'
+import React, { useState,  useEffect } from 'react'
 import { LineItemFormFieldProps } from '@/types/estimates'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select'
+import { useFormContext } from 'react-hook-form'
+import { formatPriceString } from '@/utils/formatingFunctions'
+import { FaTrashAlt } from 'react-icons/fa'
+import { Button } from '@/app/components/ui/button'
+import { FormControl, FormField, FormItem, FormLabel } from '@/app/components/ui/form'
 
 const LineItemFormField = ({
     field,
+    fields,
     index,
-    register
+    applyTotal,
+    remove
 }: LineItemFormFieldProps) => {
+
+  const { register, watch, setValue,getValues,control } = useFormContext()
+  const [ amount, setAmount ] = useState(0)
+
+  const calculateAmount = (quantity: number, price: number): number => {
+    const result = quantity * price
+    setAmount(result)
+    return result
+  }
+
+  useEffect(() => {
+    watch(() => {
+      const amount = calculateAmount(watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const))
+    })
+    setValue(`lineItems.${index}.amount`, amount)
+  }, [watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const), fields])
+
+  useEffect(() => {
+    applyTotal()
+  }, [watch(`lineItems.${index}.amount` as const)])
+
+  useEffect(() => {
+    const value = getValues(`lineItems.${index}.rateType`)
+    if(value === 'flat') {
+      setValue(`lineItems.${index}.quantity`, 1)
+    }
+  }, [watch(`lineItems.${index}.rateType` as const)])
+
   return (
     <TableRow className=''>
       <TableCell className="">
@@ -23,35 +58,60 @@ const LineItemFormField = ({
         </div>
       </TableCell>
       <TableCell className="flex flex-col">
-        <label>Quantity</label>
-        <input {...register(`lineItems.${index}.quantity` as const)}></input>
+        <div className={`${getValues(`lineItems.${index}.rateType`) === 'flat' ? 'hidden' : 'flex'}`}>
+          <label>Quantity</label>
+          <input type='number' {...register(`lineItems.${index}.quantity` as const, {valueAsNumber: true})}></input>
+        </div>
       </TableCell>
       <TableCell className="">
         <div>
           <div>
-            <label>Rate Type</label>
-            <Select {...register(`lineItems.${index}.rateType` as const)}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Rate Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="flat">Flat</SelectItem>
-                <SelectItem value="flat">Unit</SelectItem>
-                <SelectItem value="unit">SQFT</SelectItem>
-                <SelectItem value="unit">LNFT</SelectItem>
-                <SelectItem value="unit">Hour</SelectItem>
-                <SelectItem value="time">Day</SelectItem>
-              </SelectContent>
-            </Select>
+            <FormField
+              control={control}
+              name={`lineItems.${index}.rateType`}
+              render={({ field: { onChange, onBlur, value, ref } }) => (
+                <FormItem>
+                  <FormLabel>Rate Type</FormLabel>
+                  <FormControl>
+                    <Select value={value} onValueChange={onChange} {...register(`lineItems.${index}.rateType` as const)}>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Rate Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="unit">Unit Rate</SelectItem>
+                        <SelectItem value="sqft">SQFT</SelectItem>
+                        <SelectItem value="lnft">LNFT</SelectItem>
+                        <SelectItem value="hour">Hourly</SelectItem>
+                        <SelectItem value="day">Dayly</SelectItem>
+                        <SelectItem value="flat">Flat Rate</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </div>
           <div>
             <label>Price</label>
-            <input {...register(`lineItems.${index}.price` as const)}></input>
+            <input type='number' {...register(`lineItems.${index}.price` as const, {valueAsNumber: true})}></input>
           </div>
         </div>
       </TableCell>
       <TableCell className="">
-        <p></p>
+        <p>{formatPriceString(amount)}</p>
+      </TableCell>
+      <TableCell className="">
+        <div>
+          <Button
+            onClick={() => {
+              remove(index)
+            }}
+            className=''
+            variant='ghost'
+          >
+            <FaTrashAlt className='text-error500'/>
+          </Button>
+        </div>
       </TableCell>
     </TableRow>
   )
