@@ -1,9 +1,9 @@
-import CustomersTable from "@/app/components/tables/shadcn_ui_tables/customersTable/CustomersTable";
-import { columns } from "@/app/components/tables/shadcn_ui_tables/customersTable/columns";
+import CustomersTable from "@/components/tables/customersTable/CustomersTable";
+import { columns } from "@/components/tables/customersTable/columns";
 import { customers } from '../../../db/schemas/customers'
 import { db } from '../../../db'
 import Link from "next/link";
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 async function getData() {
   const res = await db.select()

@@ -1,8 +1,8 @@
-import PricingSection from '../components/pageComponents/home/PricingSection'
-import FAQSection from '../components/pageComponents/home/FAQSection'
-import HeroSection from '../components/pageComponents/home/HeroSection'
-import Footer from '../components/Footer'
-import FeaturesSection from '../components/pageComponents/home/FeaturesSection'
+import PricingSection from '../../components/pageComponents/home/PricingSection'
+import FAQSection from '../../components/pageComponents/home/FAQSection'
+import HeroSection from '../../components/pageComponents/home/HeroSection'
+import Footer from '../../components/Footer'
+import FeaturesSection from '../../components/pageComponents/home/FeaturesSection'
 
 export default function Home() {
   return (

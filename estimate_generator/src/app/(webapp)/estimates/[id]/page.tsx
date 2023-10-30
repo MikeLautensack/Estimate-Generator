@@ -1,7 +1,7 @@
 import { estimates, lineItems } from '@/db/schemas/estimates'
 import { db } from '../../../../db'
 import { eq } from "drizzle-orm"
-import LineItem from '@/app/components/LineItem'
+import LineItem from '@/components/LineItem'
 
 async function getData(id: number) {
   const estimateTableData = await db.select()
