@@ -1,4 +1,4 @@
-import CustomerForm from "@/app/components/forms/CustomerForm";
+import CustomerForm from "@/components/forms/CustomerForm";
 
 export default function Page() {
     return (

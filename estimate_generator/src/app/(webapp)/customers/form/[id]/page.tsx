@@ -1,4 +1,4 @@
-import CustomerForm from '@/app/components/forms/CustomerForm'
+import CustomerForm from '@/components/forms/CustomerForm'
 import { db } from '../../../../../db'
 import { customers } from '../../../../../db/schemas/customers'
 import { eq } from "drizzle-orm"

@@ -1,4 +1,4 @@
-import EstimateForm from "@/app/components/forms/EstimateForm";
+import EstimateForm from "@/components/forms/EstimateForm";
 import { db } from "@/db";
 import { customers } from "@/db/schemas/customers";
 

@@ -1,10 +1,10 @@
-import EstimatesTable from "@/app/components/tables/shadcn_ui_tables/estimatesTable/EstimatesTable";
-import { columns } from "@/app/components/tables/shadcn_ui_tables/estimatesTable/columns";
+import EstimatesTable from "@/components/tables/estimatesTable/EstimatesTable";
+import { columns } from "@/components/tables/estimatesTable/columns";
 import { estimates } from '../../../db/schemas/estimates'
 import { db } from '../../../db'
 import { Estimates } from "@/types/estimates";
 import Link from "next/link";
-import { Button } from "@/app/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 async function getData() {
   const res = await db.select()
