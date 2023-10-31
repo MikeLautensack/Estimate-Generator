@@ -1,11 +1,10 @@
-import { ColumnDef } from "@tanstack/react-table"
 import { Customers } from "./customers"
 
-export interface Estimates {
+export type Estimates = {
   id: number,
   estimate_name: string | null,
   customer_name: string | null,
-  customer_business_name: string | null,
+  customer_email: string | null,
   project_address: string | null,
   contractor_name: string | null,
   contractor_address: string | null,
@@ -13,84 +12,74 @@ export interface Estimates {
   lineItems?: LineItems[],
   massage: string | null,
   subtotal: number | null,
+  tax_rate: number | null,
   tax: number | null,
   total: number | null,
+  customer_id: number | null
   user_id: number | null
 }
 
-export interface LineItems {
+export type LineItems = {
   id: number,
+  item: string | null,
   description: string | null,
   quantity: number | null,
-  rateType?: string | null
-  unitType?: string | null
-  unitRate?: number | null
-  total: number | null | string
+  rateType: string | null,
+  price: any,
+  amount: any
   estimate_id?: number | null
 
 }
 
-export interface EstimateFormProps {
+export type EstimateFormProps = {
+  estimate: any
+  customers: any,
+  profile: any
+}
+
+export type EstimateFormValues = {
+  estimateName: string | null,
+  customer_id?: number | null
+  customerName: string | null,
+  customerEmail: string | null,
+  projectAddress: string | null,
+  contractorName: string | null,
+  contractorAddress: string | null,
+  contractorPhone: string | null,
+  lineItems: {
+    item: string | null,
+    description: string | null,
+    quantity: number | null,
+    rateType: string | null,
+    price: number | null,
+    amount: number | null
+  }[],
+  taxRate: number | null,
+  message: string | null,
+  subtotal: number | null,
+  tax: number | null,
+  total: number | null
+}
+
+export type EstimateFormPartOneProps = {
   customers: Customers[]
 }
 
-export interface EstimateFormValues {
+export type EstimateFormPartTwoProps = {
   customers: Customers[],
-  customer?: any,
-  name?: string,
-  email?: string,
-  address?: string,
-  estimateName: string,
-  lineItems: {
-    item: string,
-    description: string,
-    quantity: number | null,
-    rateType: string,
-    price: number | null,
-    amount: number
-  }[],
-  taxRate: number,
-  message: string,
-  subtotal: number,
-  tax: number,
-  total: number
+  profile: any,
+  fields: any,
+  prepend: any,
+  remove: any
 }
 
-export interface EstimateFormPartOneProps {
-  customers: Customers[]
-}
-
-export interface EstimateFormPartOneValues {
-  customer?: any,
-  name?: string,
-  email?: string,
-  address?: string
-}
-
-export interface EstimateFormPartTwoValues {
-  estimateName: string,
-  lineItems: {
-    item: string,
-    description: string,
-    quantity: number | null,
-    rateType: string,
-    price: number | null,
-    amount: number
-  }[],
-  taxRate: number,
-  message: string,
-  subtotal: number,
-  tax: number,
-  total: number
-}
-
-export interface EstimateFormTableProps {
+export type EstimateFormTableProps = {
   fields: any
   applyTotal: any,
   remove: any
 }
 
-export interface LineItemFormFieldProps {
+export type LineItemFormFieldProps = {
   field: any,
   fields: any,
   index: any,
@@ -98,12 +87,12 @@ export interface LineItemFormFieldProps {
   remove: any
 }
 
-export interface TaxSelectorProps {
+export type TaxSelectorProps = {
   taxRate: any,
   setTaxRate: any
 }
 
-export interface EstimateFormPartOneSelectProps {
+export type EstimateFormPartOneSelectProps = {
   customers: any,
   field: any
 }

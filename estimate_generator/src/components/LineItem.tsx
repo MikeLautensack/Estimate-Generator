@@ -5,15 +5,14 @@ export default function LineItem({
     description,
     quantity,
     rateType,
-    unitRate,
-    total,
+    amount,
 }:LineItems) {
   return (
     <div>
         <p>{id}</p>
         <p>{description}</p>
         <p>{quantity}</p>
-        <p>{total}</p>
+        <p>{amount}</p>
     </div>
   )
 }

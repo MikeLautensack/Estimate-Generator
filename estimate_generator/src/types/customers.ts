@@ -1,4 +1,4 @@
-export interface Customers {
+export type Customers = {
   id: number | null,
   name: string | null,
   address: string | null,
@@ -7,6 +7,6 @@ export interface Customers {
   user_id: number | null
 }
 
-export interface CustomerForm {
+export type CustomerForm = {
   data: Customers | null
 }

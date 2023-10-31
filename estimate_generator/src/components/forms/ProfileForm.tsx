@@ -15,8 +15,8 @@ const ProfileForm = () => {
   } = useForm<profileFormProps>()
 
   const onSubmit: SubmitHandler<profileFormProps> = async (data) => {
-    const res = await fetch('http://localhost:3000/api/users/profile/editprofile', {
-        method: 'PUT',
+    const res = await fetch('http://localhost:3000/api/users/profile/create', {
+        method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },

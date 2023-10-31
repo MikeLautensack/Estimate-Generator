@@ -1,15 +1,17 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { EstimateFormProps, EstimateFormValues } from '@/types/estimates'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import EstimateFormPartOne from './EstimateFormPartOne'
 import EstimateFormPartTwo from './EstimateFormPartTwo'
 import { Card, CardContent } from '../ui/card'
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
+import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 
 const EstimateForm = ({
-  customers
+  estimate,
+  customers,
+  profile
 }:EstimateFormProps) => {
 
   const methods = useForm<EstimateFormValues>({
@@ -26,9 +28,50 @@ const EstimateForm = ({
     }
   })
 
-  const onSubmit: SubmitHandler<EstimateFormValues> = (data) => {
+  const control = methods.control
+  const { fields, prepend, remove } = useFieldArray({
+    control,
+    name: 'lineItems'
+  })
+
+  const onSubmit: SubmitHandler<EstimateFormValues> = async (data) => {
+    const res = await fetch('http://localhost:3000/api/estimates/create', {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
     console.log(data)
   }
+
+  useEffect(() => {
+    console.log('useEffect firing .....')
+    if(estimate) {
+      console.log('Estiamte Object: ',estimate)
+      methods.setValue('estimateName', estimate.estimateName)
+      methods.setValue('customer_id', estimate.customer_id)
+      methods.setValue('customerName', estimate.customerName)
+      methods.setValue('customerEmail', estimate.customerEmail)
+      methods.setValue('projectAddress', estimate.projectAddress)
+      methods.setValue('contractorName', estimate.contractorName)
+      methods.setValue('contractorAddress', estimate.contractorAddress)
+      methods.setValue('contractorPhone', estimate.contractorPhone)
+      for(let i = 0; i < estimate.lineItems.length; i++) {
+        methods.setValue(`lineItems.${i}.item`, estimate.lineItems[i].item)
+        methods.setValue(`lineItems.${i}.description`, estimate.lineItems[i].description)
+        methods.setValue(`lineItems.${i}.rateType`, estimate.lineItems[i].rateType)
+        methods.setValue(`lineItems.${i}.quantity`, estimate.lineItems[i].quantity)
+        methods.setValue(`lineItems.${i}.price`, estimate.lineItems[i].price)
+        methods.setValue(`lineItems.${i}.amount`, estimate.lineItems[i].amount)
+      }
+      methods.setValue('taxRate', estimate.taxRate)
+      methods.setValue('message', estimate.message)
+      methods.setValue('subtotal', estimate.subtotal)
+      methods.setValue('tax', estimate.tax)
+      methods.setValue('total', estimate.total)
+    }
+  }, [])
 
   return (
     <div>
@@ -58,7 +101,13 @@ const EstimateForm = ({
             >
               <Card>
                 <CardContent>
-                  <EstimateFormPartTwo />
+                  <EstimateFormPartTwo
+                    customers={customers} 
+                    profile={profile}
+                    fields={fields}
+                    prepend={prepend}
+                    remove={remove}
+                  />
                 </CardContent>
               </Card>
             </TabsContent>

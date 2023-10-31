@@ -7,23 +7,28 @@ import { useFieldArray, useFormContext } from 'react-hook-form'
 import EstimateFormTable from '../tables/estimateFormTable/EstimateFormTable'
 import TaxSelector from '../TaxSelector'
 import { formatPriceString } from '@/utils/formatingFunctions'
+import { EstimateFormPartTwoProps } from '@/types/estimates'
 
-const EstimateFormPartTwo = () => {
+const EstimateFormPartTwo = ({
+    customers,
+    profile,
+    fields,
+    prepend,
+    remove
+}: EstimateFormPartTwoProps) => {
 
   const [ customerName, setCustomerName ] = useState('')
   const [ customerEmail, setCustomerEmail ] = useState('')
   const [ projectAddress, setProjectAddress ] = useState('')
+  const [ businessName, setBusinessName ] = useState('')
+  const [ businessAddress, setBusinessAddress ] = useState('')
+  const [ businessPhone, setBusinessPhone ] = useState('')
   const [ subtotal, setSubtotal ] = useState(0)
   const [ taxRate, setTaxRate ] = useState(.07)
   const [ tax, setTax ] = useState(0)
   const [ total, setTotal ] = useState(0)
 
-  const { register, watch, setValue, getValues, control } = useFormContext()  
-
-  const { fields, prepend, remove } = useFieldArray({
-    control,
-    name: 'lineItems'
-  })
+  const { register, watch, setValue, getValues, control } = useFormContext()
 
   const calculateTotal = (): number => {
     let num = 0
@@ -53,6 +58,37 @@ const EstimateFormPartTwo = () => {
     setValue('total', total)
   }, [subtotal, taxRate])
 
+  useEffect(() => {
+    const name = profile[0].business_name
+    const address = profile[0].business_address
+    const phone = profile[0].business_phone
+    setBusinessName(name)
+    setBusinessAddress(address)
+    setBusinessPhone(phone)
+    setValue('contractorName', name)
+    setValue('contractorAddress', address)
+    setValue('contractorPhone', phone)
+
+    if(getValues('customer_id')) {
+        let customer
+        for(let i = 0; i < customers.length; i++) {
+            if(customers[i].id == getValues('customer_id')) {
+                customer = customers[i]
+            }
+        }
+        setCustomerName(customer?.name as string)
+        setCustomerEmail(customer?.email as string)
+        setProjectAddress(customer?.address as string)
+        setValue('customerName', customer?.name as string)
+        setValue('customerEmail', customer?.email as string)
+        setValue('projectAddress', customer?.address as string)
+    } else {
+        setCustomerName(getValues('customerName'))
+        setCustomerEmail(getValues('customerEmail'))
+        setProjectAddress(getValues('projectAddress'))
+    }
+  }, [])
+
   return (
     <div>
         <div>
@@ -68,9 +104,9 @@ const EstimateFormPartTwo = () => {
             </div>
             <div>
                 <div>
-                    <p></p>
-                    <p></p>
-                    <p></p>
+                    <p>{businessName}</p>
+                    <p>{businessAddress}</p>
+                    <p>{businessPhone}</p>
                 </div>
             </div>
             <div>

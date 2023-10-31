@@ -19,13 +19,14 @@ async function getData(id: number) {
 
 export default async function page({ params }: { params: { id: string } }) {
   const data = await getData(parseInt(params.id))
+  console.log(data)
   return (
     <main
       className='bg-secondary200 flex-1 p-8'
     >
       <h1>{data.estimate_name}</h1>
       <p>{data.customer_name}</p>
-      <p>{data.customer_business_name}</p>
+      <p>{data.customer_email}</p>
       <p>{data.project_address}</p>
       <p>{data.contractor_name}</p>
       <p>{data.contractor_address}</p>
@@ -33,10 +34,13 @@ export default async function page({ params }: { params: { id: string } }) {
       <div>
         {data.lineItems.map((item) => (
             <LineItem 
-                id={item.id}
-                description={item.description}
-                quantity={item.quantity}
-                total={item.total}
+              id={item.id}
+              description={item.description}
+              quantity={item.quantity}
+              amount={item.amount} 
+              item={item.item}
+              rateType={item.rate_type} 
+              price={item.price}            
             />
         ))}
       </div>

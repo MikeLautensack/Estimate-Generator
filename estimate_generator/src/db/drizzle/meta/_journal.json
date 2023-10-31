@@ -50,6 +50,27 @@
       "when": 1696701837692,
       "tag": "0006_naive_smiling_tiger",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1698698253865,
+      "tag": "0007_crazy_lord_tyger",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1698701515312,
+      "tag": "0008_smooth_magdalene",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1698710957659,
+      "tag": "0009_third_sersi",
+      "breakpoints": true
     }
   ]
 }

@@ -6,13 +6,13 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     children?: string | JSX.Element | JSX.Element[] | [ JSX.Element, string ]
 }
 
-export interface FeatureCardProps {
+export type FeatureCardProps = {
     icon: string, 
     heading: string,
     paragraph: string
 }
 
-export interface SubscriptionCardProps { 
+export type SubscriptionCardProps = { 
     heading: string,
     paragraph: string,
     annualPrice: string,
@@ -23,46 +23,46 @@ export interface SubscriptionCardProps {
     state: boolean
 }
 
-export interface FAQProps {
+export type FAQProps = {
     _id: string,
     question: string,
     answer: string
     opened: boolean
     dispatch: Dispatch<Action>
 }
-export interface FAQItem  { 
+export type FAQItem = { 
     _id: string
     question: string,
     answer: string
     opened: boolean
 }
-export interface Action { 
+export type Action = { 
     type: string
     payload: string
 }
 
-export interface LoginFormValues {
+export type LoginFormValues = {
     email: string,
     password: string
 }
 
-export interface RegisterFormValues {
+export type RegisterFormValues = {
     name: string,
     email: string,
     password: string
     confirmPassword: string
 }
 
-export interface SideMenuSearchFormProps {
+export type SideMenuSearchFormProps = {
     search: string
 }
 
-export interface SmallStatCardProps {
+export type SmallStatCardProps = {
     heading: string,
     data: string
 }
 
-export interface ChangeOrder {
+export type ChangeOrder = {
     _id: string,
     estimateName: string,
     description: string,
@@ -71,22 +71,22 @@ export interface ChangeOrder {
     status: string
 }
 
-export interface TableProps<TData, TValue> {
+export type TableProps<TData, TValue> = {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
 }
 
-export interface DataTablePaginationProps<TData> {
+export type DataTablePaginationProps<TData> = {
     table: Table<TData>
 }
 
-export interface lineItem {
+export type lineItem = {
     id: number,
+    item: string,
     description: string,
     quantity:  number,
     rateType: string,
-    unitType: string,
-    unitRate: number,
-    total: number,
+    price: number,
+    amount: number,
     estimateId: number
 }
