@@ -15,13 +15,14 @@ export async function PUT(
                 .set({
                     estimate_name: data.estimateName,
                     customer_name: data.customerName,
-                    customer_business_name: data.customerBusinessName,
+                    customer_email: data.customerBusinessName,
                     project_address: data.projectAddress,
                     contractor_name: data.contractorName,
                     contractor_address: data.contractorAddress,
                     contractor_phone: data.contractorPhone,
                     massage: data.massage,
                     subtotal: data.subtotal,
+                    tax_rate: data.taxRate,
                     tax: data.tax,
                     total: data.total,
                 })
@@ -34,16 +35,16 @@ export async function PUT(
                 .values(data.lineItems.map((item: lineItem) => {
                     return {
                         id: Math.floor(Math.random() * 100000000),
+                        item: item.item,
                         description: item.description,
                         quantity:  item.quantity,
                         rate_type: item.rateType,
-                        unit_type: item.unitType,
-                        unit_rate: item.unitRate,
-                        total: item.total,
+                        price: item.price,
+                        amount: item.amount,
                         estimate_id: params.id
                     }
                 }))
-        return NextResponse.json('Profile sucsussfully updated')
+        return NextResponse.json('Estimate sucsussfully updated')
     } catch (error) {
         return NextResponse.json(error)
     }

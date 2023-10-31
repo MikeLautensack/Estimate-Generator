@@ -14,21 +14,22 @@ const EstimateFormPartOne = ({
 
   const { register, watch, setValue, getValues, control } = useFormContext()
 
-
-    useEffect(() => {
-      if(getValues('customer') !== undefined) {
-        setValue('address', '')
-        setValue('email', '')
-        setValue('name', '')
+  useEffect(() => {
+    if(getValues('customer_id')) {
+      for(let i = 0; i < customers.length; i++) {
+        if(getValues('customer_id') == customers[i].id) {
+          console.log(customers[i])
+        }
       }
-    },[watch('customer')])
+    }
+  },[watch('customer')])
 
   return (
     <div>
       <div>
         <FormField
           control={control}
-          name={"customer"}
+          name={"customer_id"}
           render={({ field }) => (
             <EstimateFormOneSelect
               customers={customers} 
@@ -37,18 +38,18 @@ const EstimateFormPartOne = ({
           )}
         />
       </div>
-      <div className={`${getValues('customer') !== undefined ? 'hidden' : 'flex'}`}>
+      <div className={`${getValues('customer_id') ? 'hidden' : 'flex'}`}>
         <div>
             <label>Name</label>
-            <input {...register("name")}></input>
+            <input {...register("customerName")}></input>
         </div>
         <div>
             <label>Email</label>
-            <input {...register("email")}></input>
+            <input {...register("customerEmail")}></input>
         </div>
         <div>
             <label>Address</label>
-            <input {...register("address")}></input>
+            <input {...register("projectAddress")}></input>
         </div>
       </div>
       <Button

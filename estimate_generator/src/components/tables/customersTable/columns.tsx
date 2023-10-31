@@ -2,14 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Customers } from "@/types/customers"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../../ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu"
 import { Button } from "../../ui/button"
 import { Checkbox } from "../../ui/checkbox"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"

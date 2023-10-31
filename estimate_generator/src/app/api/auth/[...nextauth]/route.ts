@@ -8,8 +8,6 @@ import { PlanetScaleAdapter } from "../../../../db/schemas/planetScaleAdapter"
 import { db } from '../../../../db/index'
 import { users } from '../../../../db/schemas/auth'
 import { eq } from "drizzle-orm"
-import { JWT } from "next-auth/jwt"
-import { Session } from "next-auth"
 
 export const authOptions = {
   adapter: PlanetScaleAdapter(db),

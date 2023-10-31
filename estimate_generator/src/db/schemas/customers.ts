@@ -5,6 +5,7 @@ import {
 } from "drizzle-orm/mysql-core"
 import { users } from './auth'
 import { relations } from 'drizzle-orm'
+import { estimates } from "./estimates"
 
 export const customers = mysqlTable(
     "customers", 
@@ -22,4 +23,8 @@ export const userCustomerRelationship = relations(customers, ({ one }) => ({
 		fields: [customers.user_id],
 		references: [users.id],
 	}),
+}))
+
+export const userEstimateRelationship = relations(customers, ({ many }) => ({
+	posts: many(estimates),
 }))

@@ -2,14 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Estimates } from "@/types/estimates"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../../ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu"
 import { Button } from "../../ui/button"
 import { Checkbox } from "../../ui/checkbox"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
@@ -92,7 +85,11 @@ export const columns: ColumnDef<Estimates>[] = [
             >
               <DropdownMenuItem>View Estimates</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
+            <Link
+              href={`http://localhost:3000/estimates/form/${estimate.id}`}
+            >
+              <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
+            </Link>
             <DropdownMenuItem
               onClick={() => deleteEstimate()}
             >

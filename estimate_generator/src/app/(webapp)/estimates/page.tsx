@@ -14,13 +14,13 @@ async function getData() {
 
 export default async function Page() {
 
-const data: Estimates[] = await getData() as Estimates[]
+const data = await getData() as Estimates[]
 
   return (
     <main className='bg-primary200 flex-grow p-4'>
       <h1 className='text-2xl desktop:text-[42px] font-bold font-sans text-primary500'>Estimates</h1>
       <Link
-        href={'http://localhost:3000/customerform'}
+        href={'http://localhost:3000/estimates/form'}
       >
         <Button
           id='new-change-order-button'

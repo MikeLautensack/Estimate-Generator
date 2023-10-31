@@ -14,18 +14,20 @@ const EstimateFormOneSelect = ({
   return (
     <FormItem>
       <FormLabel>Customers</FormLabel>
-      <Select {...field} value={field.value} onValueChange={field.onChange} {...register("customer" as const)}>
+      <Select {...field} value={field.value} onValueChange={field.onChange} {...register("customer_id" as const)}>
         <FormControl>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Customers" />
           </SelectTrigger>
         </FormControl>
         <SelectContent>
-          {customers.map((customer: any) => (
-            <div key={customer.id}>
-              <SelectItem value={`${customer.name}`}>{customer.name}</SelectItem>
-            </div>
-          ))}
+          {customers.map((customer: any) => {
+            return (
+              <div key={customer.id}>
+                <SelectItem value={`${customer.id}`}>{customer.name}</SelectItem>
+              </div>
+            )
+          })}
         </SelectContent>
       </Select>
     </FormItem>
