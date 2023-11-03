@@ -1,6 +1,6 @@
 import React from 'react'
-import { FormControl, FormItem, FormLabel } from './ui/form'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import { FormControl, FormItem, FormLabel } from '../ui/form'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { useFormContext } from 'react-hook-form'
 import { EstimateFormPartOneSelectProps } from '@/types/estimates'
 

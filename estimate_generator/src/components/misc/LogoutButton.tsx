@@ -1,6 +1,6 @@
 'use client'
 
-import { ButtonProps } from '../types/types'
+import { ButtonProps } from '../../types/types'
 import { signOut } from 'next-auth/react'
 
 const LogoutButton = ({ children, ...props }: ButtonProps) => {

@@ -1,6 +1,6 @@
 'use client'
 
-import { ButtonProps } from '../types/types'
+import { ButtonProps } from '../../types/types'
 
 const Button = ({ children, ...props }: ButtonProps) => {
     return (

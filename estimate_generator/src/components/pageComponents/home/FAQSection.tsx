@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useReducer, useState } from 'react'
-import FAQ from '../../FAQ'
+import FAQ from '../../misc/FAQ'
 import { Action, FAQItem } from '../../../types/types'
 import { FAQItemContent } from '@/utils/content'
 

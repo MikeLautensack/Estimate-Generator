@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { EstimateFormProps, EstimateFormValues } from '@/types/estimates'
+import { EstimateFormProps, EstimateFormValues, LineItems } from '@/types/estimates'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import EstimateFormPartOne from './EstimateFormPartOne'
 import EstimateFormPartTwo from './EstimateFormPartTwo'
@@ -14,16 +14,18 @@ const EstimateForm = ({
   profile
 }:EstimateFormProps) => {
 
+  const [ lineItems, setLineItems ] = useState([{
+    item: '',
+    description: '',
+    quantity: null,
+    rateType: 'unit',
+    price: null,
+    amount: 0
+  }])
+
   const methods = useForm<EstimateFormValues>({
     defaultValues: {
-        lineItems: [{
-            item: '',
-            description: '',
-            quantity: null,
-            rateType: 'unit',
-            price: null,
-            amount: 0
-        }],
+        lineItems: lineItems,
         taxRate: 0
     }
   })
@@ -35,20 +37,29 @@ const EstimateForm = ({
   })
 
   const onSubmit: SubmitHandler<EstimateFormValues> = async (data) => {
-    const res = await fetch('http://localhost:3000/api/estimates/create', {
-      method: 'POST',
-      headers: {
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-    console.log(data)
+    if(estimate) {
+      const res = await fetch(`http://localhost:3000/api/estimates/edit/${estimate.id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+    } else  {
+      const res = await fetch('http://localhost:3000/api/estimates/create', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+    }
   }
 
   useEffect(() => {
     console.log('useEffect firing .....')
     if(estimate) {
-      console.log('Estiamte Object: ',estimate)
+      setLineItems(estimate.lineItems)
       methods.setValue('estimateName', estimate.estimateName)
       methods.setValue('customer_id', estimate.customer_id)
       methods.setValue('customerName', estimate.customerName)
@@ -57,6 +68,7 @@ const EstimateForm = ({
       methods.setValue('contractorName', estimate.contractorName)
       methods.setValue('contractorAddress', estimate.contractorAddress)
       methods.setValue('contractorPhone', estimate.contractorPhone)
+      methods.setValue('lineItems', estimate.lineItems)
       for(let i = 0; i < estimate.lineItems.length; i++) {
         methods.setValue(`lineItems.${i}.item`, estimate.lineItems[i].item)
         methods.setValue(`lineItems.${i}.description`, estimate.lineItems[i].description)

@@ -5,7 +5,6 @@ import {
   DoubleArrowRightIcon,
 } from "@radix-ui/react-icons"
 
-
 import { Button } from "../../ui/button"
 
 import {
@@ -18,7 +17,7 @@ import {
 
 import { DataTablePaginationProps } from '../../../types/types'
 
-export default function ChangeOrderPagination<TData>({
+export default function ChangeOrdersPagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
   return (
@@ -40,7 +39,7 @@ export default function ChangeOrderPagination<TData>({
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
             <SelectContent side="top">
-              {[10, 20, 30, 40, 50].map((pageSize) => (
+              {[5, 10, 20, 30, 40, 50].map((pageSize) => (
                 <SelectItem key={pageSize} value={`${pageSize}`}>
                   {pageSize}
                 </SelectItem>
@@ -94,3 +93,4 @@ export default function ChangeOrderPagination<TData>({
     </div>
   )
 }
+  

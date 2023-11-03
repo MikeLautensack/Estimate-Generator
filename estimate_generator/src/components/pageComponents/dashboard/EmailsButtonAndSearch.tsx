@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from '../../ui/button'
-import SearchForm from '../../SearchForm'
+import SearchForm from '../../misc/SearchForm'
 
 export default function EmailsButtonAndSearch() {
   return (

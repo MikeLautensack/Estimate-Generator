@@ -7,7 +7,6 @@ import { CHANGEORDERS } from '../../../utils/content'
 export default function ChangeOrders() {
   return (
     <div>
-      <ChangeOrderButtonsAndSearch />
       <ChangeOrdersTable columns={columns} data={CHANGEORDERS} />
     </div>
   )

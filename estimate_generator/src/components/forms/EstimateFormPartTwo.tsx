@@ -5,7 +5,7 @@ import { Button } from '../ui/button'
 import { FaPlus } from 'react-icons/fa'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import EstimateFormTable from '../tables/estimateFormTable/EstimateFormTable'
-import TaxSelector from '../TaxSelector'
+import TaxSelector from '../misc/TaxSelector'
 import { formatPriceString } from '@/utils/formatingFunctions'
 import { EstimateFormPartTwoProps } from '@/types/estimates'
 

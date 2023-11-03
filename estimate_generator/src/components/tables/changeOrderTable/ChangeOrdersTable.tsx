@@ -3,7 +3,12 @@
 import {
   ColumnDef,
   flexRender,
+  SortingState,
+  ColumnFiltersState,
+  RowSelectionState,
   getCoreRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
   useReactTable,
   getPaginationRowModel,
 } from "@tanstack/react-table"
@@ -19,21 +24,49 @@ import {
 } from "@/components/ui/table"
 
 import { TableProps } from "@/types/types"
+import { useState } from "react"
+import { Input } from "../../ui/input"
 import ChangeOrdersPagination from "./ChangeOrdersPagination"
+
+
 
 export default function ChangeOrdersTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {
+
+  const [ sorting, setSorting ] = useState<SortingState>([])
+  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([])
+  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({})
   const table = useReactTable({
     data,
     columns,
+    state: {
+      sorting,
+      columnFilters,
+      rowSelection,
+    },
     getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onRowSelectionChange: setRowSelection,
+    getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel()
   })
 
   return (
     <div className="">
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter customer..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

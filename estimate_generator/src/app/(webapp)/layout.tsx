@@ -1,5 +1,5 @@
 import '../globals.css'
-import Menu from "../../components/Menu"
+import Menu from "../../components/misc/Menu"
 
 export default function WebappLayout({
   children, 
