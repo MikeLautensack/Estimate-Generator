@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../Button'
+import Button from '../misc/Button'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { SideMenuSearchFormProps } from '../../types/types'
 import { FiSearch } from 'react-icons/fi'

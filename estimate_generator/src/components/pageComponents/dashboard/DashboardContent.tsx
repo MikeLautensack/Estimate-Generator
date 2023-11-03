@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../../Button'
+import Button from '../../misc/Button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Overview from './Overview'
 import ChangeOrders from './ChangeOrders'

@@ -2,11 +2,11 @@
 
 import React, { useEffect } from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
-import { EstimateFormPartOneProps, EstimateFormPartOneValues } from '@/types/estimates'
+import { EstimateFormPartOneProps } from '@/types/estimates'
 import { Button } from '../ui/button'
 import { FormProvider, SubmitHandler, useForm, useFormContext } from 'react-hook-form'
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
-import EstimateFormOneSelect from '../EstimateFormOneSelect'
+import EstimateFormOneSelect from '../misc/EstimateFormOneSelect'
 
 const EstimateFormPartOne = ({
     customers
@@ -18,7 +18,7 @@ const EstimateFormPartOne = ({
     if(getValues('customer_id')) {
       for(let i = 0; i < customers.length; i++) {
         if(getValues('customer_id') == customers[i].id) {
-          console.log(customers[i])
+          
         }
       }
     }

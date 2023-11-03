@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { FAQProps } from '../types/types'
+import { FAQProps } from '../../types/types'
 import Button from './Button'
 import { FaChevronDown } from "react-icons/fa"
 

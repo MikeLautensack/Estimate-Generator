@@ -30,7 +30,7 @@ import { Input } from "../../ui/input"
 
 
 
-export default function ChangeOrdersTable<TData, TValue>({
+export default function CustomersTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {

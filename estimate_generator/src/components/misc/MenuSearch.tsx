@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useState } from 'react'
-import SearchForm from './forms/SearchForm'
+import SearchForm from '../forms/SearchForm'
 
 const MenuSearch = ({ ...props }) => {
 

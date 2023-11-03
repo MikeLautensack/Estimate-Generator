@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useState } from 'react'
-import SubscriptionCard from '../../SubscriptionCard'
+import SubscriptionCard from '../../misc/SubscriptionCard'
 import { subscriptionCards } from '../../../utils/content'
 import { Switch } from "../../ui/switch"
 

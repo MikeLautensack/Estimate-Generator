@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { FcSearch } from 'react-icons/fc'
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 
 const SearchForm = ({...props}) => {
   return (

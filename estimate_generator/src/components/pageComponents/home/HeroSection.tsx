@@ -1,9 +1,9 @@
 'use client'
 
-import Nav from '../../Nav'
+import Nav from '../../misc/Nav'
 import { motion } from "framer-motion"
 import { Canvas } from '@react-three/fiber'
-import ThreeDLogo from '../../ThreeDLogo'
+import ThreeDLogo from '../../misc/ThreeDLogo'
 import { OrbitControls } from '@react-three/drei'
 import Link from 'next/link'
 
