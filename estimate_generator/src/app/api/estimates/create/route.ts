@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { estimates } from '../../../../db/schemas/estimates'
 import { db } from '../../../../db'
 import { getServerSession } from "next-auth/next"
@@ -6,23 +6,23 @@ import { authOptions } from '../../auth/[...nextauth]/route'
 import { lineItem } from '@/types/types'
 import { lineItems } from '../../../../db/schemas/estimates'
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     const data = await request.json()
     const session = await getServerSession(authOptions)
     const estimateId = Math.floor(Math.random() * 100000000)
     try {
         await db.insert(estimates).values({
             id: estimateId,
-            estimate_name: data.estimateName,
-            customer_name: data.customerName,
-            customer_email: data.customerEmail,
-            project_address: data.projectAddress,
-            contractor_name: data.contractorName,
-            contractor_address: data.contractorAddress,
-            contractor_phone: data.contractorPhone,
+            estimateName: data.estimateName,
+            customerName: data.customerName,
+            customerEmail: data.customerEmail,
+            projectAddress: data.projectAddress,
+            contractorName: data.contractorName,
+            contractorAddress: data.contractorAddress,
+            contractorPhone: data.contractorPhone,
             massage: data.massage,
             subtotal: data.subtotal,
-            tax_rate: data.taxRate,
+            taxRate: data.taxRate,
             tax: data.tax,
             total: data.total,
             customer_id: data.customer_id,
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
                 item: item.item,
                 description: item.description,
                 quantity:  item.quantity,
-                rate_type: item.rateType,
+                rateType: item.rateType,
                 price: item.price,
                 amount: item.amount,
                 estimate_id: estimateId

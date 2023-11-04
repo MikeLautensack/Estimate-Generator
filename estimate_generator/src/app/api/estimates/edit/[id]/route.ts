@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { db } from '../../../../../db'
 import { estimates } from '../../../../../db/schemas/estimates'
 import { lineItems } from '../../../../../db/schemas/estimates'
@@ -6,23 +6,23 @@ import { lineItem } from '@/types/types'
 import { eq } from "drizzle-orm"
 
 export async function PUT(
-    request: NextResponse,
+    request: NextRequest,
     { params }: { params: { id: string } }
 ) {
     const data = await request.json()
     try {
         await db.update(estimates)
                 .set({
-                    estimate_name: data.estimateName,
-                    customer_name: data.customerName,
-                    customer_email: data.customerBusinessName,
-                    project_address: data.projectAddress,
-                    contractor_name: data.contractorName,
-                    contractor_address: data.contractorAddress,
-                    contractor_phone: data.contractorPhone,
+                    estimateName: data.estimateName,
+                    customerName: data.customerName,
+                    customerEmail: data.customerBusinessName,
+                    projectAddress: data.projectAddress,
+                    contractorName: data.contractorName,
+                    contractorAddress: data.contractorAddress,
+                    contractorPhone: data.contractorPhone,
                     massage: data.massage,
                     subtotal: data.subtotal,
-                    tax_rate: data.taxRate,
+                    taxRate: data.taxRate,
                     tax: data.tax,
                     total: data.total,
                 })
@@ -38,7 +38,7 @@ export async function PUT(
                         item: item.item,
                         description: item.description,
                         quantity:  item.quantity,
-                        rate_type: item.rateType,
+                        rateType: item.rateType,
                         price: item.price,
                         amount: item.amount,
                         estimate_id: params.id
