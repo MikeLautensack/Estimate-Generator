@@ -12,6 +12,7 @@ export default function Overview() {
         <div className='grid gap-4 desktop:grid-cols-4'>
             {SMALLSTATCARDDATA.map((statCard) => (
                 <SmallStatCard
+                    key={Math.random()}
                     heading={statCard.heading} 
                     data={statCard.data} 
                 />
