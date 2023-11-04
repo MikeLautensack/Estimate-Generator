@@ -8,10 +8,10 @@ export async function PUT(request: Request) {
     try {
         await db.update(profiles)
                 .set({
-                    business_name: data.businessName,
-                    business_address: data.businessAddress,
-                    business_email: data.businessEmail,
-                    business_phone: data.businessPhone,
+                    businessName: data.businessName,
+                    businessAddress: data.businessAddress,
+                    businessEmail: data.businessEmail,
+                    businessPhone: data.businessPhone,
                 })
                 .where(eq(profiles.id, data.id))
         return NextResponse.json('Profile sucsussfully updated')
