@@ -1,15 +1,16 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ChangeOrder } from "@/types/types"
+import { ChangeOrders } from "@/types/changeOrders"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { changeOrders } from "@/db/schemas/changeOrders"
 
-export const columns: ColumnDef<ChangeOrder>[] = [
+export const columns: ColumnDef<ChangeOrders>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -56,7 +57,7 @@ export const columns: ColumnDef<ChangeOrder>[] = [
     header: "Customer Name",
   },
   {
-    accessorKey: "address",
+    accessorKey: "workAddress",
     header: "Work Address",
   },
   {
@@ -66,7 +67,7 @@ export const columns: ColumnDef<ChangeOrder>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const customer = row.original
+      const changeOrder = row.original
       const router = useRouter()
   
       return (
@@ -78,22 +79,17 @@ export const columns: ColumnDef<ChangeOrder>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Change Order Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={``}
+              href={`http://localhost:3000/dashboard/changeorders/${changeOrder.id}`}
             >
-              <DropdownMenuItem>View Customer</DropdownMenuItem>
-            </Link>
-            <Link
-              href={``}
-            >
-              <DropdownMenuItem>Edit Customer</DropdownMenuItem>
+              <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>
             <DropdownMenuItem
               
             >
-              Delete Customer
+              Delete Change Order
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

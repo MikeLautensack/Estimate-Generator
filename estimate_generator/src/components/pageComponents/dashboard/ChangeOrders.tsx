@@ -1,13 +1,13 @@
-import ChangeOrderButtonsAndSearch from "./ChangeOrderButtonsAndSearch"
 import ChangeOrdersTable from "../../tables/changeOrderTable/ChangeOrdersTable"
-import ChangeOrdersPagination from "../../tables/changeOrderTable/ChangeOrdersPagination"
 import { columns } from '../../tables/changeOrderTable/columns'
-import { CHANGEORDERS } from '../../../utils/content'
+import { getChangeOrders } from "@/actions/changeOrders"
+import { ChangeOrders } from "@/types/changeOrders"
 
-export default function ChangeOrders() {
+export default async function ChangeOrders() {
+  const data = await getChangeOrders()
   return (
     <div>
-      <ChangeOrdersTable columns={columns} data={CHANGEORDERS} />
+      <ChangeOrdersTable columns={columns} data={data} />
     </div>
   )
 }
