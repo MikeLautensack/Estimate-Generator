@@ -1,0 +1,1 @@
+ALTER TABLE `changeOrders` RENAME COLUMN `work_Address` TO `workAddress`;

@@ -11,6 +11,7 @@ import { relations } from 'drizzle-orm'
 import { profiles } from './userProfile'
 import { customers } from './customers'
 import { estimates } from './estimates'
+import { changeOrders } from "./changeOrders"
 
 export const users = mysqlTable(
     "users", 
@@ -37,6 +38,10 @@ export const userCustomerRelationship = relations(users, ({ many }) => ({
 
 export const userEstimateRelationship = relations(users, ({ many }) => ({
 	posts: many(estimates),
+}))
+
+export const userChangeOrderRelationship = relations(users, ({ many }) => ({
+	posts: many(changeOrders),
 }))
 
 export const accounts = mysqlTable(

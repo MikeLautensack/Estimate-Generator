@@ -1,7 +1,7 @@
 import { estimates, lineItems } from '@/db/schemas/estimates'
 import { db } from '../../../../db'
 import { eq } from "drizzle-orm"
-import LineItem from '@/components/LineItem'
+import LineItem from '../../../../components/misc/LineItem'
 
 async function getData(id: number) {
   const estimateTableData = await db.select()
@@ -24,13 +24,13 @@ export default async function page({ params }: { params: { id: string } }) {
     <main
       className='bg-secondary200 flex-1 p-8'
     >
-      <h1>{data.estimate_name}</h1>
-      <p>{data.customer_name}</p>
-      <p>{data.customer_email}</p>
-      <p>{data.project_address}</p>
-      <p>{data.contractor_name}</p>
-      <p>{data.contractor_address}</p>
-      <p>{data.contractor_phone}</p>
+      <h1>{data.estimateName}</h1>
+      <p>{data.customerName}</p>
+      <p>{data.customerEmail}</p>
+      <p>{data.projectAddress}</p>
+      <p>{data.contractorName}</p>
+      <p>{data.contractorAddress}</p>
+      <p>{data.contractorPhone}</p>
       <div>
         {data.lineItems.map((item) => (
             <LineItem 
@@ -39,7 +39,7 @@ export default async function page({ params }: { params: { id: string } }) {
               quantity={item.quantity}
               amount={item.amount} 
               item={item.item}
-              rateType={item.rate_type} 
+              rateType={item.rateType} 
               price={item.price}            
             />
         ))}
