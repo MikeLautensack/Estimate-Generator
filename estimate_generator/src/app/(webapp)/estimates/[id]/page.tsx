@@ -38,6 +38,7 @@ export default async function page({ params }: { params: { id: string } }) {
       <div>
         {data?.lineItems.map((item) => (
             <LineItem 
+              key={item.id}
               id={item.id}
               description={item.description}
               quantity={item.quantity}
