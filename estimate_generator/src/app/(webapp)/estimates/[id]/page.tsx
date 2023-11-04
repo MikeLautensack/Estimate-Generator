@@ -4,17 +4,21 @@ import { eq } from "drizzle-orm"
 import LineItem from '../../../../components/misc/LineItem'
 
 async function getData(id: number) {
-  const estimateTableData = await db.select()
-                .from(estimates)
-                .where(eq(estimates.id, id))
-  const lineItemsTableData = await db.select()
-                .from(lineItems)
-                .where(eq(lineItems.estimate_id, id))
-  const estimate = {
-    ...estimateTableData[0],
-    lineItems: lineItemsTableData
+  try {    
+    const estimateTableData = await db.select()
+                  .from(estimates)
+                  .where(eq(estimates.id, id))
+    const lineItemsTableData = await db.select()
+                  .from(lineItems)
+                  .where(eq(lineItems.estimate_id, id))
+    const estimate = {
+      ...estimateTableData[0],
+      lineItems: lineItemsTableData
+    }
+    return estimate
+  } catch (error) {
+    console.log(error)
   }
-  return estimate
 }
 
 export default async function page({ params }: { params: { id: string } }) {
@@ -24,15 +28,15 @@ export default async function page({ params }: { params: { id: string } }) {
     <main
       className='bg-secondary200 flex-1 p-8'
     >
-      <h1>{data.estimateName}</h1>
-      <p>{data.customerName}</p>
-      <p>{data.customerEmail}</p>
-      <p>{data.projectAddress}</p>
-      <p>{data.contractorName}</p>
-      <p>{data.contractorAddress}</p>
-      <p>{data.contractorPhone}</p>
+      <h1>{data?.estimateName}</h1>
+      <p>{data?.customerName}</p>
+      <p>{data?.customerEmail}</p>
+      <p>{data?.projectAddress}</p>
+      <p>{data?.contractorName}</p>
+      <p>{data?.contractorAddress}</p>
+      <p>{data?.contractorPhone}</p>
       <div>
-        {data.lineItems.map((item) => (
+        {data?.lineItems.map((item) => (
             <LineItem 
               id={item.id}
               description={item.description}
@@ -44,10 +48,10 @@ export default async function page({ params }: { params: { id: string } }) {
             />
         ))}
       </div>
-      <p>{data.massage}</p>
-      <p>{data.subtotal}</p>
-      <p>{data.tax}</p>
-      <p>{data.total}</p>
+      <p>{data?.massage}</p>
+      <p>{data?.subtotal}</p>
+      <p>{data?.tax}</p>
+      <p>{data?.total}</p>
     </main>
   )
 }
