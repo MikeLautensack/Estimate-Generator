@@ -57,7 +57,7 @@ export const columns: ColumnDef<Estimates>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const estimate = row.original
       const router = useRouter()
       const deleteEstimate = async () => {
