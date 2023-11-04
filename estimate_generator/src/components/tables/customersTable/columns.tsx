@@ -57,7 +57,7 @@ export const columns: ColumnDef<Customers>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const customer = row.original
       const router = useRouter()
       const deleteCustomer = async () => {
