@@ -1,11 +1,10 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { customers } from '../../../../db/schemas/customers'
 import { db } from '../../../../db'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '../../auth/[...nextauth]/route'
-import { revalidatePath } from 'next/cache'
 
-export async function POST(request: NextResponse) {
+export async function POST(request: NextRequest) {
     const data = await request.json()
     const session = await getServerSession(authOptions)
     try {

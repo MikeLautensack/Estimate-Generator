@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { db } from '../../../../../db'
 import { profiles } from '../../../../../db/schemas/userProfile'
 import { eq } from "drizzle-orm"
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
     const data = await request.json()
     try {
         await db.update(profiles)

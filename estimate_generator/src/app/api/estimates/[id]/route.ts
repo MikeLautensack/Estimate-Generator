@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { db } from '../../../../db'
 import { estimates, lineItems } from '../../../../db/schemas/estimates'
 import { eq } from "drizzle-orm"
 
 export async function GET(
-    request: NextResponse,
+    request: NextRequest,
     { params }: { params: { id: string } }
 ) {
     try {
