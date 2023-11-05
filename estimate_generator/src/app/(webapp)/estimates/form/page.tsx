@@ -2,12 +2,10 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import EstimateForm from "@/components/forms/EstimateForm";
 import { db } from "@/db";
 import { customers } from "@/db/schemas/customers";
-import { estimates } from "@/db/schemas/estimates";
 import { profiles } from "@/db/schemas/userProfile";
 import { eq } from "drizzle-orm"
 import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt"
-import { escape } from "querystring";
 
 async function getCustomers() {
   const res = await db.select()

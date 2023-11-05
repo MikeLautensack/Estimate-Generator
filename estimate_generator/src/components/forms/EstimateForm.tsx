@@ -38,7 +38,7 @@ const EstimateForm = ({
 
   const onSubmit: SubmitHandler<EstimateFormValues> = async (data) => {
     if(estimate) {
-      const res = await fetch(`http://localhost:3000/api/estimates/edit/${estimate.id}`, {
+      const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_EDIT_URL"]}/${estimate.id}`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json"
@@ -46,7 +46,7 @@ const EstimateForm = ({
         body: JSON.stringify(data)
       })
     } else  {
-      const res = await fetch('http://localhost:3000/api/estimates/create', {
+      const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_CREATE_URL"]}`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
