@@ -66,7 +66,7 @@ export const columns: ColumnDef<ChangeOrders>[] = [
   },
   {
     id: "actions",
-    cell: function Cell({ row }) {
+    cell: ({ row }) => {
       const changeOrder = row.original
       const router = useRouter()
   
@@ -82,7 +82,7 @@ export const columns: ColumnDef<ChangeOrders>[] = [
             <DropdownMenuLabel>Change Order Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`http://localhost:3000/dashboard/changeorders/${changeOrder.id}`}
+              href={`${process.env["NEXT_PUBLIC_DASHBOARD_CHANGEORDERS_URL"]}/${changeOrder.id}`}
             >
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>

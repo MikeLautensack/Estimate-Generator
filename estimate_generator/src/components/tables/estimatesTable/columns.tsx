@@ -61,7 +61,7 @@ export const columns: ColumnDef<Estimates>[] = [
       const estimate = row.original
       const router = useRouter()
       const deleteEstimate = async () => {
-        const res = await fetch(`http://localhost:3000/api/estimates/delete/${estimate.id}`, {
+        const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_DELETE_URL"]}/${estimate.id}`, {
           method: 'DELETE',
         })
 
@@ -81,12 +81,12 @@ export const columns: ColumnDef<Estimates>[] = [
             <DropdownMenuLabel>Estimate Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`http://localhost:3000/estimates/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/${estimate.id}`}
             >
               <DropdownMenuItem>View Estimates</DropdownMenuItem>
             </Link>
             <Link
-              href={`http://localhost:3000/estimates/form/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"]}/${estimate.id}`}
             >
               <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
             </Link>
