@@ -33,7 +33,7 @@ const LoginForm = () => {
         email: data.email, 
         password: data.password, 
         redirect: true, 
-        callbackUrl: 'http://localhost:3000/dashboard' 
+        callbackUrl: process.env["NEXT_PUBLIC_SIGN_IN_CALLBACK_URL"] 
     })
   }
 
