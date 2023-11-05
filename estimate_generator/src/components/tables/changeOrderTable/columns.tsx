@@ -66,7 +66,7 @@ export const columns: ColumnDef<ChangeOrders>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
+    cell: function Cell({ row }) {
       const changeOrder = row.original
       const router = useRouter()
   
