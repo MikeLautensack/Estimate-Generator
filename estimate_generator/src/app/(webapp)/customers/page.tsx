@@ -19,7 +19,7 @@ export default async function Page() {
     <main className='bg-secondary300 flex-grow p-4'>
       <h1 className='mb-[8px]'>Customers</h1>
       <Link
-        href={'http://localhost:3000/customers/form'}
+        href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}`}
       >
         <Button
           id='new-change-order-button'
