@@ -20,7 +20,7 @@ const data = await getData() as Estimates[]
     <main className='bg-primary200 flex-grow p-4'>
       <h1 className='text-2xl desktop:text-[42px] font-bold font-sans text-primary500'>Estimates</h1>
       <Link
-        href={'http://localhost:3000/estimates/form'}
+        href={`${process.env["ESTIMATES_FORM_URL"]}`}
       >
         <Button
           id='new-change-order-button'
