@@ -22,25 +22,25 @@ const CustomerForm = (data:CustomerForm) => {
 
   const onSubmit: SubmitHandler<customerFormProps> = async (formData) => {
     if(data.data != null) {
-        const res = await fetch(`http://localhost:3000/api/customers/edit/${data.data.id}`, {
+        const res = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_EDIT_URL"]}/${data.data.id}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(formData)
         })
-        router.push('http://localhost:3000/customers')
+        router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
         router.refresh()
         console.log(res)
     } else {
-        const res = await fetch('http://localhost:3000/api/customers/create', {
+        const res = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_CREATE_URL"]}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(formData)
         })
-        router.push('http://localhost:3000/customers')
+        router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
         router.refresh()
         console.log(res)
     }
