@@ -61,7 +61,7 @@ export const columns: ColumnDef<Customers>[] = [
       const customer = row.original
       const router = useRouter()
       const deleteCustomer = async () => {
-        const res = await fetch(`http://localhost:3000/api/customers/delete/${customer.id}`, {
+        const res = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${customer.id}`, {
           method: 'DELETE',
         })
 
@@ -81,12 +81,12 @@ export const columns: ColumnDef<Customers>[] = [
             <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`http://localhost:3000/customers/${customer.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}/${customer.id}`}
             >
               <DropdownMenuItem>View Customer</DropdownMenuItem>
             </Link>
             <Link
-              href={`http://localhost:3000/customers/form/${customer.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}/${customer.id}`}
             >
               <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>
