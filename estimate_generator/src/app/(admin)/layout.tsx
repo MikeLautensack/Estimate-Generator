@@ -1,7 +1,7 @@
 import '../globals.css'
 import Menu from "../../components/misc/Menu"
 
-export default function ContractorLayout({
+export default function AdminLayout({
   children, 
 }: {
   children: React.ReactNode
