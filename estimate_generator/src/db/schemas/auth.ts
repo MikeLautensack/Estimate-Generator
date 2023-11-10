@@ -1,11 +1,4 @@
-import {
-  int,
-  timestamp,
-  mysqlTable,
-  primaryKey,
-  varchar,
-  text
-} from "drizzle-orm/mysql-core"
+import { int, timestamp, mysqlTable, primaryKey, varchar, text } from "drizzle-orm/mysql-core"
 import type { AdapterAccount } from "@auth/core/adapters"
 import { relations } from 'drizzle-orm'
 import { profiles } from './userProfile'
@@ -20,6 +13,7 @@ export const users = mysqlTable(
   name: varchar("name", { length: 255 }),
   email: varchar("email", { length: 255 }).notNull(),
   password: varchar("password", { length: 255 }),
+  role: varchar("role", { length: 255 }),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),

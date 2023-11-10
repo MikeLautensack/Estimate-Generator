@@ -90,11 +90,11 @@ const EstimateFormPartTwo = ({
   }, [])
 
   return (
-    <div>
-        <div>
+    <div className='p-4'>
+        <div className='flex flex-col gap-1 my-2'>
             {}
             <label>Estimate Name</label>
-            <input {...register("estimateName")}></input>
+            <input {...register("estimateName")} className='border border-primary300 rounded max-w-xs'></input>
         </div>
         <div>
             <div>
@@ -109,7 +109,7 @@ const EstimateFormPartTwo = ({
                     <p>{businessPhone}</p>
                 </div>
             </div>
-            <div>
+            <div className='flex flex-col gap-4'>
                 <Button
                     type='button'
                     onClick={() => {
@@ -122,6 +122,7 @@ const EstimateFormPartTwo = ({
                             amount: 0
                         })
                     }}
+                    className='max-w-[15rem]'
                 >
                     New Line Item
                 </Button>
@@ -134,9 +135,9 @@ const EstimateFormPartTwo = ({
             <div>
                 <div>
                     <label></label>
-                    <textarea {...register("message")}></textarea>
+                    <textarea {...register("message")} className='border border-primary300 rounded'></textarea>
                 </div>
-                <div>
+                <div className='flex flex-col gap-1 my-2'>
                     <div>
                         <p>Subtotal</p>
                         <p>{formatPriceString(subtotal)}</p>
@@ -157,26 +158,23 @@ const EstimateFormPartTwo = ({
                     </div>
                 </div>
             </div>
-            <div>
+            <div className='flex justify-evenly gap-2'>
                 <Button
                     type='button'
-                    className=''
+                    className='flex-1'
                 >
-                    <FaPlus />
                     Preview Estimate
                 </Button>
                 <Button
                     type='submit'
-                    className=''
+                    className='flex-1'
                 >
-                    <FaPlus />
                     Save
                 </Button>
                 <Button
                     type='button'
-                    className=''
+                    className='flex-1'
                 >
-                    <FaPlus />
                     Save & Send
                 </Button>
             </div>

@@ -38,18 +38,18 @@ const EstimateFormPartOne = ({
           )}
         />
       </div>
-      <div className={`${getValues('customer_id') ? 'hidden' : 'flex'}`}>
-        <div>
+      <div className={`${getValues('customer_id') ? 'hidden' : 'flex'} flex-col gap-2 my-2`}>
+        <div className='flex flex-col gap-1'>
             <label>Name</label>
-            <input {...register("customerName")}></input>
+            <input {...register("customerName")} className='border border-primary300 rounded'></input>
         </div>
-        <div>
+        <div className='flex flex-col gap-1'>
             <label>Email</label>
-            <input {...register("customerEmail")}></input>
+            <input {...register("customerEmail")} className='border border-primary300 rounded'></input>
         </div>
-        <div>
+        <div className='flex flex-col gap-1'>
             <label>Address</label>
-            <input {...register("projectAddress")}></input>
+            <input {...register("projectAddress")} className='border border-primary300 rounded'></input>
         </div>
       </div>
       <Button
