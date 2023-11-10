@@ -50,27 +50,27 @@ const LineItemFormField = ({
       <TableCell className="">
         <div className='flex flex-col'>
           <label>Item</label>
-          <input {...register(`lineItems.${index}.item` as const)}></input>
+          <input {...register(`lineItems.${index}.item` as const)} className='border border-primary300 rounded'></input>
         </div>
         <div className='flex flex-col'>
           <label>Description</label>
-          <textarea {...register(`lineItems.${index}.description` as const)}></textarea>
+          <textarea {...register(`lineItems.${index}.description` as const)} className='border border-primary300 rounded'></textarea>
         </div>
       </TableCell>
       <TableCell className="flex flex-col">
-        <div className={`${getValues(`lineItems.${index}.rateType`) === 'flat' ? 'hidden' : 'flex'}`}>
+        <div className={`${getValues(`lineItems.${index}.rateType`) === 'flat' ? 'hidden' : 'flex'} flex-col`}>
           <label>Quantity</label>
-          <input type='number' {...register(`lineItems.${index}.quantity` as const, {valueAsNumber: true})}></input>
+          <input type='number' {...register(`lineItems.${index}.quantity` as const, {valueAsNumber: true})} className='border border-primary300 rounded'></input>
         </div>
       </TableCell>
       <TableCell className="">
-        <div>
-          <div>
+        <div className='w-full'>
+          <div className='w-full'>
             <FormField
               control={control}
               name={`lineItems.${index}.rateType`}
               render={({ field }) => (
-                <FormItem>
+                <FormItem className='w-full'>
                   <FormLabel>Rate Type</FormLabel>
                     <Select value={field.value} onValueChange={field.onChange} {...register(`lineItems.${index}.rateType` as const)}>
                       <FormControl>                        
@@ -91,9 +91,9 @@ const LineItemFormField = ({
               )}
             />
           </div>
-          <div>
+          <div className='flex flex-col gap-1'>
             <label>Price</label>
-            <input type='number' {...register(`lineItems.${index}.price` as const, {valueAsNumber: true})}></input>
+            <input type='number' {...register(`lineItems.${index}.price` as const, {valueAsNumber: true})} className='border border-primary300 rounded'></input>
           </div>
         </div>
       </TableCell>

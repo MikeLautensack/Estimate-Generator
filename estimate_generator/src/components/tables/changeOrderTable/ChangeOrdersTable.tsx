@@ -27,6 +27,7 @@ import { TableProps } from "@/types/types"
 import { useState } from "react"
 import { Input } from "../../ui/input"
 import ChangeOrdersPagination from "./ChangeOrdersPagination"
+import { Button } from "@/components/ui/button"
 
 
 

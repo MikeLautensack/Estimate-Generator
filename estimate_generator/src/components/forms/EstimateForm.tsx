@@ -86,16 +86,16 @@ const EstimateForm = ({
   }, [])
 
   return (
-    <div>
+    <div className='border border-primary700 w-full h-full'>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <Tabs
             defaultValue={'estimate-form-one'}
             className=''
           >
-            <TabsList>
-                <TabsTrigger value='estimate-form-one'>1. Customer & Contact Info</TabsTrigger>
-                <TabsTrigger value='estimate-form-two'>2. Estimate Info</TabsTrigger>
+            <TabsList className='w-full flex'>
+                <TabsTrigger className='flex-1' value='estimate-form-one'>1. Customer & Contact Info</TabsTrigger>
+                <TabsTrigger className='flex-1' value='estimate-form-two'>2. Estimate Info</TabsTrigger>
             </TabsList>
             <TabsContent
                 value='estimate-form-one'
@@ -111,7 +111,7 @@ const EstimateForm = ({
             <TabsContent
                 value='estimate-form-two'
             >
-              <Card>
+              <Card className='bg-primary100'>
                 <CardContent>
                   <EstimateFormPartTwo
                     customers={customers} 
