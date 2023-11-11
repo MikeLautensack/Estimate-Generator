@@ -7,9 +7,10 @@ import { Button } from '../ui/button'
 import { CustomerForm } from '@/types/customers'
 import { redirect } from 'next/dist/server/api-utils'
 import { useRouter } from 'next/navigation'
+import { addCustomer } from '@/actions/customerActions'
+import { generatePassword } from '@/utils/generateRandom'
 
-const CustomerForm = (data:CustomerForm) => {
-    console.log(data)
+const CustomerForm = (data: CustomerForm) => {
   const {
     register,
     handleSubmit,
@@ -31,18 +32,10 @@ const CustomerForm = (data:CustomerForm) => {
         })
         router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
         router.refresh()
-        console.log(res)
     } else {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_CREATE_URL"]}`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
+        
         router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
         router.refresh()
-        console.log(res)
     }
   }
 

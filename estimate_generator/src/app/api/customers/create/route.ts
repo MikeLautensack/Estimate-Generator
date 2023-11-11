@@ -14,7 +14,8 @@ export async function POST(request: NextRequest) {
             address: data.address,
             phone: data.phone,
             email: data.email,
-            user_id: session.user.id,
+            contractor_user_id: session.user.id,
+            customer_user_id: data.customerUserID,
         })
         return NextResponse.json('Customer sucsessfully created')
     } catch (error) {

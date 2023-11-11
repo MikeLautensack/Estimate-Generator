@@ -1,9 +1,9 @@
 export type Users = {
-    id: string,
-    name: string,
-    email: string,
-    password: string,
+    id?: string,
+    name?: string,
+    email?: string,
+    password?: string,
     emailVerified?: Date,
-    createdAt: Date,
-    updatedAt: Date,
+    createdAt?: Date,
+    updatedAt?: Date,
 }
