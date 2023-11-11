@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
         name: data.name,
         email: data.email,
         password: bcrypt.hashSync(data.password, 10),
+        role: data.role,
         emailVerified: null,
         createdAt: new Date(),
         updatedAt: new Date(),

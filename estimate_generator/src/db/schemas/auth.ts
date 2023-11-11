@@ -14,7 +14,6 @@ export const users = mysqlTable(
   email: varchar("email", { length: 255 }).notNull(),
   password: varchar("password", { length: 255 }),
   role: varchar("role", { length: 255 }),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),
 })
@@ -26,7 +25,7 @@ export const userProfileRelationship = relations(users, ({ one }) => ({
 	}),
 }))
 
-export const userCustomerRelationship = relations(users, ({ many }) => ({
+export const customerCustomerRelationship = relations(users, ({ many }) => ({
 	posts: many(customers),
 }))
 

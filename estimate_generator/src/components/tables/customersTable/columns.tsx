@@ -61,11 +61,15 @@ export const columns: ColumnDef<Customers>[] = [
       const customer = row.original
       const router = useRouter()
       const deleteCustomer = async () => {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${customer.id}`, {
+        const customertObj = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${customer.id}`, {
           method: 'DELETE',
         })
 
-        if(res.ok) {
+        const userObj = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMER_USER_DELETE_URL"]}/${customer.id}`, {
+          method: 'DELETE',
+        })
+
+        if(customertObj.ok && userObj.ok) {
           router.refresh()
         }
       }

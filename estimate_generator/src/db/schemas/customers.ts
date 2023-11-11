@@ -15,12 +15,20 @@ export const customers = mysqlTable(
   address: varchar('address', { length: 255 }),
   email: varchar('email', { length: 255 }),
   phone: varchar('phone', { length: 255 }),
-  user_id: bigint('user_id', { mode: 'number' })
+  contractor_user_id: bigint('contractor_user_id', { mode: 'number' }),
+  customer_user_id: bigint('customer_user_id', { mode: 'number' })
 })
 
-export const userCustomerRelationship = relations(customers, ({ one }) => ({
+export const customerContractorRelationship = relations(customers, ({ one }) => ({
 	author: one(users, {
-		fields: [customers.user_id],
+		fields: [customers.contractor_user_id],
+		references: [users.id],
+	}),
+}))
+
+export const customerCustomerRelationship = relations(customers, ({ one }) => ({
+	author: one(users, {
+		fields: [customers.customer_user_id],
 		references: [users.id],
 	}),
 }))
