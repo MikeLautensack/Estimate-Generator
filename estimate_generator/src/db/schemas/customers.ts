@@ -16,7 +16,7 @@ export const customers = mysqlTable(
   email: varchar('email', { length: 255 }),
   phone: varchar('phone', { length: 255 }),
   contractor_user_id: bigint('contractor_user_id', { mode: 'number' }),
-  customer_user_id: bigint('customer_user_id', { mode: 'number' })
+  customer_user_id: varchar("customer_user_id", { length: 255 })
 })
 
 export const customerContractorRelationship = relations(customers, ({ one }) => ({

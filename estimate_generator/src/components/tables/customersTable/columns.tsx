@@ -8,6 +8,7 @@ import { Checkbox } from "../../ui/checkbox"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
+import { deleteCustomer } from "@/actions/customerActions"
 
 export const columns: ColumnDef<Customers>[] = [
   {
@@ -60,18 +61,12 @@ export const columns: ColumnDef<Customers>[] = [
     cell: function Cell({ row }) {
       const customer = row.original
       const router = useRouter()
-      const deleteCustomer = async () => {
-        const customertObj = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${customer.id}`, {
-          method: 'DELETE',
+      const delCustomer = async () => {
+        deleteCustomer({
+          id: customer.id,
+          customer_user_id: customer.customer_user_id
         })
-
-        const userObj = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMER_USER_DELETE_URL"]}/${customer.id}`, {
-          method: 'DELETE',
-        })
-
-        if(customertObj.ok && userObj.ok) {
-          router.refresh()
-        }
+        router.refresh()
       }
       return (
         <DropdownMenu>
@@ -95,7 +90,7 @@ export const columns: ColumnDef<Customers>[] = [
               <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>
             <DropdownMenuItem
-              onClick={() => deleteCustomer()}
+              onClick={() => delCustomer()}
             >
               Delete Customer
             </DropdownMenuItem>

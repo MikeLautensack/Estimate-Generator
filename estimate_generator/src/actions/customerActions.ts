@@ -16,9 +16,10 @@ const addCustomer = (customer: Customers, data: createUserAccountAction) => {
     try {
         addCustomerObj(customer)
         createUserAccount({
+            id: data.id,
             name: data.name as string,
             email: data.email as string,
-            password: data.password as string,
+            password: null,
             role: data.role == 'contractor' ? 'contractor' : 'customer'
         })
     } catch (error) {
@@ -33,7 +34,7 @@ const editCustomer = (customer: Customers) => {
             name: customer.name as string,
             email: customer.email as string,
         },
-        customer.customer_user_id as number)
+        customer.customer_user_id as string)
     } catch (error) {
         console.log(error)
     }
@@ -42,7 +43,7 @@ const editCustomer = (customer: Customers) => {
 const deleteCustomer = (customer: Customers) => {
     try {
         deleteCustomerObj(customer.id as number)
-        deleteUserAccount(customer.customer_user_id as number)
+        deleteUserAccount(customer.customer_user_id as string)
     } catch (error) {
         console.log(error)
     }
