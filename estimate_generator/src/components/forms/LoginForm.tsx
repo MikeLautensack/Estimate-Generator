@@ -28,7 +28,6 @@ const LoginForm = () => {
   }
 
   const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
-    console.log(data)
     signIn('credentials', {
         email: data.email, 
         password: data.password, 

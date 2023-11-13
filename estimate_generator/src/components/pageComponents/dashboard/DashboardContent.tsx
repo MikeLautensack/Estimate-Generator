@@ -17,9 +17,9 @@ const DashboardContent = () => {
             className=''
         >
             <TabsList className='rounded-none bg-transparent'>
-                <TabsTrigger className='rounded-none data-[state=active]:bg-transparent data-[state=active]:border data-[state=active]:border-b-2 data-[state=active]:border-primary500' value='overview'>Overview</TabsTrigger>
-                <TabsTrigger className='rounded-none data-[state=active]:bg-transparent data-[state=active]:border data-[state=active]:border-b-2 data-[state=active]:border-primary500' value='change-orders'>Change Orders</TabsTrigger>
-                <TabsTrigger className='rounded-none data-[state=active]:bg-transparent data-[state=active]:border data-[state=active]:border-b-2 data-[state=active]:border-primary500' value='emails'>Emails</TabsTrigger>
+                <TabsTrigger className='rounded-none data-[state=active]:bg-transparent data-[state=active]:border data-[state=active]:border-b-2 data-[state=active]:border-primary500 focus-visible:ring-none' value='overview'>Overview</TabsTrigger>
+                <TabsTrigger className='rounded-none data-[state=active]:bg-transparent data-[state=active]:border data-[state=active]:border-b-2 data-[state=active]:border-primary500 focus-visible:ring-none' value='change-orders'>Change Orders</TabsTrigger>
+                <TabsTrigger className='rounded-none data-[state=active]:bg-transparent data-[state=active]:border data-[state=active]:border-b-2 data-[state=active]:border-primary500 focus-visible:ring-none' value='emails'>Emails</TabsTrigger>
             </TabsList>
             <TabsContent
                 value='overview'

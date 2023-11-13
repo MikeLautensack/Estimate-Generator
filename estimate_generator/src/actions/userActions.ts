@@ -19,10 +19,10 @@ const createUserAccount = async (data: createUserAccountAction) => {
         }
     
         await db.insert(users).values({
-            id: Math.floor(Math.random() * 100000000).toString(),
+            id: data.id == null || undefined ? Math.floor(Math.random() * 100000000).toString() : data.id,
             name: data.name,
             email: data.email,
-            password: bcrypt.hashSync(data.password, 10),
+            password: data.password == null || undefined ? null : bcrypt.hashSync(data.password, 10),
             role: data.role,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -33,25 +33,23 @@ const createUserAccount = async (data: createUserAccountAction) => {
     }
 }
 
-const editUserAccount = async (user: Users, id: number) => {
+const editUserAccount = async (user: Users, id: string) => {
     try {
         await db.update(users)
                 .set({
                     name: user.name,
                     email: user.email,
-                    password: bcrypt.hashSync(user.password as string, 10),
-                    role: '',
                 })
-                .where(eq(users.id as any, id))
+                .where(eq(users.id, id))
     } catch (error) {
         console.log(error)
     }
 }
 
-const deleteUserAccount = async (id: number) => {
+const deleteUserAccount = async (id: string) => {
     try {        
         await db.delete(users)
-                .where(eq(users.id as any, id))
+                .where(eq(users.id , id))
     } catch (error) {
         console.log(error)
     }

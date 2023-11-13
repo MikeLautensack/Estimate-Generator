@@ -7,6 +7,7 @@ import { FaRegEye, FaRegEyeSlash, FaFacebook, FaTwitter } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { useForm, SubmitHandler  } from 'react-hook-form'
 import { RegisterFormValues } from '@/types/types'
+import { createUserAccount } from '@/actions/userActions'
 
 const RegisterForm = () => {
 
@@ -41,16 +42,12 @@ const RegisterForm = () => {
   }
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
-    const res = await fetch('http://localhost:3000/api/users/create', {
-    method: 'POST',
-    body: JSON.stringify({
+    createUserAccount({
         name: data.name,
         email: data.email,
         password: data.password,
         role: 'contractor'
-    }),
-  }) 
-  console.log(res)
+    })
   }
 
   return (

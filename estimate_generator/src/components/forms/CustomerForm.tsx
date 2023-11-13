@@ -5,12 +5,11 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { customerFormProps } from '../../types/formTypes'
 import { Button } from '../ui/button'
 import { CustomerForm } from '@/types/customers'
-import { redirect } from 'next/dist/server/api-utils'
 import { useRouter } from 'next/navigation'
-import { addCustomer } from '@/actions/customerActions'
+import { addCustomer, editCustomer } from '@/actions/customerActions'
 import { generatePassword } from '@/utils/generateRandom'
 
-const CustomerForm = (data: CustomerForm) => {
+const CustomerForm = ({data}: CustomerForm) => {
   const {
     register,
     handleSubmit,
@@ -22,29 +21,43 @@ const CustomerForm = (data: CustomerForm) => {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<customerFormProps> = async (formData) => {
-    if(data.data != null) {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_EDIT_URL"]}/${data.data.id}`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
+    if(data != null) {
+        editCustomer({
+            id: data.id,
+            name: formData.name,
+            address: formData.address,
+            phone: formData.phone,
+            email: formData.email,
+            customer_user_id: data.customer_user_id
         })
-        router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
         router.refresh()
+        router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
     } else {
-        
-        router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
+        const ID = Math.floor(Math.random() * 100000000)
+        addCustomer({
+            name: formData.name,
+            address: formData.address,
+            phone: formData.phone,
+            email: formData.email,
+            customer_user_id: ID.toString()
+        },
+        {
+            id: ID.toString(),
+            name: formData.name,
+            email: formData.email,
+            role: 'customer'
+        },)
         router.refresh()
+        router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
     }
   }
 
   useEffect(() =>{
-      if(data.data != null) {
-        setValue('name', data.data.name as string)
-        setValue('address', data.data.address as string)
-        setValue('email', data.data.email as string)
-        setValue('phone', data.data.phone as string)
+      if(data != null) {
+        setValue('name', data.name as string)
+        setValue('address', data.address as string)
+        setValue('email', data.email as string)
+        setValue('phone', data.phone as string)
       }
   }, [])
 
