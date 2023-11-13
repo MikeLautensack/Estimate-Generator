@@ -14,6 +14,7 @@ export const users = mysqlTable(
   email: varchar("email", { length: 255 }).notNull(),
   password: varchar("password", { length: 255 }),
   role: varchar("role", { length: 255 }),
+  emailVerified: timestamp("emailVerified", { mode: "date" }),
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),
 })
