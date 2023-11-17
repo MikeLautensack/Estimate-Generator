@@ -8,6 +8,7 @@ import { PlanetScaleAdapter } from "../../../../db/schemas/planetScaleAdapter"
 import { db } from '../../../../db/index'
 import { users } from '../../../../db/schemas/auth'
 import { eq } from "drizzle-orm"
+import { redirect } from 'next/navigation'
 
 export const authOptions = {
   adapter: PlanetScaleAdapter(db),
@@ -49,18 +50,6 @@ export const authOptions = {
             return null
           }
         }),
-        GoogleProvider({
-          clientId: process.env.GOOGLE_CLIENT_ID as string,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
-        }),
-        FacebookProvider({
-          clientId: process.env.FACEBOOK_CLIENT_ID as string,
-          clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string
-        }),
-        TwitterProvider({
-          clientId: process.env.TWITTER_CLIENT_ID as string,
-          clientSecret: process.env.TWITTER_CLIENT_SECRET as string
-        })
       // ...add more providers here
     ],
     session: {
@@ -71,12 +60,13 @@ export const authOptions = {
       signUp: '/register'
     },
     callbacks: {
-      async session({ session, token }:any) {
+      async session({ session, user, token }:any) {
         return {
           ...session,
           user: {
             ...session.user,
-            id: token.id
+            id: token.id,
+            role: token.role
           }
         }
       },
@@ -84,7 +74,8 @@ export const authOptions = {
         if(user) {
           return {
             ...token,
-            id: user.id
+            id: user.id,
+            role: user.role
           }
         }
         return token

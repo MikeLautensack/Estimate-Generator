@@ -10,7 +10,7 @@ export default function AdminLayout({
     <div
       className='desktop:flex bg-primary600 min-h-screen'
     >
-      <Menu />
+      <h1 className='bg-secondary300'>dashboard menu placeholder</h1>
       {children}
     </div>
   )

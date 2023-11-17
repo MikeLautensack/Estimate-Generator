@@ -134,6 +134,13 @@
       "when": 1699671824043,
       "tag": "0018_brief_dormammu",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1700014713971,
+      "tag": "0019_faithful_hex",
+      "breakpoints": true
     }
   ]
 }

@@ -8,6 +8,8 @@ import { FcGoogle } from 'react-icons/fc'
 import { useForm, SubmitHandler  } from 'react-hook-form'
 import { LoginFormValues } from '@/types/types'
 import { signIn } from "next-auth/react"
+import { useSession } from 'next-auth/react'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 
 const LoginForm = () => {
 
@@ -31,8 +33,8 @@ const LoginForm = () => {
     signIn('credentials', {
         email: data.email, 
         password: data.password, 
-        redirect: true, 
-        callbackUrl: process.env["NEXT_PUBLIC_SIGN_IN_CALLBACK_URL"] 
+        redirect: true,
+        callbackUrl: process.env["NEXT_PUBLIC_SIGN_IN_CALLBACK_URL"]
     })
   }
 
