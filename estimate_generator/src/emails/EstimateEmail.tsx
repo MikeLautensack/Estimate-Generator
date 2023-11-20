@@ -13,31 +13,25 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-const EstimateEmail = () => {
+const EstimateEmail = ({ url, host }: emailProps) => {
   return (
     <Html>
         <Tailwind>
-            <Body className='bg-white'>
+            <Body className='bg-primary300'>
                 <Container>
                     <Section className='border border-secondary800'>
                         <Text className='border border-primary500 font-bold'>
-                            Testing email actions
+                            Testing resend email login
                         </Text>
-                        <Button
-                            className='border bg-primary500 mx-4'
+                        <Text className='border border-primary500 font-bold'>
+                            Login to {host}
+                        </Text>
+                        <Link
+                            href={url}
+
                         >
-                            Accept
-                        </Button>
-                        <Button
-                            className='border bg-primary500 mx-4'
-                        >
-                            Reject
-                        </Button>
-                        <Button
-                            className='border bg-primary500 mx-4'
-                        >
-                            Request Change Order
-                        </Button>
+                            Sign In
+                        </Link>
                     </Section>
                 </Container>
             </Body>
