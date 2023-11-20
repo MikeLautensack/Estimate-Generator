@@ -1,5 +1,5 @@
 import EstimateEmail from "@/emails/EstimateEmail"
-import { renderAsync } from "@react-email/components"
+import { renderAsync } from '@react-email/render'
 import { SendVerificationRequestParams } from "next-auth/providers/email"
 import { Resend } from "resend"
 
