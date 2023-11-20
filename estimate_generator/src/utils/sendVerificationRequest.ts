@@ -9,7 +9,7 @@ export async function sendVerificationRequest(params: SendVerificationRequestPar
 
     try {
         const data = await resend.emails.send({
-            from: 'Testing react email render <onboarding@resend.dev>',
+            from: 'Testing react email ..... <onboarding@resend.dev>',
             to: [identifier],
             subject: `Log in to ${host}`,
             text: text({ url, host }),
