@@ -17,21 +17,21 @@ const EstimateEmail = ({ url, host }: emailProps) => {
   return (
     <Html>
         <Tailwind>
-            <Body className='bg-primary300'>
-                <Container>
-                    <Section className='border border-secondary800'>
-                        <Text className='border border-primary500 font-bold'>
+            <Body className='bg-[#d13b90]'>
+                <Container className='border border-[#0b0a0a]'>
+                    <Section className='border border-[#0b0a0a]'>
+                        <Text className='text-[#66c13f] font-bold'>
                             Testing resend email login
                         </Text>
-                        <Text className='border border-primary500 font-bold'>
+                        <Text className='text-[#5e35cf] font-bold'>
                             Login to {host}
                         </Text>
-                        <Link
+                        <Button
                             href={url}
-
+                            className='border border-[#0b0a0a]'
                         >
                             Sign In
-                        </Link>
+                        </Button>
                     </Section>
                 </Container>
             </Body>
