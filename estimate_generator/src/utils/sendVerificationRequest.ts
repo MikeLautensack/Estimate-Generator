@@ -15,7 +15,6 @@ export async function sendVerificationRequest(params: SendVerificationRequestPar
             from: 'Testing react email ..... <onboarding@resend.dev>',
             to: [identifier],
             subject: `Log in to ${host}`,
-            text: text({ url, host }),
             html: html
         })
     } catch (error) {
