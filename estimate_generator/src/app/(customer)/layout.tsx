@@ -10,7 +10,6 @@ export default function CustomerLayout({
     <div
       className='desktop:flex bg-primary600 min-h-screen'
     >
-      <Menu />
       {children}
     </div>
   )
