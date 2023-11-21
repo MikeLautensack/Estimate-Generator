@@ -7,10 +7,8 @@ import { Button } from '../ui/button'
 import { CustomerForm } from '@/types/customers'
 import { useRouter } from 'next/navigation'
 import { addCustomer, editCustomer } from '@/actions/customerActions'
-import { generatePassword } from '@/utils/generateRandom'
-import { getSession } from 'next-auth/react'
 
-const CustomerForm = async ({data}: CustomerForm) => {
+const CustomerForm = ({data}: CustomerForm) => {
   const {
     register,
     handleSubmit,
@@ -20,8 +18,6 @@ const CustomerForm = async ({data}: CustomerForm) => {
   } = useForm<customerFormProps>()
 
   const router = useRouter()
-
-  const session = await getSession()
 
   const onSubmit: SubmitHandler<customerFormProps> = async (formData) => {
     if(data != null) {
