@@ -70,7 +70,7 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login'
   },
   callbacks: {
-    async session({ session, user, token }:any) {
+    async session({ session, user, token }: any) {
       return {
         ...session,
         user: {
@@ -80,7 +80,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
     },
-    async jwt({ token, user }:any) {
+    async jwt({ token, user }: any) {
       if(user) {
         return {
           ...token,
