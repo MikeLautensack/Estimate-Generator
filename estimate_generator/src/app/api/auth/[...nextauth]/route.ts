@@ -1,4 +1,4 @@
-import NextAuth, { SessionStrategy, NextAuthOptions } from 'next-auth'
+import NextAuth, { SessionStrategy } from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from 'bcrypt'
 import { PlanetScaleAdapter } from "../../../../db/schemas/planetScaleAdapter"
@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm"
 import EmailProvider from "next-auth/providers/email"
 import { sendVerificationRequest } from '../../../../utils/sendVerificationRequest'
 
-export const authOptions: NextAuthOptions = {
+export const authOptions = {
   adapter: PlanetScaleAdapter(db),
   // Configure one or more authentication providers
   providers: [
@@ -52,22 +52,22 @@ export const authOptions: NextAuthOptions = {
       //   server: process.env.EMAIL_SERVER,
       //   from: 'TEST <onboarding@resend.dev>'
       // }),
-      {
-        id: 'email',
-        type: 'email',
-        name: 'Email',
-        server: {},
-        from: '',
-        maxAge: 24 * 60 * 60,
-        options: {},
-        sendVerificationRequest
-      }
+      // {
+      //   id: 'email',
+      //   type: 'email',
+      //   name: 'Email',
+      //   server: {},
+      //   from: '',
+      //   maxAge: 24 * 60 * 60,
+      //   options: {},
+      //   sendVerificationRequest
+      // }
   ],
   session: {
     strategy: 'jwt' as SessionStrategy
   },
   pages: {
-    signIn: '/login'
+    signIn: '/login',
   },
   callbacks: {
     async session({ session, user, token }: any) {
