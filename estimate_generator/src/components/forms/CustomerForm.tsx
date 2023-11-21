@@ -8,8 +8,9 @@ import { CustomerForm } from '@/types/customers'
 import { useRouter } from 'next/navigation'
 import { addCustomer, editCustomer } from '@/actions/customerActions'
 import { generatePassword } from '@/utils/generateRandom'
+import { getSession } from 'next-auth/react'
 
-const CustomerForm = ({data}: CustomerForm) => {
+const CustomerForm = async ({data}: CustomerForm) => {
   const {
     register,
     handleSubmit,
@@ -19,6 +20,8 @@ const CustomerForm = ({data}: CustomerForm) => {
   } = useForm<customerFormProps>()
 
   const router = useRouter()
+
+  const session = await getSession()
 
   const onSubmit: SubmitHandler<customerFormProps> = async (formData) => {
     if(data != null) {
@@ -34,6 +37,7 @@ const CustomerForm = ({data}: CustomerForm) => {
         router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
     } else {
         const ID = Math.floor(Math.random() * 100000000)
+        // const sessionID = session?.user.id
         addCustomer({
             name: formData.name,
             address: formData.address,
@@ -46,7 +50,7 @@ const CustomerForm = ({data}: CustomerForm) => {
             name: formData.name,
             email: formData.email,
             role: 'customer'
-        },)
+        })
         router.refresh()
         router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
     }
