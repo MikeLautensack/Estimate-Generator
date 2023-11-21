@@ -48,10 +48,10 @@ export const authOptions = {
           return null
         }
       }),
-      // EmailProvider({
-      //   server: process.env.EMAIL_SERVER,
-      //   from: 'TEST <onboarding@resend.dev>'
-      // }),
+      EmailProvider({
+        server: process.env.EMAIL_SERVER,
+        from: 'TEST <onboarding@resend.dev>'
+      }),
       // {
       //   id: 'email',
       //   type: 'email',
