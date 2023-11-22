@@ -51,6 +51,13 @@ const deleteCustomer = (customer: Customers) => {
 
 const addCustomerObj = async (customer: Customers) => {
     const session = await getServerSession(authOptions)
+    console.log(session)
+    if (!session) {
+        throw Error("Session null or undefined");
+    }
+    if (!session.user) {
+        throw Error("Session null or undefined");
+    }
     try {
         await db.insert(customers).values({
             id: Math.floor(Math.random() * 100000000),
