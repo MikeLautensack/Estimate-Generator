@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { profiles } from '../../../../../db/schemas/userProfile'
 import { db } from '../../../../../db'
 import { getServerSession } from "next-auth/next"
-import { authOptions } from '../../../auth/[...nextauth]/route'
+import { authOptions } from '../../../../../utils/authOptions'
 
 export async function POST(request: NextRequest) {
     const data = await request.json()

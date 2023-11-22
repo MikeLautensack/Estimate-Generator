@@ -1,6 +1,6 @@
 'use server'
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "../utils/authOptions"
 import { db } from "@/db"
 import { customers } from "@/db/schemas/customers"
 import { Customers, createUserAccountAction } from "@/types/customers"

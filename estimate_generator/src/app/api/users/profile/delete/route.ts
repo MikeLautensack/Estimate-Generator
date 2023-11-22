@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { profiles } from '../../../../../db/schemas/userProfile'
 import { db } from '../../../../../db'
 import { getServerSession } from "next-auth/next"
-import { authOptions } from '../../../auth/[...nextauth]/route'
+import { authOptions } from '../../../../../utils/authOptions'
 import { eq } from 'drizzle-orm'
 
 export async function DELETE() {
