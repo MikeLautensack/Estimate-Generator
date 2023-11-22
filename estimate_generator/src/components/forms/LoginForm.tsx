@@ -9,7 +9,7 @@ import { useForm, SubmitHandler  } from 'react-hook-form'
 import { LoginFormValues } from '@/types/types'
 import { signIn } from "next-auth/react"
 import { useSession } from 'next-auth/react'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '../../utils/authOptions'
 
 const LoginForm = () => {
 
