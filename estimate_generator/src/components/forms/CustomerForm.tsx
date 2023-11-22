@@ -7,7 +7,6 @@ import { Button } from '../ui/button'
 import { CustomerForm } from '@/types/customers'
 import { useRouter } from 'next/navigation'
 import { addCustomer, editCustomer } from '@/actions/customerActions'
-import { generatePassword } from '@/utils/generateRandom'
 
 const CustomerForm = ({data}: CustomerForm) => {
   const {
@@ -34,6 +33,7 @@ const CustomerForm = ({data}: CustomerForm) => {
         router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
     } else {
         const ID = Math.floor(Math.random() * 100000000)
+        // const sessionID = session?.user.id
         addCustomer({
             name: formData.name,
             address: formData.address,
@@ -46,7 +46,7 @@ const CustomerForm = ({data}: CustomerForm) => {
             name: formData.name,
             email: formData.email,
             role: 'customer'
-        },)
+        })
         router.refresh()
         router.push(`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}`)
     }

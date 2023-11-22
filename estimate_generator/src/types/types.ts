@@ -90,3 +90,7 @@ export type lineItem = {
     amount: number,
     estimateId: number
 }
+
+export type Session = {
+    
+} 

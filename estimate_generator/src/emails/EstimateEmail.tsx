@@ -21,7 +21,7 @@ const EstimateEmail = ({ url, host }: emailProps) => {
                 <Container className='border border-[#0b0a0a]'>
                     <Section className='border border-[#0b0a0a]'>
                         <Text className='text-[#66c13f] font-bold'>
-                            Testing resend email login
+                            Testing resend email
                         </Text>
                         <Text className='text-[#5e35cf] font-bold'>
                             Login to {host}
