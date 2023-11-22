@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { estimates } from '../../../../db/schemas/estimates'
 import { db } from '../../../../db'
 import { getServerSession } from "next-auth/next"
-import { authOptions } from '../../auth/[...nextauth]/route'
+import { authOptions } from '../../../../utils/authOptions'
 import { lineItem } from '@/types/types'
 import { lineItems } from '../../../../db/schemas/estimates'
 
