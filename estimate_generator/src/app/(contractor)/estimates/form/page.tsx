@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "../../../../utils/authOptions";
 import EstimateForm from "@/components/forms/EstimateForm";
 import { db } from "@/db";
 import { customers } from "@/db/schemas/customers";

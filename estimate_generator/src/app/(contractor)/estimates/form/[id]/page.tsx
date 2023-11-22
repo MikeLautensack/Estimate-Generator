@@ -3,7 +3,7 @@ import { db } from '../../../../../db'
 import { eq } from "drizzle-orm"
 import { customers } from '@/db/schemas/customers'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '../../../../../utils/authOptions'
 import { profiles } from '@/db/schemas/userProfile'
 import EstimateForm from '@/components/forms/EstimateForm'
 import { Estimates } from '@/types/estimates'
