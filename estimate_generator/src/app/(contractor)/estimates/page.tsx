@@ -18,7 +18,7 @@ async function getData(session: any) {
 
 export default async function Page() {
 
-const session = getServerSession(authOptions)
+const session = await getServerSession(authOptions)
 const data = await getData(session) as Estimates[]
 
   return (
