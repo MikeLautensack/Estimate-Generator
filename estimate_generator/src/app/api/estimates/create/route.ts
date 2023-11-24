@@ -26,7 +26,8 @@ export async function POST(request: NextRequest) {
             tax: data.tax,
             total: data.total,
             customer_id: data.customer_id,
-            user_id: session.user.id
+            contractor_user_id: session.user.id,
+            customer_user_id: data.customer_id
         })
         await db.insert(lineItems).values(data.lineItems.map((item: lineItem) => {
             return {
