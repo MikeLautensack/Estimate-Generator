@@ -15,12 +15,20 @@ export const changeOrders = mysqlTable(
   customerName: varchar('customer_name', { length: 255 }),
   workAddress: varchar('work_address', { length: 255 }),
   status: varchar('status', { length: 255 }),
-  user_id: bigint('user_id', { mode: 'number' })
+  contractor_user_id: bigint('contractor_user_id', { mode: 'number' }),
+  customer_user_id: bigint('customer_user_id', { mode: 'number' })
 })
 
-export const userCustomerRelationship = relations(changeOrders, ({ one }) => ({
+export const customerUserRelationship = relations(changeOrders, ({ one }) => ({
 	author: one(users, {
-		fields: [changeOrders.user_id],
+		fields: [changeOrders.contractor_user_id],
+		references: [users.id],
+	}),
+}))
+
+export const contractorUserRelationship = relations(changeOrders, ({ one }) => ({
+	author: one(users, {
+		fields: [changeOrders.contractor_user_id],
 		references: [users.id],
 	}),
 }))

@@ -5,7 +5,7 @@ import {
   DoubleArrowRightIcon,
 } from "@radix-ui/react-icons"
 
-import { Button } from "../../ui/button"
+import { Button } from "../../../ui/button"
 
 import {
   Select,
@@ -13,11 +13,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select"
+} from "../../../ui/select"
 
-import { DataTablePaginationProps } from '../../../types/types'
+import { DataTablePaginationProps } from '../../../../types/types'
 
-export default function CustomerPagination<TData>({
+export default function ChangeOrdersPagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
   return (

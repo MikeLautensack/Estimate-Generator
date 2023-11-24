@@ -20,20 +20,28 @@ import { customers } from "./customers"
     tax: decimal('tax', { precision: 14, scale: 2,}),
     total: decimal('total', { precision: 14, scale: 2,}),
     customer_id: bigint('customer_id', { mode: 'number' }),
-    user_id: bigint('user_id', { mode: 'number' })
+    customer_user_id: bigint('customer_user_id', { mode: 'number' }),
+    contractor_user_id: bigint('contractor_user_id', { mode: 'number' })
   })
 
   export const userEstimateRelationship = relations(estimates, ({ one }) => ({
     author: one(users, { 
-        fields: [estimates.user_id],
+        fields: [estimates.contractor_user_id],
         references: [users.id],
     }),
   }))
 
-  export const customerEstimateRelationship = relations(estimates, ({ one }) => ({
+  export const customerObjEstimateRelationship = relations(estimates, ({ one }) => ({
     author: one(customers, { 
         fields: [estimates.customer_id],
         references: [customers.id],
+    }),
+  }))
+
+  export const customerUserEstimateRelationship = relations(estimates, ({ one }) => ({
+    author: one(users, { 
+        fields: [estimates.customer_user_id],
+        references: [users.id],
     }),
   }))
 

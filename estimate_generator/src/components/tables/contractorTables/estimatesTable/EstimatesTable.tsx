@@ -1,37 +1,13 @@
 'use client'
 
-import {
-  ColumnDef,
-  flexRender,
-  SortingState,
-  ColumnFiltersState,
-  RowSelectionState,
-  getCoreRowModel,
-  getSortedRowModel,
-  getFilteredRowModel,
-  useReactTable,
-  getPaginationRowModel,
-} from "@tanstack/react-table"
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
+import { ColumnDef, flexRender, SortingState, ColumnFiltersState, getCoreRowModel, getSortedRowModel, getFilteredRowModel, useReactTable, getPaginationRowModel, RowSelectionState } from "@tanstack/react-table"
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { TableProps } from "@/types/types"
+import EstimatesPagination from "./EstimatesPagination"
 import { useState } from "react"
-import { Input } from "../../ui/input"
-import ChangeOrdersPagination from "./ChangeOrdersPagination"
-import { Button } from "@/components/ui/button"
+import { Input } from "../../../ui/input"
 
-
-
-export default function ChangeOrdersTable<TData, TValue>({
+export default function EstimatesTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {
@@ -60,15 +36,15 @@ export default function ChangeOrdersTable<TData, TValue>({
     <div className="">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter customer..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter estimate..."
+          value={(table.getColumn("estimate_name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("estimate_name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border m-4">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headersGroup) => (
@@ -110,7 +86,7 @@ export default function ChangeOrdersTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <ChangeOrdersPagination
+      <EstimatesPagination
         table={table}
       />
     </div>

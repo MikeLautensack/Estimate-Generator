@@ -1,15 +1,16 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Estimates } from "@/types/estimates"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu"
-import { Button } from "../../ui/button"
-import { Checkbox } from "../../ui/checkbox"
+import { Customers } from "@/types/customers"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../ui/dropdown-menu"
+import { Button } from "../../../ui/button"
+import { Checkbox } from "../../../ui/checkbox"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import Link from "next/link"
+import Link from 'next/link';
 import { useRouter } from 'next/navigation'
+import { deleteCustomer } from "@/actions/customerActions"
 
-export const columns: ColumnDef<Estimates>[] = [
+export const columns: ColumnDef<Customers>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -30,44 +31,42 @@ export const columns: ColumnDef<Estimates>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "estimate_name",
+    accessorKey: "name",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Estimate Name
+          Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey: "customer_name",
-    header: "Customer Name",
+    accessorKey: "email",
+    header: "Email",
   },
   {
-    accessorKey: "project_address",
-    header: "Project Address",
+    accessorKey: "address",
+    header: "Address",
   },
   {
-    accessorKey: "total",
-    header: "Total",
+    accessorKey: "phone",
+    header: "Phone",
   },
   {
     id: "actions",
     cell: function Cell({ row }) {
-      const estimate = row.original
+      const customer = row.original
       const router = useRouter()
-      const deleteEstimate = async () => {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_DELETE_URL"]}/${estimate.id}`, {
-          method: 'DELETE',
+      const delCustomer = async () => {
+        deleteCustomer({
+          id: customer.id,
+          customer_user_id: customer.customer_user_id
         })
-
-        if(res.ok) {
-          router.refresh()
-        }
+        router.refresh()
       }
       return (
         <DropdownMenu>
@@ -78,22 +77,22 @@ export const columns: ColumnDef<Estimates>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Estimate Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}/${customer.id}`}
             >
-              <DropdownMenuItem>View Estimates</DropdownMenuItem>
+              <DropdownMenuItem>View Customer</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"]}/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}/${customer.id}`}
             >
-              <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
+              <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>
             <DropdownMenuItem
-              onClick={() => deleteEstimate()}
+              onClick={() => delCustomer()}
             >
-              Delete Estimates
+              Delete Customer
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
