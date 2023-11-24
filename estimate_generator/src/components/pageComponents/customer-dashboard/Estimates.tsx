@@ -20,8 +20,8 @@ export default async function Estimates() {
   const data = await getData(session) as Estimates[]
 
   return (
-    <div>
-        <h1>Estimates</h1>
+    <div className="">
+        <h1 className="font-base text-primary900 font-medium">Estimates</h1>
         <div>
             <EstimatesTable columns={columns} data={data} />
         </div>

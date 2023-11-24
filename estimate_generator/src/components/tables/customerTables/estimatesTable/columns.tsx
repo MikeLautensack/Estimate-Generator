@@ -44,10 +44,6 @@ export const columns: ColumnDef<Estimates>[] = [
     },
   },
   {
-    accessorKey: "customer_name",
-    header: "Customer Name",
-  },
-  {
     accessorKey: "project_address",
     header: "Project Address",
   },

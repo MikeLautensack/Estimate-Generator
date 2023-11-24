@@ -21,7 +21,7 @@ export default async function ChangeOrders() {
 
   return (
     <div>
-      <h1>ChangeOrders</h1>
+      <h1 className="font-base text-primary900 font-medium">Change Orders</h1>
       <div>
         <ChangeOrdersTable columns={columns} data={data} />
       </div>

@@ -53,10 +53,6 @@ export const columns: ColumnDef<ChangeOrders>[] = [
     header: "Description",
   },
   {
-    accessorKey: "customerName",
-    header: "Customer Name",
-  },
-  {
     accessorKey: "workAddress",
     header: "Work Address",
   },

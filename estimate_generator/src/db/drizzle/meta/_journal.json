@@ -141,6 +141,13 @@
       "when": 1700014713971,
       "tag": "0019_faithful_hex",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1700793216018,
+      "tag": "0020_steep_malice",
+      "breakpoints": true
     }
   ]
 }

@@ -16,10 +16,10 @@ const DashboardContent = () => {
             defaultValue='overview'
             className=''
         >
-            <TabsList className='rounded-none bg-transparent'>
-                <TabsTrigger className='rounded-none data-[state=active]:bg-transparent data-[state=active]:border data-[state=active]:border-b-2 data-[state=active]:border-primary500 focus-visible:ring-none' value='overview'>Overview</TabsTrigger>
-                <TabsTrigger className='rounded-none data-[state=active]:bg-transparent data-[state=active]:border data-[state=active]:border-b-2 data-[state=active]:border-primary500 focus-visible:ring-none' value='change-orders'>Change Orders</TabsTrigger>
-                <TabsTrigger className='rounded-none data-[state=active]:bg-transparent data-[state=active]:border data-[state=active]:border-b-2 data-[state=active]:border-primary500 focus-visible:ring-none' value='emails'>Emails</TabsTrigger>
+            <TabsList className=''>
+                <TabsTrigger className='' value='overview'>Overview</TabsTrigger>
+                <TabsTrigger className='' value='change-orders'>Change Orders</TabsTrigger>
+                <TabsTrigger className='' value='emails'>Emails</TabsTrigger>
             </TabsList>
             <TabsContent
                 value='overview'

@@ -4,8 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function page() {
   return (
-    <main className="bg-secondary200 p-8 w-full">
-      <h1 className="text-primary800">Customer Dashboard</h1>
+    <main className="bg-primary100 p-4 w-full bg-gradient-to-br from-primary200 to-secondary200">
+      <h1 className="text-primary900 font-bold text-2xl my-2">Customer Dashboard</h1>
       <Tabs
           defaultValue='overview'
           className=''
