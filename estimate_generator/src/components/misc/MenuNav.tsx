@@ -15,7 +15,7 @@ const MenuNav = ({ ...props }) => {
         <Link
             id='dashboard-button'
             className='text-base font-medium font-sans text-primary500 flex gap-2 items-center'
-            href='/dashboard'
+            href='/contractor-dashboard'
         >
             <LuLayoutDashboard />
             Dashboard

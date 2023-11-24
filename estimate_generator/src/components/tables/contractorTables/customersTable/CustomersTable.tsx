@@ -56,8 +56,8 @@ export default function CustomersTable<TData, TValue>({
   })
 
   return (
-    <div className="">
-      <div className="flex items-center py-4">
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center">
         <Input
           placeholder="Filter customer..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}

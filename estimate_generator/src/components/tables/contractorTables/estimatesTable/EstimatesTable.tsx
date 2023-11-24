@@ -33,8 +33,8 @@ export default function EstimatesTable<TData, TValue>({
   })
 
   return (
-    <div className="">
-      <div className="flex items-center py-4">
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center">
         <Input
           placeholder="Filter estimate..."
           value={(table.getColumn("estimate_name")?.getFilterValue() as string) ?? ""}
@@ -44,7 +44,7 @@ export default function EstimatesTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border m-4">
+      <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headersGroup) => (

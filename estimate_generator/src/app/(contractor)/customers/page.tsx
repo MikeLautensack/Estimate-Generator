@@ -21,8 +21,8 @@ export default async function Page() {
   const data = await getData(session)
 
   return (
-    <main className='bg-secondary300 flex-grow p-4'>
-      <h1 className='mb-[8px]'>Customers</h1>
+    <main className='bg-gradient-to-br from-primary200 to-secondary200 flex-grow p-4 flex flex-col gap-4'>
+      <h1 className='text-2xl desktop:text-[42px] font-bold text-primary900'>Customers</h1>
       <Link
         href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}`}
       >
