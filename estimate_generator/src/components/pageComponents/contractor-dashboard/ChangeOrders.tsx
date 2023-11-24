@@ -21,7 +21,7 @@ async function getChangeOrders(session: any) {
 }
 
 export default async function ChangeOrders() {
-  const session = getServerSession(authOptions)
+  const session = await getServerSession(authOptions)
   const data = await getChangeOrders(session)
   return (
     <div>
