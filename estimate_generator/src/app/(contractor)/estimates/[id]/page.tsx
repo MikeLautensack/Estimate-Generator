@@ -2,15 +2,18 @@ import { estimates, lineItems } from '@/db/schemas/estimates'
 import { db } from '../../../../db'
 import { eq } from "drizzle-orm"
 import LineItem from '../../../../components/misc/LineItem'
+import { Card } from '@/components/ui/card'
+import Estimate from '@/components/pageComponents/estimates/Estimate'
+import { Estimates } from '@/types/estimates'
 
 async function getData(id: number) {
-  try {    
+  try {
     const estimateTableData = await db.select()
-                  .from(estimates)
-                  .where(eq(estimates.id, id))
+                                      .from(estimates)
+                                      .where(eq(estimates.id, id))
     const lineItemsTableData = await db.select()
-                  .from(lineItems)
-                  .where(eq(lineItems.estimate_id, id))
+                                       .from(lineItems)
+                                       .where(eq(lineItems.estimate_id, id))
     const estimate = {
       ...estimateTableData[0],
       lineItems: lineItemsTableData
@@ -22,37 +25,12 @@ async function getData(id: number) {
 }
 
 export default async function page({ params }: { params: { id: string } }) {
-  const data = await getData(parseInt(params.id))
-  console.log(data)
+  const data = await getData(parseInt(params.id)) as Estimates
   return (
     <main
-      className='bg-secondary200 flex-1 p-8'
+      className='bg-gradient-to-br from-primary200 to-secondary200 flex-1 p-8 min-h-screen'
     >
-      <h1>{data?.estimateName}</h1>
-      <p>{data?.customerName}</p>
-      <p>{data?.customerEmail}</p>
-      <p>{data?.projectAddress}</p>
-      <p>{data?.contractorName}</p>
-      <p>{data?.contractorAddress}</p>
-      <p>{data?.contractorPhone}</p>
-      <div>
-        {data?.lineItems.map((item) => (
-            <LineItem 
-              key={item.id}
-              id={item.id}
-              description={item.description}
-              quantity={item.quantity}
-              amount={item.amount} 
-              item={item.item}
-              rateType={item.rateType} 
-              price={item.price}            
-            />
-        ))}
-      </div>
-      <p>{data?.massage}</p>
-      <p>{data?.subtotal}</p>
-      <p>{data?.tax}</p>
-      <p>{data?.total}</p>
+      <Estimate data={data}/>
     </main>
   )
 }

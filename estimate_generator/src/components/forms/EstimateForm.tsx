@@ -54,6 +54,7 @@ const EstimateForm = ({
         body: JSON.stringify(data)
       })
     }
+    console.log(data)
   }
 
   useEffect(() => {
