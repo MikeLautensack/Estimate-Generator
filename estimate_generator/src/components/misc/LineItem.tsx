@@ -8,7 +8,7 @@ export default function LineItem({
     amount,
 }:LineItems) {
   return (
-    <div>
+    <div className="">
         <p>{id}</p>
         <p>{description}</p>
         <p>{quantity}</p>

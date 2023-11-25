@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
             contractorName: data.contractorName,
             contractorAddress: data.contractorAddress,
             contractorPhone: data.contractorPhone,
-            massage: data.massage,
+            message: data.message,
             subtotal: data.subtotal,
             taxRate: data.taxRate,
             tax: data.tax,

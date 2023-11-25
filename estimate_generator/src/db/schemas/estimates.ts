@@ -14,7 +14,7 @@ import { customers } from "./customers"
     contractorName: varchar('contractor_name', { length: 255 }),
     contractorAddress: varchar('contractor_address', { length: 255 }),
     contractorPhone: varchar('contractor_phone', { length: 255 }),
-    massage: varchar('massage', { length: 255 }),
+    message: varchar('message', { length: 255 }),
     subtotal: decimal('subtotal', { precision: 14, scale: 2,}),
     taxRate: decimal('tax_rate', { precision: 2, scale: 2,}),
     tax: decimal('tax', { precision: 14, scale: 2,}),

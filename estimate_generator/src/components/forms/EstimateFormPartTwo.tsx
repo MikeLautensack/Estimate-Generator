@@ -59,9 +59,9 @@ const EstimateFormPartTwo = ({
   }, [subtotal, taxRate])
 
   useEffect(() => {
-    const name = profile[0].business_name
-    const address = profile[0].business_address
-    const phone = profile[0].business_phone
+    const name = profile[0].businessName
+    const address = profile[0].businessAddress
+    const phone = profile[0].businessPhone
     setBusinessName(name)
     setBusinessAddress(address)
     setBusinessPhone(phone)

@@ -26,7 +26,7 @@ export default async function Page() {
   const profile = await getProfile()
   console.log(profile)
   return (
-    <main className='bg-primary200 p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1 gap-4'>
+    <main className='bg-gradient-to-br from-primary200 to-secondary200 p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1 gap-4'>
       <h1 className='text-2xl desktop:text-[42px] font-bold font-sans text-primary500'>Estimate Form</h1>
       <div className='flex justify-center items-center flex-1 w-full'>
         <EstimateForm

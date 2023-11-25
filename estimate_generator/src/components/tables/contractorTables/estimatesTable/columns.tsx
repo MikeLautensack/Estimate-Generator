@@ -30,7 +30,7 @@ export const columns: ColumnDef<Estimates>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "estimate_name",
+    accessorKey: "estimateName",
     header: ({ column }) => {
       return (
         <Button
@@ -44,11 +44,11 @@ export const columns: ColumnDef<Estimates>[] = [
     },
   },
   {
-    accessorKey: "customer_name",
+    accessorKey: "customerName",
     header: "Customer Name",
   },
   {
-    accessorKey: "project_address",
+    accessorKey: "projectAddress",
     header: "Project Address",
   },
   {

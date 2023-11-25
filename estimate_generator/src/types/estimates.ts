@@ -10,7 +10,7 @@ export type Estimates = {
   contractorAddress: string | null,
   contractorPhone: string | null,
   lineItems?: LineItems[],
-  massage: string | null,
+  message: string | null,
   subtotal: number | null,
   taxRate: number | null,
   tax: number | null,
