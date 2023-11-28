@@ -7,6 +7,7 @@ import EstimateFormPartOne from './EstimateFormPartOne'
 import EstimateFormPartTwo from './EstimateFormPartTwo'
 import { Card, CardContent } from '../ui/card'
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
+import { Customers } from '@/types/customers'
 
 const EstimateForm = ({
   estimate,
@@ -36,7 +37,16 @@ const EstimateForm = ({
     name: 'lineItems'
   })
 
+  const getCustomerUserID = (customers: Customers[], id: number) => {
+    for(let i = 0; i < customers.length; i++) {
+      if(customers[i].id == id) {
+        return customers[i].customer_user_id
+      }
+    }
+  }
+
   const onSubmit: SubmitHandler<EstimateFormValues> = async (data) => {
+    const customer_user_id = getCustomerUserID(customers, data.customer_id as number)
     if(estimate) {
       const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_EDIT_URL"]}/${estimate.id}`, {
         method: 'PUT',
@@ -45,13 +55,16 @@ const EstimateForm = ({
         },
         body: JSON.stringify(data)
       })
-    } else  {
+    } else {
       const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_CREATE_URL"]}`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          ...data,
+          customer_user_id
+        })
       })
     }
     console.log(data)

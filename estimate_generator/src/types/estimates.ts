@@ -15,9 +15,10 @@ export type Estimates = {
   taxRate: number | null,
   tax: number | null,
   total: number | null,
-  customer_id: number | null
-  customer_user_id: number | null
-  contractor_user_id: number | null
+  status: string | null,
+  customer_id: number | null,
+  customer_user_id: number | null,
+  contractor_user_id: number | null,
 }
 
 export type LineItems = {
