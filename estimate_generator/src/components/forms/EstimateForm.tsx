@@ -67,7 +67,6 @@ const EstimateForm = ({
         })
       })
     }
-    console.log(data)
   }
 
   useEffect(() => {

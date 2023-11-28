@@ -15,14 +15,22 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'User already registered' }, { status: 501 });
     }
 
+    const id = Math.floor(Math.random() * 100000000).toString();
+
     await db.insert(users).values({
-        id: Math.floor(Math.random() * 100000000).toString(),
+        id: id,
         name: data.name,
         email: data.email,
-        password: bcrypt.hashSync(data.password, 10),
+        password: data.password == null || undefined ? null : bcrypt.hashSync(data.password, 10),
+        role: data.role,
         emailVerified: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-    });
-    return NextResponse.json('User successfully registered')
+    })
+
+    const newUser = await db.select()
+                            .from(users)
+                            .where(eq(users.id, id));
+
+    return NextResponse.json({newUser})
 }

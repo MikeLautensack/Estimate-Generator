@@ -9,8 +9,8 @@ export async function DELETE(
 ) {
     try {
         await db.delete(customers)
-        .where(eq(customers.id, parseInt(params.id)))
-        return NextResponse.json('Profile sucsussfully updated')
+                .where(eq(customers.id, parseInt(params.id)))
+        return NextResponse.json('Customer deleted')
     } catch (error) {
         console.log(error)
         return NextResponse.json(error)
