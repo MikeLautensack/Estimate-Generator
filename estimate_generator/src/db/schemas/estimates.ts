@@ -19,6 +19,7 @@ import { customers } from "./customers"
     taxRate: decimal('tax_rate', { precision: 2, scale: 2,}),
     tax: decimal('tax', { precision: 14, scale: 2,}),
     total: decimal('total', { precision: 14, scale: 2,}),
+    status: varchar('status', { length: 255 }),
     customer_id: bigint('customer_id', { mode: 'number' }),
     customer_user_id: bigint('customer_user_id', { mode: 'number' }),
     contractor_user_id: bigint('contractor_user_id', { mode: 'number' })

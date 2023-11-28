@@ -82,11 +82,6 @@ export const columns: ColumnDef<ChangeOrders>[] = [
             >
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem
-              
-            >
-              Delete Change Order
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

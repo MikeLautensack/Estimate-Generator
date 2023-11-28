@@ -1,0 +1,1 @@
+ALTER TABLE `estimates` ADD `status` varchar(255);

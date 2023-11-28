@@ -30,7 +30,7 @@ export const columns: ColumnDef<Estimates>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "estimate_name",
+    accessorKey: "estimateName",
     header: ({ column }) => {
       return (
         <Button
@@ -44,7 +44,7 @@ export const columns: ColumnDef<Estimates>[] = [
     },
   },
   {
-    accessorKey: "project_address",
+    accessorKey: "projectAddress",
     header: "Project Address",
   },
   {
@@ -56,14 +56,12 @@ export const columns: ColumnDef<Estimates>[] = [
     cell: function Cell({ row }) {
       const estimate = row.original
       const router = useRouter()
-      const deleteEstimate = async () => {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_DELETE_URL"]}/${estimate.id}`, {
-          method: 'DELETE',
-        })
+      const acceptEstimate = () => {
+        
+      }
 
-        if(res.ok) {
-          router.refresh()
-        }
+      const rejectEstimate = () => {
+
       }
       return (
         <DropdownMenu>
@@ -77,20 +75,17 @@ export const columns: ColumnDef<Estimates>[] = [
             <DropdownMenuLabel>Estimate Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_ESTIMATES"]}/${estimate.id}`}
             >
-              <DropdownMenuItem>View Estimates</DropdownMenuItem>
+              <DropdownMenuItem>View Estimate</DropdownMenuItem>
             </Link>
+            <DropdownMenuItem onClick={() => acceptEstimate}>Accept Estimate</DropdownMenuItem>
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"]}/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDER_FORM"]}`}
             >
-              <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
+              <DropdownMenuItem>Request a Change Order</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem
-              onClick={() => deleteEstimate()}
-            >
-              Delete Estimates
-            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => rejectEstimate}>Reject Estimate</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
