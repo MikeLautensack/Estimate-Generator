@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '../../../../../../db'
-import { estimates } from '../../../../../../db/schemas/estimates'
+import { db } from '../../../../../db'
+import { estimates } from '../../../../../db/schemas/estimates'
 import { eq } from "drizzle-orm"
 
 export async function PUT(
