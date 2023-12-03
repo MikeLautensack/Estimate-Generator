@@ -1,7 +1,7 @@
 import { estimates, lineItems } from '@/db/schemas/estimates'
-import { db } from '../../../../db'
+import { db } from '../../../../../db'
 import { eq } from "drizzle-orm"
-import LineItem from '../../../../components/misc/LineItem'
+import LineItem from '../../../../../components/misc/LineItem'
 import { Card } from '@/components/ui/card'
 import Estimate from '@/components/pageComponents/estimates/Estimate'
 import { Estimates } from '@/types/estimates'
