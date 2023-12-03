@@ -69,6 +69,16 @@ export const columns: ColumnDef<ChangeOrders>[] = [
     cell: function Cell({ row }) {
       const changeOrder = row.original
       const router = useRouter()
+
+      const deleteChangeOrder = async () => {
+        const res = await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_DELETE"]}/${changeOrder.id}`, {
+          method: 'DELETE',
+        })
+
+        if(res.ok) {
+          router.refresh()
+        }
+      }
   
       return (
         <DropdownMenu>
@@ -87,7 +97,7 @@ export const columns: ColumnDef<ChangeOrders>[] = [
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>
             <DropdownMenuItem
-              
+              onClick={() => deleteChangeOrder()}
             >
               Delete Change Order
             </DropdownMenuItem>

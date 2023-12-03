@@ -25,6 +25,7 @@ export async function PUT(
                     taxRate: data.taxRate,
                     tax: data.tax,
                     total: data.total,
+                    status: data.status
                 })
                 .where(eq(estimates.id, parseInt(params.id)))
 

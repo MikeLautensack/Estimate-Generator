@@ -68,7 +68,7 @@ export const columns: ColumnDef<Estimates>[] = [
               "Content-Type": "application/json"
           },
           body: JSON.stringify({
-              status: 'accepted'
+              status: 'Accepted'
           })
         })
       }
@@ -80,7 +80,7 @@ export const columns: ColumnDef<Estimates>[] = [
               "Content-Type": "application/json"
           },
           body: JSON.stringify({
-              status: 'rejected'
+              status: 'Rejected'
           })
         })
       }
@@ -101,13 +101,13 @@ export const columns: ColumnDef<Estimates>[] = [
             >
               <DropdownMenuItem>View Estimate</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem onClick={() => acceptEstimate}>Accept Estimate</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => acceptEstimate()}>Accept Estimate</DropdownMenuItem>
             <Link
               href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"]}/new-change-order?estimateId=${estimate.id}`}
             >
               <DropdownMenuItem>Request a Change Order</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem onClick={() => rejectEstimate}>Reject Estimate</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => rejectEstimate()}>Reject Estimate</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
