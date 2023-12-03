@@ -1,9 +1,9 @@
 import { estimates, lineItems } from '@/db/schemas/estimates'
-import { db } from '../../../../../db'
+import { db } from '../../../../../../db'
 import { eq } from "drizzle-orm"
 import { customers } from '@/db/schemas/customers'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../../../../../utils/authOptions'
+import { authOptions } from '../../../../../../utils/authOptions'
 import { profiles } from '@/db/schemas/userProfile'
 import EstimateForm from '@/components/forms/EstimateForm'
 import { Estimates } from '@/types/estimates'
@@ -11,11 +11,11 @@ import { NextResponse } from 'next/server'
 
 async function getEstimate(id: number) {
   const estimateTableData = await db.select()
-                .from(estimates)
-                .where(eq(estimates.id, id))
+                                    .from(estimates)
+                                    .where(eq(estimates.id, id))
   const lineItemsTableData = await db.select()
-                .from(lineItems)
-                .where(eq(lineItems.estimate_id, id))
+                                     .from(lineItems)
+                                     .where(eq(lineItems.estimate_id, id))
   const res = {
     ...estimateTableData[0],
     lineItems: lineItemsTableData
@@ -25,15 +25,15 @@ async function getEstimate(id: number) {
 
 async function getCustomers() {
   const res = await db.select()
-                .from(customers)
+                      .from(customers)
   return res
 }
 
 async function getProfile() {
   const session = await getServerSession(authOptions)
   const res = await db.select()
-                .from(profiles)
-                .where(eq(profiles.user_id, session.user.id))
+                      .from(profiles)
+                      .where(eq(profiles.user_id, session.user.id))
   return res
 }
 

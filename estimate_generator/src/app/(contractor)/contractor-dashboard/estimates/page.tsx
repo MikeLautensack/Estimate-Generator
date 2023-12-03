@@ -1,7 +1,7 @@
 import EstimatesTable from "@/components/tables/contractorTables/estimatesTable/EstimatesTable";
 import { columns } from "@/components/tables/contractorTables/estimatesTable/columns";
-import { estimates } from '../../../db/schemas/estimates'
-import { db } from '../../../db'
+import { estimates } from '../../../../db/schemas/estimates'
+import { db } from '../../../../db'
 import { Estimates } from "@/types/estimates";
 import Link from "next/link";
 import { eq } from "drizzle-orm"

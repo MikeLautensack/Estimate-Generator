@@ -1,7 +1,7 @@
 import CustomersTable from "@/components/tables/contractorTables/customersTable/CustomersTable";
 import { columns } from "@/components/tables/contractorTables/customersTable/columns";
-import { customers } from '../../../db/schemas/customers'
-import { db } from '../../../db'
+import { customers } from '../../../../db/schemas/customers'
+import { db } from '../../../../db'
 import { eq } from "drizzle-orm"
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
