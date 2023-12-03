@@ -14,10 +14,12 @@ export async function POST(request: NextRequest) {
                 .values({
                     id: Math.floor(Math.random() * 100000000),
                     estimateName: data.estimateName,
+                    changeOrderName: data.changeOrderName,
                     description: data.description,
                     customerName: data.customerName,
-                    workAddress: data.workAddress,
-                    status: 'new',
+                    projectAddress: data.projectAddress,
+                    status: 'pending approval',
+                    estimate_id: data.estimate_id,
                     contractor_user_id: data.contractor_user_id,
                     customer_user_id: data.customer_user_id
                 })

@@ -55,6 +55,15 @@ const EstimateForm = ({
         },
         body: JSON.stringify(data)
       })
+      const updateEstimateStatus = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          status: 'Work In Progress (edited)'
+        })
+      })
     } else {
       const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_CREATE_URL"]}`, {
         method: 'POST',
@@ -64,6 +73,15 @@ const EstimateForm = ({
         body: JSON.stringify({
           ...data,
           customer_user_id
+        })
+      })
+      const updateEstimateStatus = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          status: 'Work In Progress'
         })
       })
     }

@@ -52,17 +52,39 @@ export const columns: ColumnDef<Estimates>[] = [
     header: "Total",
   },
   {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
     id: "actions",
     cell: function Cell({ row }) {
       const estimate = row.original
       const router = useRouter()
-      const acceptEstimate = () => {
-        
+
+      const acceptEstimate = async () => {
+        const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
+          method: 'PUT',
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              status: 'accepted'
+          })
+        })
       }
 
-      const rejectEstimate = () => {
-
+      const rejectEstimate = async () => {
+        const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
+          method: 'PUT',
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              status: 'rejected'
+          })
+        })
       }
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -81,7 +103,7 @@ export const columns: ColumnDef<Estimates>[] = [
             </Link>
             <DropdownMenuItem onClick={() => acceptEstimate}>Accept Estimate</DropdownMenuItem>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDER_FORM"]}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"]}/new-change-order?estimateId=${estimate.id}`}
             >
               <DropdownMenuItem>Request a Change Order</DropdownMenuItem>
             </Link>
