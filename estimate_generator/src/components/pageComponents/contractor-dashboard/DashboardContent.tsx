@@ -19,7 +19,7 @@ const DashboardContent = () => {
             <TabsList className=''>
                 <TabsTrigger className='' value='overview'>Overview</TabsTrigger>
                 <TabsTrigger className='' value='change-orders'>Change Orders</TabsTrigger>
-                <TabsTrigger className='' value='emails'>Emails</TabsTrigger>
+                {/* <TabsTrigger className='' value='emails'>Emails</TabsTrigger> */}
             </TabsList>
             <TabsContent
                 value='overview'
@@ -31,11 +31,11 @@ const DashboardContent = () => {
             >
                 <ChangeOrders />
             </TabsContent>
-            <TabsContent
+            {/* <TabsContent
                 value='emails'
             >
                 <Emails />
-            </TabsContent>
+            </TabsContent> */}
         </Tabs>
     </section>
   )

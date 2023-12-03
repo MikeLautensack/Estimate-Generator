@@ -11,11 +11,8 @@ export async function PUT(
         const data = await request.json()
         await db.update(changeOrders)
                 .set({
-                    estimateName: data.estimateName,
+                    changeOrderName: data.changeOrderName,
                     description: data.description,
-                    customerName: data.customerName,
-                    workAddress: data.workAddress,
-                    status: data.status
                 })
                 .where(eq(changeOrders.id, parseInt(params.id)))
         return NextResponse.json('Profile sucsussfully updated')

@@ -56,6 +56,10 @@ export const columns: ColumnDef<Estimates>[] = [
     header: "Total",
   },
   {
+    accessorKey: "status",
+    header: "Status",
+  },
+  {
     id: "actions",
     cell: function Cell({ row }) {
       const estimate = row.original

@@ -31,14 +31,14 @@ export const columns: ColumnDef<ChangeOrders>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: "changeOrderName",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Name
+          Change Order Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -57,8 +57,8 @@ export const columns: ColumnDef<ChangeOrders>[] = [
     header: "Customer Name",
   },
   {
-    accessorKey: "workAddress",
-    header: "Work Address",
+    accessorKey: "projectAddress",
+    header: "Project Address",
   },
   {
     accessorKey: "status",
@@ -82,7 +82,7 @@ export const columns: ColumnDef<ChangeOrders>[] = [
             <DropdownMenuLabel>Change Order Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_DASHBOARD_CHANGEORDERS_URL"]}/${changeOrder.id}`}
+              href={`${process.env["NEXT_PUBLIC_CONTRACTOR_CHANGE_ORDERS"]}/${changeOrder.id}`}
             >
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>
