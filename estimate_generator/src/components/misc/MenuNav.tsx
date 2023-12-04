@@ -23,7 +23,7 @@ const MenuNav = ({ ...props }) => {
         <Link
             id='customers-button'
             className='text-base font-medium font-sans text-primary500 flex gap-2 items-center'
-            href='/customers'
+            href='/contractor-dashboard/customers'
         >
             <BsFilePerson />
             Customers
@@ -31,10 +31,18 @@ const MenuNav = ({ ...props }) => {
         <Link
             id='estimates-button'
             className='text-base font-medium font-sans text-primary500 flex gap-2 items-center'
-            href='/estimates'
+            href='/contractor-dashboard/estimates'
         >
             <FcDocument />
             Estimates
+        </Link>
+        <Link
+            id='estimates-button'
+            className='text-base font-medium font-sans text-primary500 flex gap-2 items-center'
+            href='/contractor-dashboard/change-orders'
+        >
+            <FcDocument />
+            Change Orders
         </Link>
     </nav>
   )
