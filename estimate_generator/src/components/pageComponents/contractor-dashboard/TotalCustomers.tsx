@@ -14,7 +14,7 @@ async function getData() {
 export default async function TotalCustomers() {
 
   const data = await getData()
-
+ 
   return (
     <div className="border border-primary900 p-4">
         <h1>Total Customers</h1>
