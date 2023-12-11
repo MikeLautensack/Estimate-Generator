@@ -1,4 +1,4 @@
-import { mysqlTable, varchar, bigint, decimal, int } from "drizzle-orm/mysql-core"
+import { mysqlTable, varchar, bigint, decimal, int, double } from "drizzle-orm/mysql-core"
 import { users } from './auth'
 import { relations } from 'drizzle-orm'
 import { customers } from "./customers"
@@ -15,10 +15,10 @@ import { customers } from "./customers"
     contractorAddress: varchar('contractor_address', { length: 255 }),
     contractorPhone: varchar('contractor_phone', { length: 255 }),
     message: varchar('message', { length: 255 }),
-    subtotal: decimal('subtotal', { precision: 14, scale: 2,}),
-    taxRate: decimal('tax_rate', { precision: 2, scale: 2,}),
-    tax: decimal('tax', { precision: 14, scale: 2,}),
-    total: decimal('total', { precision: 14, scale: 2,}),
+    subtotal: double('subtotal', { precision: 14, scale: 2,}),
+    taxRate: double('tax_rate', { precision: 2, scale: 2,}),
+    tax: double('tax', { precision: 14, scale: 2,}),
+    total: double('total', { precision: 14, scale: 2,}),
     status: varchar('status', { length: 255 }),
     customer_id: bigint('customer_id', { mode: 'number' }),
     customer_user_id: bigint('customer_user_id', { mode: 'number' }),
@@ -59,7 +59,7 @@ import { customers } from "./customers"
     quantity:  int('quantity'),
     rateType: varchar('rate_type', { length: 255 }),
     price: varchar('price', { length: 255 }),
-    amount: decimal('amount', { precision: 14, scale: 2,}),
+    amount: double('amount', { precision: 14, scale: 2,}),
     estimate_id: bigint('estimate_id', { mode: 'number' })
   })
 

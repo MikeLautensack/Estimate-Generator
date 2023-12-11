@@ -183,6 +183,13 @@
       "when": 1701565038020,
       "tag": "0025_tan_cobalt_man",
       "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "5",
+      "when": 1702265061142,
+      "tag": "0026_fast_shinko_yamashiro",
+      "breakpoints": true
     }
   ]
 }

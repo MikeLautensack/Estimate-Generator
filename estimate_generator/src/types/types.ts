@@ -91,6 +91,15 @@ export type lineItem = {
     estimateId: number
 }
 
-export type Session = {
-    
-} 
+export type estimatesChartArrayProps = {
+    chartArray: any[]
+}
+
+export type chartArrayObj = {
+    name: string,
+    value: number
+}
+
+export type chartArray = {
+    chartArray: chartArrayObj[]
+}
