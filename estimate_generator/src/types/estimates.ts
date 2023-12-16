@@ -41,7 +41,7 @@ export type EstimateFormProps = {
   estimate: any
   customers: any,
   profile: any
-  changeOrders: any
+  changeOrders?: any
 }
 
 export type EstimateFormValues = {
