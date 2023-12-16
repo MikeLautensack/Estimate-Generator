@@ -3,7 +3,6 @@ export type ChangeOrders = {
     estimateName: string | null,
     description: string | null,
     customerName: string | null,
-    dateModified: string | undefined,
     projectAddress: string | null,
     status: string | null,
     estimate_id: number | null,
