@@ -2,6 +2,7 @@ import {
   mysqlTable,
   varchar,
   bigint,
+  timestamp,
 } from "drizzle-orm/mysql-core"
 import { users } from './auth'
 import { relations } from 'drizzle-orm'
@@ -15,6 +16,8 @@ export const customers = mysqlTable(
   address: varchar('address', { length: 255 }),
   email: varchar('email', { length: 255 }),
   phone: varchar('phone', { length: 255 }),
+  dateCreated: timestamp("date_created", { mode: "date" }).notNull(),
+  dateUpdated: timestamp("date_updated", { mode: "date" }).notNull(),
   contractor_user_id: bigint('contractor_user_id', { mode: 'number' }),
   customer_user_id: varchar("customer_user_id", { length: 255 })
 })

@@ -16,6 +16,8 @@ export type Estimates = {
   tax: number | null,
   total: number | null,
   status: string | null,
+  dateCreated?: Date,
+  dateUpdated?: Date,
   customer_id: number | null,
   customer_user_id: number | null,
   contractor_user_id: number | null,
@@ -29,6 +31,8 @@ export type LineItems = {
   rateType: string | null,
   price: any,
   amount: any
+  dateCreated?: Date,
+  dateUpdated?: Date,
   estimate_id?: number | null
 
 }
@@ -37,6 +41,7 @@ export type EstimateFormProps = {
   estimate: any
   customers: any,
   profile: any
+  changeOrders: any
 }
 
 export type EstimateFormValues = {
@@ -73,6 +78,8 @@ export type EstimateFormPartTwoProps = {
   fields: any,
   prepend: any,
   remove: any
+  changeOrders: any
+  estimate: any
 }
 
 export type EstimateFormTableProps = {

@@ -3,6 +3,7 @@ import {
   mysqlTable,
   varchar,
   bigint,
+  timestamp,
 } from "drizzle-orm/mysql-core"
 import { users } from "./auth"
 
@@ -16,6 +17,8 @@ export const changeOrders = mysqlTable(
   customerName: varchar('customer_name', { length: 255 }),
   projectAddress: varchar('project_address', { length: 255 }),
   status: varchar('status', { length: 255 }),
+  dateCreated: timestamp("date_created", { mode: "date" }).notNull(),
+  dateUpdated: timestamp("date_updated", { mode: "date" }).notNull(),
   estimate_id: bigint('estimate_id', { mode: 'number' }),
   contractor_user_id: bigint('contractor_user_id', { mode: 'number' }),
   customer_user_id: bigint('customer_user_id', { mode: 'number' })

@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
-import { FaPlus } from 'react-icons/fa'
-import { useFieldArray, useFormContext } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import EstimateFormTable from '../tables/contractorTables/estimateFormTable/EstimateFormTable'
 import TaxSelector from '../misc/TaxSelector'
 import { formatPriceString } from '@/utils/formatingFunctions'
@@ -14,7 +13,8 @@ const EstimateFormPartTwo = ({
     profile,
     fields,
     prepend,
-    remove
+    remove,
+    estimate
 }: EstimateFormPartTwoProps) => {
 
   const [ customerName, setCustomerName ] = useState('')
@@ -86,6 +86,10 @@ const EstimateFormPartTwo = ({
         setCustomerName(getValues('customerName'))
         setCustomerEmail(getValues('customerEmail'))
         setProjectAddress(getValues('projectAddress'))
+    }
+
+    if (estimate) {
+        
     }
   }, [])
 

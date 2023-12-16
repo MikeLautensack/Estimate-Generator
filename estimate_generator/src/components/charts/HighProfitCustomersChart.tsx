@@ -17,9 +17,7 @@ const EstimatePriceChart = ({chartArray}: estimatesChartArrayProps) => {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="meanPrice" fill="#8884d8" />
-              <Bar dataKey="minPrice" fill="#82ca9d" />
-              <Bar dataKey="maxPrice" fill="#30D5C8" />
+              <Bar dataKey="meanTotal" fill="#8884d8" />
             </BarChart>
         </ResponsiveContainer>
     </div>

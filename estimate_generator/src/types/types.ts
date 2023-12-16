@@ -87,6 +87,8 @@ export type lineItem = {
     quantity:  number,
     rateType: string,
     price: number,
+    dateCreated?: Date,
+    dateUpdated?: Date,
     amount: number,
     estimateId: number
 }

@@ -3,9 +3,12 @@ export type ChangeOrders = {
     estimateName: string | null,
     description: string | null,
     customerName: string | null,
+    dateModified: string | undefined,
     projectAddress: string | null,
     status: string | null,
     estimate_id: number | null,
+    dateCreated: Date,
+    dateUpdated: Date,
     contractor_user_id: number | null,
     customer_user_id: number | null,
 }
