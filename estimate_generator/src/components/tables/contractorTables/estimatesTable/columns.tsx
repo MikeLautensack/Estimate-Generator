@@ -94,6 +94,11 @@ export const columns: ColumnDef<Estimates>[] = [
             >
               <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
             </Link>
+            <Link
+              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"]}/${estimate.id}`}
+            >
+              <DropdownMenuItem>Handle Change Orders</DropdownMenuItem>
+            </Link>
             <DropdownMenuItem
               onClick={() => deleteEstimate()}
             >

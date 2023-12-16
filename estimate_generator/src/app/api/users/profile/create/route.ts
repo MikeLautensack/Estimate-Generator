@@ -14,11 +14,14 @@ export async function POST(request: NextRequest) {
             businessAddress: data.businessAddress,
             businessEmail: data.businessEmail,
             businessPhone: data.businessPhone,
+            dateCreated: new Date(),
+            dateUpdated: new Date(),
             user_id: session.user.id,
         })  
         return NextResponse.json('Profile sucsessfully created')
     } catch (error) {
         console.log('Request Data: ', data)
+        console.log('Error: ', error)
         return NextResponse.json(error)
     }
 }

@@ -26,6 +26,8 @@ export async function POST(request: NextRequest) {
             tax: data.tax,
             total: data.total,
             status: data.status,
+            dateCreated: new Date(),
+            dateUpdated: new Date(),
             customer_id: data.customer_id,
             contractor_user_id: session.user.id,
             customer_user_id: data.customer_user_id

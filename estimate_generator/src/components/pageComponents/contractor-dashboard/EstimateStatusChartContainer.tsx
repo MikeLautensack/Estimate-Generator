@@ -59,7 +59,7 @@ export default async function EstimateStatusChartContainer() {
     const chartArray = createChartArray(data as Estimates[])
 
     return (
-        <div className="border border-red-500 w-full h-full">
+        <div className="w-full h-full">
             {/* <h1>Estimate Staus Chart</h1> */}
             <EstimateStatusChart chartArray={chartArray}/>
         </div>

@@ -15,6 +15,8 @@ export async function POST(request: NextRequest) {
             address: data.address,
             phone: data.phone,
             email: data.email,
+            dateCreated: new Date(),
+            dateUpdated: new Date(),
             contractor_user_id: session.user.id,
             customer_user_id: data.customer_user_id,
         })

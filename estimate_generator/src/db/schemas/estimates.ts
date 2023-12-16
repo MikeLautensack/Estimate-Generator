@@ -1,4 +1,4 @@
-import { mysqlTable, varchar, bigint, decimal, int, double } from "drizzle-orm/mysql-core"
+import { mysqlTable, varchar, bigint, decimal, int, double, timestamp } from "drizzle-orm/mysql-core"
 import { users } from './auth'
 import { relations } from 'drizzle-orm'
 import { customers } from "./customers"
@@ -20,6 +20,8 @@ import { customers } from "./customers"
     tax: double('tax', { precision: 14, scale: 2,}),
     total: double('total', { precision: 14, scale: 2,}),
     status: varchar('status', { length: 255 }),
+    dateCreated: timestamp("date_created", { mode: "date" }).notNull(),
+    dateUpdated: timestamp("date_updated", { mode: "date" }).notNull(),
     customer_id: bigint('customer_id', { mode: 'number' }),
     customer_user_id: bigint('customer_user_id', { mode: 'number' }),
     contractor_user_id: bigint('contractor_user_id', { mode: 'number' })
@@ -60,6 +62,8 @@ import { customers } from "./customers"
     rateType: varchar('rate_type', { length: 255 }),
     price: varchar('price', { length: 255 }),
     amount: double('amount', { precision: 14, scale: 2,}),
+    dateCreated: timestamp("date_created", { mode: "date" }).notNull(),
+    dateUpdated: timestamp("date_updated", { mode: "date" }).notNull().defaultNow(),
     estimate_id: bigint('estimate_id', { mode: 'number' })
   })
 

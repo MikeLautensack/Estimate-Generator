@@ -8,13 +8,19 @@ import EstimateFormPartTwo from './EstimateFormPartTwo'
 import { Card, CardContent } from '../ui/card'
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { Customers } from '@/types/customers'
+import useQueue from '@/hooks/useQueue'
+import { ChangeOrder } from '@/types/types'
+import { ChangeOrders } from '@/types/changeOrders'
 
 const EstimateForm = ({
   estimate,
   customers,
-  profile
+  profile,
+  changeOrders
 }:EstimateFormProps) => {
-
+  
+  const [ queue, enqueue, dequeue ] = useQueue<ChangeOrders>()
+  
   const [ lineItems, setLineItems ] = useState([{
     item: '',
     description: '',
@@ -73,6 +79,17 @@ const EstimateForm = ({
     }
   }
 
+  const loadQueue = (changeOrders: ChangeOrders[]) => {
+        const arr = sortChangeOrders(changeOrders)
+        for (let i = 0; i < changeOrders.length; i++) {
+          enqueue(arr[i])
+        }
+  }
+
+  const sortChangeOrders = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
+    return changeOrders.sort((a, b) => b.dateUpdated.getTime() - a.dateUpdated.getTime())
+  }
+
   useEffect(() => {
     console.log('useEffect firing .....')
     if(estimate) {
@@ -86,6 +103,11 @@ const EstimateForm = ({
       methods.setValue('contractorAddress', estimate.contractorAddress)
       methods.setValue('contractorPhone', estimate.contractorPhone)
       methods.setValue('lineItems', estimate.lineItems)
+      methods.setValue('taxRate', estimate.taxRate)
+      methods.setValue('message', estimate.message)
+      methods.setValue('subtotal', estimate.subtotal)
+      methods.setValue('tax', estimate.tax)
+      methods.setValue('total', estimate.total)
       for(let i = 0; i < estimate.lineItems.length; i++) {
         methods.setValue(`lineItems.${i}.item`, estimate.lineItems[i].item)
         methods.setValue(`lineItems.${i}.description`, estimate.lineItems[i].description)
@@ -94,11 +116,12 @@ const EstimateForm = ({
         methods.setValue(`lineItems.${i}.price`, estimate.lineItems[i].price)
         methods.setValue(`lineItems.${i}.amount`, estimate.lineItems[i].amount)
       }
-      methods.setValue('taxRate', estimate.taxRate)
-      methods.setValue('message', estimate.message)
-      methods.setValue('subtotal', estimate.subtotal)
-      methods.setValue('tax', estimate.tax)
-      methods.setValue('total', estimate.total)
+
+    }
+    if (changeOrders) {      
+      if (changeOrders.length === 0) {
+        loadQueue(changeOrders)
+      }
     }
   }, [])
 
@@ -136,6 +159,8 @@ const EstimateForm = ({
                     fields={fields}
                     prepend={prepend}
                     remove={remove}
+                    changeOrders={changeOrders}
+                    estimate={estimate}
                   />
                 </CardContent>
               </Card>

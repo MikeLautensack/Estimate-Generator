@@ -19,6 +19,8 @@ export async function POST(request: NextRequest) {
                     customerName: data.customerName,
                     projectAddress: data.projectAddress,
                     status: 'Pending Approval',
+                    dateCreated: new Date(),
+                    dateUpdated: new Date(),
                     estimate_id: data.estimate_id,
                     contractor_user_id: data.contractor_user_id,
                     customer_user_id: data.customer_user_id

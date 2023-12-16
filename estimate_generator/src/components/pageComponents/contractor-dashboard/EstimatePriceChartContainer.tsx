@@ -78,10 +78,9 @@ export default async function EstimatePriceChartContainer() {
   }
 
   const chartArray = createChartArray(data as Estimates[])
-  console.log(chartArray)
 
   return (
-    <div className='w-full h-full border border-red-500'>
+    <div className='w-full h-full'>
         <EstimatePriceChart chartArray={chartArray}/>
     </div>
   )

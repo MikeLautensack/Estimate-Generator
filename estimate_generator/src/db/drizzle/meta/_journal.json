@@ -190,6 +190,27 @@
       "when": 1702265061142,
       "tag": "0026_fast_shinko_yamashiro",
       "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "5",
+      "when": 1702745083843,
+      "tag": "0027_blue_logan",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "5",
+      "when": 1702745446633,
+      "tag": "0028_typical_jean_grey",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "5",
+      "when": 1702760843394,
+      "tag": "0029_stale_baron_zemo",
+      "breakpoints": true
     }
   ]
 }
