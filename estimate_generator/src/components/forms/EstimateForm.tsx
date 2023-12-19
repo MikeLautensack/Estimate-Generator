@@ -11,6 +11,7 @@ import { Customers } from '@/types/customers'
 import useQueue from '@/hooks/useQueue'
 import { ChangeOrder } from '@/types/types'
 import { ChangeOrders } from '@/types/changeOrders'
+import ChangeOrderRequests from '../misc/ChangeOrderRequests'
 
 const EstimateForm = ({
   estimate,
@@ -81,17 +82,17 @@ const EstimateForm = ({
 
   const loadQueue = (changeOrders: ChangeOrders[]) => {
         const arr = sortChangeOrders(changeOrders)
+        console.log('Sorted change orders array' ,arr)
         for (let i = 0; i < changeOrders.length; i++) {
           enqueue(arr[i])
         }
   }
 
   const sortChangeOrders = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
-    return changeOrders.sort((a, b) => b.dateUpdated.getTime() - a.dateUpdated.getTime())
+    return changeOrders.sort((a, b) => b.dateUpdated!.getTime() - a.dateUpdated!.getTime())
   }
 
   useEffect(() => {
-    console.log('useEffect firing .....')
     if(estimate) {
       setLineItems(estimate.lineItems)
       methods.setValue('estimateName', estimate.estimateName)
@@ -118,17 +119,23 @@ const EstimateForm = ({
       }
 
     }
-    if (changeOrders) {      
-      if (changeOrders.length === 0) {
+    if (changeOrders) { 
+      console.log('change orders', changeOrders)     
+      if (changeOrders.length !== 0) {
         loadQueue(changeOrders)
       }
     }
+    console.log('change orders in est form',changeOrders)
   }, [])
 
   return (
     <div className='border border-primary700 w-full h-full'>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form 
+          onSubmit={methods.handleSubmit(onSubmit)}
+          className=''
+        >
+          {changeOrders && <ChangeOrderRequests changeOrders={changeOrders}/> }
           <Tabs
             defaultValue={'estimate-form-one'}
             className=''

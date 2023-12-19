@@ -76,6 +76,13 @@ export type TableProps<TData, TValue> = {
     data: TData[]
 }
 
+export type ChangeOrderRequestsTableProps<TData, TValue> = {
+    columns: ColumnDef<TData, TValue>[]
+    data: TData[],
+    rowSelection: any,
+    setRowSelection: any
+}
+
 export type DataTablePaginationProps<TData> = {
     table: Table<TData>
 }

@@ -50,8 +50,9 @@ export default async function page({ params }: { params: { id: string } }) {
   const profile = await getProfile(session.user.id)
   const changeOrders = await getChangeOrders(parseInt(params.id))
   return (
-    <main className='bg-primary200 p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1'>
-      <div>
+    <main className='bg-gradient-to-br from-primary200 to-secondary200 p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1 gap-4'>
+      <h1 className='text-2xl desktop:text-[42px] font-bold font-sans text-primary500'>Estimate Form</h1>
+      <div className='flex justify-center items-center flex-1 w-full h-full'>
         <EstimateForm
           estimate={estimate}
           customers={customers} 

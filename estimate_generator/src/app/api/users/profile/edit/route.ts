@@ -12,6 +12,7 @@ export async function PUT(request: NextRequest) {
                     businessAddress: data.businessAddress,
                     businessEmail: data.businessEmail,
                     businessPhone: data.businessPhone,
+                    dateUpdated: new Date(),
                 })
                 .where(eq(profiles.id, data.id))
         return NextResponse.json('Profile sucsussfully updated')

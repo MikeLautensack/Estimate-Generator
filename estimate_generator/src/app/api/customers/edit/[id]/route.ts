@@ -15,6 +15,7 @@ export async function PUT(
                     address: data.address,
                     email: data.email,
                     phone: data.phone,
+                    dateUpdated: new Date(),
                 })
                 .where(eq(customers.id, parseInt(params.id)))
         return NextResponse.json(customer)
