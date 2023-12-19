@@ -21,19 +21,18 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { TableProps } from "@/types/types"
+import { ChangeOrderRequestsTableProps } from "@/types/types"
 import { useState } from "react"
-import { Input } from "../../../ui/input"
-import ChangeOrdersPagination from "./ChangeOrdersPagination"
 
 export default function ChangeOrdersTable<TData, TValue>({
   columns,
   data,
-}: TableProps<TData, TValue>) {
+  rowSelection,
+  setRowSelection
+}: ChangeOrderRequestsTableProps<TData, TValue>) {
 
   const [ sorting, setSorting ] = useState<SortingState>([])
   const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([])
-  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({})
   const table = useReactTable({
     data,
     columns,
@@ -53,16 +52,6 @@ export default function ChangeOrdersTable<TData, TValue>({
 
   return (
     <div className="">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter customer..."
-          value={(table.getColumn("changeOrderName")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("changeOrderName")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -105,9 +94,6 @@ export default function ChangeOrdersTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <ChangeOrdersPagination
-        table={table}
-      />
     </div>
   )
 }

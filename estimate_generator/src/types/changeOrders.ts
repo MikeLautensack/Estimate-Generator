@@ -1,13 +1,14 @@
 export type ChangeOrders = {
     id: number,
+    changeOrderName: string | null,
     estimateName: string | null,
     description: string | null,
     customerName: string | null,
     projectAddress: string | null,
     status: string | null,
     estimate_id: number | null,
-    dateCreated: Date,
-    dateUpdated: Date,
+    dateCreated: Date | null,
+    dateUpdated: Date | null,
     contractor_user_id: number | null,
     customer_user_id: number | null,
 }
@@ -30,4 +31,12 @@ export type ChangeOrderForm = {
 export type ChangeOrderFormProps = {
     changeOrderName: string | null,
     description: string | null,
+}
+
+export type ChangeOrderRequestsProps = {
+    changeOrders: ChangeOrders[]
+}
+
+export type ChangeOrderRequestProps = {
+    changeOrder: ChangeOrders
 }

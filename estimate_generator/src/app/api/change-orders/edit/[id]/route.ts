@@ -13,6 +13,7 @@ export async function PUT(
                 .set({
                     changeOrderName: data.changeOrderName,
                     description: data.description,
+                    dateUpdated: new Date(),
                 })
                 .where(eq(changeOrders.id, parseInt(params.id)))
         return NextResponse.json('Profile sucsussfully updated')
