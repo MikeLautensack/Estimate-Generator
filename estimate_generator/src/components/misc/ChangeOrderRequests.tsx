@@ -1,7 +1,7 @@
 'use client'
 
 import { ChangeOrderRequestsProps, ChangeOrders } from '@/types/changeOrders'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ChangeOrderRequestsTable from '../tables/contractorTables/changeOrderRequestsTable/ChangeOrderRequestsTable'
 import { columns } from "@/components/tables/contractorTables/changeOrderRequestsTable/columns";
 import { Button } from '../ui/button';
@@ -33,6 +33,11 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
       return arr
     }
   }
+
+  useEffect(() => {
+    console.log(rowSelection)
+    // setChangeOrder()
+  }, [rowSelection])
 
   return (
     <div className='bg-blue-200'>

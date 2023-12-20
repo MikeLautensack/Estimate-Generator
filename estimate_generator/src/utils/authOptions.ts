@@ -50,18 +50,8 @@ export const authOptions = {
         }),
         EmailProvider({
           server: process.env.EMAIL_SERVER,
-          from: 'TEST <onboarding@resend.dev>'
+          sendVerificationRequest
         }),
-        // {
-        //   id: 'email',
-        //   type: 'email',
-        //   name: 'Email',
-        //   server: {},
-        //   from: '',
-        //   maxAge: 24 * 60 * 60,
-        //   options: {},
-        //   sendVerificationRequest
-        // }
     ],
     session: {
       strategy: 'jwt' as SessionStrategy
