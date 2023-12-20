@@ -15,7 +15,7 @@ export async function sendVerificationRequest(params: SendVerificationRequestPar
             from: 'Testing react email ..... <onboarding@resend.dev>',
             to: [identifier],
             subject: `Log in to ${host}`,
-            html: html
+            react: EstimateEmail({ url, host })
         })
     } catch (error) {
         throw new Error('Failed to send the verification email.')
