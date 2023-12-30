@@ -1,96 +1,58 @@
 'use client'
 
 import {
-  flexRender,
-  SortingState,
-  ColumnFiltersState,
-  RowSelectionState,
-  getCoreRowModel,
-  getSortedRowModel,
-  getFilteredRowModel,
-  useReactTable,
-  getPaginationRowModel,
-} from "@tanstack/react-table"
-
-import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 
 import { ChangeOrderRequestsTableProps } from "@/types/types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import ChangeOrderRequestTableRow from "./ChangeOrderRequestTableRow"
 
-export default function ChangeOrdersTable<TData, TValue>({
-  columns,
-  data,
-  rowSelection,
-  setRowSelection
+export default function ChangeOrderRequestsTable<TData, TValue>({
+  data
 }: ChangeOrderRequestsTableProps<TData, TValue>) {
 
-  const [ sorting, setSorting ] = useState<SortingState>([])
-  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([])
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      sorting,
-      columnFilters,
-      rowSelection,
-    },
-    getCoreRowModel: getCoreRowModel(),
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onRowSelectionChange: setRowSelection,
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getFilteredRowModel: getFilteredRowModel()
-  })
+  const [ ordersSelectedState, setOrdersSelectedState ] = useState({})
 
+  useEffect(() => {
+    setOrdersSelectedState(
+      data.reduce((obj, item) => {
+      obj[item.id] = false;
+      return obj;
+    }, {} as {[key: number]: boolean}))
+    console.log('useEffect []', ordersSelectedState)
+  }, [])
+  
   return (
     <div className="">
       <div className="rounded-md border">
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map((headersGroup) => (
-              <TableRow key={headersGroup.id}>
-                {headersGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                  </TableHead>
-                ))}
+              <TableRow>
+                  <TableHead></TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Description</TableHead>
+                  <TableHead>Status</TableHead>
               </TableRow>
-            ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
+                {data.map((element, index) => (
+                  <ChangeOrderRequestTableRow 
+                    orderRequest={{
+                      name: data[index].changeOrderName as string,
+                      description: data[index].description as string,
+                      status: data[index].status as string,
+                    }}
+                    ordersSelectedState={ordersSelectedState}
+                    setOrdersSelectedState={setOrdersSelectedState}
+                    key={data[index].id}
+                    id={data[index].id}
+                  />
+                ))}
           </TableBody>
         </Table>
       </div>

@@ -3,7 +3,6 @@
 import { ChangeOrderRequestsProps, ChangeOrders } from '@/types/changeOrders'
 import React, { useEffect, useState } from 'react'
 import ChangeOrderRequestsTable from '../tables/contractorTables/changeOrderRequestsTable/ChangeOrderRequestsTable'
-import { columns } from "@/components/tables/contractorTables/changeOrderRequestsTable/columns";
 import { Button } from '../ui/button';
 import ChangeOrderRequest from './ChangeOrderRequest';
 import { RowSelectionState } from '@tanstack/react-table';
@@ -26,7 +25,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
     customer_user_id: null,
   })
 
-  const createDateArray = (arr: ChangeOrders[]): any[] => {
+  const createDateArray = (arr: ChangeOrders[]): ChangeOrders[] => {
     if (arr == undefined || null) {
      return []
     } else {
@@ -35,7 +34,6 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
   }
 
   useEffect(() => {
-    console.log(rowSelection)
     // setChangeOrder()
   }, [rowSelection])
 
@@ -47,11 +45,8 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
             id='tabel'
             className=''
         >
-          <ChangeOrderRequestsTable 
-            columns={columns} 
-            data={createDateArray(changeOrders)} 
-            rowSelection={rowSelection}
-            setRowSelection={setRowSelection}
+          <ChangeOrderRequestsTable  
+            data={createDateArray(changeOrders)}
           />
         </div>
         <div

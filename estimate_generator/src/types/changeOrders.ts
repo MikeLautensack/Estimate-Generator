@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export type ChangeOrders = {
     id: number,
     changeOrderName: string | null,
@@ -34,9 +36,21 @@ export type ChangeOrderFormProps = {
 }
 
 export type ChangeOrderRequestsProps = {
-    changeOrders: ChangeOrders[]
+    changeOrders: ChangeOrders[],
 }
 
 export type ChangeOrderRequestProps = {
     changeOrder: ChangeOrders
+}
+
+export type ChangeOrderRequestRowProps = {
+    orderRequest: ChangeOrderRequest,
+    setOrdersSelectedState: any,
+    ordersSelectedState: any
+    id: number
+}
+export type ChangeOrderRequest = {
+    name: string,
+    description: string,
+    status: string
 }
