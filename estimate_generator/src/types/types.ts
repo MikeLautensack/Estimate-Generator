@@ -1,5 +1,6 @@
 import { ColumnDef, Table } from '@tanstack/react-table'
 import { Dispatch } from 'react'
+import { ChangeOrders } from './changeOrders'
 
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> { 
@@ -77,10 +78,7 @@ export type TableProps<TData, TValue> = {
 }
 
 export type ChangeOrderRequestsTableProps<TData, TValue> = {
-    columns: ColumnDef<TData, TValue>[]
-    data: TData[],
-    rowSelection: any,
-    setRowSelection: any
+    data: ChangeOrders[],
 }
 
 export type DataTablePaginationProps<TData> = {

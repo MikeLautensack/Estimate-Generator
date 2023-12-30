@@ -2,7 +2,7 @@ import ChangeOrders from "@/components/pageComponents/contractor-dashboard/Chang
 
 export default function page() {
   return (
-    <main>
+    <main className="bg-blue-200">
       <h1>Change Orders</h1>
       <ChangeOrders />
     </main>

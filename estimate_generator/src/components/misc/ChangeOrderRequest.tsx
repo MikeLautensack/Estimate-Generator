@@ -7,7 +7,7 @@ const ChangeOrderRequest = ({ changeOrder }: ChangeOrderRequestProps) => {
   return (
     <div
         id='change-order'
-        className=''
+        className='border border-red-400'
     >
         <h1>{changeOrder.changeOrderName}</h1>
         <div></div>

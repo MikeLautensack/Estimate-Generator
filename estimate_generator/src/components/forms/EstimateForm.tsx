@@ -1,15 +1,13 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { EstimateFormProps, EstimateFormValues, LineItems } from '@/types/estimates'
+import { EstimateFormProps, EstimateFormValues } from '@/types/estimates'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import EstimateFormPartOne from './EstimateFormPartOne'
 import EstimateFormPartTwo from './EstimateFormPartTwo'
 import { Card, CardContent } from '../ui/card'
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { Customers } from '@/types/customers'
-import useQueue from '@/hooks/useQueue'
-import { ChangeOrder } from '@/types/types'
 import { ChangeOrders } from '@/types/changeOrders'
 import ChangeOrderRequests from '../misc/ChangeOrderRequests'
 
@@ -19,8 +17,6 @@ const EstimateForm = ({
   profile,
   changeOrders
 }:EstimateFormProps) => {
-  
-  const [ queue, enqueue, dequeue ] = useQueue<ChangeOrders>()
   
   const [ lineItems, setLineItems ] = useState([{
     item: '',
@@ -80,12 +76,9 @@ const EstimateForm = ({
     }
   }
 
-  const loadQueue = (changeOrders: ChangeOrders[]) => {
-        const arr = sortChangeOrders(changeOrders)
-        console.log('Sorted change orders array' ,arr)
-        for (let i = 0; i < changeOrders.length; i++) {
-          enqueue(arr[i])
-        }
+  const createArray = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
+    const arr = sortChangeOrders(changeOrders)
+    return arr.reverse()
   }
 
   const sortChangeOrders = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
@@ -119,13 +112,6 @@ const EstimateForm = ({
       }
 
     }
-    if (changeOrders) { 
-      console.log('change orders', changeOrders)     
-      if (changeOrders.length !== 0) {
-        loadQueue(changeOrders)
-      }
-    }
-    console.log('change orders in est form',changeOrders)
   }, [])
 
   return (
@@ -135,7 +121,7 @@ const EstimateForm = ({
           onSubmit={methods.handleSubmit(onSubmit)}
           className=''
         >
-          {changeOrders && <ChangeOrderRequests changeOrders={changeOrders}/> }
+          {changeOrders && <ChangeOrderRequests changeOrders={createArray(changeOrders)} /> }
           <Tabs
             defaultValue={'estimate-form-one'}
             className=''

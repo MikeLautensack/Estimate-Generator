@@ -55,6 +55,7 @@
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.10.1",
     "react-responsive": "^9.0.2",
+    "react-spinners": "^0.13.8",
     "react-switch": "^7.0.0",
     "recharts": "^2.10.3",
     "resend": "^2.0.0",
