@@ -11,8 +11,8 @@ const EstimateFormTable = ({
   remove
 }: EstimateFormTableProps) => {
   return (
-    <div>
-      <Table>
+    <div className="flex">
+      <Table className="relative">
         <TableHeader>
           <TableRow>
             <TableHead className="">Item</TableHead>

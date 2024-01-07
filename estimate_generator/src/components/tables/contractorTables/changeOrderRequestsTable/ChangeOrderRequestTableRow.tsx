@@ -8,24 +8,17 @@ const ChangeOrderRequestTableRow = ({
   orderRequest, 
   setOrdersSelectedState,
   ordersSelectedState,
-  id
+  id,
 }: ChangeOrderRequestRowProps) => {
 
   const [ selectedState, setSelectedState ] = useState(false)
 
   useEffect(() => {
-    console.log('useEffect [] child', {selectedState: selectedState, id: id})
-  }, [selectedState])
-
-  useEffect(() => {
     for (const key in ordersSelectedState) {
-      if (parseInt(key) == id) {
-        setSelectedState(true)
-      } else {
-        setSelectedState(false)
+      if (parseInt(key) == id) {   
+        setSelectedState(ordersSelectedState[key])
       }
     }
-    console.log('selected state',selectedState)
   }, [ordersSelectedState])
 
   const handleOnClick = () => {
@@ -33,14 +26,11 @@ const ChangeOrderRequestTableRow = ({
     for (const key in obj) {
       if (parseInt(key) == id) {
         obj[key] = true
-        setSelectedState(true)
       } else {
         obj[key] = false
       }
     }
     setOrdersSelectedState(obj)
-    console.log('obj',obj)
-    console.log('id',id)
   }
 
   return (

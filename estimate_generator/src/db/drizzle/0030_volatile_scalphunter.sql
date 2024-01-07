@@ -1,0 +1,1 @@
+ALTER TABLE `lineItems` MODIFY COLUMN `date_created` timestamp NOT NULL DEFAULT (now());

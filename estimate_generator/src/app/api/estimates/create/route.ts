@@ -8,6 +8,7 @@ import { lineItems } from '../../../../db/schemas/estimates'
 
 export async function POST(request: NextRequest) {
     const data = await request.json()
+    console.log(data)
     const session = await getServerSession(authOptions)
     const estimateId = Math.floor(Math.random() * 100000000)
     try {

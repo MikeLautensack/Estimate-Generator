@@ -1,11 +1,9 @@
 'use client'
 
 import React, { useEffect } from 'react'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { EstimateFormPartOneProps } from '@/types/estimates'
-import { Button } from '../ui/button'
-import { FormProvider, SubmitHandler, useForm, useFormContext } from 'react-hook-form'
-import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
+import { useFormContext } from 'react-hook-form'
+import { FormField } from '../ui/form'
 import EstimateFormOneSelect from '../misc/EstimateFormOneSelect'
 
 const EstimateFormPartOne = ({
@@ -25,8 +23,8 @@ const EstimateFormPartOne = ({
   },[watch('customer')])
 
   return (
-    <div>
-      <div>
+    <div className='bg-neutral100'>
+      <div className=''>
         <FormField
           control={control}
           name={"customer_id"}
@@ -38,25 +36,20 @@ const EstimateFormPartOne = ({
           )}
         />
       </div>
-      <div className={`${getValues('customer_id') ? 'hidden' : 'flex'} flex-col gap-2 my-2`}>
+      <div className={`${getValues('customer_id') ? 'hidden' : 'flex'} flex-col gap-2 my-2 text-black`}>
         <div className='flex flex-col gap-1'>
             <label>Name</label>
-            <input {...register("customerName")} className='border border-primary300 rounded'></input>
+            <input {...register("customerName")} className='border-b-2 border-blue-500'></input>
         </div>
         <div className='flex flex-col gap-1'>
             <label>Email</label>
-            <input {...register("customerEmail")} className='border border-primary300 rounded'></input>
+            <input {...register("customerEmail")} className='border-b-2 border-blue-500'></input>
         </div>
         <div className='flex flex-col gap-1'>
             <label>Address</label>
-            <input {...register("projectAddress")} className='border border-primary300 rounded'></input>
+            <input {...register("projectAddress")} className='border-b-2 border-blue-500'></input>
         </div>
       </div>
-      <Button
-          type='submit'
-      >
-          Save
-      </Button>
     </div>
   )
 }

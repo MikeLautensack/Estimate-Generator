@@ -13,24 +13,51 @@ import { useEffect, useState } from "react"
 import ChangeOrderRequestTableRow from "./ChangeOrderRequestTableRow"
 
 export default function ChangeOrderRequestsTable<TData, TValue>({
-  data
+  data,
+  setId,
+  id 
 }: ChangeOrderRequestsTableProps<TData, TValue>) {
 
-  const [ ordersSelectedState, setOrdersSelectedState ] = useState({})
+  const [ ordersSelectedState, setOrdersSelectedState ] = useState<{ [key: number]: boolean}>({})
 
   useEffect(() => {
     setOrdersSelectedState(
       data.reduce((obj, item) => {
-      obj[item.id] = false;
+        if (id === item.id) {
+          obj[item.id] = true
+        } else {
+          obj[item.id] = false;
+        }
+        
       return obj;
     }, {} as {[key: number]: boolean}))
-    console.log('useEffect []', ordersSelectedState)
   }, [])
-  
+
+  useEffect(() => {
+    setOrdersSelectedState(
+      data.reduce((obj, item) => {
+        if (id === item.id) {
+          obj[item.id] = true
+        } else {
+          obj[item.id] = false;
+        }
+      return obj;
+    }, {} as {[key: number]: boolean}))
+  }, [data])
+
+  useEffect(() => {
+    const obj = {...ordersSelectedState}
+    for (const key in ordersSelectedState) {
+      if ( obj[key] == true) {
+        setId(key)
+      }
+    }
+  }, [ordersSelectedState])
+
   return (
-    <div className="">
-      <div className="rounded-md border">
-        <Table>
+    <div className="flex">
+      <div className="rounded-md">
+        <Table className="relative">
           <TableHeader>
               <TableRow>
                   <TableHead></TableHead>

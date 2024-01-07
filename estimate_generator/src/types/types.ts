@@ -79,6 +79,8 @@ export type TableProps<TData, TValue> = {
 
 export type ChangeOrderRequestsTableProps<TData, TValue> = {
     data: ChangeOrders[],
+    setId?: any
+    id: number
 }
 
 export type DataTablePaginationProps<TData> = {

@@ -30,7 +30,7 @@ const EstimateStatusChart = ({chartArray}: estimatesChartArrayProps) => {
     <div className="w-full h-full">
         {/* <h1 className="h-[1.5rem]">Estimates Status Graph</h1> */}
         <ResponsiveContainer width="100%" height="100%">
-            <PieChart width={200} height={200}>
+            <PieChart>
                 <Legend verticalAlign="top" height={36}/>
                 <Pie 
                     data={chartArray} 

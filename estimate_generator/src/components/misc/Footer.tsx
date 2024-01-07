@@ -2,7 +2,7 @@ import { FaYoutube, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "re
 
 export default function Footer() {
   return (
-    <div className='w-full bg-primary500 h-20 flex flex-col justify-between font-sans'>
+    <div className='w-full bg-primary500 h-24 flex flex-col justify-between'>
         <div className='flex justify-between items-center w-full my-2'>
             <h4 className='mx-5 text-primary100 font-medium text-[20px]'>Estimate Generator</h4>
             <div className='flex gap-2 mx-5'>

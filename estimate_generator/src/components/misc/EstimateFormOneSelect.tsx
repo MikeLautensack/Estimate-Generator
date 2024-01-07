@@ -13,7 +13,7 @@ const EstimateFormOneSelect = ({
 
   return (
     <FormItem>
-      <FormLabel>Customers</FormLabel>
+      <FormLabel className='text-blue-500 font-base font-semibold'>Customers</FormLabel>
       <Select {...field} value={field.value} onValueChange={field.onChange} {...register("customer_id" as const)}>
         <FormControl>
           <SelectTrigger className="w-[180px]">

@@ -37,10 +37,10 @@ export default function FAQSection() {
   const [FAQs, dispatch] = useReducer( reducer, FAQItemContent)
 
   return (
-    <section id='faq' className='px-4 w-full'>
-      <h5 className='text-xl text-primary500 font-bold text-center my-4'>FREQUENTLY ASKED QUESTIONS</h5>
-      <div className='flex justify-center'>
-        <div className='flex flex-col gap-4 mb-16 mt-4 w-[50%] max-w-[50%]'>
+    <section id='faq' className='px-4 w-full flex-1 flex flex-col'>
+      <h5 className='text-xl text-primary300 font-bold text-center my-4'>FREQUENTLY ASKED QUESTIONS</h5>
+      <div className='flex flex-1 justify-center'>
+        <div className='flex flex-col gap-4 my-12 w-[50%] max-w-[50%]'>
           {FAQs.map((faq: FAQItem) => (
             <div key={FAQs.indexOf(faq)}>
               <FAQ

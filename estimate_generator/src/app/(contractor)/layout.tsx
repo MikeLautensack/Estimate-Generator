@@ -8,7 +8,7 @@ export default function ContractorLayout({
 }) {
   return (
     <div
-      className='desktop:flex bg-primary600 min-h-screen'
+      className='flex flex-col desktop:flex-row w-full min-h-screen bg-neutral100'
     >
       <Menu />
       {children}
