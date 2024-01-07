@@ -211,6 +211,13 @@
       "when": 1702760843394,
       "tag": "0029_stale_baron_zemo",
       "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "5",
+      "when": 1704165773088,
+      "tag": "0030_volatile_scalphunter",
+      "breakpoints": true
     }
   ]
 }

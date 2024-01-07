@@ -101,28 +101,28 @@ const CustomerForm = ({data}: CustomerForm) => {
 
   return (
     <form
-        className=''
+        className='bg-neutral100 rounded-lg p-4 flex flex-col gap-2 w-full mx-4 tablet:w-1/2'
         onSubmit={handleSubmit(onSubmit)}
     >
-        <div>
+        <div className='flex flex-col gap-1 border-b border-blue-700'>
             <label>name</label>
             <input
                 {...register("name")}
             ></input>
         </div>
-        <div>
+        <div className='flex flex-col gap-1 border-b border-blue-700'>
             <label>address</label>
             <input
                 {...register("address")}
             ></input>
         </div>
-        <div>
+        <div className='flex flex-col gap-1 border-b border-blue-700'>
             <label>email</label>
             <input
                 {...register("email")}
             ></input>
         </div>
-        <div>
+        <div className='flex flex-col gap-1 border-b border-blue-700'>
             <label>phone</label>
             <input
                 {...register("phone")}

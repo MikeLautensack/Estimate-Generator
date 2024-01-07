@@ -22,14 +22,14 @@ const session = await getServerSession(authOptions)
 const data = await getData(session) as Estimates[]
 
   return (
-    <main className='bg-gradient-to-br from-primary200 to-secondary200 flex-grow p-4 flex flex-col gap-4'>
-      <h1 className='text-2xl desktop:text-[42px] font-bold text-primary900'>Estimates</h1>
+    <main className='flex-1 p-4 flex flex-col gap-4 bg-neutral400'>
+      <h1 className='text-2xl desktop:text-[42px] font-bold text-black'>Estimates</h1>
       <Link
         href={`${process.env["ESTIMATES_FORM_URL"]}`}
       >
         <Button
           id='new-change-order-button'
-          className='flex-1'
+          className='flex-1 bg-blue-500 text-secondary500 font-medium'
           variant={"outline"}
         >
           New Estimate

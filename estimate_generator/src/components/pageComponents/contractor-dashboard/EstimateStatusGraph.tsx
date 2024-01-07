@@ -2,7 +2,7 @@ export default function EstimateStatsGraph() {
   return (
     <div
       id='estiamte-stats-graph'
-      className='p-4'
+      className='bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative'
     >
       Coming Soon
     </div>

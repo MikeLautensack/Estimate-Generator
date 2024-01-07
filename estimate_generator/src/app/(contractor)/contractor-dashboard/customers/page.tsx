@@ -21,14 +21,14 @@ export default async function Page() {
   const data = await getData(session)
 
   return (
-    <main className='bg-gradient-to-br from-primary200 to-secondary200 flex-grow p-4 flex flex-col gap-4'>
-      <h1 className='text-2xl desktop:text-[42px] font-bold text-primary900'>Customers</h1>
+    <main className='flex-grow p-4 flex flex-col gap-4 bg-neutral400'>
+      <h1 className='text-2xl desktop:text-[42px] font-bold text-black'>Customers</h1>
       <Link
         href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}`}
       >
         <Button
           id='new-change-order-button'
-          className='flex-1'
+          className='flex-1 bg-blue-500 text-secondary500'
           variant={"outline"}
         >
           New Customer

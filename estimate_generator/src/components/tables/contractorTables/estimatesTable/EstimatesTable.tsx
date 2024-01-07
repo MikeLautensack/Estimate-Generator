@@ -44,8 +44,8 @@ export default function EstimatesTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border">
-        <Table>
+      <div className="rounded-md border bg-neutral100">
+        <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headersGroup) => (
               <TableRow key={headersGroup.id}>

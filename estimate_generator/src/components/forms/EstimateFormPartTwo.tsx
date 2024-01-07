@@ -94,26 +94,26 @@ const EstimateFormPartTwo = ({
   }, [])
 
   return (
-    <div className='p-4'>
-        <div className='flex flex-col gap-1 my-2'>
+    <div className='p-4 flex w-full h-full flex-col'>
+        <div className='flex flex-col flex-1 relative gap-1 my-2'>
             {}
             <label>Estimate Name</label>
             <input {...register("estimateName")} className='border border-primary300 rounded max-w-xs'></input>
         </div>
-        <div>
-            <div>
+        <div className=''>
+            <div className='flex flex-col flex-1 relative'>
                 <p>{customerName}</p>
                 <p>{customerEmail}</p>
                 <p>{projectAddress}</p>
             </div>
-            <div>
+            <div className='flex flex-col flex-1 relative'>
                 <div>
                     <p>{businessName}</p>
                     <p>{businessAddress}</p>
                     <p>{businessPhone}</p>
                 </div>
             </div>
-            <div className='flex flex-col gap-4'>
+            <div className=''>
                 <Button
                     type='button'
                     onClick={() => {
@@ -162,7 +162,7 @@ const EstimateFormPartTwo = ({
                     </div>
                 </div>
             </div>
-            <div className='flex justify-evenly gap-2'>
+            <div className='flex flex-col justify-evenly gap-2'>
                 <Button
                     type='button'
                     className='flex-1'

@@ -6,12 +6,14 @@ import FeaturesSection from '../../components/pageComponents/home/FeaturesSectio
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between bg-primary200 font-sans">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <HeroSection />
       <FeaturesSection />
       {/* <PricingSection /> */}
-      <FAQSection />
-      <Footer />
+      <div className='flex flex-col h-screen w-full'>
+        <FAQSection />
+        <Footer /> 
+      </div>
     </main>
   )
 }

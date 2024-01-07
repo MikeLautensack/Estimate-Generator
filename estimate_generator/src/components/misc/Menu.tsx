@@ -3,12 +3,11 @@
 import Link from 'next/link'
 import Button from './Button'
 import MenuNav from './MenuNav'
-import MenuSearch from './MenuSearch'
 import { BsPerson } from 'react-icons/bs'
 import { FcSettings } from 'react-icons/fc'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import LogoutButton from './LogoutButton'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { useMediaQuery } from 'react-responsive'
 
@@ -27,44 +26,44 @@ const Menu = () => {
   close()
 
  return (
-    <div className={`${isOpen ? 'fixed h-screen w-full max-w-sm flex-col justify-start items-center right-0 top-0 z-10 gap-4' : 'justify-between h-14 p-4'} flex items-center w-full bg-primary100 desktop:h-screen desktop:max-w-sm desktop:flex-col desktop:justify-start desktop:items-start desktop:gap-6`}>
+    <div className={`${isOpen ? 'fixed h-screen w-64 flex-col items-center right-0 top-0 z-10 gap-4 bg-blue-500' : 'h-14'} flex items-center desktop:h-screen desktop:flex-col justify-between desktop:items-start desktop:gap-6 p-4 desktop:px-6`}>
         <Button
-            className={`${isOpen ? 'absolute top-4 right-4' : 'hidden'}`}
+            className={`${isOpen ? 'absolute top-2 right-2' : 'hidden'} text-secondary500`}
             onClick={() => setIsOpen(!open)}
         >
             <FaTimes />
         </Button>
-        <h1 className='text-2xl font-bold font-sans text-primary500'>Estimate Generator</h1>
-        <nav className={`${isOpen ? 'flex' : 'hidden'} desktop:flex justify-center items-center gap-4 w-full`}>
-            <Link
-                id='profile-button'
-                className='bg-primary200 aspect-square rounded-full p-2'
-                href='/settings/profile'
-            >
-                <BsPerson className='text-primary300'/>
-            </Link>
-            <Link
-                id='settings-button'
-                className=''
-                href='/settings/account'
-            >
-                <FcSettings />
-            </Link>
-            <Button
-                id='notifications-button'
-                className=''
-            >
-                <IoMdNotificationsOutline />
-            </Button>
-        </nav>
-        <MenuSearch
-            className={`${isOpen ? 'flex' : 'hidden'} desktop:flex`}
-        />
-        <MenuNav
-            className={`${isOpen ? 'flex gap-2' : 'hidden'} desktop:gap-2 desktop:flex flex-col`}
-        />
+        <div className={`flex flex-col w-full gap-14`}>
+            <div className='flex flex-col gap-4 w-full'>
+                <h1 className={`text-xl font-bold ${isOpen ? 'text-white text-center' : ''} text-black desktop:text-center`}>Estimate Generator</h1>
+                <nav className={`${isOpen ? 'flex' : 'hidden'} desktop:flex justify-center items-center gap-4 w-full`}>
+                    <Link
+                        id='profile-button'
+                        className='bg-white aspect-square rounded-full p-2'
+                        href='/settings/profile'
+                    >
+                        <BsPerson  className='text-secondary800'/>
+                    </Link>
+                    <Link
+                        id='settings-button'
+                        className=''
+                        href='/settings/account'
+                    >
+                        <FcSettings />
+                    </Link>
+                    <Button
+                        id='notifications-button'
+                    >
+                        <IoMdNotificationsOutline  className='text-secondary500'/>
+                    </Button>
+                </nav>
+            </div>
+            <MenuNav
+                className={`${isOpen ? 'flex gap-4 text-white' : 'hidden'} desktop:gap-2 desktop:flex flex-col text-black`}
+            />
+        </div>
         <LogoutButton
-            className={`${isOpen ? 'flex' : 'hidden'} desktop:flex`}
+            className={`${isOpen ? 'flex text-white justify-end items-center gap-1' : 'hidden'} w-full desktop:flex desktop:gap-1 desktop:items-center desktop:justify-end font-medium text-black`}
         />
         <Button
             className={`${isOpen ? 'hidden' : 'flex'} desktop:hidden`}

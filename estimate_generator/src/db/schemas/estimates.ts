@@ -49,8 +49,8 @@ import { customers } from "./customers"
   }))
 
   export const lineItemEstimateRelationship = relations(estimates, ({ many }) => ({
-	posts: many(lineItems),
-}))
+	  osts: many(lineItems),
+  }))
 
   export const lineItems = mysqlTable(
       "lineItems", 
@@ -62,7 +62,7 @@ import { customers } from "./customers"
     rateType: varchar('rate_type', { length: 255 }),
     price: varchar('price', { length: 255 }),
     amount: double('amount', { precision: 14, scale: 2,}),
-    dateCreated: timestamp("date_created", { mode: "date" }).notNull(),
+    dateCreated: timestamp("date_created", { mode: "date" }).notNull().defaultNow(),
     dateUpdated: timestamp("date_updated", { mode: "date" }).notNull().defaultNow(),
     estimate_id: bigint('estimate_id', { mode: 'number' })
   })

@@ -5,5 +5,9 @@ export default function WebsiteLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <section>{children}</section>
+  return (
+    <div className=''>
+      {children}
+    </div>
+  )
 }

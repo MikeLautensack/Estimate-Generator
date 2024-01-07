@@ -1,9 +1,13 @@
 import '../globals.css'
 
-export default function DashboardLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return <section>{children}</section>
+  return (
+    <div className='w-full'>
+      {children}
+    </div>
+  )
 }

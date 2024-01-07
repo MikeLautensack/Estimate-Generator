@@ -93,7 +93,7 @@ export default async function EstimateStatusChartContainer() {
     const chartArray = await createChartArray(data as Customers[])
 
     return (
-        <div className="w-full h-full">
+        <div className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative">
             {/* <h1>Estimate Staus Chart</h1> */}
             <HighProfitCustomersChart chartArray={chartArray}/>
         </div>

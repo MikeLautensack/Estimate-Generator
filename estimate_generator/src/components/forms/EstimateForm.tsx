@@ -49,6 +49,7 @@ const EstimateForm = ({
   }
 
   const onSubmit: SubmitHandler<EstimateFormValues> = async (data) => {
+    console.log(data)
     const customer_user_id = getCustomerUserID(customers, data.customer_id as number)
     if(estimate) {
       const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_EDIT_URL"]}/${estimate.id}`, {
@@ -78,7 +79,16 @@ const EstimateForm = ({
 
   const createArray = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
     const arr = sortChangeOrders(changeOrders)
-    return arr.reverse()
+    const array = arr.filter(order => {
+      if (order.status == 'Pending Approval') {
+        return true
+      } else if (order.status == 'Saved For Later') {
+        return true
+      } else {
+        return false
+      }
+    })
+    return array
   }
 
   const sortChangeOrders = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
@@ -110,21 +120,30 @@ const EstimateForm = ({
         methods.setValue(`lineItems.${i}.price`, estimate.lineItems[i].price)
         methods.setValue(`lineItems.${i}.amount`, estimate.lineItems[i].amount)
       }
-
     }
   }, [])
 
+  const checkChangeOrders = (orders: ChangeOrders[]): boolean => {
+    if (!orders || orders.length === 0) {
+      return false;
+    }
+    if (!orders.some(order => order.status === 'Pending Approval' || order.status === 'Saved For Later')) {
+      return false;
+    }
+    return true;
+  }
+
   return (
-    <div className='border border-primary700 w-full h-full'>
+    <div className='w-full'>
       <FormProvider {...methods}>
-        <form 
+        <form
           onSubmit={methods.handleSubmit(onSubmit)}
-          className=''
+          className='w-full'
         >
-          {changeOrders && <ChangeOrderRequests changeOrders={createArray(changeOrders)} /> }
+          
           <Tabs
-            defaultValue={'estimate-form-one'}
-            className=''
+            defaultValue={'estimate-form-two'}
+            className='w-full'
           >
             <TabsList className='w-full flex'>
                 <TabsTrigger className='flex-1' value='estimate-form-one'>1. Customer & Contact Info</TabsTrigger>
@@ -132,31 +151,26 @@ const EstimateForm = ({
             </TabsList>
             <TabsContent
                 value='estimate-form-one'
+                className=''
             >
-              <Card>
-                <CardContent>
-                  <EstimateFormPartOne
-                    customers={customers}
-                  />
-                </CardContent>
-              </Card>
+              <EstimateFormPartOne
+                customers={customers}
+              /> 
             </TabsContent>
             <TabsContent
                 value='estimate-form-two'
+                className=''
             >
-              <Card className='bg-primary100'>
-                <CardContent>
-                  <EstimateFormPartTwo
-                    customers={customers} 
-                    profile={profile}
-                    fields={fields}
-                    prepend={prepend}
-                    remove={remove}
-                    changeOrders={changeOrders}
-                    estimate={estimate}
-                  />
-                </CardContent>
-              </Card>
+              {/* {checkChangeOrders(changeOrders) ? <ChangeOrderRequests changeOrders={createArray(changeOrders)} /> : <></>} */}
+              <EstimateFormPartTwo
+                customers={customers} 
+                profile={profile}
+                fields={fields}
+                prepend={prepend}
+                remove={remove}
+                changeOrders={changeOrders}
+                estimate={estimate}
+              />
             </TabsContent>
           </Tabs>
         </form>

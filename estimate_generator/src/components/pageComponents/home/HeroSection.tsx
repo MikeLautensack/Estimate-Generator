@@ -6,38 +6,40 @@ import { Canvas } from '@react-three/fiber'
 import ThreeDLogo from '../../misc/ThreeDLogo'
 import { OrbitControls } from '@react-three/drei'
 import Link from 'next/link'
+import { FaAnglesDown } from "react-icons/fa6";
 
 export default function HeroSection() {
   return (
     <section 
       id='hero' 
-      className='flex flex-col w-full bg-gradient-to-b from-primary400 to-primary200 h-screen'
+      className='flex flex-col w-full h-screen'
     >
 
         <Nav />
 
-        <div className='flex flex-col flex-grow justify-center desktop:justify-between items-center desktop:items-center desktop:flex-row'>
+        <div id='content' className='flex flex-col flex-grow justify-center desktop:justify-between items-center desktop:items-center desktop:flex-row relative max-h-[calc(100vh-52px)]'>
           
           <motion.div 
             id='hero content' 
-            className='flex flex-col gap-2 tablet:mx-16 tablet:max-w-[35rem] desktop:ml-32 desktop:max-w-[40rem]'
+            className='flex flex-col tablet:mx-16 desktop:mx-40 justify-center desktop:absolute desktop:z-10'
             initial={{ opacity: 0, y: 600 }}
             animate={{ y: 0 }}
             transition={{ ease: "easeOut", duration: 1.3 }}
             whileInView={{ opacity: 1 }}
           >
-            <h1 className='text-primary500 text-[24px] font-bold text-center tablet:text-[54px] tablet:text-left'>Welcome to Estimate Generator</h1>
-            <div className='w-full flex gap-4 my-4'>
+            <p className='text-blue-500 text-[16px] font-medium text-center tablet:text-left'>Welcome to</p>
+            <h1 className='text-blue-500 text-[32px] font-bold desktop:text-left tablet:text-[89.76px] tablet:text-left'>Estimate Generator</h1>
+            <div className='w-full flex gap-4 my-2'>
               <Link
                   id='signup-button'
-                  className='w-[50%] bg-primary500 text-primary100 p-2 text-[14px] font-semibold max-w-[248px] rounded'
+                  className='flex flex-1 py-2 px-16 rounded-full justify-center font-semibold bg-blue-500 text-secondary500 desktop:flex-none'
                   href='/register'
               >
                 Sign Up
               </Link>
               <Link
                   id='login-button'
-                  className='w-[50%] bg-primary100 border-2 border-primary500 text-primary500 p-2 font-medium text-[14px] max-w-[248px] font text-base tablet:hidden rounded'
+                  className='flex flex-1 py-2 rounded-full justify-center font-semibold border-2 border-blue-500 text-secondary500 desktop:hidden'
                   href='/login'
               >
                   Log In
@@ -47,20 +49,30 @@ export default function HeroSection() {
 
           <motion.div 
             id='canvas-container'
-            className='w-50 aspect-square desktop:mr-32'
+            className='flex aspect-square w-full h-1/2 mx-auto max-h-[calc(100vh-52px)] desktop:absolute'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ ease: "easeOut", delay: 1.75, duration: 3 }}
           >
             <Canvas
               id='canvas'
-              className=''
+              className='w-[300px]'
             >
               <OrbitControls enableZoom={false}/>
               <ambientLight intensity={0.5} />
               <directionalLight position={[-2,5,2]} intensity={1} color='blue'/>
               <ThreeDLogo />
             </Canvas>
+          </motion.div>
+
+          <motion.div 
+            id='arrow'
+            className='my-4 bottom-0 absolute desktop:w-full flex justify-center items-center'
+            initial={{ y: -10 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1.25, repeat: Infinity }}
+          >
+            <FaAnglesDown />
           </motion.div>
 
         </div>

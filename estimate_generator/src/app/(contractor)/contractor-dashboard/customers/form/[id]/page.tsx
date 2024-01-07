@@ -13,8 +13,8 @@ async function getData(id: number) {
 export default async function page({ params }: { params: { id: string } }) {
   const data = await getData(parseInt(params.id))
   return (
-    <main className='bg-primary200 p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1'>
-        <h1 className='text-2xl desktop:text-[42px] font-bold font-sans text-primary500'>Customer Form</h1>
+    <main className='bg-neutral400 p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1'>
+        <h1 className='text-2xl desktop:text-[42px] font-bold text-black'>Customer Form</h1>
         <div
           className='flex justify-center items-center flex-1 w-full'
         >

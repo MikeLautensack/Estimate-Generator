@@ -6,7 +6,6 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/utils/authOptions'
 import { Estimates } from '@/types/estimates'
 import EstimatePriceChart from '../../charts/EstimatePriceChart'
-import { NextResponse } from 'next/server'
 
 async function getDataTestOne(id: number) {
     try {
@@ -80,7 +79,7 @@ export default async function EstimatePriceChartContainer() {
   const chartArray = createChartArray(data as Estimates[])
 
   return (
-    <div className='w-full h-full'>
+    <div className='bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative'>
         <EstimatePriceChart chartArray={chartArray}/>
     </div>
   )
