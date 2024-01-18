@@ -26,7 +26,7 @@ const Menu = () => {
   close()
 
  return (
-    <div className={`${isOpen ? 'fixed h-screen w-64 flex-col items-center right-0 top-0 z-10 gap-4 bg-blue-500' : 'h-14'} flex items-center desktop:h-screen desktop:flex-col justify-between desktop:items-start desktop:gap-6 p-4 desktop:px-6`}>
+    <div className={`${isOpen ? 'fixed h-screen w-64 flex-col items-center right-0 z-10 gap-4 bg-blue-500' : 'h-14'} flex items-center desktop:h-screen desktop:flex-col justify-between desktop:items-start desktop:gap-6 p-4 desktop:px-6 top-0 desktop:sticky desktop:w-64`}>
         <Button
             className={`${isOpen ? 'absolute top-2 right-2' : 'hidden'} text-secondary500`}
             onClick={() => setIsOpen(!open)}

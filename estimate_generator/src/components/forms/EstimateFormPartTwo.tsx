@@ -94,26 +94,58 @@ const EstimateFormPartTwo = ({
   }, [])
 
   return (
-    <div className='p-4 flex w-full h-full flex-col'>
+    <div className='p-4 flex flex-col gap-2 desktop:gap-4'>
         <div className='flex flex-col flex-1 relative gap-1 my-2'>
-            {}
-            <label>Estimate Name</label>
-            <input {...register("estimateName")} className='border border-primary300 rounded max-w-xs'></input>
+            <label className='font-bold text-2xl'>Estimate Name</label>
+            <input
+                {...register("estimateName")} 
+                className='border-b-2 border-blue-500 max-w-xs'
+            ></input>
         </div>
-        <div className=''>
-            <div className='flex flex-col flex-1 relative'>
-                <p>{customerName}</p>
-                <p>{customerEmail}</p>
-                <p>{projectAddress}</p>
-            </div>
-            <div className='flex flex-col flex-1 relative'>
-                <div>
-                    <p>{businessName}</p>
-                    <p>{businessAddress}</p>
-                    <p>{businessPhone}</p>
+        <div className='flex flex-col gap-2 desktop:gap-4'>
+            <div className='flex flex-col gap-2 desktop:gap-4 desktop:flex-row'>
+                <div className='flex flex-col flex-1 relative'>
+                    <div className='flex justify-between items-center'>
+                        <p>Customer Name:</p>
+                        <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                            <p className=''>{customerName}</p>
+                        </div>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                        <p>Customer Email:</p>
+                        <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                            <p className=''>{customerEmail}</p>
+                        </div>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                        <p>Project Address:</p>
+                        <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                            <p className=''>{projectAddress}</p>
+                        </div>
+                    </div>
+                </div>
+                <div className='flex flex-col flex-1 relative'>
+                    <div className='flex justify-between items-center'>
+                        <p>Business Name:</p>
+                        <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                            <p className=''>{businessName}</p>
+                        </div>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                        <p>Business Address:</p>
+                        <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                            <p className=''>{businessAddress}</p>
+                        </div>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                        <p>Business Phone:</p>
+                        <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                            <p className=''>{businessPhone}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className=''>
+            <div className='flex flex-col gap-2 desktop:gap-4'>
                 <Button
                     type='button'
                     onClick={() => {
@@ -126,7 +158,7 @@ const EstimateFormPartTwo = ({
                             amount: 0
                         })
                     }}
-                    className='max-w-[15rem]'
+                    className='w-full desktop:w-56'
                 >
                     New Line Item
                 </Button>
@@ -136,33 +168,37 @@ const EstimateFormPartTwo = ({
                     remove={remove}
                 />
             </div>
-            <div>
-                <div>
-                    <label></label>
-                    <textarea {...register("message")} className='border border-primary300 rounded'></textarea>
+            <div className='flex flex-col desktop:flex-row gap-4'>
+                <div className='flex-1'>
+                    <label className=''>Message:</label>
+                    <textarea 
+                        {...register("message")} 
+                        className='w-full border border-primary300 rounded'
+                    ></textarea>
                 </div>
-                <div className='flex flex-col gap-1 my-2'>
-                    <div>
-                        <p>Subtotal</p>
-                        <p>{formatPriceString(subtotal)}</p>
+                <div className='flex flex-col gap-1 my-2 flex-1'>
+                    <div className='flex justify-between items-center'>
+                        <p className='font-semibold'>Subtotal:</p>
+                        <p className='text-green-400'>{formatPriceString(subtotal)}</p>
                     </div>
-                    <div>
-                        <p>Tax</p>
-                        <div>
+                    <div className='flex justify-between items-center'>
+                        <p className='font-semibold flex-1'>Tax:</p>
+                        <div className='flex flex-row-reverse flex-1 justify-start gap-8'>
+                            {/* <input type='number' min={1} max={100}></input> */}
                             <TaxSelector 
                                 taxRate={taxRate}
                                 setTaxRate={setTaxRate}
                             />
-                            <p>{formatPriceString(tax)}</p>
+                            <p className='text-green-500'>{formatPriceString(tax)}</p>
                         </div>
                     </div>
-                    <div>
-                        <p>Total</p>
-                        <p>{formatPriceString(total)}</p>
+                    <div className='flex justify-between items-center'>
+                        <p className='font-semibold'>Total:</p>
+                        <p className='text-green-700 font-semibold'>{formatPriceString(total)}</p>
                     </div>
                 </div>
             </div>
-            <div className='flex flex-col justify-evenly gap-2'>
+            <div className='flex flex-col justify-evenly gap-2 desktop:flex-row'>
                 <Button
                     type='button'
                     className='flex-1'

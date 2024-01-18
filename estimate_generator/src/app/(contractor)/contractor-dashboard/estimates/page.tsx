@@ -22,7 +22,7 @@ const session = await getServerSession(authOptions)
 const data = await getData(session) as Estimates[]
 
   return (
-    <main className='flex-1 p-4 flex flex-col gap-4 bg-neutral400'>
+    <main className=' flex flex-col flex-1 gap-4 p-4 bg-neutral400'>
       <h1 className='text-2xl desktop:text-[42px] font-bold text-black'>Estimates</h1>
       <Link
         href={`${process.env["ESTIMATES_FORM_URL"]}`}

@@ -5,11 +5,9 @@ import { EstimateFormProps, EstimateFormValues } from '@/types/estimates'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs'
 import EstimateFormPartOne from './EstimateFormPartOne'
 import EstimateFormPartTwo from './EstimateFormPartTwo'
-import { Card, CardContent } from '../ui/card'
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { Customers } from '@/types/customers'
 import { ChangeOrders } from '@/types/changeOrders'
-import ChangeOrderRequests from '../misc/ChangeOrderRequests'
 
 const EstimateForm = ({
   estimate,
@@ -77,24 +75,6 @@ const EstimateForm = ({
     }
   }
 
-  const createArray = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
-    const arr = sortChangeOrders(changeOrders)
-    const array = arr.filter(order => {
-      if (order.status == 'Pending Approval') {
-        return true
-      } else if (order.status == 'Saved For Later') {
-        return true
-      } else {
-        return false
-      }
-    })
-    return array
-  }
-
-  const sortChangeOrders = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
-    return changeOrders.sort((a, b) => b.dateUpdated!.getTime() - a.dateUpdated!.getTime())
-  }
-
   useEffect(() => {
     if(estimate) {
       setLineItems(estimate.lineItems)
@@ -123,35 +103,25 @@ const EstimateForm = ({
     }
   }, [])
 
-  const checkChangeOrders = (orders: ChangeOrders[]): boolean => {
-    if (!orders || orders.length === 0) {
-      return false;
-    }
-    if (!orders.some(order => order.status === 'Pending Approval' || order.status === 'Saved For Later')) {
-      return false;
-    }
-    return true;
-  }
-
   return (
-    <div className='w-full'>
+    <div className='mx-4 mb-4'>
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit(onSubmit)}
-          className='w-full'
+          className='w-full bg-neutral100'
         >
           
           <Tabs
             defaultValue={'estimate-form-two'}
             className='w-full'
           >
-            <TabsList className='w-full flex'>
+            <TabsList className='flex w-full'>
                 <TabsTrigger className='flex-1' value='estimate-form-one'>1. Customer & Contact Info</TabsTrigger>
                 <TabsTrigger className='flex-1' value='estimate-form-two'>2. Estimate Info</TabsTrigger>
             </TabsList>
             <TabsContent
                 value='estimate-form-one'
-                className=''
+                className='w-full'
             >
               <EstimateFormPartOne
                 customers={customers}
@@ -159,9 +129,8 @@ const EstimateForm = ({
             </TabsContent>
             <TabsContent
                 value='estimate-form-two'
-                className=''
+                className='w-full'
             >
-              {/* {checkChangeOrders(changeOrders) ? <ChangeOrderRequests changeOrders={createArray(changeOrders)} /> : <></>} */}
               <EstimateFormPartTwo
                 customers={customers} 
                 profile={profile}

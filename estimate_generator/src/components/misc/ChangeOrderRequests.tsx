@@ -93,8 +93,8 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
   }
 
   return (
-    <div className='bg-blue-200'>
-        <h1>Change Order Requests</h1>
+    <div className='bg-blue-300 relative top-0 right-0 h-32 desktop:w-64 desktop:h-screen'>
+        {/* <h1>Change Order Requests</h1>
         <p>{`You have ${orders?.length} change order requests`}</p>
         <div
             id='tabel'
@@ -137,7 +137,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
           >
             Reject
           </Button>
-        </div>
+        </div> */}
     </div>
   )
 }

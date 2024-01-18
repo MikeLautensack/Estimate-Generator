@@ -11,18 +11,19 @@ const EstimateFormTable = ({
   remove
 }: EstimateFormTableProps) => {
   return (
-    <div className="flex">
+    <div className="flex bg-neutral400 rounded-lg border-2 border-neutral400">
       <Table className="relative">
         <TableHeader>
           <TableRow>
-            <TableHead className="">Item</TableHead>
+            <TableHead className="">Item Name</TableHead>
+            <TableHead className="">Item Description</TableHead>
             <TableHead>Quantity</TableHead>
             <TableHead>Rate</TableHead>
             <TableHead className="">Amount</TableHead>
             <TableHead className=""></TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="">
           {fields.map((
             field: any, 
             index: any
