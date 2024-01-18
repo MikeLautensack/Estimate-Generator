@@ -46,47 +46,49 @@ const LineItemFormField = ({
   }, [watch(`lineItems.${index}.rateType` as const)])
 
   return (
-    <TableRow className=''>
-      <TableCell className="">
-        <div className='flex flex-col'>
-          <label>Item</label>
+    <TableRow className='bg-neutral100'>
+      <TableCell className="align-top">
+        <div className='flex flex-col gap-1 justify-start items-start'>
+          <label>Item Name</label>
           <input {...register(`lineItems.${index}.item` as const)} className='border border-primary300 rounded'></input>
         </div>
-        <div className='flex flex-col'>
-          <label>Description</label>
+      </TableCell>
+      <TableCell className='align-top'>
+        <div className='flex flex-col gap-1 justify-start items-start'>
+          <label>Item Description</label>
           <textarea {...register(`lineItems.${index}.description` as const)} className='border border-primary300 rounded'></textarea>
         </div>
       </TableCell>
-      <TableCell className="flex flex-col">
-        <div className={`${getValues(`lineItems.${index}.rateType`) === 'flat' ? 'hidden' : 'flex'} flex-col`}>
+      <TableCell className="align-top">
+        <div className={`${getValues(`lineItems.${index}.rateType`) === 'flat' ? 'hidden' : 'flex'} flex-col gap-1 justify-start items-start`}>
           <label>Quantity</label>
           <input type='number' {...register(`lineItems.${index}.quantity` as const, {valueAsNumber: true})} className='border border-primary300 rounded'></input>
         </div>
       </TableCell>
-      <TableCell className="">
-        <div className='w-full'>
+      <TableCell className="align-top">
+        <div className='flex flex-col desktop:flex-row w-full'>
           <div className='w-full'>
             <FormField
               control={control}
               name={`lineItems.${index}.rateType`}
               render={({ field }) => (
-                <FormItem className='w-full'>
+                <FormItem className='w-full flex flex-col gap-1'>
                   <FormLabel>Rate Type</FormLabel>
-                    <Select value={field.value} onValueChange={field.onChange} {...register(`lineItems.${index}.rateType` as const)}>
-                      <FormControl>                        
-                        <SelectTrigger className="w-[180px]">
-                          <SelectValue placeholder="Rate Type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="unit">Unit Rate</SelectItem>
-                        <SelectItem value="sqft">SQFT</SelectItem>
-                        <SelectItem value="lnft">LNFT</SelectItem>
-                        <SelectItem value="hour">Hourly</SelectItem>
-                        <SelectItem value="day">Dayly</SelectItem>
-                        <SelectItem value="flat">Flat Rate</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <Select value={field.value} onValueChange={field.onChange} {...register(`lineItems.${index}.rateType` as const)}>
+                    <FormControl>                        
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Rate Type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="unit">Unit Rate</SelectItem>
+                      <SelectItem value="sqft">SQFT</SelectItem>
+                      <SelectItem value="lnft">LNFT</SelectItem>
+                      <SelectItem value="hour">Hourly</SelectItem>
+                      <SelectItem value="day">Dayly</SelectItem>
+                      <SelectItem value="flat">Flat Rate</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </FormItem>
               )}
             />
@@ -97,11 +99,13 @@ const LineItemFormField = ({
           </div>
         </div>
       </TableCell>
-      <TableCell className="">
-        <p>{formatPriceString(amount)}</p>
+      <TableCell className="align-top">
+        <div className=''>
+          <p>{formatPriceString(amount)}</p>
+        </div>
       </TableCell>
-      <TableCell className="">
-        <div>
+      <TableCell className="align-top">
+        <div className=''>
           <Button
             onClick={() => {
               remove(index)
