@@ -22,7 +22,7 @@ export default async function ChangeOrders() {
   const session = await getServerSession(authOptions)
   const data = await getChangeOrders(session)
   return (
-    <div>
+    <div className="">
       <ChangeOrdersTable columns={columns} data={data!} />
     </div>
   )

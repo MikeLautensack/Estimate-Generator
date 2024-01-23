@@ -1,32 +1,12 @@
 'use client'
 
-import {
-  flexRender,
-  SortingState,
-  ColumnFiltersState,
-  RowSelectionState,
-  getCoreRowModel,
-  getSortedRowModel,
-  getFilteredRowModel,
-  useReactTable,
-  getPaginationRowModel,
-} from "@tanstack/react-table"
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
+import { flexRender, SortingState, ColumnFiltersState, getCoreRowModel, getSortedRowModel, getFilteredRowModel, useReactTable, getPaginationRowModel, RowSelectionState } from "@tanstack/react-table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { TableProps } from "@/types/types"
 import { useState } from "react"
 import { Input } from "../../../ui/input"
-import ChangeOrdersPagination from "./ChangeOrdersPagination"
 
-export default function ChangeOrdersTable<TData, TValue>({
+export default function EstimatesTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {
@@ -53,18 +33,18 @@ export default function ChangeOrdersTable<TData, TValue>({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center py-4">
+      <div className="flex items-center">
         <Input
-          placeholder="Filter customer..."
-          value={(table.getColumn("changeOrderName")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter items..."
+          value={(table.getColumn("item")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("changeOrderName")?.setFilterValue(event.target.value)
+            table.getColumn("item")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
       </div>
       <div className="rounded-md border bg-neutral100">
-        <Table>
+        <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headersGroup) => (
               <TableRow key={headersGroup.id}>
@@ -105,9 +85,6 @@ export default function ChangeOrdersTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <ChangeOrdersPagination
-        table={table}
-      />
     </div>
   )
 }

@@ -7,22 +7,25 @@ const ChangeOrderRequest = ({ changeOrder }: ChangeOrderRequestProps) => {
   return (
     <div
         id='change-order'
-        className='border border-red-400'
+        className='rounded bg-neutral100 p-2 flex flex-col desktop:h-[216px]'
     >
         <h1>{changeOrder.changeOrderName}</h1>
-        <div></div>
-        <p>{changeOrder.description}</p>
-        <div></div>
-        <div>
+        <div className='w-full border-b-2 border-blue-500'></div>
+        <div className='w-full'>
+            <p>{changeOrder.description}</p>
+        </div>
+        <div className='w-full border-b-2 border-blue-500'></div>
+        <div className='flex justify-between items-center'>
             <div
                 id='date-data-container'
+                className='flex flex-col gap-1 max-w-[50%]'
             >
                 <p>{changeOrder.dateCreated?.getTime() === changeOrder.dateUpdated?.getTime() ? 'Date Created: ' : 'Date Updated: '}</p>
                 <p>{changeOrder.dateCreated?.getTime() === changeOrder.dateUpdated?.getTime() ? changeOrder.dateCreated?.toString() : changeOrder.dateUpdated?.toString()}</p>
             </div>
             <div
                 id='status-container'
-                className=''
+                className='max-w-[50%]'
             >
                 <p>{changeOrder.status}</p>
             </div>

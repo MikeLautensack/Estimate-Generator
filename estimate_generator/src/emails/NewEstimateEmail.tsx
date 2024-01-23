@@ -13,7 +13,12 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-const EstimateEmail = ({ url, host }: emailProps) => {
+const NewEstimateEmail = ({ 
+    url, 
+    host, 
+    customerName, 
+    contractorName 
+  }: NewEstimateEmailProps) => {
   return (
     <Html>
         <Tailwind>
@@ -21,10 +26,10 @@ const EstimateEmail = ({ url, host }: emailProps) => {
                 <Container className=''>
                     <Section className=''>
                         <Text className=''>
-                            Testing resend email
+                            Hello {customerName}, {contractorName} has created a new work estimate
                         </Text>
                         <Text className=''>
-                            Login to {host}
+                            Login to with the link below to view the estimate
                         </Text>
                         <Button
                             href={url}
@@ -40,4 +45,4 @@ const EstimateEmail = ({ url, host }: emailProps) => {
   )
 }
 
-export default EstimateEmail
+export default NewEstimateEmail

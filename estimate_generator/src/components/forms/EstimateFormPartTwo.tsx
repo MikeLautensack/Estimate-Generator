@@ -103,7 +103,7 @@ const EstimateFormPartTwo = ({
             ></input>
         </div>
         <div className='flex flex-col gap-2 desktop:gap-4'>
-            <div className='flex flex-col gap-2 desktop:gap-4 desktop:flex-row'>
+            <div className='flex flex-col gap-2 desktop:gap-4 desktop:flex-row desktop:overflow-x-scroll'>
                 <div className='flex flex-col flex-1 relative'>
                     <div className='flex justify-between items-center'>
                         <p>Customer Name:</p>
