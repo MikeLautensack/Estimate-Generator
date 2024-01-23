@@ -10,7 +10,7 @@ export default function page() {
     <div className="flex justify-center items-center bg-primary300">
         <Button
             onClick={() => {
-                signIn('email', {email: 'mikelautensack100@gmail.com', callbackUrl: 'http://localhost:3000/api/redirect'})
+                signIn('email', {email: 'mikelautensack100@gmail.com', callbackUrl: 'http://localhost:3000/api/redirect', redirect: false})
             }}
         >
             <Mail className="mr-2 h-4 w-4" /> Email Provider

@@ -93,12 +93,17 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
   }
 
   return (
-    <div className='bg-blue-300 relative top-0 right-0 h-32 desktop:w-64 desktop:h-screen'>
-        {/* <h1>Change Order Requests</h1>
-        <p>{`You have ${orders?.length} change order requests`}</p>
+    <div className='bg-neutral400 max-tablet:border-t border-neutral-300 relative top-0 right-0 desktop:w-96 desktop:h-screen desktop:sticky flex flex-col p-2 gap-0 desktop:bg-neutral100'>
+
+      <div className=''>
+        <h1 className=''>Change Order Requests</h1>
+        <p className=''>{`You have ${orders?.length} change order requests`}</p>
+      </div>
+
+      <div className='flex flex-col gap-2 flex-1 justify-between'>
         <div
             id='tabel'
-            className=''
+            className='w-full desktop:flex-1'
         >
           <ChangeOrderRequestsTable  
             data={orders}
@@ -106,38 +111,42 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
             id={id as number}
           />
         </div>
-        <div
-            id='selected'
-            className=''
-        >
-          <ChangeOrderRequest changeOrder={changeOrder}/>
+        <div className='flex flex-col gap-2 desktop:h-64'>
+          <div
+              id='selected'
+              className=''
+          >
+            <ChangeOrderRequest changeOrder={changeOrder}/>
+          </div>
+          <div
+              id='buttons'
+              className='flex items-center gap-2'
+          >
+            <Button
+              id=''
+              className='flex-1'
+              onClick={() => markCompleted(id as number)}
+            >
+              Mark Completed            
+            </Button>
+            <Button
+              id=''
+              className='flex-1'
+              onClick={() => saveForLater(id as number)}
+            >
+              Save For Later
+            </Button>
+            <Button
+              id=''
+              className='flex-1'
+              onClick={() => reject(id as number)}
+            >
+              Reject
+            </Button>
+          </div>
         </div>
-        <div
-            id='buttons'
-            className=''
-        >
-          <Button
-            id=''
-            className=''
-            onClick={() => markCompleted(id as number)}
-          >
-            Mark Completed            
-          </Button>
-          <Button
-            id=''
-            className=''
-            onClick={() => saveForLater(id as number)}
-          >
-            Save For Later
-          </Button>
-          <Button
-            id=''
-            className=''
-            onClick={() => reject(id as number)}
-          >
-            Reject
-          </Button>
-        </div> */}
+      </div>
+
     </div>
   )
 }

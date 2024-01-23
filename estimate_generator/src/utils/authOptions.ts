@@ -6,7 +6,9 @@ import { db } from '../db/index'
 import { users } from '../db/schemas/auth'
 import { eq } from "drizzle-orm"
 import EmailProvider from "next-auth/providers/email"
-import { sendVerificationRequest } from '../utils/sendVerificationRequest'
+import { sendVerificationRequest as newCustomerEmail } from './newCustomerEmail'
+import { sendVerificationRequest as newEstimateEmail } from './newEstimateEmail'
+import { sendVerificationRequest as updatedEstimateEmail } from './updatedEstimateEmail'
 
 export const authOptions = {
     adapter: PlanetScaleAdapter(db),
@@ -48,10 +50,24 @@ export const authOptions = {
             return null
           }
         }),
-        EmailProvider({
+        {
+          id: 'newCustomer',
+          type: 'email',
           server: process.env.EMAIL_SERVER,
-          sendVerificationRequest
-        }),
+          sendVerificationRequest: newCustomerEmail
+        },
+        {
+          id: 'newEstimate',
+          type: 'email',
+          server: process.env.EMAIL_SERVER,
+          sendVerificationRequest: newEstimateEmail
+        },
+        {
+          id: 'updatedEstimate',
+          type: 'email',
+          server: process.env.EMAIL_SERVER,
+          sendVerificationRequest: updatedEstimateEmail
+        }
     ],
     session: {
       strategy: 'jwt' as SessionStrategy
@@ -71,6 +87,16 @@ export const authOptions = {
         }
       },
       async jwt({ token, user }: any) {
+        if(user) {
+          return {
+            ...token,
+            id: user.id,
+            role: user.role
+          }
+        }
+        return token
+      },
+      async signIn({ token, user }: any) {
         if(user) {
           return {
             ...token,

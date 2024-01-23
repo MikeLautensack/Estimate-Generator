@@ -1,36 +1,55 @@
-import LineItem from "@/components/misc/LineItem";
-import { Card } from "@/components/ui/card";
-import { Estimates } from "@/types/estimates";
+import { Estimates, LineItems } from "@/types/estimates";
+import { columns } from '../../../components/tables/contractorTables/estimateTable/columns'
+import EstimateTable from "@/components/tables/contractorTables/estimateTable/EstimateTable";
 
 export default function Estimate({data}: {data: Estimates}) {
   return (
-    <div className="p-4 bg-primary50 rounded">
-      <h1>{data?.estimateName}</h1>
-      <div className='flex flex-col gap-2 tablet:flex-row'>
-        <div className='flex-1'>
-          <p>{data?.customerName}</p>
-          <p>{data?.customerEmail}</p>
-          <p>{data?.projectAddress}</p>
+    <div className="p-4 bg-neutral100 rounded desktop:min-h-full flex flex-col gap-2">
+      <h1 className="text-3xl font-semibold">{data?.estimateName}</h1>
+      <div className='flex flex-col gap-2 desktop:gap-4 desktop:flex-row desktop:overflow-x-scroll'>
+        <div className='flex flex-col flex-1 relative'>
+            <div className='flex justify-between items-center'>
+                <p>Customer Name:</p>
+                <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                    <p className=''>{data?.customerName}</p>
+                </div>
+            </div>
+            <div className='flex justify-between items-center'>
+                <p>Customer Email:</p>
+                <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                    <p className=''>{data?.customerEmail}</p>
+                </div>
+            </div>
+            <div className='flex justify-between items-center'>
+                <p>Project Address:</p>
+                <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                    <p className=''>{data?.projectAddress}</p>
+                </div>
+            </div>
         </div>
-        <div className='flex-1'>
-          <p>{data?.contractorName}</p>
-          <p>{data?.contractorAddress}</p>
-          <p>{data?.contractorPhone}</p>
+        <div className='flex flex-col flex-1 relative'>
+            <div className='flex justify-between items-center'>
+                <p>Contractor Name:</p>
+                <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                    <p className=''>{data?.contractorName}</p>
+                </div>
+            </div>
+            <div className='flex justify-between items-center'>
+                <p>Contractor Address:</p>
+                <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                    <p className=''>{data?.contractorAddress}</p>
+                </div>
+            </div>
+            <div className='flex justify-between items-center'>
+                <p>Contractor Phone:</p>
+                <div className='max-tablet:overflow-x-scroll max-tablet:w-1/2'>
+                    <p className=''>{data?.contractorPhone}</p>
+                </div>
+            </div>
         </div>
       </div>
       <div className="bg-primary100 rounded p-2">
-        {data?.lineItems?.map((item) => (
-            <LineItem 
-              key={item.id}
-              id={item.id}
-              description={item.description}
-              quantity={item.quantity}
-              amount={item.amount} 
-              item={item.item}
-              rateType={item.rateType} 
-              price={item.price}            
-            />
-        ))}
+        <EstimateTable data={data.lineItems as LineItems[]} columns={columns}/>
       </div>
       <div className='flex flex-col gap-2 tablet:flex-row'>
         <div className='flex-1 flex flex-col'>

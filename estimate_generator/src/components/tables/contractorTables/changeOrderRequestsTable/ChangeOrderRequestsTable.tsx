@@ -55,34 +55,32 @@ export default function ChangeOrderRequestsTable<TData, TValue>({
   }, [ordersSelectedState])
 
   return (
-    <div className="flex">
-      <div className="rounded-md">
-        <Table className="relative">
-          <TableHeader>
-              <TableRow>
-                  <TableHead></TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead>Status</TableHead>
-              </TableRow>
-          </TableHeader>
-          <TableBody>
-                {data.map((element, index) => (
-                  <ChangeOrderRequestTableRow 
-                    orderRequest={{
-                      name: data[index].changeOrderName as string,
-                      description: data[index].description as string,
-                      status: data[index].status as string,
-                    }}
-                    ordersSelectedState={ordersSelectedState}
-                    setOrdersSelectedState={setOrdersSelectedState}
-                    key={data[index].id}
-                    id={data[index].id}
-                  />
-                ))}
-          </TableBody>
-        </Table>
-      </div>
+    <div className="flex w-full h-32 rounded bg-neutral100 desktop:h-[calc(100vh-328px)]">
+      <Table className="relative">
+        <TableHeader>
+            <TableRow>
+                <TableHead></TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Description</TableHead>
+                <TableHead>Status</TableHead>
+            </TableRow>
+        </TableHeader>
+        <TableBody className="overflow-y-scroll">
+              {data.map((element, index) => (
+                <ChangeOrderRequestTableRow 
+                  orderRequest={{
+                    name: data[index].changeOrderName as string,
+                    description: data[index].description as string,
+                    status: data[index].status as string,
+                  }}
+                  ordersSelectedState={ordersSelectedState}
+                  setOrdersSelectedState={setOrdersSelectedState}
+                  key={data[index].id}
+                  id={data[index].id}
+                />
+              ))}
+        </TableBody>
+      </Table>
     </div>
   )
 }

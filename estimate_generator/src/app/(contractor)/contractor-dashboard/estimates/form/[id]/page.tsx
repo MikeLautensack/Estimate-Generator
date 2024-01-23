@@ -81,10 +81,10 @@ export default async function page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <main className='flex flex-col desktop:w-[calc(100vw-256px)] desktop:flex-row-reverse gap-4 bg-neutral400 min-h-[calc(100vh-56px)] relative'>
+    <main className='flex flex-col desktop:w-[calc(100vw-256px)] desktop:flex-row-reverse gap-4 bg-neutral400 min-h-[calc(100vh-56px)] relative desktop:gap-0'>
       {checkChangeOrders(changeOrders) ? <ChangeOrderRequests changeOrders={createArray(changeOrders)} /> : <></>}
-      <div className='flex flex-col gap-4'>
-        <h1 className='text-2xl desktop:text-[42px] font-bold text-black px-4'>Estimate Form</h1>
+      <div className='flex flex-col gap-4 w-full desktop:w-[calc(100%-24rem)] p-4'>
+        <h1 className='text-2xl desktop:text-[42px] font-bold text-black'>Estimate Form</h1>
         <EstimateForm
           estimate={estimate}
           customers={customers} 

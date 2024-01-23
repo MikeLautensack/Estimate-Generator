@@ -28,7 +28,7 @@ export default async function page({ params }: { params: { id: string } }) {
   const data = await getData(parseInt(params.id)) as Estimates
   return (
     <main
-      className='bg-gradient-to-br from-primary200 to-secondary200 flex-1 p-8 min-h-screen'
+      className='flex-1 p-4 min-h-screen bg-neutral400'
     >
       <Estimate data={data}/>
     </main>
