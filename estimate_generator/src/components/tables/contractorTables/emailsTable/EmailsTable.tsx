@@ -21,9 +21,6 @@ import {
 import { TableProps } from "@/types/types"
 import EmailsPagination from "./EmailsPagination"
 import { Button } from "@/components/ui/button"
-import PlaidVerifyIdentityEmail from "@/emails/plaid-verify-identity"
-import { sendEmail } from "@/actions/emailActions"
-
 
 export default function ChangeOrdersTable<TData, TValue>({
   columns,
@@ -41,11 +38,7 @@ export default function ChangeOrdersTable<TData, TValue>({
       <Button
         className=""
         onClick={() => {
-          sendEmail(
-            'onboarding@resend.dev',
-            'mikelautensack100@gmail.com',
-            'testing action 123',
-          )
+          
         }}
       >
         testing resend
