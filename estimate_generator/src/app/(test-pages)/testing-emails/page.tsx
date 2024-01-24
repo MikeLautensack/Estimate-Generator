@@ -10,7 +10,7 @@ export default function page() {
         <Button
             className=''
             onClick={async () => {
-                signIn('newCustomer', {email: 'mikelautensack100@gmail.com', callbackUrl: 'http://localhost:3000/api/redirect', redirect: false})
+                signIn('email', {email: 'mikelautensack100@gmail.com', callbackUrl: 'http://localhost:3000/api/redirect?email-type=newCustomer', redirect: false})
             }}
         >
             New Customer Email
@@ -18,7 +18,7 @@ export default function page() {
         <Button
             className=''
             onClick={async () => {
-                signIn('newEstimate', {email: 'mikelautensack100@gmail.com', callbackUrl: 'http://localhost:3000/api/redirect', redirect: false})
+                signIn('email', {email: 'mikelautensack100@gmail.com', callbackUrl: 'http://localhost:3000/api/redirect?email-type=newEstimate', redirect: false})
             }}
         >
             New Estimate Email
@@ -26,7 +26,7 @@ export default function page() {
         <Button
             className=''
             onClick={async () => {
-                signIn('updatedEstimate', {email: 'mikelautensack100@gmail.com', callbackUrl: 'http://localhost:3000/api/redirect', redirect: false})
+                signIn('email', {email: 'mikelautensack100@gmail.com', callbackUrl: 'http://localhost:3000/api/redirect?email-type=updatedEstimate', redirect: false})
             }}
         >
             Update Estimate Email
