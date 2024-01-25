@@ -22,20 +22,20 @@ const NewEstimateEmail = ({
   return (
     <Html>
         <Tailwind>
-            <Body className='bg-primary200'>
+            <Body className='bg-blue-200 rounded-lg flex flex-col gap-32 justify-center items-center p-8'>
                 <Container className=''>
                     <Section className=''>
-                        <Text className=''>
+                        <Text className='text-2xl font-semibold text-black'>
                             Hello {customerName}, {contractorName} has created a new work estimate
                         </Text>
-                        <Text className=''>
-                            Login to with the link below to view the estimate
+                        <Text className='text-xl font-medium text-black'>
+                            Login to view your estimate with the link below
                         </Text>
                         <Button
                             href={url}
-                            className='border-solid border border-[#0b0a0a]'
+                            className='p-4 rounded-full bg-amber-400 text-black text-lg'
                         >
-                            Sign In
+                            View your estimate!
                         </Button>
                     </Section>
                 </Container>

@@ -13,24 +13,29 @@ import {
   } from '@react-email/components';
   import * as React from 'react';
   
-  const UpdatedEstimateEmail = ({ url, host }: emailProps) => {
+  const UpdatedEstimateEmail = ({ 
+    url, 
+    host, 
+    customerName, 
+    contractorName 
+  }: UpdatedEstimateEmailProps) => {
     return (
       <Html>
           <Tailwind>
-              <Body className='bg-primary200'>
+              <Body className='bg-blue-200 rounded-lg flex flex-col gap-32 justify-center items-center p-8'>
                   <Container className=''>
                       <Section className=''>
-                          <Text className=''>
-                              Updated Estimate Email
+                          <Text className='text-2xl font-semibold text-black'>
+                          Hello {customerName}, {contractorName} has updated an estimate
                           </Text>
-                          <Text className=''>
-                              Login to {host}
+                          <Text className='text-xl font-medium text-black'>
+                              Login to view your updated estimate with the link below
                           </Text>
                           <Button
                               href={url}
-                              className='border-solid border border-[#0b0a0a]'
+                              className='p-4 rounded-full bg-amber-400 text-black text-lg'
                           >
-                              Sign In
+                              View your updated estimate!
                           </Button>
                       </Section>
                   </Container>
