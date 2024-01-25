@@ -16,3 +16,10 @@ type NewEstimateEmailProps = {
     customerName?: string,
     contractorName?: string
 }
+
+type UpdatedEstimateEmailProps = {
+    url: string,
+    host: string,
+    customerName?: string,
+    contractorName?: string
+}

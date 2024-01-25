@@ -33,7 +33,7 @@ import {
                           </Text>
                           <Button
                               href={url}
-                              className='p-4 rounded-full bg-amber-400 text-black text-lg '
+                              className='p-4 rounded-full bg-amber-400 text-black text-lg'
                           >
                               Sign In to your customer dashboard
                           </Button>
