@@ -8,6 +8,7 @@ import EstimateFormPartTwo from './EstimateFormPartTwo'
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { Customers } from '@/types/customers'
 import { ChangeOrders } from '@/types/changeOrders'
+import { redirect } from 'next/navigation'
 
 const EstimateForm = ({
   estimate,
@@ -47,7 +48,21 @@ const EstimateForm = ({
   }
 
   const preview: SubmitHandler<EstimateFormValues> = async (data) => {
-    console.log('preview')    
+
+    // testing the function
+    console.log('preview') 
+    
+    // Check if form is in create mode or edit mode
+    if(estimate) {
+      // create query string
+      // const queryString = new URLSearchParams(data).toString()
+      // console.log('q string', queryString)
+      // redirect to /contractor-dashboard/estimates/xxxxxxx
+      redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`)
+    } else {
+      // redirect to /contractor-dashboard/estimates/xxxxxxx
+      redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`)
+    }
   }
 
   const save: SubmitHandler<EstimateFormValues> = async (data) => {
@@ -62,6 +77,7 @@ const EstimateForm = ({
     console.log(data)
     const customer_user_id = getCustomerUserID(customers, data.customer_id as number)
     if(estimate) {
+
       const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_EDIT_URL"]}/${estimate.id}`, {
         method: 'PUT',
         headers: {
@@ -72,7 +88,9 @@ const EstimateForm = ({
           status: 'Work In Progress (edited)'
         })
       })
+
     } else {
+
       const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_CREATE_URL"]}`, {
         method: 'POST',
         headers: {
@@ -84,6 +102,7 @@ const EstimateForm = ({
           status: 'Work In Progress'
         })
       })
+
     }
   }
 
