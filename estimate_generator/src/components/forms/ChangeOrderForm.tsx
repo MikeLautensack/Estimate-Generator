@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { Button } from '../ui/button'
-import { ChangeOrderFormProps, ChangeOrderForm } from '@/types/changeOrders'
+import { ChangeOrderFormProps, ChangeOrderForm } from '@/types/formTypes'
 
 const ChangeOrderForm = (data: ChangeOrderForm) => {
 
@@ -71,16 +71,16 @@ const ChangeOrderForm = (data: ChangeOrderForm) => {
 
   return (
     <form
-        className=''
+        className='flex flex-col gap-4 bg-neutral100 rounded-lg p-4'
         onSubmit={handleSubmit(onSubmit)}
     >
-        <div className=''>
+        <div className='flex flex-col gap-1'>
           <label>Change Order Name</label>
-          <input {...register("changeOrderName")}></input>
+          <input className='bg-neutral500 rounded' {...register("changeOrderName")}></input>
         </div>
-        <div className=''>
+        <div className='flex flex-col gap-1'>
           <label>Change Order Description</label>
-          <textarea {...register("description")}></textarea>
+          <textarea className='bg-neutral500 rounded' {...register("description")}></textarea>
         </div>
         <Button
           onClick={() => {

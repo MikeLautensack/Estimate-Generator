@@ -4,6 +4,8 @@ import { estimates } from "@/db/schemas/estimates";
 import { authOptions } from "@/utils/authOptions";
 import { getServerSession } from "next-auth";
 import { eq } from "drizzle-orm"
+import { ChangeOrders } from "@/types/changeOrders";
+import { ChangeOrderFormParams } from "@/types/formTypes";
 
 async function getEstimate(id: number) {
   try {
@@ -41,8 +43,8 @@ export default async function page({
   }
 
   return (
-    <main>
-      <ChangeOrderForm data={data} />
+    <main className="flex flex-1 justify-center items-center">
+      <ChangeOrderForm data={data as ChangeOrderFormParams} />
     </main>
   )
 }
