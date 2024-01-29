@@ -79,7 +79,11 @@ export type EstimateFormPartTwoProps = {
   prepend: any,
   remove: any
   changeOrders: any
-  estimate: any
+  estimate: any,
+  methods: any,
+  preview: any,
+  save: any,
+  saveAndSend: any
 }
 
 export type EstimateFormTableProps = {

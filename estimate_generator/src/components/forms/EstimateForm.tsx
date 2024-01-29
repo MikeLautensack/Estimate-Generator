@@ -46,6 +46,18 @@ const EstimateForm = ({
     }
   }
 
+  const preview: SubmitHandler<EstimateFormValues> = async (data) => {
+    console.log('preview')    
+  }
+
+  const save: SubmitHandler<EstimateFormValues> = async (data) => {
+    console.log('save')
+  }
+
+  const saveAndSend: SubmitHandler<EstimateFormValues> = async (data) => {
+    console.log('save and send')
+  }
+
   const onSubmit: SubmitHandler<EstimateFormValues> = async (data) => {
     console.log(data)
     const customer_user_id = getCustomerUserID(customers, data.customer_id as number)
@@ -107,7 +119,6 @@ const EstimateForm = ({
     <div className=''>
       <FormProvider {...methods}>
         <form
-          onSubmit={methods.handleSubmit(onSubmit)}
           className='w-full bg-neutral100'
         >
           
@@ -139,6 +150,10 @@ const EstimateForm = ({
                 remove={remove}
                 changeOrders={changeOrders}
                 estimate={estimate}
+                methods={methods}
+                preview={preview}
+                save={save}
+                saveAndSend={saveAndSend}
               />
             </TabsContent>
           </Tabs>

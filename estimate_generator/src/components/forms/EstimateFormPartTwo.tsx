@@ -14,7 +14,11 @@ const EstimateFormPartTwo = ({
     fields,
     prepend,
     remove,
-    estimate
+    estimate,
+    methods,
+    preview,
+    save,
+    saveAndSend
 }: EstimateFormPartTwoProps) => {
 
   const [ customerName, setCustomerName ] = useState('')
@@ -200,20 +204,23 @@ const EstimateFormPartTwo = ({
             </div>
             <div className='flex flex-col justify-evenly gap-2 desktop:flex-row'>
                 <Button
-                    type='button'
+                    type='submit'
                     className='flex-1'
+                    onClick={methods.handleSubmit(preview)}
                 >
                     Preview Estimate
                 </Button>
                 <Button
                     type='submit'
                     className='flex-1'
+                    onClick={methods.handleSubmit(save)}
                 >
                     Save
                 </Button>
                 <Button
-                    type='button'
+                    type='submit'
                     className='flex-1'
+                    onClick={methods.handleSubmit(saveAndSend)}
                 >
                     Save & Send
                 </Button>
