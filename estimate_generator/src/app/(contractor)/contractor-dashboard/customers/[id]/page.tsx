@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm"
 import { columns } from '@/components/tables/contractorTables/estimatesTable/columns'
 import { estimates } from '@/db/schemas/estimates'
 import { formatPhoneNumber } from '../../../../../utils/formatingFunctions'
+import { Estimates } from '@/types/estimates'
 
 async function getCustomer(id: number) {
   const res = await db.select()
@@ -22,7 +23,7 @@ async function getEstimates(id: number) {
 
 export default async function page({ params }: { params: { id: string } }) {
   const customer = await getCustomer(parseInt(params.id))
-  const estimates = await getEstimates(parseInt(params.id))
+  const estimates = await getEstimates(parseInt(params.id)) as Estimates[]
   return (
     <main
       className='bg-neutral400 flex flex-col gap-2 flex-1 p-8'
