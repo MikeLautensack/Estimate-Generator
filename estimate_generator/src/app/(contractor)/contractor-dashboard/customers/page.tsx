@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
+import { Customers } from "@/types/customers";
 
 async function getData(session: any) {
   const res = await db.select()
@@ -18,7 +19,7 @@ async function getData(session: any) {
 export default async function Page() {
 
   const session = await getServerSession(authOptions)
-  const data = await getData(session)
+  const data = await getData(session) as Customers[]
 
   return (
     <main className='flex-grow p-4 flex flex-col gap-4 bg-neutral400'>
