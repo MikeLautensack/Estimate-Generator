@@ -4,13 +4,13 @@ import Nav from '../../misc/Nav'
 import { motion } from "framer-motion"
 import { Canvas } from '@react-three/fiber'
 import ThreeDLogo from '../../misc/ThreeDLogo'
-import { OrbitControls } from '@react-three/drei'
 import Link from 'next/link'
 import { FaAnglesDown } from "react-icons/fa6";
+import { Model } from '@/components/models/Worker'
 
 export default function HeroSection() {
   return (
-    <section 
+    <section
       id='hero' 
       className='flex flex-col w-full h-screen'
     >
@@ -52,16 +52,15 @@ export default function HeroSection() {
             className='flex aspect-square w-full h-1/2 mx-auto max-h-[calc(100vh-52px)] desktop:absolute'
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ ease: "easeOut", delay: 1.75, duration: 3 }}
+            transition={{ ease: "easeOut", delay: 1, duration: 2 }}
           >
             <Canvas
               id='canvas'
               className='w-[300px]'
             >
-              <OrbitControls enableZoom={false}/>
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[-2,5,2]} intensity={1} color='blue'/>
-              <ThreeDLogo />
+              <ambientLight intensity={4.5} />
+              <directionalLight position={[-2,5,2]} intensity={1}/>
+              <Model scale={1.8} />
             </Canvas>
           </motion.div>
 
