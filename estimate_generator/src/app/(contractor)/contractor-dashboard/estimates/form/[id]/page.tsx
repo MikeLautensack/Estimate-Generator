@@ -50,7 +50,7 @@ export default async function page({ params }: { params: { id: string } }) {
   const estimate = await getEstimate(parseInt(params.id))
   const customers = await getCustomers(session.user.id)
   const profile = await getProfile(session.user.id)
-  const changeOrders = await getChangeOrders(parseInt(params.id))
+  const changeOrders = await getChangeOrders(parseInt(params.id)) as ChangeOrders[]
 
   const checkChangeOrders = (orders: ChangeOrders[]): boolean => {
     if (!orders || orders.length === 0) {
