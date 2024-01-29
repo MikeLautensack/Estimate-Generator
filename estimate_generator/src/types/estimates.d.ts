@@ -2,38 +2,38 @@ import { Customers } from "./customers"
 
 export type Estimates = {
   id: number,
-  estimateName: string | null,
-  customerName: string | null,
-  customerEmail: string | null,
-  projectAddress: string | null,
-  contractorName: string | null,
-  contractorAddress: string | null,
-  contractorPhone: string | null,
+  estimateName: string,
+  customerName: string,
+  customerEmail: string,
+  projectAddress: string,
+  contractorName: string,
+  contractorAddress: string,
+  contractorPhone: string ,
   lineItems?: LineItems[],
-  message: string | null,
-  subtotal: number | null,
-  taxRate: number | null,
-  tax: number | null,
-  total: number | null,
-  status: string | null,
+  message: string,
+  subtotal: number,
+  taxRate: number,
+  tax: number,
+  total: number,
+  status: string,
   dateCreated?: Date,
   dateUpdated?: Date,
-  customer_id: number | null,
-  customer_user_id: number | null,
-  contractor_user_id: number | null,
+  customer_id: number,
+  customer_user_id: number,
+  contractor_user_id: number,
 }
 
 export type LineItems = {
   id: number,
-  item: string | null,
-  description: string | null,
-  quantity: number | null,
-  rateType: string | null,
+  item: string,
+  description: string,
+  quantity: number,
+  rateType: string,
   price: any,
   amount: any
   dateCreated?: Date,
   dateUpdated?: Date,
-  estimate_id?: number | null
+  estimate_id?: number
 
 }
 
@@ -45,27 +45,27 @@ export type EstimateFormProps = {
 }
 
 export type EstimateFormValues = {
-  estimateName: string | null,
-  customer_id?: number | null
-  customerName: string | null,
-  customerEmail: string | null,
-  projectAddress: string | null,
-  contractorName: string | null,
-  contractorAddress: string | null,
-  contractorPhone: string | null,
+  estimateName: string,
+  customer_id?: number
+  customerName: string,
+  customerEmail: string,
+  projectAddress: string,
+  contractorName: string,
+  contractorAddress: string,
+  contractorPhone: string,
   lineItems: {
-    item: string | null,
-    description: string | null,
-    quantity: number | null,
-    rateType: string | null,
-    price: number | null,
-    amount: number | null
+    item: string,
+    description: string,
+    quantity: number,
+    rateType: string,
+    price: number,
+    amount: number
   }[],
-  taxRate: number | null,
-  message: string | null,
-  subtotal: number | null,
-  tax: number | null,
-  total: number | null
+  taxRate: number,
+  message: string,
+  subtotal: number,
+  tax: number,
+  total: number
 }
 
 export type EstimateFormPartOneProps = {
