@@ -1,6 +1,7 @@
 import ChangeOrderForm from "@/components/forms/ChangeOrderForm";
 import { db } from "@/db";
 import { estimates } from "@/db/schemas/estimates";
+import { ChangeOrderFormParams } from "@/types/formTypes";
 import { eq } from "drizzle-orm"
 
 async function getEstimate(id: number) {
@@ -40,7 +41,7 @@ export default async function page({
 
   return (
     <main>
-      <ChangeOrderForm data={data} />
+      <ChangeOrderForm data={data as ChangeOrderFormParams} />
     </main>
   )
 }
