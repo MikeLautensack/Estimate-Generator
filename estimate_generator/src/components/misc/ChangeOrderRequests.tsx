@@ -12,17 +12,17 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
   const [ id, setId ] = useState<number | null>(changeOrders?.length ? changeOrders[0].id : null)
   const [ changeOrder, setChangeOrder ] = useState<ChangeOrders>(changeOrders?.length ? changeOrders[0] : {
     id: 0,
-    changeOrderName: null,
-    estimateName: null,
-    description: null,
-    customerName: null,
-    projectAddress: null,
-    status: null,
-    estimate_id: null,
-    dateCreated: null,
-    dateUpdated: null,
-    contractor_user_id: null,
-    customer_user_id: null,
+    changeOrderName: '',
+    estimateName: '',
+    description: '',
+    customerName: '',
+    projectAddress: '',
+    status: '',
+    estimate_id: 0,
+    dateCreated: new Date,
+    dateUpdated: new Date,
+    contractor_user_id: 0,
+    customer_user_id: 0,
   })
 
   const createDateArray = (arr: ChangeOrders[]): ChangeOrders[] => {
