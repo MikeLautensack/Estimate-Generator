@@ -34,7 +34,6 @@ export type LineItems = {
   dateCreated?: Date,
   dateUpdated?: Date,
   estimate_id?: number
-
 }
 
 export type EstimateFormProps = {
@@ -53,14 +52,7 @@ export type EstimateFormValues = {
   contractorName: string,
   contractorAddress: string,
   contractorPhone: string,
-  lineItems: {
-    item: string,
-    description: string,
-    quantity: number,
-    rateType: string,
-    price: number,
-    amount: number
-  }[],
+  lineItems: LineItems[],
   taxRate: number,
   message: string,
   subtotal: number,

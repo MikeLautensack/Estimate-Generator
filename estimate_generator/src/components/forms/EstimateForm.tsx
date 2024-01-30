@@ -20,9 +20,9 @@ const EstimateForm = ({
   const [ lineItems, setLineItems ] = useState([{
     item: '',
     description: '',
-    quantity: null,
+    quantity: 0,
     rateType: 'unit',
-    price: null,
+    price: 0,
     amount: 0
   }])
 
