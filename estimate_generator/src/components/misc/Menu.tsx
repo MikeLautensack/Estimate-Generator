@@ -75,6 +75,4 @@ const Menu = () => {
   )
 }
 
-console.log(Menu)
-
 export default Menu
