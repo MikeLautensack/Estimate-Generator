@@ -28,3 +28,5 @@ export default function Page() {
     </main>
   )
 }
+
+console.log('Page Element', Page)
