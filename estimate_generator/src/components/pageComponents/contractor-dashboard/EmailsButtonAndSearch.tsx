@@ -1,30 +1,30 @@
-import React from 'react'
-import { Button } from '../../ui/button'
-import SearchForm from '../../misc/SearchForm'
+import React from "react";
+import { Button } from "../../ui/button";
+import SearchForm from "../../misc/SearchForm";
 
 export default function EmailsButtonAndSearch() {
   return (
     <div
-        id='email-button-and-search'
-        className=''
+        id="email-button-and-search"
+        className=""
     >
         <div
-            id='buttons'
+            id="buttons"
         >
             <Button
-                id='email-filter-button'
-                className=''
+                id=""
+                className=""
             >
                 Filter
             </Button>
             <Button
-                id='email-sort-button'
-                className=''
+                id="email-sort-button"
+                className=""
             >
                 Sort
             </Button>
         </div>
         <SearchForm />
     </div>
-  )
+  );
 }

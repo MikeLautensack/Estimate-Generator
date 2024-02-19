@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { useState } from 'react'
-import SearchForm from '../forms/SearchForm'
+import React from "react";
+import { useState } from "react";
+import SearchForm from "../forms/SearchForm";
 
 const MenuSearch = ({ ...props }) => {
 
-  const [ serachQuery, setSearchQuery ] = useState('')
+  const [ serachQuery, setSearchQuery ] = useState("");
 
   return (
     <div
@@ -14,7 +14,7 @@ const MenuSearch = ({ ...props }) => {
     >
         <SearchForm />
     </div>
-  )
+  );
 }
 
 export default MenuSearch

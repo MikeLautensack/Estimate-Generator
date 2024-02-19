@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { ChangeOrderRequestsProps, ChangeOrders } from '@/types/changeOrders'
-import React, { useEffect, useState } from 'react'
-import ChangeOrderRequestsTable from '../tables/contractorTables/changeOrderRequestsTable/ChangeOrderRequestsTable'
-import { Button } from '../ui/button';
-import ChangeOrderRequest from './ChangeOrderRequest';
+import { ChangeOrderRequestsProps, ChangeOrders } from "@/types/changeOrders";
+import React, { useEffect, useState } from "react";
+import ChangeOrderRequestsTable from "../tables/contractorTables/changeOrderRequestsTable/ChangeOrderRequestsTable";
+import { Button } from "../ui/button";
+import ChangeOrderRequest from "./ChangeOrderRequest";
 
 const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
 
-  const [ orders, setOrders ] = useState(changeOrders)
-  const [ id, setId ] = useState<number | null>(changeOrders?.length ? changeOrders[0].id : null)
+  const [ orders, setOrders ] = useState(changeOrders);
+  const [ id, setId ] = useState<number | null>(changeOrders?.length ? changeOrders[0].id : null);
   const [ changeOrder, setChangeOrder ] = useState<ChangeOrders>(changeOrders?.length ? changeOrders[0] : {
     id: 0,
     changeOrderName: '',
@@ -23,44 +23,44 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
     dateUpdated: new Date,
     contractor_user_id: 0,
     customer_user_id: 0,
-  })
+  });
 
   const createDateArray = (arr: ChangeOrders[]): ChangeOrders[] => {
     if (arr == undefined || null) {
-     return []
+     return [];
     } else {
-      return arr
+      return arr;
     }
-  }
+  };
 
   useEffect(() => {
-    loadChangeOrder(id as number)
-  }, [id])
+    loadChangeOrder(id as number);
+  }, [id]);
 
   const loadChangeOrder = (id: number) => {
     for (let i = 0; i < changeOrders.length; i++) {
       if (changeOrders[i].id == id) {
-        setChangeOrder(changeOrders[i])
+        setChangeOrder(changeOrders[i]);
       }
     }
-  }
+  };
 
   const removeItem = (id: number) => {
     setOrders(prevOrders => {
-      const arr = prevOrders.filter(order => order.id != id)
-      setId(arr.length > 0 ? arr[0].id : null)
-      return arr
+      const arr = prevOrders.filter(order => order.id != id);
+      setId(arr.length > 0 ? arr[0].id : null);
+      return arr;
     });
   }
 
   const markCompleted = async (id: number) => {
     const res = await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
           "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        status: 'Completed'
+        status: "Completed"
       })
     })
     removeItem(id)
@@ -68,7 +68,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
 
   const reject = async (id: number) => {
     const res = await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
           "Content-Type": "application/json"
       },

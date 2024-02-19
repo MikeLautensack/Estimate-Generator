@@ -14,5 +14,5 @@ export default function LineItem({
         <p>{quantity}</p>
         <p>{amount}</p>
     </div>
-  )
+  );
 }
