@@ -1,4 +1,4 @@
-import '../globals.css'
+import "../globals.css";
 
 export default function AuthLayout({
   children,
@@ -6,8 +6,8 @@ export default function AuthLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className='w-full'>
+    <div className="w-full">
       {children}
     </div>
-  )
+  );
 }

@@ -1,15 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { db } from '../../../../../db'
-import { estimates } from '../../../../../db/schemas/estimates'
-import { lineItems } from '../../../../../db/schemas/estimates'
-import { lineItem } from '@/types/types'
-import { eq } from "drizzle-orm"
+import { NextRequest, NextResponse } from "next/server";
+import { db } from "../../../../../db";
+import { estimates } from "../../../../../db/schemas/estimates";
+import { lineItems } from "../../../../../db/schemas/estimates";
+import { lineItem } from "@/types/types";
+import { eq } from "drizzle-orm";
 
 export async function PUT(
     request: NextRequest,
     { params }: { params: { id: string } }
 ) {
-    const data = await request.json()
+
+    const data = await request.json();
+
     try {
         await db.update(estimates)
                 .set({
@@ -28,10 +30,10 @@ export async function PUT(
                     status: data.status,
                     dateUpdated: new Date(),
                 })
-                .where(eq(estimates.id, parseInt(params.id)))
+                .where(eq(estimates.id, parseInt(params.id)));
 
         await db.delete(lineItems)
-                .where(eq(lineItems.estimate_id, parseInt(params.id)))
+                .where(eq(lineItems.estimate_id, parseInt(params.id)));
 
         await db.insert(lineItems)
                 .values(data.lineItems.map((item: lineItem) => {
@@ -44,10 +46,10 @@ export async function PUT(
                         price: item.price,
                         amount: item.amount,
                         estimate_id: params.id
-                    }
-                }))
-        return NextResponse.json('Estimate sucsussfully updated')
+                    };
+                }));
+        return NextResponse.json("Estimate sucsussfully updated");
     } catch (error) {
-        return NextResponse.json(error)
+        return NextResponse.json(error);
     }
 }

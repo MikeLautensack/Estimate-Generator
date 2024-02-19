@@ -1,5 +1,4 @@
-import '../globals.css'
-import Menu from "../../components/misc/Menu"
+import "../globals.css";
 
 export default function AdminLayout({
   children, 
@@ -8,9 +7,9 @@ export default function AdminLayout({
 }) {
   return (
     <div
-      className='desktop:flex bg-primary600 min-h-screen'
+      className="desktop:flex bg-primary600 min-h-screen"
     >
-      <h1 className='bg-secondary300'>dashboard menu placeholder</h1>
+      <h1 className="bg-secondary300">dashboard menu placeholder</h1>
       {children}
     </div>
   )
