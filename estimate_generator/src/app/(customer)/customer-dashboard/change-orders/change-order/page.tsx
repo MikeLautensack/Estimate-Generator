@@ -6,10 +6,10 @@ async function getData(id: number) {
   try {
     const changeOrder = await db.select()
                                 .from(changeOrders)
-                                .where(eq(changeOrders.id, id))
-    return changeOrder      
+                                .where(eq(changeOrders.id, id));
+    return changeOrder;   
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
@@ -18,12 +18,13 @@ export default async function page({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
-  const changeOrderId = searchParams.changeOrderId
-  const data = await getData(parseInt(changeOrderId as string))
 
-  let changeOrder
+  const changeOrderId = searchParams.changeOrderId;
+  const data = await getData(parseInt(changeOrderId as string));
+
+  let changeOrder;
   if (data && data.length > 0) {
-    changeOrder = data[0]
+    changeOrder = data[0];
   }
 
   return (
@@ -40,5 +41,5 @@ export default async function page({
             <p>{changeOrder?.description}</p>
         </div>
     </main>
-  )
+  );
 }

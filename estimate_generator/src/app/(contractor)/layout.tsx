@@ -1,5 +1,5 @@
-import '../globals.css'
-import Menu from "../../components/misc/Menu"
+import "../globals.css";
+import Menu from "../../components/misc/Menu";
 
 export default function ContractorLayout({
   children, 
@@ -8,10 +8,10 @@ export default function ContractorLayout({
 }) {
   return (
     <div
-      className='flex flex-col w-full desktop:flex-row min-h-screen bg-neutral100'
+      className="flex flex-col w-full desktop:flex-row min-h-screen bg-neutral100"
     >
       <Menu />
       {children}
     </div>
-  )
+  );
 }

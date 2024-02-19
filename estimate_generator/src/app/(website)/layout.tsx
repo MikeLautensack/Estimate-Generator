@@ -1,4 +1,4 @@
-import '../globals.css'
+import "../globals.css";
 
 export default function WebsiteLayout({
   children,
@@ -6,8 +6,8 @@ export default function WebsiteLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className=''>
+    <div className="">
       {children}
     </div>
-  )
+  );
 }

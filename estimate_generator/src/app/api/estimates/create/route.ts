@@ -1,16 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { estimates } from '../../../../db/schemas/estimates'
-import { db } from '../../../../db'
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '../../../../utils/authOptions'
-import { lineItem } from '@/types/types'
-import { lineItems } from '../../../../db/schemas/estimates'
+import { NextRequest, NextResponse } from "next/server";
+import { estimates, lineItems } from "../../../../db/schemas/estimates";
+import { db } from "../../../../db";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../../../../utils/authOptions";
+import { lineItem } from "@/types/types";
 
 export async function POST(request: NextRequest) {
-    const data = await request.json()
-    console.log(data)
-    const session = await getServerSession(authOptions)
-    const estimateId = Math.floor(Math.random() * 100000000)
+
+    const data = await request.json();
+    console.log(data);
+    const session = await getServerSession(authOptions);
+    const estimateId = Math.floor(Math.random() * 100000000);
+
     try {
         await db.insert(estimates).values({
             id: estimateId,
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
             customer_id: data.customer_id,
             contractor_user_id: session.user.id,
             customer_user_id: data.customer_user_id
-        })
+        });
         await db.insert(lineItems).values(data.lineItems.map((item: lineItem) => {
             return {
                 id: Math.floor(Math.random() * 100000000),
@@ -43,10 +44,10 @@ export async function POST(request: NextRequest) {
                 price: item.price,
                 amount: item.amount,
                 estimate_id: estimateId
-            }
-        }))
-        return NextResponse.json('Estimate sucsessfully created')
+            };
+        }));
+        return NextResponse.json("Estimate sucsessfully created");
     } catch (error) {
-        return NextResponse.json(error)
+        return NextResponse.json(error);
     }
 }

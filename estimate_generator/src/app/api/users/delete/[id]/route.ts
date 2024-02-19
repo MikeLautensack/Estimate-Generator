@@ -1,8 +1,7 @@
-import { eq } from "drizzle-orm"
-import { db } from "@/db"
-import { customers } from "@/db/schemas/customers"
-import { NextRequest, NextResponse } from "next/server"
-import { users } from "@/db/schemas/auth"
+import { eq } from "drizzle-orm";
+import { db } from "@/db";
+import { NextRequest, NextResponse } from "next/server";
+import { users } from "@/db/schemas/auth";
 
 export async function DELETE(
     req: NextRequest,
@@ -10,9 +9,9 @@ export async function DELETE(
 ) {
     try {
         await db.delete(users)
-                .where(eq(users.id, params.id))
-        return NextResponse.json('User deleted')
+                .where(eq(users.id, params.id));
+        return NextResponse.json("User deleted");
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }

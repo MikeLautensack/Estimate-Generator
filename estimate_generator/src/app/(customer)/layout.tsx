@@ -1,5 +1,4 @@
-import '../globals.css'
-import Menu from "../../components/misc/Menu"
+import "../globals.css";
 
 export default function CustomerLayout({
   children, 
@@ -8,9 +7,9 @@ export default function CustomerLayout({
 }) {
   return (
     <div
-      className='desktop:flex flex-1 bg-primary600 min-h-screen'
+      className="desktop:flex flex-1 bg-primary600 min-h-screen"
     >
       {children}
     </div>
-  )
+  );
 }
