@@ -1,28 +1,28 @@
-'use client'
+"use client";
 
-import React from 'react'
-import Button from './Button'
+import React from "react";
+import Button from "./Button";
 
 const PaginationBar = ({}) => {
   return (
-    <div className=''>
+    <div className="">
         <Button
-            id='previous-button'
-            className=''
+            id="previous-button"
+            className=""
         >
             
         </Button>
-        <div className=''>
+        <div className="">
             {}
         </div>
         <Button
-            id='next-button'
-            className=''
+            id=""
+            className=""
         >
             
         </Button>
     </div>
-  )
+  );
 }
 
 export default PaginationBar
