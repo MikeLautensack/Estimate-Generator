@@ -8,5 +8,5 @@ export default function SettingsLayout({
             <h1>Settings Layout</h1>
             {children}
         </div>
-    )
+    );
   }

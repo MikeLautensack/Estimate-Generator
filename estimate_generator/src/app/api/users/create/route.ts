@@ -1,18 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { db } from '../../../../db'
-import { users } from '../../../../db/schemas/auth'
-import bcrypt from 'bcrypt'
-import { eq } from "drizzle-orm"
+import { NextRequest, NextResponse } from "next/server";
+import { db } from "../../../../db";
+import { users } from "../../../../db/schemas/auth";
+import bcrypt from "bcrypt";
+import { eq } from "drizzle-orm";
 
 export async function POST(request: NextRequest) {
-    const data = await request.json()
-    const existingUser = await db
-    .select()
-    .from(users)
-    .where(eq(data.email, users.email));
+    const data = await request.json();
+    const existingUser = await db.select()
+                                 .from(users)
+                                 .where(eq(data.email, users.email));
 
     if (existingUser.length === 1) {
-        return NextResponse.json({ error: 'User already registered' }, { status: 501 });
+        return NextResponse.json({ error: "User already registered" }, { status: 501 });
     }
 
     const id = Math.floor(Math.random() * 100000000).toString();
@@ -26,11 +25,11 @@ export async function POST(request: NextRequest) {
         emailVerified: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-    })
+    });
 
     const newUser = await db.select()
                             .from(users)
                             .where(eq(users.id, id));
 
-    return NextResponse.json({newUser})
+    return NextResponse.json({newUser});
 }
