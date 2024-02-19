@@ -1,24 +1,27 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { db } from '../../../../../db'
-import { estimates, lineItems } from '../../../../../db/schemas/estimates'
-import { eq } from "drizzle-orm"
-import { changeOrders } from '@/db/schemas/changeOrders'
+import { NextRequest, NextResponse } from "next/server";
+import { db } from "../../../../../db";
+import { estimates, lineItems } from "../../../../../db/schemas/estimates";
+import { eq } from "drizzle-orm";
+import { changeOrders } from "@/db/schemas/changeOrders";
 
 export async function DELETE(
     request: NextRequest,
     { params }: { params: { id: string } }
 ) {
+
     try {
         await db.delete(estimates)
-                .where(eq(estimates.id, parseInt(params.id)))
+                .where(eq(estimates.id, parseInt(params.id)));
 
         await db.delete(lineItems)
-                .where(eq(lineItems.estimate_id, parseInt(params.id)))
+                .where(eq(lineItems.estimate_id, parseInt(params.id)));
 
         await db.delete(changeOrders)
-                .where(eq(changeOrders.estimate_id, parseInt(params.id)))
-        return NextResponse.json('Profile sucsussfully updated')
+                .where(eq(changeOrders.estimate_id, parseInt(params.id)));
+
+        return NextResponse.json("Profile sucsussfully updated");
     } catch (error) {
-        return NextResponse.json(error)
+        return NextResponse.json(error);
     }
+    
 }

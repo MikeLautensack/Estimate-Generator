@@ -6,5 +6,5 @@ export default function page() {
       <h1 className="text-3xl font-semibold">Change Orders</h1>
       <ChangeOrders />
     </main>
-  )
+  );
 }
