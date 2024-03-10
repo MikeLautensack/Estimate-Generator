@@ -4,7 +4,7 @@ import { FaArrowRight, FaArrowDown, FaFileInvoiceDollar, FaClock } from "react-i
 import { IoMdAnalytics } from "react-icons/io";
 import { IconType } from "react-icons";
 
-export default function FeatureCard({ icon, heading, paragraph }: FeatureCardProps) {
+const FeatureCard = ({ icon, heading, paragraph }: FeatureCardProps) => {
 
   const stringToIcon = (icon: string) => {
     if(icon == "FaFileInvoiceDollar") {
@@ -32,3 +32,5 @@ export default function FeatureCard({ icon, heading, paragraph }: FeatureCardPro
     </div>
   );
 }
+
+export default FeatureCard;

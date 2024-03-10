@@ -22,4 +22,4 @@ const ThreeDLogo = () => {
 
 }
 
-export default ThreeDLogo
+export default ThreeDLogo;

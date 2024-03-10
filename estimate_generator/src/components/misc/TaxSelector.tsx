@@ -53,4 +53,4 @@ const TaxSelector = ({
   );
 }
 
-export default TaxSelector
+export default TaxSelector;

@@ -1,12 +1,12 @@
 import { LineItems } from "@/types/estimates";
 
-export default function LineItem({
+const LineItem = ({
     id,
     description,
     quantity,
     rateType,
     amount,
-}:LineItems) {
+}:LineItems) => {
   return (
     <div className="">
         <p>{id}</p>
@@ -16,3 +16,5 @@ export default function LineItem({
     </div>
   );
 }
+
+export default LineItem;

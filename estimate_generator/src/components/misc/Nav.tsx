@@ -7,7 +7,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { FaXmark } from "react-icons/fa6";
 
-export default function Nav() {
+const Nav = () => {
 
   const [ open, setOpen ] = useState(false);
 
@@ -42,3 +42,5 @@ export default function Nav() {
     </motion.nav>
   );
 }
+
+export default Nav;

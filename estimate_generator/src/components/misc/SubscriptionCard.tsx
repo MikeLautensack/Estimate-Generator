@@ -3,7 +3,7 @@ import Button from "./Button";
 import { SubscriptionCardProps } from "@/types/types";
 import { FaCheck } from "react-icons/fa";
 
-export default function SubscriptionCard({ 
+const SubscriptionCard = ({ 
     heading,                                     
     paragraph, 
     annualPrice, 
@@ -12,7 +12,7 @@ export default function SubscriptionCard({
     monthlySubHeading,
     featuresArray, 
     state 
-}: SubscriptionCardProps) {
+}: SubscriptionCardProps) => {
 
   const displayPrice = () => {
     if(!state) {
@@ -52,3 +52,5 @@ export default function SubscriptionCard({
     </div>
   );
 }
+
+export default SubscriptionCard;

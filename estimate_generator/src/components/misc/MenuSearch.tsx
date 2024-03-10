@@ -17,4 +17,4 @@ const MenuSearch = ({ ...props }) => {
   );
 }
 
-export default MenuSearch
+export default MenuSearch;

@@ -1,6 +1,12 @@
-import { FaYoutube, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { 
+  FaYoutube, 
+  FaFacebookF, 
+  FaTwitter, 
+  FaInstagram, 
+  FaLinkedinIn 
+} from "react-icons/fa";
 
-export default function Footer() {
+const Footer = () => {
   return (
     <div className="w-full bg-primary500 h-24 flex flex-col justify-between">
         <div className="flex justify-between items-center w-full my-2">
@@ -19,3 +25,5 @@ export default function Footer() {
     </div>
   );
 }
+
+export default Footer;

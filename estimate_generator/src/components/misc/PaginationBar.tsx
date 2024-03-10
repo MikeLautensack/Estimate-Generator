@@ -25,4 +25,4 @@ const PaginationBar = ({}) => {
   );
 }
 
-export default PaginationBar
+export default PaginationBar;
