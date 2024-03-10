@@ -1,12 +1,12 @@
-import NextAuth, { SessionStrategy } from 'next-auth'
-import CredentialsProvider from "next-auth/providers/credentials"
-import bcrypt from 'bcrypt'
-import { PlanetScaleAdapter } from "../db/schemas/planetScaleAdapter"
-import { db } from '../db/index'
-import { users } from '../db/schemas/auth'
-import { eq } from "drizzle-orm"
-import EmailProvider from "next-auth/providers/email"
-import { sendVerificationRequest } from './sendVerificationRequest'
+import NextAuth, { SessionStrategy } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
+import { PlanetScaleAdapter } from "../db/schemas/planetScaleAdapter";
+import { db } from "../db/index";
+import { users } from "../db/schemas/auth";
+import { eq } from "drizzle-orm";
+import EmailProvider from "next-auth/providers/email";
+import sendVerificationRequest from "./sendVerificationRequest";
 
 export const authOptions = {
     adapter: PlanetScaleAdapter(db),
@@ -14,7 +14,7 @@ export const authOptions = {
     providers: [
         CredentialsProvider({
           // The name to display on the sign in form (e.g. 'Sign in with...')
-          name: 'Credentials',
+          name: "Credentials",
           // The credentials is used to generate a suitable form on the sign in page.
           // You can specify whatever fields you are expecting to be submitted.
           // e.g. domain, username, password, 2FA token, etc.
@@ -55,10 +55,10 @@ export const authOptions = {
         }),
     ],
     session: {
-      strategy: 'jwt' as SessionStrategy
+      strategy: "jwt" as SessionStrategy
     },
     pages: {
-      signIn: '/login',
+      signIn: "/login",
     },
     callbacks: {
       async session({ session, user, token }: any) {
