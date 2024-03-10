@@ -1,15 +1,29 @@
-'use client'
+"use client";
 
-import { estimatesChartArrayProps } from '@/types/types'
-import React from 'react'
-import { Bar, BarChart, CartesianGrid, Legend, Rectangle, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { estimatesChartArrayProps } from "@/types/types";
+import React from "react";
+import { 
+  Bar, 
+  BarChart, 
+  CartesianGrid, 
+  Legend, 
+  Rectangle, 
+  ResponsiveContainer, 
+  Tooltip, 
+  XAxis, 
+  YAxis 
+} from "recharts";
 
 const EstimatePriceChart = ({chartArray}: estimatesChartArrayProps) => {
   return (
-    <div className='w-full h-full'>
-        <ResponsiveContainer width="100%" height="100%" className=''>
+    <div className="w-full h-full">
+        <ResponsiveContainer 
+          width="100%" 
+          height="100%" 
+          className=""
+        >
             <BarChart
-              className='' 
+              className="" 
               data={chartArray}
             >
               <CartesianGrid strokeDasharray="3 3" />
@@ -21,7 +35,7 @@ const EstimatePriceChart = ({chartArray}: estimatesChartArrayProps) => {
             </BarChart>
         </ResponsiveContainer>
     </div>
-  )
+  );
 }
 
-export default EstimatePriceChart
+export default EstimatePriceChart;

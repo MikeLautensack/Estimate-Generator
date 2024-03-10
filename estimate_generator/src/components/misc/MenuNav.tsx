@@ -62,4 +62,4 @@ const MenuNav = ({ ...props }) => {
   );
 }
 
-export default MenuNav
+export default MenuNav;

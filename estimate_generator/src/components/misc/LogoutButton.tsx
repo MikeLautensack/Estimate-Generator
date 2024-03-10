@@ -16,4 +16,4 @@ const LogoutButton = ({ children, ...props }: ButtonProps) => {
     );
 }
 
-export default LogoutButton
+export default LogoutButton;
