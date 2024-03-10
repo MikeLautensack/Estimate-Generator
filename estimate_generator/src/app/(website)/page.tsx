@@ -4,7 +4,7 @@ import HeroSection from "../../components/pageComponents/home/HeroSection";
 import Footer from "../../components/misc/Footer";
 import FeaturesSection from "../../components/pageComponents/home/FeaturesSection";
 
-export default function Home() {
+const Home = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <HeroSection />
@@ -17,3 +17,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default Home;

@@ -1,30 +1,36 @@
-'use client'
+"use client";
 
-import React, { useEffect } from 'react'
-import { EstimateFormPartOneProps } from '@/types/estimates'
-import { useFormContext } from 'react-hook-form'
-import { FormField } from '../ui/form'
-import EstimateFormOneSelect from '../misc/EstimateFormOneSelect'
+import { useEffect } from "react";
+import { EstimateFormPartOneProps } from "@/types/estimates";
+import { useFormContext } from "react-hook-form";
+import { FormField } from "../ui/form";
+import EstimateFormOneSelect from "../misc/EstimateFormOneSelect";
 
 const EstimateFormPartOne = ({
     customers
 }:EstimateFormPartOneProps) => {
 
-  const { register, watch, setValue, getValues, control } = useFormContext()
+  const { 
+    register, 
+    watch, 
+    setValue, 
+    getValues, 
+    control 
+  } = useFormContext();
 
   useEffect(() => {
-    if(getValues('customer_id')) {
+    if(getValues("customer_id")) {
       for(let i = 0; i < customers.length; i++) {
-        if(getValues('customer_id') == customers[i].id) {
+        if(getValues("customer_id") == customers[i].id) {
           
         }
       }
     }
-  },[watch('customer')])
+  },[watch("customer")])
 
   return (
-    <div className='bg-neutral100'>
-      <div className=''>
+    <div className="bg-neutral100">
+      <div className="">
         <FormField
           control={control}
           name={"customer_id"}
@@ -36,22 +42,31 @@ const EstimateFormPartOne = ({
           )}
         />
       </div>
-      <div className={`${getValues('customer_id') ? 'hidden' : 'flex'} flex-col gap-2 my-2 text-black`}>
-        <div className='flex flex-col gap-1'>
+      <div className={`${getValues("customer_id") ? "hidden" : "flex"} flex-col gap-2 my-2 text-black`}>
+        <div className="flex flex-col gap-1">
             <label>Name</label>
-            <input {...register("customerName")} className='border-b-2 border-blue-500'></input>
+            <input 
+              {...register("customerName")} 
+              className="border-b-2 border-blue-500"
+            ></input>
         </div>
-        <div className='flex flex-col gap-1'>
+        <div className="flex flex-col gap-1">
             <label>Email</label>
-            <input {...register("customerEmail")} className='border-b-2 border-blue-500'></input>
+            <input 
+              {...register("customerEmail")} 
+              className="border-b-2 border-blue-500"
+            ></input>
         </div>
-        <div className='flex flex-col gap-1'>
+        <div className="flex flex-col gap-1">
             <label>Address</label>
-            <input {...register("projectAddress")} className='border-b-2 border-blue-500'></input>
+            <input 
+              {...register("projectAddress")} 
+              className="border-b-2 border-blue-500"
+            ></input>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default EstimateFormPartOne
+export default EstimateFormPartOne;
