@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrations:generate": "drizzle-kit generate:mysql",
-    "migrations:push": "drizzle-kit push:mysql",
+    "migrations:generate": "drizzle-kit generate:pg",
+    "migrations:push": "drizzle-kit push:pg",
     "migrations:drop": "drizzle-kit drop"
   },
   "dependencies": {

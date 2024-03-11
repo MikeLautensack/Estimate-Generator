@@ -1,1 +1,0 @@
-ALTER TABLE `lineItems` RENAME COLUMN `rateType` TO `rate_type`;

@@ -6,8 +6,8 @@ dotenv.config({ path: ".env.local" });
 export default {
   schema: "./src/db/schemas/*",
   out: "./src/db/drizzle",
-  driver: "mysql2",
+  driver: "pg",
   dbCredentials: {
-    connectionString: process.env.DATABASE_URL!,
+    connectionString: process.env.NEON_DB!,
   }
 } satisfies Config
