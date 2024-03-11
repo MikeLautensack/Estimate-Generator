@@ -1,1 +1,0 @@
-ALTER TABLE `changeOrders` RENAME COLUMN `work_address` TO `project_address`;
