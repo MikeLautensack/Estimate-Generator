@@ -1,17 +1,12 @@
-import { drizzle } from "drizzle-orm/planetscale-serverless";
-import { connect } from "@planetscale/database";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
 import dotenv from "dotenv";
 
 dotenv.config({ path: ".env.local" });
  
 // create the connection
-const connection = connect({
-  host: process.env["DATABASE_HOST"],
-  username: process.env["DATABASE_USERNAME"],
-  password: process.env["DATABASE_PASSWORD"],
-});
- 
-const db = drizzle(connection);
+const sql = neon(process.env.NEON_DB!);
+const db = drizzle(sql);
 export type DbClient = typeof db;
 
 export {

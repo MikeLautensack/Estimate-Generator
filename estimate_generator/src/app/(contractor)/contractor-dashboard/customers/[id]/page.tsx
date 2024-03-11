@@ -9,15 +9,15 @@ import { Estimates } from "@/types/estimates";
 
 async function getCustomer(id: number) {
   const res = await db.select()
-                .from(customers)
-                .where(eq(customers.id, id));
+                      .from(customers)
+                      .where(eq(customers.id, id));
   return res;
 }
 
 async function getEstimates(id: number) {
   const res = await db.select()
-                .from(estimates)
-                .where(eq(estimates.customer_id, id));
+                      .from(estimates)
+                      .where(eq(estimates.customer_id, id));
   return res;
 }
 

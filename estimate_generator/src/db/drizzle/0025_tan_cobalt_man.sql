@@ -1,1 +1,0 @@
-ALTER TABLE `changeOrders` ADD `change_order_name` varchar(255);

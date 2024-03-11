@@ -1,4 +1,4 @@
-import { Customers } from "./customers"
+import { Customers } from "./customers";
 
 export type Estimates = {
   id: number,
