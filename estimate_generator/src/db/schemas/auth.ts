@@ -1,9 +1,9 @@
-import type { AdapterAccount } from "@auth/core/adapters"
-import { relations } from 'drizzle-orm'
-import { profiles } from './userProfile'
-import { customers } from './customers'
-import { estimates } from './estimates'
-import { changeOrders } from "./changeOrders"
+import type { AdapterAccount } from "@auth/core/adapters";
+import { relations } from "drizzle-orm";
+import { profiles } from "./userProfile";
+import { customers } from "./customers";
+import { estimates } from "./estimates";
+import { changeOrders } from "./changeOrders";
 import { 
   pgTable, 
   varchar,
@@ -24,26 +24,26 @@ export const users = pgTable (
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),
-})
+});
 
 export const userProfileRelationship = relations(users, ({ one }) => ({
 	profile: one(profiles, {
 		fields: [users.id],
 		references: [profiles.user_id],
 	}),
-}))
+}));
 
 export const customerCustomerRelationship = relations(users, ({ many }) => ({
 	posts: many(customers),
-}))
+}));
 
 export const userEstimateRelationship = relations(users, ({ many }) => ({
 	posts: many(estimates),
-}))
+}));
 
 export const userChangeOrderRelationship = relations(users, ({ many }) => ({
 	posts: many(changeOrders),
-}))
+}));
 
 export const accounts = pgTable (
       "accounts",
@@ -64,7 +64,7 @@ export const accounts = pgTable (
   (account) => ({
     compoundKey: primaryKey(account.provider, account.providerAccountId),
   })
-)
+);
 
 export const sessions = pgTable (
     "sessions", 
@@ -72,7 +72,7 @@ export const sessions = pgTable (
   sessionToken: varchar("sessionToken", { length: 255 }).notNull().primaryKey(),
   userId: varchar("userId", { length: 255 }).notNull(),
   expires: timestamp("expires", { mode: "date" }).notNull(),
-})
+});
 
 export const verificationTokens = pgTable (
     "verificationToken",
@@ -84,4 +84,4 @@ export const verificationTokens = pgTable (
   (vt) => ({
     compoundKey: primaryKey(vt.identifier, vt.token),
   })
-)
+);
