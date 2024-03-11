@@ -8,6 +8,13 @@
       "when": 1710129137100,
       "tag": "0000_common_apocalypse",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1710132750260,
+      "tag": "0001_special_night_thrasher",
+      "breakpoints": true
     }
   ]
 }

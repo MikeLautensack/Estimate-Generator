@@ -3,7 +3,7 @@ import {
   varchar,
   bigint,
   timestamp,
-  numeric,
+  real,
   integer
 } from "drizzle-orm/pg-core";
 import { users } from "./auth";
@@ -22,10 +22,10 @@ import { customers } from "./customers";
     contractorAddress: varchar("contractor_address", { length: 255 }),
     contractorPhone: varchar("contractor_phone", { length: 255 }),
     message: varchar("message", { length: 255 }),
-    subtotal: numeric("subtotal", { precision: 14, scale: 2,}),
-    taxRate: numeric("tax_rate", { precision: 2, scale: 2,}),
-    tax: numeric("tax", { precision: 14, scale: 2,}),
-    total: numeric("total", { precision: 14, scale: 2,}),
+    subtotal: real("subtotal").default(10.10),
+    taxRate: real("tax_rate").default(10.10),
+    tax: real("tax").default(10.10),
+    total: real("total").default(10.10),
     status: varchar("status", { length: 255 }),
     dateCreated: timestamp("date_created", { mode: "date" }).notNull(),
     dateUpdated: timestamp("date_updated", { mode: "date" }).notNull(),
@@ -68,7 +68,7 @@ import { customers } from "./customers";
     quantity:  integer ("quantity"),
     rateType: varchar("rate_type", { length: 255 }),
     price: varchar("price", { length: 255 }),
-    amount: numeric("amount", { precision: 14, scale: 2,}),
+    amount: real("amount").default(10.10),
     dateCreated: timestamp("date_created", { mode: "date" }).notNull().defaultNow(),
     dateUpdated: timestamp("date_updated", { mode: "date" }).notNull().defaultNow(),
     estimate_id: bigint("estimate_id", { mode: "number" })
