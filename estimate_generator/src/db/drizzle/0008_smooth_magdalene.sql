@@ -1,1 +1,0 @@
-ALTER TABLE `estimates` ADD `customer_id` bigint;
