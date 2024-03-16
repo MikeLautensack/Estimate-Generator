@@ -20,7 +20,7 @@ async function getProfile() {
   return res;
 }
 
-export default async function Page() {
+const Page = async () => {
 
   const customers = await getCustomers();
   const profile = await getProfile();
@@ -38,3 +38,5 @@ export default async function Page() {
     </main>
   );
 }
+
+export default Page;

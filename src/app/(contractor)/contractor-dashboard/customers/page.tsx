@@ -16,7 +16,7 @@ async function getData(session: any) {
   return res;
 }
 
-export default async function Page() {
+const Page = async () => {
 
   const session = await getServerSession(authOptions);
   const data = await getData(session) as Customers[];
@@ -39,3 +39,5 @@ export default async function Page() {
     </main>
   );
 }
+
+export default Page;

@@ -1,7 +1,24 @@
 'use client'
 
-import { ColumnDef, flexRender, SortingState, ColumnFiltersState, getCoreRowModel, getSortedRowModel, getFilteredRowModel, useReactTable, getPaginationRowModel, RowSelectionState } from "@tanstack/react-table"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { 
+  flexRender, 
+  SortingState, 
+  ColumnFiltersState, 
+  getCoreRowModel, 
+  getSortedRowModel, 
+  getFilteredRowModel, 
+  useReactTable, 
+  getPaginationRowModel, 
+  RowSelectionState 
+} from "@tanstack/react-table"
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "@/components/ui/table"
 import { TableProps } from "@/types/types"
 import EstimatesPagination from "./EstimatesPagination"
 import { useState } from "react"

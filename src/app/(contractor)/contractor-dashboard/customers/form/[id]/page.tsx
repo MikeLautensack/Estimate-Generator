@@ -11,7 +11,7 @@ async function getData(id: number) {
   return res;
 }
 
-export default async function page({ params }: { params: { id: string } }) {
+const Page = async ({ params }: { params: { id: string } }) => {
 
   const data = await getData(parseInt(params.id)) as Customers[];
 
@@ -26,3 +26,5 @@ export default async function page({ params }: { params: { id: string } }) {
     </main>
   );
 }
+
+export default Page;

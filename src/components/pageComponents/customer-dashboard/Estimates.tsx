@@ -14,7 +14,7 @@ async function getData(session: any) {
   return res;
 }
 
-export default async function Estimates() {
+const Estimates = async () => {
 
   const session = await getServerSession(authOptions);
   const data = await getData(session) as Estimates[];
@@ -28,3 +28,5 @@ export default async function Estimates() {
     </div>
   );
 }
+
+export default Estimates;

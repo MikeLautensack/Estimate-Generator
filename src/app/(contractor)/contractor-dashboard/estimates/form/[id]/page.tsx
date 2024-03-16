@@ -9,6 +9,7 @@ import EstimateForm from "@/components/forms/EstimateForm";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { ChangeOrders } from "@/types/changeOrders";
 import ChangeOrderRequests from "@/components/misc/ChangeOrderRequests";
+import { checkChangeOrders, createArray } from "@/utils/changeOrderUtils";
 
 async function getEstimate(id: number) {
   const estimateTableData = await db.select()
@@ -45,43 +46,13 @@ async function getChangeOrders(id: number) {
   return res;
 }
 
-export default async function page({ params }: { params: { id: string } }) {
+const Page = async ({ params }: { params: { id: string } }) => {
 
   const session = await getServerSession(authOptions);
   const estimate = await getEstimate(parseInt(params.id));
   const customers = await getCustomers(session.user.id);
   const profile = await getProfile(session.user.id);
   const changeOrders = await getChangeOrders(parseInt(params.id)) as ChangeOrders[];
-
-  const checkChangeOrders = (orders: ChangeOrders[]): boolean => {
-    if (!orders || orders.length === 0) {
-      return false;
-    }
-    if (!orders.some(order => order.status === "Pending Approval" || order.status === "Saved For Later")) {
-      return false;
-    }
-    return true;
-  };
-  
-  const createArray = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
-
-    const arr = sortChangeOrders(changeOrders);
-
-    const array = arr.filter(order => {
-      if (order.status == "Pending Approval") {
-        return true;
-      } else if (order.status == "Saved For Later") {
-        return true;
-      } else {
-        return false;
-      }
-    });
-    return array;
-  };
-  
-  const sortChangeOrders = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
-    return changeOrders.sort((a, b) => b.dateUpdated!.getTime() - a.dateUpdated!.getTime());
-  };
 
   return (
     <main className="flex flex-col desktop:w-[calc(100vw-256px)] desktop:flex-row-reverse gap-4 bg-neutral400 min-h-[calc(100vh-56px)] relative desktop:gap-0">
@@ -98,3 +69,5 @@ export default async function page({ params }: { params: { id: string } }) {
     </main>
   );
 }
+
+export default Page;

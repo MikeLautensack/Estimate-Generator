@@ -15,27 +15,20 @@ async function getEstimate(id: number) {
   }
 }
 
-export default async function page({
+const Page = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
-}) {
+}) => {
   
-  const changeOrderId = searchParams.changeOrderId;
-  const estimateId = searchParams.estimateId;
-  const estimateResponse = await getEstimate(parseInt(estimateId as string));
-
-  let estimate;
-  if (estimateResponse && estimateResponse.length > 0) {
-    estimate = estimateResponse[0];
-  } 
+  const estimateResponse = await getEstimate(parseInt(searchParams.estimateId as string));
 
   const data = {
-    estimateName: estimate?.estimateName,
-    projectAddress: estimate?.projectAddress,
-    contractor_user_id: estimate?.contractor_user_id,
-    customer_user_id: estimate?.customer_user_id,
-    change_order_id: parseInt(changeOrderId as string),
+    estimateName: estimateResponse![0]?.estimateName,
+    projectAddress: estimateResponse![0]?.projectAddress,
+    contractor_user_id: estimateResponse![0]?.contractor_user_id,
+    customer_user_id: estimateResponse![0]?.customer_user_id,
+    change_order_id: parseInt(searchParams.changeOrderId as string),
     mode: "put"
   };
 
@@ -45,3 +38,5 @@ export default async function page({
     </main>
   );
 }
+
+export default Page;
