@@ -1,12 +1,11 @@
 "use client"
 
 import { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { customerFormProps } from "../../types/formTypes";
 import { Button } from "../ui/button";
 import { CustomerForm } from "@/types/customers";
-import { useRouter } from "next/navigation";
-import { onSubmit } from "@/utils/formUtils/customerForm";
+import { submitCustomer } from "@/utils/formUtils/customerForm";
 
 const CustomerForm = ({data}: CustomerForm) => {
   const {
@@ -15,8 +14,6 @@ const CustomerForm = ({data}: CustomerForm) => {
     setValue,
     formState: { errors },
   } = useForm<customerFormProps>();
-
-  const router = useRouter();
 
   useEffect(() =>{
       if(data != null) {
@@ -27,11 +24,10 @@ const CustomerForm = ({data}: CustomerForm) => {
       }
   }, [])
 
-
   return (
     <form
         className="bg-neutral100 rounded-lg p-4 flex flex-col gap-2 w-full mx-4 tablet:w-1/2"
-        onSubmit={handleSubmit(onSubmit({data, router}))}
+        onSubmit={handleSubmit(submitCustomer(data))}
     >
         <div className="flex flex-col gap-1 border-b border-blue-700">
             <label>name</label>

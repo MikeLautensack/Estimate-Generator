@@ -22,7 +22,7 @@ async function getData(id: number) {
   }
 }
 
-export default async function page({ params }: { params: { id: string } }) {
+const Page = async ({ params }: { params: { id: string } }) => {
 
   const data = await getData(parseInt(params.id)) as Estimates;
 
@@ -34,3 +34,5 @@ export default async function page({ params }: { params: { id: string } }) {
     </main>
   );
 }
+
+export default Page;
