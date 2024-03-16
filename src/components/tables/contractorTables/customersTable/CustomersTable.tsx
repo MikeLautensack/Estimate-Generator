@@ -1,7 +1,6 @@
 'use client'
 
 import {
-  ColumnDef,
   flexRender,
   SortingState,
   ColumnFiltersState,
@@ -16,7 +15,6 @@ import {
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
