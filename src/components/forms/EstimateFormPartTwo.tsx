@@ -7,6 +7,7 @@ import EstimateFormTable from "../tables/contractorTables/estimateFormTable/Esti
 import TaxSelector from "../misc/TaxSelector";
 import { formatPriceString } from "@/utils/formatingFunctions";
 import { EstimateFormPartTwoProps } from "@/types/estimates";
+import { applyTotal } from "@/utils/formUtils/estimateFormUtils";
 
 const EstimateFormPartTwo = ({
     customers,
@@ -14,7 +15,6 @@ const EstimateFormPartTwo = ({
     fields,
     prepend,
     remove,
-    estimate,
     methods,
     preview,
     save,
@@ -34,28 +34,12 @@ const EstimateFormPartTwo = ({
 
   const { 
     register, 
-    watch, 
     setValue, 
     getValues, 
-    control 
 } = useFormContext();
 
-  const calculateTotal = (): number => {
-    let num = 0;
-    for(let i = 0; i < fields.length; i++) {
-        num += getValues(`lineItems.${i}.amount`);
-    }
-    return num;
-  }
-
-  const applyTotal = () => {
-    const calculatedTotal = calculateTotal();
-    setSubtotal(calculatedTotal);
-    setValue("subtotal", calculatedTotal);
-  }
-
   useEffect(() => {
-    applyTotal();
+    applyTotal(setSubtotal, setValue, getValues, fields);
   }, [fields])
 
   useEffect(() => {

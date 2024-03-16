@@ -1,35 +1,47 @@
 "use client";
 
 import { TableCell, TableRow } from "@/components/ui/table";
-import React, { useState,  useEffect } from "react";
+import { useState,  useEffect } from "react";
 import { LineItemFormFieldProps } from "@/types/estimates";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from "@/components/ui/select";
 import { useFormContext } from "react-hook-form";
 import { formatPriceString } from "@/utils/formatingFunctions";
 import { FaTrashAlt } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { 
+  FormControl, 
+  FormField, 
+  FormItem, 
+  FormLabel 
+} from "@/components/ui/form";
+import { calculateAmount } from "@/utils/formUtils/estimateFormUtils";
 
 const LineItemFormField = ({
-    field,
     fields,
     index,
     applyTotal,
     remove
 }: LineItemFormFieldProps) => {
 
-  const { register, watch, setValue, getValues, control } = useFormContext();
-  const [ amount, setAmount ] = useState(0);
+  const { 
+    register, 
+    watch, 
+    setValue, 
+    getValues, 
+    control 
+  } = useFormContext();
 
-  const calculateAmount = (quantity: number, price: number): number => {
-    const result = quantity * price;
-    setAmount(result);
-    return result;
-  }
+  const [ amount, setAmount ] = useState(0);
 
   useEffect(() => {
     watch(() => {
-      const amount = calculateAmount(watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const));
+      const amount = calculateAmount(watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const), setAmount);
     })
     setValue(`lineItems.${index}.amount`, amount);
   }, [watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const), fields]);

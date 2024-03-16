@@ -7,12 +7,10 @@ import EstimateFormPartOne from "./EstimateFormPartOne";
 import EstimateFormPartTwo from "./EstimateFormPartTwo";
 import { 
   FormProvider, 
-  SubmitHandler, 
   useFieldArray, 
   useForm 
 } from "react-hook-form";
-import { Customers } from "@/types/customers";
-import { redirect } from "next/navigation";
+import { preview, save, saveAndSend } from "@/utils/formUtils/estimateFormUtils";
 
 const EstimateForm = ({
   estimate,
@@ -38,6 +36,7 @@ const EstimateForm = ({
   });
 
   const control = methods.control;
+
   const { 
     fields, 
     prepend, 
@@ -46,69 +45,6 @@ const EstimateForm = ({
     control,
     name: "lineItems"
   });
-
-  const getCustomerUserID = (customers: Customers[], id: number) => {
-    for(let i = 0; i < customers.length; i++) {
-      if(customers[i].id == id) {
-        return customers[i].customer_user_id;
-      }
-    }
-  }
-
-  const preview: SubmitHandler<EstimateFormValues> = async (data) => {
-
-    // testing the function
-    console.log("preview");
-    
-    // Check if form is in create mode or edit mode
-    if(estimate) {
-      // create query string
-      // const queryString = new URLSearchParams(data).toString()
-      // console.log('q string', queryString)
-      // redirect to /contractor-dashboard/estimates/xxxxxxx
-      redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`);
-    } else {
-      // redirect to /contractor-dashboard/estimates/xxxxxxx
-      redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`);
-    }
-  }
-
-  const save: SubmitHandler<EstimateFormValues> = async (data) => {
-    console.log("save");
-  }
-
-  const saveAndSend: SubmitHandler<EstimateFormValues> = async (data) => {
-    console.log("save and send");
-  }
-
-  const onSubmit: SubmitHandler<EstimateFormValues> = async (data) => {
-    console.log(data);
-    const customer_user_id = getCustomerUserID(customers, data.customer_id as number);
-    if(estimate) {
-      const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_EDIT_URL"]}/${estimate.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          ...data,
-          status: "Work In Progress (edited)"
-        })
-      });
-    } else {
-      const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_CREATE_URL"]}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          ...data,
-          customer_user_id,
-          status: "Work In Progress"
-        })
-      });
-    }
-  }
 
   useEffect(() => {
     if(estimate) {

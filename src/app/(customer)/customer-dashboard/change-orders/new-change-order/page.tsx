@@ -15,11 +15,11 @@ async function getEstimate(id: number) {
   }
 }
 
-export default async function page({
+const Page = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
-}) {
+}) => {
 
   const estimateId = searchParams.estimateId;
   const estimateResponse = await getEstimate(parseInt(estimateId as string));
@@ -45,3 +45,5 @@ export default async function page({
     </main>
   );
 }
+
+export default Page;

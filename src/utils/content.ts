@@ -62,7 +62,7 @@ export const features = [
     {
       _id: "3",
       question: "How do I suggest a new feature or report a bug?",
-      answer: "fgafgagafgafgafgafgafggdfgfdgffag",
+      answer: "fgafgagafgafgafgafgafggdfgfdgffdsfsdfdfsdfag",
       opened: false
     },
     {
