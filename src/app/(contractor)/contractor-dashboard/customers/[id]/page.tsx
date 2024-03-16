@@ -21,7 +21,7 @@ async function getEstimates(id: number) {
   return res;
 }
 
-export default async function page({ params }: { params: { id: string } }) {
+const Page = async ({ params }: { params: { id: string } }) => {
   
   const customer = await getCustomer(parseInt(params.id));
   const estimates = await getEstimates(parseInt(params.id)) as Estimates[];
@@ -51,3 +51,5 @@ export default async function page({ params }: { params: { id: string } }) {
     </main>
   );
 }
+
+export default Page;
