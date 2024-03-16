@@ -14,7 +14,7 @@ async function getData(session: any) {
   return res;
 }
 
-export default async function ChangeOrders() {
+const ChangeOrders = async () => {
 
   const session = await getServerSession(authOptions);
   const data = await getData(session) as ChangeOrders[];
@@ -28,3 +28,5 @@ export default async function ChangeOrders() {
     </div>
   );
 }
+
+export default ChangeOrders;

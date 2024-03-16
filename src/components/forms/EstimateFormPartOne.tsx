@@ -13,7 +13,6 @@ const EstimateFormPartOne = ({
   const { 
     register, 
     watch, 
-    setValue, 
     getValues, 
     control 
   } = useFormContext();
