@@ -3,6 +3,7 @@ import { db } from "../../../../db";
 import { users } from "../../../../db/schemas/auth";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
+import { signIn } from "next-auth/react";
 
 export async function POST(request: NextRequest) {
     const data = await request.json();
@@ -21,6 +22,7 @@ export async function POST(request: NextRequest) {
         name: data.name,
         email: data.email,
         password: data.password == null || undefined ? null : bcrypt.hashSync(data.password, 10),
+        newUser: true,
         role: data.role,
         emailVerified: null,
         createdAt: new Date(),
@@ -31,5 +33,6 @@ export async function POST(request: NextRequest) {
                             .from(users)
                             .where(eq(users.id, id));
 
-    return NextResponse.json({newUser});
+
+    return NextResponse.json(newUser);
 }

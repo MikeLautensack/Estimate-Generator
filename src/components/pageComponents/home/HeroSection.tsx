@@ -35,16 +35,16 @@ export default function HeroSection() {
               <Link
                   id="signup-button"
                   className="flex flex-1 py-2 px-16 rounded-full justify-center font-semibold bg-blue-500 text-secondary500 desktop:flex-none"
-                  href="/register"
+                  href="/signup"
               >
                 Sign Up
               </Link>
               <Link
-                  id="login-button"
+                  id="signin-button"
                   className="flex flex-1 py-2 rounded-full justify-center font-semibold border-2 border-blue-500 text-secondary500 desktop:hidden"
-                  href="/login"
+                  href="/signin"
               >
-                  Log In
+                Sign In
               </Link>
             </div>
           </motion.div>

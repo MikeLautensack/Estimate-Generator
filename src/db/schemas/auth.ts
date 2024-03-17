@@ -10,7 +10,8 @@ import {
   primaryKey,
   timestamp,
   integer,
-  text
+  text,
+  boolean
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable (
@@ -21,6 +22,7 @@ export const users = pgTable (
   email: varchar("email", { length: 255 }).notNull(),
   password: varchar("password", { length: 255 }),
   role: varchar("role", { length: 255 }),
+  newUser: boolean("new_user"),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),
