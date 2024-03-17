@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   flexRender,
@@ -10,8 +10,7 @@ import {
   getFilteredRowModel,
   useReactTable,
   getPaginationRowModel,
-} from "@tanstack/react-table"
-
+} from "@tanstack/react-table";
 import {
   Table,
   TableBody,
@@ -19,21 +18,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-
-import { TableProps } from "@/types/types"
-import { useState } from "react"
-import { Input } from "../../../ui/input"
-import ChangeOrdersPagination from "./ChangeOrdersPagination"
+} from "@/components/ui/table";
+import { TableProps } from "@/types/types";
+import { useState } from "react";
+import { Input } from "../../../ui/input";
+import ChangeOrdersPagination from "./ChangeOrdersPagination";
 
 export default function ChangeOrdersTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {
 
-  const [ sorting, setSorting ] = useState<SortingState>([])
-  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([])
-  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({})
+  const [ sorting, setSorting ] = useState<SortingState>([]);
+  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([]);
+  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({});
   const table = useReactTable({
     data,
     columns,
@@ -49,7 +47,7 @@ export default function ChangeOrdersTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel()
-  })
+  });
 
   return (
     <div className="flex flex-col gap-4">

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { 
   flexRender, 
@@ -10,7 +10,7 @@ import {
   useReactTable, 
   getPaginationRowModel, 
   RowSelectionState 
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 import { 
   Table, 
   TableBody, 
@@ -18,20 +18,20 @@ import {
   TableHead, 
   TableHeader, 
   TableRow 
-} from "@/components/ui/table"
-import { TableProps } from "@/types/types"
-import EstimatesPagination from "./EstimatesPagination"
-import { useState } from "react"
-import { Input } from "../../../ui/input"
+} from "@/components/ui/table";
+import { TableProps } from "@/types/types";
+import EstimatesPagination from "./EstimatesPagination";
+import { useState } from "react";
+import { Input } from "../../../ui/input";
 
 export default function EstimatesTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {
 
-  const [ sorting, setSorting ] = useState<SortingState>([])
-  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([])
-  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({})
+  const [ sorting, setSorting ] = useState<SortingState>([]);
+  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([]);
+  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({});
   const table = useReactTable({
     data,
     columns,
@@ -47,7 +47,7 @@ export default function EstimatesTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel()
-  })
+  });
 
   return (
     <div className="flex flex-col gap-4">

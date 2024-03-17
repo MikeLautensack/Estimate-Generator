@@ -15,6 +15,27 @@
       "when": 1710132750260,
       "tag": "0001_special_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1710623402094,
+      "tag": "0002_typical_kang",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1710623656533,
+      "tag": "0003_grey_johnny_storm",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1710623683670,
+      "tag": "0004_silent_skrulls",
+      "breakpoints": true
     }
   ]
 }
