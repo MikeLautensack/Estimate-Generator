@@ -142,9 +142,9 @@ const EstimateFormPartTwo = ({
                         prepend({
                             item: "",
                             description: "",
-                            quantity: null,
+                            quantity: 0,
                             rateType: "unit",
-                            price: null,
+                            price: 0,
                             amount: 0
                         })
                     }}
@@ -156,6 +156,7 @@ const EstimateFormPartTwo = ({
                     fields={fields}
                     applyTotal={applyTotal}
                     remove={remove}
+                    setSubtotal={setSubtotal}
                 />
             </div>
             <div className="flex flex-col desktop:flex-row gap-4">

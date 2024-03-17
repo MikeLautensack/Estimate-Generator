@@ -26,7 +26,8 @@ const LineItemFormField = ({
     fields,
     index,
     applyTotal,
-    remove
+    remove,
+    setSubtotal
 }: LineItemFormFieldProps) => {
 
   const { 
@@ -41,13 +42,13 @@ const LineItemFormField = ({
 
   useEffect(() => {
     watch(() => {
-      const amount = calculateAmount(watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const), setAmount);
+      calculateAmount(watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const), setAmount);
     })
     setValue(`lineItems.${index}.amount`, amount);
   }, [watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const), fields]);
 
   useEffect(() => {
-    applyTotal();
+    applyTotal(setSubtotal, setValue, getValues, fields);
   }, [watch(`lineItems.${index}.amount` as const)])
 
   useEffect(() => {

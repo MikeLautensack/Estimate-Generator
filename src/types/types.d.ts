@@ -1,6 +1,6 @@
-import { ColumnDef, Table } from '@tanstack/react-table'
-import { Dispatch } from 'react'
-import { ChangeOrders } from './changeOrders'
+import { ColumnDef, Table } from "@tanstack/react-table";
+import { Dispatch } from "react";
+import { ChangeOrders } from "./changeOrders";
 
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> { 
@@ -79,7 +79,7 @@ export type TableProps<TData, TValue> = {
 
 export type ChangeOrderRequestsTableProps<TData, TValue> = {
     data: ChangeOrders[],
-    setId?: any
+    setId: Dispatch<SetStateAction<number | null>>,
     id: number
 }
 
@@ -101,7 +101,7 @@ export type lineItem = {
 }
 
 export type estimatesChartArrayProps = {
-    chartArray: any[]
+    chartArray: Estimates[]
 }
 
 export type chartArrayObj = {

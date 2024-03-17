@@ -24,23 +24,23 @@ export type Estimates = {
 }
 
 export type LineItems = {
-  id: number,
+  id?: number,
   item: string,
   description: string,
   quantity: number,
   rateType: string,
-  price: any,
-  amount: any
+  price: number,
+  amount: number
   dateCreated?: Date,
   dateUpdated?: Date,
-  estimate_id?: number
+  estimate_id?: number,
 }
 
 export type EstimateFormProps = {
-  estimate: any
-  customers: any,
-  profile: any
-  changeOrders?: any
+  estimate: Estimate,
+  customers: Customer,
+  profile: Profile,
+  changeOrders?: ChangeOrder[],
 }
 
 export type EstimateFormValues = {
@@ -66,38 +66,40 @@ export type EstimateFormPartOneProps = {
 
 export type EstimateFormPartTwoProps = {
   customers: Customers[],
-  profile: any,
-  fields: any,
-  prepend: any,
-  remove: any
-  changeOrders: any
-  estimate: any,
+  profile: Profile,
+  fields: LineItems[],
+  prepend: (obj: LineItems | LineItems[]) => void,
+  remove: (index?: number | number[]) => void,
+  changeOrders: ChangeOrder[]
+  estimate: Estimate,
   methods: any,
-  preview: any,
-  save: any,
-  saveAndSend: any
+  preview: (estimates: Estimates) => SubmitHandler<EstimateFormValues>,
+  save: SubmitHandler<EstimateFormValues>,
+  saveAndSend: SubmitHandler<EstimateFormValues>
 }
 
 export type EstimateFormTableProps = {
-  fields: any
-  applyTotal: any,
-  remove: any
+  fields: LineItems[]
+  applyTotal: (setSubtotal: Dispatch<SetStateAction<number | null>>, setValue: (name: string, value: unknown, config?: Object) => void, getValues: (payload?: string | string[]) => string, fields: LineItems[]) => void,
+  remove: (index?: number | number[]) => void,
+  setSubtotal: Dispatch<SetStateAction<number | null>>
 }
 
 export type LineItemFormFieldProps = {
-  field: any,
-  fields: any,
-  index: any,
-  applyTotal: any,
-  remove: any
+  field: LineItems,
+  fields: LineItems[],
+  index: number,
+  applyTotal: (setSubtotal: Dispatch<SetStateAction<number | null>>, setValue: (name: string, value: unknown, config?: Object) => void, getValues: (payload?: string | string[]) => string, fields: LineItems[]) => void,
+  remove: (index?: number | number[]) => void,
+  setSubtotal: Dispatch<SetStateAction<number | null>>
 }
 
 export type TaxSelectorProps = {
-  taxRate: any,
-  setTaxRate: any
+  taxRate: number,
+  setTaxRate: Dispatch<SetStateAction<number | null>>
 }
 
 export type EstimateFormPartOneSelectProps = {
-  customers: any,
-  field: any
+  customers: Customers[],
+  field: ControllerRenderProps<FieldValues, "customer_id">
 }

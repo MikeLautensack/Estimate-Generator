@@ -1,20 +1,37 @@
-'use client'
+"use client";
 
-import { ColumnDef, flexRender, SortingState, ColumnFiltersState, getCoreRowModel, getSortedRowModel, getFilteredRowModel, useReactTable, getPaginationRowModel, RowSelectionState } from "@tanstack/react-table"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { TableProps } from "@/types/types"
-import EstimatesPagination from "./EstimatesPagination"
-import { useState } from "react"
-import { Input } from "../../../ui/input"
+import { 
+  flexRender, 
+  SortingState, 
+  ColumnFiltersState, 
+  getCoreRowModel, 
+  getSortedRowModel, 
+  getFilteredRowModel, 
+  useReactTable, 
+  getPaginationRowModel, 
+  RowSelectionState 
+} from "@tanstack/react-table";
+import { 
+  Table, 
+  TableBody,
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "@/components/ui/table";
+import { TableProps } from "@/types/types";
+import EstimatesPagination from "./EstimatesPagination";
+import { useState } from "react";
+import { Input } from "../../../ui/input";
 
 export default function EstimatesTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {
 
-  const [ sorting, setSorting ] = useState<SortingState>([])
-  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([])
-  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({})
+  const [ sorting, setSorting ] = useState<SortingState>([]);
+  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([]);
+  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({});
   const table = useReactTable({
     data,
     columns,
@@ -30,7 +47,7 @@ export default function EstimatesTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel()
-  })
+  });
 
   return (
     <div className="">

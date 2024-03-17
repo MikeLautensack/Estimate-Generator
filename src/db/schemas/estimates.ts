@@ -67,7 +67,7 @@ import { customers } from "./customers";
     description: varchar("description", { length: 255 }),
     quantity:  integer ("quantity"),
     rateType: varchar("rate_type", { length: 255 }),
-    price: varchar("price", { length: 255 }),
+    price: real("price").default(10.10),
     amount: real("amount").default(10.10),
     dateCreated: timestamp("date_created", { mode: "date" }).notNull().defaultNow(),
     dateUpdated: timestamp("date_updated", { mode: "date" }).notNull().defaultNow(),
