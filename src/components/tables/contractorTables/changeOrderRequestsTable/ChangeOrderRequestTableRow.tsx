@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { TableCell, TableRow } from '@/components/ui/table'
-import { ChangeOrderRequestRowProps } from '@/types/changeOrders'
-import React, { useEffect, useState } from 'react'
+import { TableCell, TableRow } from "@/components/ui/table";
+import { ChangeOrderRequestRowProps } from "@/types/changeOrders";
+import { useEffect, useState } from "react";
 
 const ChangeOrderRequestTableRow = ({ 
   orderRequest, 
@@ -11,7 +11,7 @@ const ChangeOrderRequestTableRow = ({
   id,
 }: ChangeOrderRequestRowProps) => {
 
-  const [ selectedState, setSelectedState ] = useState(false)
+  const [ selectedState, setSelectedState ] = useState(false);
 
   useEffect(() => {
     for (const key in ordersSelectedState) {
@@ -22,7 +22,7 @@ const ChangeOrderRequestTableRow = ({
   }, [ordersSelectedState])
 
   const handleOnClick = () => {
-    let obj = {...ordersSelectedState}
+    let obj = {...ordersSelectedState};
     for (const key in obj) {
       if (parseInt(key) == id) {
         obj[key] = true
@@ -30,13 +30,17 @@ const ChangeOrderRequestTableRow = ({
         obj[key] = false
       }
     }
-    setOrdersSelectedState(obj)
+    setOrdersSelectedState(obj);
   }
 
   return (
-    <TableRow className={`${selectedState ? 'border border-red-500' : ''}`}>
+    <TableRow className={`${selectedState ? "border border-red-500" : ""}`}>
       <TableCell>
-        <input checked={selectedState} type='checkbox' onChange={handleOnClick}></input>
+        <input 
+          checked={selectedState} 
+          type="checkbox" 
+          onChange={handleOnClick}
+        ></input>
       </TableCell>
       <TableCell>
         {orderRequest.name}
@@ -50,4 +54,4 @@ const ChangeOrderRequestTableRow = ({
     </TableRow>
   )
 }
-export default ChangeOrderRequestTableRow
+export default ChangeOrderRequestTableRow;

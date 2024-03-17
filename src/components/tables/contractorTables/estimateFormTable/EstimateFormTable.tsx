@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { 
   Table, 
@@ -6,15 +6,16 @@ import {
   TableHead, 
   TableHeader, 
   TableRow 
-} from "@/components/ui/table"
-import React from 'react'
-import { EstimateFormTableProps } from '../../../../types/estimates'
-import LineItemFormField from "../../../forms/LineItemFormField"
+} from "@/components/ui/table";
+import React from "react";
+import { EstimateFormTableProps } from "../../../../types/estimates";
+import LineItemFormField from "../../../forms/LineItemFormField";
 
 const EstimateFormTable = ({ 
   fields,
   applyTotal,
-  remove
+  remove,
+  setSubtotal
 }: EstimateFormTableProps) => {
   return (
     <div className="flex bg-neutral400 rounded-lg border-2 border-neutral400">
@@ -41,6 +42,7 @@ const EstimateFormTable = ({
               index={index}
               applyTotal={applyTotal}
               remove={remove}
+              setSubtotal={setSubtotal}
             />
           ))}
         </TableBody>

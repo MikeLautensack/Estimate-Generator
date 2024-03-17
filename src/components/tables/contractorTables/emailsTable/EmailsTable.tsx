@@ -1,26 +1,22 @@
-'use client'
+"use client";
 
 import {
-  ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
-} from "@tanstack/react-table"
-
+} from "@tanstack/react-table";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-
-import { TableProps } from "@/types/types"
-import EmailsPagination from "./EmailsPagination"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/table";
+import { TableProps } from "@/types/types";
+import EmailsPagination from "./EmailsPagination";
+import { Button } from "@/components/ui/button";
 
 export default function ChangeOrdersTable<TData, TValue>({
   columns,

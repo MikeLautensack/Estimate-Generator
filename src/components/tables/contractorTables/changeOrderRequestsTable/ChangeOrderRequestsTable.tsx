@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Table,
@@ -6,11 +6,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
-import { ChangeOrderRequestsTableProps } from "@/types/types"
-import { useEffect, useState } from "react"
-import ChangeOrderRequestTableRow from "./ChangeOrderRequestTableRow"
+import { ChangeOrderRequestsTableProps } from "@/types/types";
+import { useEffect, useState } from "react";
+import ChangeOrderRequestTableRow from "./ChangeOrderRequestTableRow";
 
 export default function ChangeOrderRequestsTable<TData, TValue>({
   data,

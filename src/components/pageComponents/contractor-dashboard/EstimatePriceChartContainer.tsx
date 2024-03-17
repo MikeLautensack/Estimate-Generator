@@ -18,7 +18,7 @@ async function getDataTestOne(id: number) {
     }
 }
 
-export default async function EstimatePriceChartContainer() {
+const EstimatePriceChartContainer = async () => {
 
   const session = await getServerSession(authOptions);
   const data = await getDataTestOne(session.user.id);
@@ -84,3 +84,5 @@ export default async function EstimatePriceChartContainer() {
     </div>
   );
 }
+
+export default EstimatePriceChartContainer;
