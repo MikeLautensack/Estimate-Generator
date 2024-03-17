@@ -1,6 +1,7 @@
 import { Customers } from "@/types/customers";
-import { EstimateFormValues, Estimates } from "@/types/estimates";
+import { EstimateFormValues, Estimates, LineItems } from "@/types/estimates";
 import { redirect } from "next/navigation";
+import { Dispatch, SetStateAction } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 const preview: (estimate: Estimates) => SubmitHandler<EstimateFormValues> = (estimate: Estimates) => async (data: EstimateFormValues) => {
@@ -26,7 +27,7 @@ const saveAndSend: SubmitHandler<EstimateFormValues> = async (data) => {
   console.log("save and send");
 }
 
-const onSubmit: ({ estimate, customers }: { estimate: any, customers: any}) => SubmitHandler<EstimateFormValues> = ({ estimate, customers }) => async (data: EstimateFormValues) => {
+const onSubmit: ({ estimate, customers }: { estimate: Estimates, customers: Customers[]}) => SubmitHandler<EstimateFormValues> = ({ estimate, customers }) => async (data: EstimateFormValues) => {
   const customer_user_id = getCustomerUserID(customers, data.customer_id as number);
   if(estimate) {
     await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_EDIT_URL"]}/${estimate.id}`, {
@@ -62,21 +63,33 @@ const getCustomerUserID = (customers: Customers[], id: number) => {
   }
 }
 
-const calculateTotal = (getValues: any, fields: any): number => {
+const calculateTotal = (
+  getValues: (payload?: string | string[]) => string, 
+  fields: LineItems[]
+): number => {
   let num = 0;
   for(let i = 0; i < fields.length; i++) {
-      num += getValues(`lineItems.${i}.amount`);
+      num += parseInt(getValues(`lineItems.${i}.amount`));
   }
   return num;
 }
 
-const applyTotal = (setSubtotal: any, setValue: any, getValues: any, fields: any) => {
+const applyTotal = (
+  setSubtotal: Dispatch<SetStateAction<number>>,
+  setValue: (name: string, value: unknown, config?: Object) => void, 
+  getValues: (payload?: string | string[]) => string, 
+  fields: LineItems[]
+) => {
   const calculatedTotal = calculateTotal(getValues, fields);
   setSubtotal(calculatedTotal);
   setValue("subtotal", calculatedTotal);
 }
 
-const calculateAmount = (quantity: number, price: number, setAmount: any): number => {
+const calculateAmount = (
+  quantity: number, 
+  price: number, 
+  setAmount: Dispatch<SetStateAction<number>>
+): number => {
   const result = quantity * price;
   setAmount(result);
   return result;

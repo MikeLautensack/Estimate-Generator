@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { LineItems } from "@/types/estimates"
-import { Button } from "../../../ui/button"
-import { ArrowUpDown } from "lucide-react"
+import { ColumnDef } from "@tanstack/react-table";
+import { LineItems } from "@/types/estimates";
+import { Button } from "../../../ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 export const columns: ColumnDef<LineItems>[] = [
   {

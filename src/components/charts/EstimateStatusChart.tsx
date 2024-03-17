@@ -41,7 +41,7 @@ const EstimateStatusChart = ({chartArray}: estimatesChartArrayProps) => {
                 <Legend verticalAlign="top" height={36}/>
                 <Pie 
                     data={chartArray} 
-                    dataKey='value' 
+                    dataKey="value" 
                     nameKey="name"
                     cx="50%"
                     cy="50%"

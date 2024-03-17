@@ -23,8 +23,8 @@ export type ChangeOrderRequestProps = {
 
 export type ChangeOrderRequestRowProps = {
     orderRequest: ChangeOrderRequest,
-    setOrdersSelectedState: any,
-    ordersSelectedState: any
+    setOrdersSelectedState: Dispatch<SetStateAction<{ [key: number]: boolean}>>,
+    ordersSelectedState: { [key: number]: boolean; }
     id: number
 }
 export type ChangeOrderRequest = {

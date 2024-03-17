@@ -1,13 +1,20 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { Customers } from "@/types/customers"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../ui/dropdown-menu"
-import { Button } from "../../../ui/button"
-import { Checkbox } from "../../../ui/checkbox"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import Link from 'next/link';
-import { useRouter } from 'next/navigation'
+import { ColumnDef } from "@tanstack/react-table";
+import { Customers } from "@/types/customers";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuLabel, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from "../../../ui/dropdown-menu";
+import { Button } from "../../../ui/button";
+import { Checkbox } from "../../../ui/checkbox";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const columns: ColumnDef<Customers>[] = [
   {

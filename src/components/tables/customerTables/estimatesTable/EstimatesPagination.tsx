@@ -3,20 +3,16 @@ import {
   ChevronRightIcon,
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
-} from "@radix-ui/react-icons"
-
-
-import { Button } from "../../../ui/button"
-
+} from "@radix-ui/react-icons";
+import { Button } from "../../../ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../ui/select"
-
-import { DataTablePaginationProps } from '../../../../types/types'
+} from "../../../ui/select";
+import { DataTablePaginationProps } from "../../../../types/types";
 
 export default function EstimatePagination<TData>({
   table,
