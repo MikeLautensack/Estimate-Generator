@@ -8,6 +8,7 @@ import EstimateStatusChartContainer from "@/components/pageComponents/contractor
 import EstimatePriceChartContainer from "@/components/pageComponents/contractor-dashboard/EstimatePriceChartContainer";
 
 const Page = () => {
+
   return (
     <main className="flex-1 p-4 flex flex-col gap-4 bg-neutral400 min-h-screen">
         <h1 className="text-2xl desktop:text-[42px] font-bold text-black">Dashboard</h1>

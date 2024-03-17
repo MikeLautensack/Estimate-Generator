@@ -6,9 +6,9 @@ import Button from "../misc/Button";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { LoginFormValues } from "@/types/types";
-import { onSubmit } from "@/utils/formUtils/loginForm";
+import { onSubmit } from "@/utils/formUtils/signInForm";
 
-const LoginForm = () => {
+const SignInForm = () => {
 
   const [ eyeOpen, setEyeOpen ] = useState(false);
   const { register, handleSubmit } = useForm<LoginFormValues>();
@@ -75,4 +75,4 @@ const LoginForm = () => {
   );
 }
 
-export default LoginForm;
+export default SignInForm;
