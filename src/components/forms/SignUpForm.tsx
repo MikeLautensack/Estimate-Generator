@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { RegisterFormValues } from "@/types/types";
 import { onSubmit } from "@/utils/formUtils/signUpForm";
 
-const RegisterForm = () => {
+const SignUpForm = () => {
 
   const [ passwordEyeOpen, setPasswordEyeOpen ] = useState(false);
   const [ confirmEyeOpen, setConfirmEyeOpen ] = useState(false);
@@ -99,4 +99,4 @@ const RegisterForm = () => {
   );
 }
 
-export default RegisterForm;
+export default SignUpForm;

@@ -4,6 +4,7 @@ import React from "react";
 import Button from "../misc/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { profileFormProps } from "../../types/formTypes";
+import { useRouter } from "next/navigation";
 
 const ProfileForm = () => {
 
@@ -13,13 +14,17 @@ const ProfileForm = () => {
     formState: { errors },
   } = useForm<profileFormProps>();
 
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<profileFormProps> = async (data) => {
-    const res = await fetch("http://localhost:3000/api/users/profile/create", {
+    await fetch("http://localhost:3000/api/users/profile/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
+    }).then((res) => {
+        router.push("http://localhost:3000/contractor-dashboard");
     });
   }
 

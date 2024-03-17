@@ -22,17 +22,17 @@ const Nav = () => {
         <h2 className={`mx-5 font-medium text-[24px] text-blue-500 ${open && "text-white"}`}>Estimate Generator</h2>
         <div className={`hidden tablet:flex gap-2 m-2 ${open && "flex"}`}>
             <Link
-                id="login-button"
+                id="signin-button"
                 className="text-blue-500 text-base font-medium rounded p-1 w-[70px]"
-                href="/login"
+                href="/signin"
                 onClick={() => signIn()}
             >
-                Log In
+                Sign In
             </Link>
             <Link
                 id="signup-button"
                 className="text-blue-500 text-base font-medium rounded p-1 w-[70px]"
-                href="/register"
+                href="/signup"
             >
                 Sign Up
             </Link>
