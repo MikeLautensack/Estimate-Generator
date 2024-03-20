@@ -11,7 +11,6 @@ const ProfileForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<profileFormProps>();
 
   const router = useRouter()
@@ -25,6 +24,7 @@ const ProfileForm = () => {
         body: JSON.stringify(data)
     }).then((res) => {
         router.push("http://localhost:3000/contractor-dashboard");
+        return res
     });
   }
 

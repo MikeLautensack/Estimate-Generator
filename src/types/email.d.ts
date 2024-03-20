@@ -23,3 +23,10 @@ type UpdatedEstimateEmailProps = {
     customerName?: string,
     contractorName?: string
 }
+
+export {
+    emailProps,
+    NewCustomerEmailProps,
+    NewEstimateEmailProps,
+    UpdatedEstimateEmailProps
+}

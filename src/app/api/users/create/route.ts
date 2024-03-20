@@ -3,7 +3,6 @@ import { db } from "../../../../db";
 import { users } from "../../../../db/schemas/auth";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
-import { signIn } from "next-auth/react";
 
 export async function POST(request: NextRequest) {
     const data = await request.json();

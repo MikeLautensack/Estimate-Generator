@@ -1,5 +1,5 @@
 import "../globals.css";
-import Menu from "../../components/misc/Menu";
+import React from "react";
 
 export default function NewUserLayout({
   children, 

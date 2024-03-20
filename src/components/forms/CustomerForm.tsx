@@ -4,15 +4,15 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { customerFormProps } from "../../types/formTypes";
 import { Button } from "../ui/button";
-import { CustomerForm } from "@/types/customers";
+import { CustomerForm as CustomerFormType } from "@/types/customers";
 import { submitCustomer } from "@/utils/formUtils/customerForm";
 
-const CustomerForm = ({data}: CustomerForm) => {
+const CustomerForm = ({data}: CustomerFormType) => {
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
+    // formState: { errors },
   } = useForm<customerFormProps>();
 
   useEffect(() =>{

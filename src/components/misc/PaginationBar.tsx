@@ -3,7 +3,7 @@
 import React from "react";
 import Button from "./Button";
 
-const PaginationBar = ({}) => {
+const PaginationBar = () => {
   return (
     <div className="">
         <Button

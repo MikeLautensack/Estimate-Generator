@@ -14,9 +14,9 @@ const MenuNav = ({ ...props }) => {
     
   }, []);
 
-  const changeSelected = (selected: string) => {
-    setSelected(selected);
-  };
+//   const changeSelected = (selected: string) => {
+//     setSelected(selected);
+//   };
 
   return (
     <nav 

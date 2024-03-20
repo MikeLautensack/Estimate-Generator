@@ -4,7 +4,7 @@ import { ButtonProps } from "../../types/types";
 import { signOut } from "next-auth/react";
 import { FaSignOutAlt } from "react-icons/fa";
 
-const LogoutButton = ({ children, ...props }: ButtonProps) => {
+const LogoutButton = ({ ...props }: ButtonProps) => {
     return (
       <button
         {...props}

@@ -23,7 +23,7 @@ export const authOptions = {
             email: { label: "Email", type: "email", placeholder: "email" },
             password: { label: "Password", type: "password", placeholder: "password" }
           },
-          async authorize(credentials, req) {
+          async authorize(credentials) {
             // You need to provide your own logic here that takes the credentials
             // submitted and returns either a object representing a user or value
             // that is false/null if the credentials are invalid.
@@ -62,7 +62,7 @@ export const authOptions = {
       signUp: "/signup"
     },
     callbacks: {
-      async session({ session, user, token }: any) {
+      async session({ session, token }: any) {
         return {
           ...session,
           user: {

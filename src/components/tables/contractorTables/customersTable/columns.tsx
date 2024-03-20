@@ -68,13 +68,13 @@ export const columns: ColumnDef<Customers>[] = [
       const customer = row.original
       const router = useRouter()
       const delCustomer = async (id: number) => {
-        const deleteCustomer = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${id}`, {
+        await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${id}`, {
           method: 'DELETE',
           headers: {
               "Content-Type": "application/json"
           }
         })
-        const deleteUser = await fetch(`${process.env["NEXT_PUBLIC_USER_DELETE_URL"]}/${customer.customer_user_id}`, {
+        await fetch(`${process.env["NEXT_PUBLIC_USER_DELETE_URL"]}/${customer.customer_user_id}`, {
           method: 'DELETE',
           headers: {
               "Content-Type": "application/json"

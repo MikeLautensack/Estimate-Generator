@@ -31,3 +31,7 @@ export type ChangeOrderFormProps = {
     changeOrderName: string,
     description: string,
 }
+
+export type HookFormSetValue =  (name: string, value: unknown, config?: Object) => void;
+
+export type HookFormGetValues = (payload?: string | string[]) => string

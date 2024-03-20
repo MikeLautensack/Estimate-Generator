@@ -1,3 +1,5 @@
+import { SetStateAction } from "react";
+
 export type ChangeOrders = {
     id: number,
     changeOrderName: string,
@@ -23,7 +25,7 @@ export type ChangeOrderRequestProps = {
 
 export type ChangeOrderRequestRowProps = {
     orderRequest: ChangeOrderRequest,
-    setOrdersSelectedState: Dispatch<SetStateAction<{ [key: number]: boolean}>>,
+    setOrdersSelectedState: SetStateAction<{ [key: number]: boolean}>,
     ordersSelectedState: { [key: number]: boolean; }
     id: number
 }

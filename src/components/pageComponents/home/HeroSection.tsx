@@ -3,7 +3,7 @@
 import Nav from "../../misc/Nav";
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
-import ThreeDLogo from "../../misc/ThreeDLogo";
+// import ThreeDLogo from "../../misc/ThreeDLogo";
 import Link from "next/link";
 import { FaAnglesDown } from "react-icons/fa6";
 import { Model } from "@/components/models/Worker";

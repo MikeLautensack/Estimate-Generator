@@ -1,8 +1,8 @@
 import { Customers } from "@/types/customers";
 import { customerFormProps } from "@/types/formTypes";
-import { SubmitHandler } from "react-hook-form";
+// import { SubmitHandler } from "react-hook-form";
 
-const submitCustomer: (data: Customers) => SubmitHandler<customerFormProps> = (data: Customers) =>  async (formData: customerFormProps) => {
+const submitCustomer = (data: Customers) =>  async (formData: customerFormProps) => {
   try {
     if(data != null) {
         await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_EDIT_URL"]}/${data.id}`, {
