@@ -14,7 +14,6 @@ import { Button } from "../../../ui/button";
 import { Checkbox } from "../../../ui/checkbox";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export const columns: ColumnDef<Estimates>[] = [
   {
@@ -66,10 +65,10 @@ export const columns: ColumnDef<Estimates>[] = [
     id: "actions",
     cell: function Cell({ row }) {
       const estimate = row.original
-      const router = useRouter()
+      // const router = useRouter()
 
       const acceptEstimate = async () => {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
+        await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
           method: 'PUT',
           headers: {
               "Content-Type": "application/json"
@@ -81,7 +80,7 @@ export const columns: ColumnDef<Estimates>[] = [
       }
 
       const rejectEstimate = async () => {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
+        await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
           method: 'PUT',
           headers: {
               "Content-Type": "application/json"

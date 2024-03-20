@@ -1,8 +1,7 @@
 import Button from "./Button";
 import { FeatureCardProps } from "@/types/types";
-import { FaArrowRight, FaArrowDown, FaFileInvoiceDollar, FaClock } from "react-icons/fa";
+import { FaArrowDown, FaFileInvoiceDollar, FaClock } from "react-icons/fa";
 import { IoMdAnalytics } from "react-icons/io";
-import { IconType } from "react-icons";
 
 const FeatureCard = ({ icon, heading, paragraph }: FeatureCardProps) => {
 

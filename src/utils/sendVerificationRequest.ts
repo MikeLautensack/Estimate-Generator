@@ -6,7 +6,7 @@ import { Resend } from "resend";
 import { formatName } from "./formatingFunctions";
 
 const sendVerificationRequest = async (params: SendVerificationRequestParams) => {
-    const { identifier, url, provider, theme } = params;
+    const { identifier, url } = params;
     const urlObj = new URL(url);
     const host = urlObj.host;
     const searchParams = new URLSearchParams(urlObj.search);

@@ -45,12 +45,12 @@ type ActionName = "CharacterArmature|Death" | "CharacterArmature|Gun_Shoot" | "C
 interface GLTFAction extends THREE.AnimationClip {
   name: ActionName
 }
-type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements["skinnedMesh"] | JSX.IntrinsicElements["bone"]>>
+// type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements["skinnedMesh"] | JSX.IntrinsicElements["bone"]>>
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+export function Model(props: React.JSX.IntrinsicElements["group"]) {
   const group = useRef<THREE.Group | null>(null)
   const { nodes, materials, animations } = useGLTF("models/Worker.glb") as GLTFResult
-  const { ref, mixer, names, actions, clips } = useAnimations(animations, group)
+  const { names, actions } = useAnimations(animations, group)
 
   useEffect(() => {
     actions[names[23]]?.reset().fadeIn(1.5).setEffectiveTimeScale(0.6).play()

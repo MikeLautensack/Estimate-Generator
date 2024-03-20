@@ -1,10 +1,11 @@
 import { ColumnDef, Table } from "@tanstack/react-table";
 import { Dispatch } from "react";
 import { ChangeOrders } from "./changeOrders";
-
+import React from "react";
+import { Estimates } from "./estimates";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> { 
-    children?: string | JSX.Element | JSX.Element[] | [ JSX.Element, string ]
+    children?: string | React.JSX.Element | React.JSX.Element[] | [ React.JSX.Element, string ]
 }
 
 export type FeatureCardProps = {
@@ -77,9 +78,9 @@ export type TableProps<TData, TValue> = {
     data: TData[]
 }
 
-export type ChangeOrderRequestsTableProps<TData, TValue> = {
+export type ChangeOrderRequestsTableProps = {
     data: ChangeOrders[],
-    setId: Dispatch<SetStateAction<number | null>>,
+    setId: React.Dispatch<React.SetStateAction<number | null>>,
     id: number
 }
 

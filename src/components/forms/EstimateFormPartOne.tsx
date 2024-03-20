@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { EstimateFormPartOneProps } from "@/types/estimates";
 import { useFormContext } from "react-hook-form";
 import { FormField } from "../ui/form";
@@ -12,20 +11,9 @@ const EstimateFormPartOne = ({
 
   const { 
     register, 
-    watch, 
     getValues, 
     control 
   } = useFormContext();
-
-  useEffect(() => {
-    if(getValues("customer_id")) {
-      for(let i = 0; i < customers.length; i++) {
-        if(getValues("customer_id") == customers[i].id) {
-          
-        }
-      }
-    }
-  },[watch("customer")])
 
   return (
     <div className="bg-neutral100">

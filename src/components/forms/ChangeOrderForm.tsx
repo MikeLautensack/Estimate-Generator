@@ -1,27 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { 
-  FormProvider, 
   SubmitHandler, 
-  useFieldArray, 
   useForm 
 } from "react-hook-form";
 import { Button } from "../ui/button";
-import { ChangeOrderFormProps, ChangeOrderForm } from "@/types/formTypes";
+import { ChangeOrderFormProps, ChangeOrderForm as ChangeOrderFormType } from "@/types/formTypes";
 
-const ChangeOrderForm = (data: ChangeOrderForm) => {
+const ChangeOrderForm = (data: ChangeOrderFormType) => {
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<ChangeOrderFormProps>();
 
   const onSubmit: SubmitHandler<ChangeOrderFormProps> = async (formData) => {
     try {
       if(data.data?.mode == "put") {
-        const editChangeOrder = await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"]}/${data.data?.change_order_id}}`, {
+        await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"]}/${data.data?.change_order_id}}`, {
           method: "PUT",
           headers: {
               "Content-Type": "application/json"
@@ -31,7 +27,7 @@ const ChangeOrderForm = (data: ChangeOrderForm) => {
               description: formData.description,
           })
         });
-        const updateEstimateStatus = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`, {
+        await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`, {
           method: "PUT",
           headers: {
               "Content-Type": "application/json"
@@ -41,7 +37,7 @@ const ChangeOrderForm = (data: ChangeOrderForm) => {
           })
         })
       } else if (data.data?.mode == "post") {
-        const createChangeOrder = await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"]}`, {
+        await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"]}`, {
           method: "POST",
           headers: {
               "Content-Type": "application/json"
@@ -57,7 +53,7 @@ const ChangeOrderForm = (data: ChangeOrderForm) => {
               estimate_id: data.data.estimate_id
           })
         });
-        const updateEstimateStatus = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`, {
+        await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`, {
           method: "PUT",
           headers: {
               "Content-Type": "application/json"

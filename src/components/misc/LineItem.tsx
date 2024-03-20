@@ -4,7 +4,6 @@ const LineItem = ({
     id,
     description,
     quantity,
-    rateType,
     amount,
 }:LineItems) => {
   return (

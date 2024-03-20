@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import FAQ from "../../misc/FAQ";
 import { Action, FAQItem } from "../../../types/types";
 import { FAQItemContent } from "@/utils/content";
@@ -33,7 +33,7 @@ const reducer = (state: FAQItem[], action: Action): FAQItem[] => {
 
 export default function FAQSection() {
 
-  const [ subRateType, setSubRateType ] = useState(false);
+  // const [ subRateType, setSubRateType ] = useState(false);
   const [FAQs, dispatch] = useReducer( reducer, FAQItemContent);
 
   return (

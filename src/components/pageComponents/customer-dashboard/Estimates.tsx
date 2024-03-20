@@ -1,5 +1,5 @@
 import EstimatesTable from "@/components/tables/customerTables/estimatesTable/EstimatesTable";
-import { Estimates } from "@/types/estimates";
+import { Estimates as EstimateType } from "@/types/estimates";
 import { columns } from "@/components/tables/customerTables/estimatesTable/columns";
 import { estimates } from "../../../db/schemas/estimates";
 import { db } from "../../../db";
@@ -17,7 +17,7 @@ async function getData(session: any) {
 const Estimates = async () => {
 
   const session = await getServerSession(authOptions);
-  const data = await getData(session) as Estimates[];
+  const data = await getData(session) as EstimateType[];
 
   return (
     <div className="">

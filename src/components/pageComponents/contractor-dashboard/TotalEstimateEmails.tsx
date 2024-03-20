@@ -1,5 +1,5 @@
-import { db } from "@/db";
-import { customers } from "@/db/schemas/customers";
+// import { db } from "@/db";
+// import { customers } from "@/db/schemas/customers";
 
 // async function getData() {
 //     try {

@@ -12,7 +12,11 @@ const SignUpForm = () => {
 
   const [ passwordEyeOpen, setPasswordEyeOpen ] = useState(false);
   const [ confirmEyeOpen, setConfirmEyeOpen ] = useState(false);
-  const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormValues>();
+  const { 
+    register, 
+    handleSubmit, 
+    // formState: { errors } 
+} = useForm<RegisterFormValues>();
 
   return (
     <form 

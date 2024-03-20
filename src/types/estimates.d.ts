@@ -1,4 +1,8 @@
 import { Customers } from "./customers";
+import { Profile } from "./profile";
+import { ChangeOrder } from "./types";
+import { SubmitHandler } from "react-hook-form";
+import React from "react";
 
 export type Estimates = {
   id: number,
@@ -37,8 +41,8 @@ export type LineItems = {
 }
 
 export type EstimateFormProps = {
-  estimate: Estimate,
-  customers: Customer,
+  estimate: Estimates,
+  customers: Customers,
   profile: Profile,
   changeOrders?: ChangeOrder[],
 }
@@ -71,7 +75,7 @@ export type EstimateFormPartTwoProps = {
   prepend: (obj: LineItems | LineItems[]) => void,
   remove: (index?: number | number[]) => void,
   changeOrders: ChangeOrder[]
-  estimate: Estimate,
+  estimate: Estimates,
   methods: any,
   preview: (estimates: Estimates) => SubmitHandler<EstimateFormValues>,
   save: SubmitHandler<EstimateFormValues>,
@@ -80,23 +84,23 @@ export type EstimateFormPartTwoProps = {
 
 export type EstimateFormTableProps = {
   fields: LineItems[]
-  applyTotal: (setSubtotal: Dispatch<SetStateAction<number | null>>, setValue: (name: string, value: unknown, config?: Object) => void, getValues: (payload?: string | string[]) => string, fields: LineItems[]) => void,
+  applyTotal: (setSubtotal: React.Dispatch<React.SetStateAction<number | null>>, setValue: (name: string, value: unknown, config?: Object) => void, getValues: (payload?: string | string[]) => string, fields: LineItems[]) => void,
   remove: (index?: number | number[]) => void,
-  setSubtotal: Dispatch<SetStateAction<number | null>>
+  setSubtotal: React.Dispatch<React.SetStateAction<number | null>>
 }
 
 export type LineItemFormFieldProps = {
   field: LineItems,
   fields: LineItems[],
   index: number,
-  applyTotal: (setSubtotal: Dispatch<SetStateAction<number | null>>, setValue: (name: string, value: unknown, config?: Object) => void, getValues: (payload?: string | string[]) => string, fields: LineItems[]) => void,
+  applyTotal: (setSubtotal: React.Dispatch<React.SetStateAction<number | null>>, setValue: (name: string, value: unknown, config?: Object) => void, getValues: (payload?: string | string[]) => string, fields: LineItems[]) => void,
   remove: (index?: number | number[]) => void,
-  setSubtotal: Dispatch<SetStateAction<number | null>>
+  setSubtotal: React.Dispatch<React.SetStateAction<number | null>>
 }
 
 export type TaxSelectorProps = {
   taxRate: number,
-  setTaxRate: Dispatch<SetStateAction<number | null>>
+  setTaxRate: React.Dispatch<React.SetStateAction<number | null>>
 }
 
 export type EstimateFormPartOneSelectProps = {

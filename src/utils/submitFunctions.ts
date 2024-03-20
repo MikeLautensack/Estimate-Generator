@@ -1,9 +1,9 @@
-import { EstimateFormValues, Estimates } from "@/types/estimates";
+import { Estimates } from "@/types/estimates";
 import { ChangeOrderForm, ChangeOrderFormProps } from "@/types/formTypes";
-import { SubmitHandler } from "react-hook-form";
+// import { SubmitHandler } from "react-hook-form";
 import { redirect } from 'next/navigation'
 
-const submitChangeOrder: (data: ChangeOrderForm) => SubmitHandler<ChangeOrderFormProps> = (data: ChangeOrderForm) =>  async (formData: ChangeOrderFormProps) => {
+const submitChangeOrder = (data: ChangeOrderForm) =>  async (formData: ChangeOrderFormProps) => {
   try {
     if(data.data?.mode == 'put') {
       await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"]}/${data.data?.change_order_id}}`, {
@@ -57,7 +57,7 @@ const submitChangeOrder: (data: ChangeOrderForm) => SubmitHandler<ChangeOrderFor
   }
 }
 
-const previewEstimate: (data: Estimates) => SubmitHandler<EstimateFormValues> = (data: Estimates) =>  async (formData: EstimateFormValues) => {
+const previewEstimate = (data: Estimates) =>  async () => {
   // testing the function
   console.log('preview') 
     
@@ -74,7 +74,7 @@ const previewEstimate: (data: Estimates) => SubmitHandler<EstimateFormValues> = 
   }
 }
 
-const saveEstimate: (data: Estimates) => SubmitHandler<EstimateFormValues> = (data: Estimates) =>  async (formData: EstimateFormValues) => {
+const saveEstimate = () =>  async () => {
   
 }
 
@@ -114,4 +114,6 @@ const saveEstimate: (data: Estimates) => SubmitHandler<EstimateFormValues> = (da
 
 export {
     submitChangeOrder,
+    previewEstimate,
+    saveEstimate
 }

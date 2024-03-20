@@ -25,13 +25,13 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
     customer_user_id: 0,
   });
 
-  const createDateArray = (arr: ChangeOrders[]): ChangeOrders[] => {
-    if (arr == undefined || null) {
-     return [];
-    } else {
-      return arr;
-    }
-  };
+  // const createDateArray = (arr: ChangeOrders[]): ChangeOrders[] => {
+  //   if (arr == undefined || null) {
+  //    return [];
+  //   } else {
+  //     return arr;
+  //   }
+  // };
 
   useEffect(() => {
     loadChangeOrder(id as number);
@@ -54,7 +54,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
   }
 
   const markCompleted = async (id: number) => {
-    const res = await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`, {
+    await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json"
@@ -67,7 +67,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
   }
 
   const reject = async (id: number) => {
-    const res = await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`, {
+    await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json"
@@ -80,7 +80,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
   }
 
   const saveForLater = async (id: number) => {
-    const res = await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`, {
+    await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json"
