@@ -5,15 +5,15 @@ import { signOut } from "next-auth/react";
 import { FaSignOutAlt } from "react-icons/fa";
 
 const LogoutButton = ({ ...props }: ButtonProps) => {
-    return (
-      <button
-        {...props}
-        onClick={() => signOut({ callbackUrl: "http://localhost:3000/" })}
-      >
-        <FaSignOutAlt className="text-secondary500"/>
-        Logout
-      </button>
-    );
-}
+  return (
+    <button
+      {...props}
+      onClick={() => signOut({ callbackUrl: "http://localhost:3000/" })}
+    >
+      <FaSignOutAlt className="text-secondary500" />
+      Logout
+    </button>
+  );
+};
 
 export default LogoutButton;

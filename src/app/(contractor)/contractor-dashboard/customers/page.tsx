@@ -10,23 +10,23 @@ import { authOptions } from "@/utils/authOptions";
 import { Customers } from "@/types/customers";
 
 async function getData(session: any) {
-  const res = await db.select()
-                .from(customers)
-                .where(eq(customers.contractor_user_id, session.user.id));
+  const res = await db
+    .select()
+    .from(customers)
+    .where(eq(customers.contractor_user_id, session.user.id));
   return res;
 }
 
 const Page = async () => {
-
   const session = await getServerSession(authOptions);
-  const data = await getData(session) as Customers[];
-  
+  const data = (await getData(session)) as Customers[];
+
   return (
     <main className="flex-grow p-4 flex flex-col gap-4 bg-neutral400">
-      <h1 className="text-2xl desktop:text-[42px] font-bold text-black">Customers</h1>
-      <Link
-        href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}`}
-      >
+      <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
+        Customers
+      </h1>
+      <Link href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}`}>
         <Button
           id="new-change-order-button"
           className="flex-1 bg-blue-500 text-secondary500"
@@ -38,6 +38,6 @@ const Page = async () => {
       <CustomersTable columns={columns} data={data} />
     </main>
   );
-}
+};
 
 export default Page;

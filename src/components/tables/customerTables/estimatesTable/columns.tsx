@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Estimates } from "@/types/estimates";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "../../../ui/dropdown-menu";
 import { Button } from "../../../ui/button";
 import { Checkbox } from "../../../ui/checkbox";
@@ -46,7 +46,7 @@ export const columns: ColumnDef<Estimates>[] = [
           Estimate Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -64,32 +64,38 @@ export const columns: ColumnDef<Estimates>[] = [
   {
     id: "actions",
     cell: function Cell({ row }) {
-      const estimate = row.original
+      const estimate = row.original;
       // const router = useRouter()
 
       const acceptEstimate = async () => {
-        await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
-          method: 'PUT',
-          headers: {
-              "Content-Type": "application/json"
+        await fetch(
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              status: "Accepted",
+            }),
           },
-          body: JSON.stringify({
-              status: 'Accepted'
-          })
-        })
-      }
+        );
+      };
 
       const rejectEstimate = async () => {
-        await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
-          method: 'PUT',
-          headers: {
-              "Content-Type": "application/json"
+        await fetch(
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              status: "Rejected",
+            }),
           },
-          body: JSON.stringify({
-              status: 'Rejected'
-          })
-        })
-      }
+        );
+      };
 
       return (
         <DropdownMenu>
@@ -107,16 +113,20 @@ export const columns: ColumnDef<Estimates>[] = [
             >
               <DropdownMenuItem>View Estimate</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem onClick={() => acceptEstimate()}>Accept Estimate</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => acceptEstimate()}>
+              Accept Estimate
+            </DropdownMenuItem>
             <Link
               href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"]}/new-change-order?estimateId=${estimate.id}`}
             >
               <DropdownMenuItem>Request a Change Order</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem onClick={() => rejectEstimate()}>Reject Estimate</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => rejectEstimate()}>
+              Reject Estimate
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

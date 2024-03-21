@@ -5,13 +5,13 @@ import { ChangeOrders } from "@/types/changeOrders";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 
@@ -46,7 +46,7 @@ export const columns: ColumnDef<ChangeOrders>[] = [
           Change Order Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -68,9 +68,9 @@ export const columns: ColumnDef<ChangeOrders>[] = [
   {
     id: "actions",
     cell: function Cell({ row }) {
-      const changeOrder = row.original
+      const changeOrder = row.original;
       // const router = useRouter()
-  
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -94,7 +94,7 @@ export const columns: ColumnDef<ChangeOrders>[] = [
             </Link>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

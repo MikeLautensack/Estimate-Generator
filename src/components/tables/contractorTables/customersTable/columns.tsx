@@ -2,13 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Customers } from "@/types/customers";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "../../../ui/dropdown-menu";
 import { Button } from "../../../ui/button";
 import { Checkbox } from "../../../ui/checkbox";
@@ -47,7 +47,7 @@ export const columns: ColumnDef<Customers>[] = [
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -65,23 +65,29 @@ export const columns: ColumnDef<Customers>[] = [
   {
     id: "actions",
     cell: function Cell({ row }) {
-      const customer = row.original
-      const router = useRouter()
+      const customer = row.original;
+      const router = useRouter();
       const delCustomer = async (id: number) => {
-        await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${id}`, {
-          method: 'DELETE',
-          headers: {
-              "Content-Type": "application/json"
-          }
-        })
-        await fetch(`${process.env["NEXT_PUBLIC_USER_DELETE_URL"]}/${customer.customer_user_id}`, {
-          method: 'DELETE',
-          headers: {
-              "Content-Type": "application/json"
-          }
-        })
-        router.refresh()
-      }
+        await fetch(
+          `${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        await fetch(
+          `${process.env["NEXT_PUBLIC_USER_DELETE_URL"]}/${customer.customer_user_id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        router.refresh();
+      };
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -110,7 +116,7 @@ export const columns: ColumnDef<Customers>[] = [
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

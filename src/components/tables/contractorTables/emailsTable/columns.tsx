@@ -16,4 +16,4 @@ export const columns: ColumnDef<ChangeOrder>[] = [
     accessorKey: "time",
     header: "Time",
   },
-]
+];

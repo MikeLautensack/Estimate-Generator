@@ -6,15 +6,17 @@ import { Estimates } from "@/types/estimates";
 
 async function getData(id: number) {
   try {
-    const estimateTableData = await db.select()
-                                      .from(estimates)
-                                      .where(eq(estimates.id, id));
-    const lineItemsTableData = await db.select()
-                                       .from(lineItems)
-                                       .where(eq(lineItems.estimate_id, id));
+    const estimateTableData = await db
+      .select()
+      .from(estimates)
+      .where(eq(estimates.id, id));
+    const lineItemsTableData = await db
+      .select()
+      .from(lineItems)
+      .where(eq(lineItems.estimate_id, id));
     const estimate = {
       ...estimateTableData[0],
-      lineItems: lineItemsTableData
+      lineItems: lineItemsTableData,
     };
     return estimate;
   } catch (error) {
@@ -23,16 +25,13 @@ async function getData(id: number) {
 }
 
 const Page = async ({ params }: { params: { id: string } }) => {
-
-  const data = await getData(parseInt(params.id)) as Estimates;
+  const data = (await getData(parseInt(params.id))) as Estimates;
 
   return (
-    <main
-      className="flex-1 p-4 min-h-screen bg-neutral400"
-    >
-      <Estimate data={data}/>
+    <main className="flex-1 p-4 min-h-screen bg-neutral400">
+      <Estimate data={data} />
     </main>
   );
-}
+};
 
 export default Page;
