@@ -1,37 +1,44 @@
 import { Estimates } from "@/types/estimates";
 import { ChangeOrderForm, ChangeOrderFormProps } from "@/types/formTypes";
 // import { SubmitHandler } from "react-hook-form";
-import { redirect } from 'next/navigation'
+import { redirect } from "next/navigation";
 
-const submitChangeOrder = (data: ChangeOrderForm) =>  async (formData: ChangeOrderFormProps) => {
-  try {
-    if(data.data?.mode == 'put') {
-      await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"]}/${data.data?.change_order_id}}`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            changeOrderName: formData.changeOrderName,
-            description: formData.description,
-        })
-      })
-      await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          status: 'Change Order Requested (edited)'
-        })
-      })
-    } else if (data.data?.mode == 'post') {
-      await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"]}`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+const submitChangeOrder =
+  (data: ChangeOrderForm) => async (formData: ChangeOrderFormProps) => {
+    try {
+      if (data.data?.mode == "put") {
+        await fetch(
+          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"]}/${data.data?.change_order_id}}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              changeOrderName: formData.changeOrderName,
+              description: formData.description,
+            }),
+          },
+        );
+        await fetch(
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              status: "Change Order Requested (edited)",
+            }),
+          },
+        );
+      } else if (data.data?.mode == "post") {
+        await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"]}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
             changeOrderName: formData.changeOrderName,
             description: formData.description,
             estimateName: data.data?.estimateName,
@@ -39,44 +46,45 @@ const submitChangeOrder = (data: ChangeOrderForm) =>  async (formData: ChangeOrd
             projectAddress: data.data?.projectAddress,
             contractor_user_id: data.data?.contractor_user_id,
             customer_user_id: data.data.customer_user_id,
-            estimate_id: data.data.estimate_id
-        })
-      })
-      await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          status: 'Change Order Requested'
-        })
-      })
+            estimate_id: data.data.estimate_id,
+          }),
+        });
+        await fetch(
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              status: "Change Order Requested",
+            }),
+          },
+        );
+      }
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error)
-  }
-}
+  };
 
-const previewEstimate = (data: Estimates) =>  async () => {
+const previewEstimate = (data: Estimates) => async () => {
   // testing the function
-  console.log('preview') 
-    
+  console.log("preview");
+
   // Check if form is in create mode or edit mode
-  if(data) {
+  if (data) {
     // create query string
     // const queryString = new URLSearchParams(data).toString()
     // console.log('q string', queryString)
     // redirect to /contractor-dashboard/estimates/xxxxxxx
-    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`)
+    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`);
   } else {
     // redirect to /contractor-dashboard/estimates/xxxxxxx
-    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`)
+    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`);
   }
-}
+};
 
-const saveEstimate = () =>  async () => {
-  
-}
+const saveEstimate = () => async () => {};
 
 // const saveAndSendEstim: (data: Estimates) => SubmitHandler<EstimateFormValues> = (data: Estimates) =>  async (formData: EstimateFormValues) => {
 //   console.log(data)
@@ -111,9 +119,4 @@ const saveEstimate = () =>  async () => {
 //     }
 // }
 
-
-export {
-    submitChangeOrder,
-    previewEstimate,
-    saveEstimate
-}
+export { submitChangeOrder, previewEstimate, saveEstimate };

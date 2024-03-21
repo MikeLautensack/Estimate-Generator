@@ -15,72 +15,81 @@ import ChangeOrderRequestTableRow from "./ChangeOrderRequestTableRow";
 export default function ChangeOrderRequestsTable<TData, TValue>({
   data,
   setId,
-  id 
+  id,
 }: ChangeOrderRequestsTableProps<TData, TValue>) {
-
-  const [ ordersSelectedState, setOrdersSelectedState ] = useState<{ [key: number]: boolean}>({})
-
-  useEffect(() => {
-    setOrdersSelectedState(
-      data.reduce((obj, item) => {
-        if (id === item.id) {
-          obj[item.id] = true
-        } else {
-          obj[item.id] = false;
-        }
-        
-      return obj;
-    }, {} as {[key: number]: boolean}))
-  }, [])
+  const [ordersSelectedState, setOrdersSelectedState] = useState<{
+    [key: number]: boolean;
+  }>({});
 
   useEffect(() => {
     setOrdersSelectedState(
-      data.reduce((obj, item) => {
-        if (id === item.id) {
-          obj[item.id] = true
-        } else {
-          obj[item.id] = false;
-        }
-      return obj;
-    }, {} as {[key: number]: boolean}))
-  }, [data])
+      data.reduce(
+        (obj, item) => {
+          if (id === item.id) {
+            obj[item.id] = true;
+          } else {
+            obj[item.id] = false;
+          }
+
+          return obj;
+        },
+        {} as { [key: number]: boolean },
+      ),
+    );
+  }, []);
 
   useEffect(() => {
-    const obj = {...ordersSelectedState}
+    setOrdersSelectedState(
+      data.reduce(
+        (obj, item) => {
+          if (id === item.id) {
+            obj[item.id] = true;
+          } else {
+            obj[item.id] = false;
+          }
+          return obj;
+        },
+        {} as { [key: number]: boolean },
+      ),
+    );
+  }, [data]);
+
+  useEffect(() => {
+    const obj = { ...ordersSelectedState };
     for (const key in ordersSelectedState) {
-      if ( obj[key] == true) {
-        setId(key)
+      if (obj[key] == true) {
+        setId(key);
       }
     }
-  }, [ordersSelectedState])
+  }, [ordersSelectedState]);
 
   return (
     <div className="flex w-full h-32 rounded bg-neutral100 desktop:h-[calc(100vh-328px)]">
       <Table className="relative">
         <TableHeader>
-            <TableRow>
-                <TableHead></TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Status</TableHead>
-            </TableRow>
+          <TableRow>
+            <TableHead></TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Status</TableHead>
+          </TableRow>
         </TableHeader>
         <TableBody className="overflow-y-scroll">
-              {data.map((element, index) => (
-                <ChangeOrderRequestTableRow 
-                  orderRequest={{
-                    name: data[index].changeOrderName as string,
-                    description: data[index].description as string,
-                    status: data[index].status as string,
-                  }}
-                  ordersSelectedState={ordersSelectedState}
-                  setOrdersSelectedState={setOrdersSelectedState}
-                  key={data[index].id}
-                  id={data[index].id}
-                />
-              ))}
+          {data.map((element, index) => (
+            <ChangeOrderRequestTableRow
+              orderRequest={{
+                name: data[index].changeOrderName as string,
+                description: data[index].description as string,
+                status: data[index].status as string,
+              }}
+              ordersSelectedState={ordersSelectedState}
+              setOrdersSelectedState={setOrdersSelectedState}
+              key={data[index].id}
+              id={data[index].id}
+            />
+          ))}
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }

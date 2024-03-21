@@ -12,13 +12,12 @@
 // }
 
 export default async function TotalEstimateEmails() {
-
-//   const data = await getData();
+  //   const data = await getData();
 
   return (
     <div className="flex justify-between items-center rounded-lg bg-neutral100 p-4">
-        <h1>Total Estimate Emails</h1>
-        {/* <h2>{data?.length}</h2> */}
+      <h1>Total Estimate Emails</h1>
+      {/* <h2>{data?.length}</h2> */}
     </div>
   );
 }

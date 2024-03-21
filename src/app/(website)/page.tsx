@@ -11,10 +11,10 @@ const Home = () => {
       {/* <PricingSection /> */}
       <div className="flex flex-col h-screen w-full">
         <FAQSection />
-        <Footer /> 
+        <Footer />
       </div>
     </main>
   );
-}
+};
 
 export default Home;

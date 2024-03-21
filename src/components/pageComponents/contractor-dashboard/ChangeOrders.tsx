@@ -8,10 +8,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 
 async function getChangeOrders(session: any) {
-  try {    
-    const data = await db.select()
-                         .from(changeOrders)
-                         .where(eq(changeOrders.contractor_user_id, session.user.id));
+  try {
+    const data = await db
+      .select()
+      .from(changeOrders)
+      .where(eq(changeOrders.contractor_user_id, session.user.id));
     return data;
   } catch (error) {
     console.log(error);
@@ -19,15 +20,14 @@ async function getChangeOrders(session: any) {
 }
 
 const ChangeOrders = async () => {
-
   const session = await getServerSession(authOptions);
-  const data = await getChangeOrders(session) as ChangeOrdersType[];
+  const data = (await getChangeOrders(session)) as ChangeOrdersType[];
 
   return (
     <div className="">
       <ChangeOrdersTable columns={columns} data={data!} />
     </div>
   );
-}
+};
 
 export default ChangeOrders;

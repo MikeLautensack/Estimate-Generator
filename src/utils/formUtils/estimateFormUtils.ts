@@ -31,7 +31,7 @@ const onSubmit =
   async (data: EstimateFormValues) => {
     const customer_user_id = getCustomerUserID(
       customers,
-      data.customer_id as number
+      data.customer_id as number,
     );
     if (estimate) {
       await fetch(
@@ -45,7 +45,7 @@ const onSubmit =
             ...data,
             status: "Work In Progress (edited)",
           }),
-        }
+        },
       );
     } else {
       await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_CREATE_URL"]}`, {
@@ -72,7 +72,7 @@ const getCustomerUserID = (customers: Customers[], id: number) => {
 
 const calculateTotal = (
   getValues: (payload?: string | string[]) => string,
-  fields: LineItems[]
+  fields: LineItems[],
 ): number => {
   let num = 0;
   for (let i = 0; i < fields.length; i++) {
@@ -85,7 +85,7 @@ const applyTotal = (
   setSubtotal: React.Dispatch<React.SetStateAction<number>>,
   setValue: (name: string, value: unknown, config?: Object) => void,
   getValues: (payload?: string | string[]) => string,
-  fields: LineItems[]
+  fields: LineItems[],
 ) => {
   const calculatedTotal = calculateTotal(getValues, fields);
   setSubtotal(calculatedTotal);
@@ -95,7 +95,7 @@ const applyTotal = (
 const calculateAmount = (
   quantity: number,
   price: number,
-  setAmount: React.Dispatch<React.SetStateAction<number>>
+  setAmount: React.Dispatch<React.SetStateAction<number>>,
 ): number => {
   const result = quantity * price;
   setAmount(result);

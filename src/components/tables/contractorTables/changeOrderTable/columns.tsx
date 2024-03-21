@@ -1,13 +1,20 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { ChangeOrders } from "@/types/changeOrders"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Button } from "@/components/ui/button"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { ColumnDef } from "@tanstack/react-table";
+import { ChangeOrders } from "@/types/changeOrders";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 // import { changeOrders } from "@/db/schemas/changeOrders"
 
 export const columns: ColumnDef<ChangeOrders>[] = [
@@ -41,7 +48,7 @@ export const columns: ColumnDef<ChangeOrders>[] = [
           Change Order Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -67,19 +74,22 @@ export const columns: ColumnDef<ChangeOrders>[] = [
   {
     id: "actions",
     cell: function Cell({ row }) {
-      const changeOrder = row.original
-      const router = useRouter()
+      const changeOrder = row.original;
+      const router = useRouter();
 
       const deleteChangeOrder = async () => {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_DELETE"]}/${changeOrder.id}`, {
-          method: 'DELETE',
-        })
+        const res = await fetch(
+          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_DELETE"]}/${changeOrder.id}`,
+          {
+            method: "DELETE",
+          },
+        );
 
-        if(res.ok) {
-          router.refresh()
+        if (res.ok) {
+          router.refresh();
         }
-      }
-  
+      };
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -96,14 +106,12 @@ export const columns: ColumnDef<ChangeOrders>[] = [
             >
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem
-              onClick={() => deleteChangeOrder()}
-            >
+            <DropdownMenuItem onClick={() => deleteChangeOrder()}>
               Delete Change Order
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

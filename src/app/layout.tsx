@@ -29,13 +29,11 @@ const roboto = Roboto({
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className="flex bg-blue-50 min-h-screen">
-        {children}
-      </body>
+      <body className="flex bg-blue-50 min-h-screen">{children}</body>
     </html>
   );
 }
