@@ -68,15 +68,6 @@ export type SmallStatCardProps = {
   data: string;
 };
 
-export type ChangeOrder = {
-  _id: string;
-  estimateName: string;
-  description: string;
-  customerName: string;
-  address: string;
-  status: string;
-};
-
 export type TableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -116,4 +107,8 @@ export type chartArrayObj = {
 
 export type chartArray = {
   chartArray: chartArrayObj[];
+};
+
+export type EstimatePriceChartProps = {
+  chartArray: { name: string; meanTotal: number }[];
 };

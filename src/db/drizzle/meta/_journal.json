@@ -43,6 +43,13 @@
       "when": 1710684306151,
       "tag": "0005_slow_overlord",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1711068444874,
+      "tag": "0006_fair_dragon_man",
+      "breakpoints": true
     }
   ]
 }
