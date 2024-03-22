@@ -36,7 +36,9 @@ export default async function EstimateStatusChartContainer() {
   const session = await getServerSession(authOptions);
   const data = await getCustomers(session.user.id);
 
-  const createChartArray = async (inputArray: Customers[]) => {
+  const createChartArray = async (
+    inputArray: Customers[],
+  ): Promise<{ name: string; meanTotal: number }[]> => {
     try {
       let topFive: { name: string; meanTotal: number }[] = [];
       for (let i = 0; i < inputArray.length; i++) {

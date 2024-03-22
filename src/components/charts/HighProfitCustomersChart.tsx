@@ -1,6 +1,6 @@
 "use client";
 
-import { estimatesChartArrayProps } from "@/types/types";
+import { EstimatePriceChartProps } from "@/types/types";
 import React from "react";
 import {
   Bar,
@@ -13,7 +13,7 @@ import {
   YAxis,
 } from "recharts";
 
-const EstimatePriceChart = ({ chartArray }: estimatesChartArrayProps) => {
+const EstimatePriceChart = ({ chartArray }: EstimatePriceChartProps) => {
   return (
     <div className="w-full h-full">
       <ResponsiveContainer width="100%" height="100%" className="">

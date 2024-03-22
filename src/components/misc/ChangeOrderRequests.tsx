@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeOrderRequestsProps, ChangeOrders } from "@/types/changeOrders";
+import { ChangeOrderRequestsProps, ChangeOrder } from "@/types/changeOrders";
 import React, { useEffect, useState } from "react";
 import ChangeOrderRequestsTable from "../tables/contractorTables/changeOrderRequestsTable/ChangeOrderRequestsTable";
 import { Button } from "../ui/button";
@@ -11,7 +11,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
   const [id, setId] = useState<number | null>(
     changeOrders?.length ? changeOrders[0].id : null,
   );
-  const [changeOrder, setChangeOrder] = useState<ChangeOrders>(
+  const [changeOrder, setChangeOrder] = useState<ChangeOrder>(
     changeOrders?.length
       ? changeOrders[0]
       : {

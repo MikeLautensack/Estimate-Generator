@@ -16,7 +16,7 @@ export default function ChangeOrderRequestsTable<TData, TValue>({
   data,
   setId,
   id,
-}: ChangeOrderRequestsTableProps<TData, TValue>) {
+}: ChangeOrderRequestsTableProps) {
   const [ordersSelectedState, setOrdersSelectedState] = useState<{
     [key: number]: boolean;
   }>({});
@@ -58,7 +58,7 @@ export default function ChangeOrderRequestsTable<TData, TValue>({
     const obj = { ...ordersSelectedState };
     for (const key in ordersSelectedState) {
       if (obj[key] == true) {
-        setId(key);
+        setId(parseInt(key));
       }
     }
   }, [ordersSelectedState]);

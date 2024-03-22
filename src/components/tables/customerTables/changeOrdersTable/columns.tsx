@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ChangeOrders } from "@/types/changeOrders";
+import { ChangeOrder } from "@/types/changeOrders";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 
-export const columns: ColumnDef<ChangeOrders>[] = [
+export const columns: ColumnDef<ChangeOrder>[] = [
   {
     id: "select",
     header: ({ table }) => (

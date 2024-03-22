@@ -8,7 +8,7 @@ const submitChangeOrder =
     try {
       if (data.data?.mode == "put") {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"]}/${data.data?.change_order_id}}`,
+          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"] ?? ""}/${data.data.change_order_id ?? ""}}`,
           {
             method: "PUT",
             headers: {
@@ -21,7 +21,7 @@ const submitChangeOrder =
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`,
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] ?? ""}/${data.data.estimate_id ?? ""}`,
           {
             method: "PUT",
             headers: {
@@ -33,24 +33,27 @@ const submitChangeOrder =
           },
         );
       } else if (data.data?.mode == "post") {
-        await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"]}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            changeOrderName: formData.changeOrderName,
-            description: formData.description,
-            estimateName: data.data?.estimateName,
-            customerName: data.data?.customerName,
-            projectAddress: data.data?.projectAddress,
-            contractor_user_id: data.data?.contractor_user_id,
-            customer_user_id: data.data.customer_user_id,
-            estimate_id: data.data.estimate_id,
-          }),
-        });
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`,
+          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"] ?? ""}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              changeOrderName: formData.changeOrderName,
+              description: formData.description,
+              estimateName: data.data?.estimateName,
+              customerName: data.data?.customerName,
+              projectAddress: data.data?.projectAddress,
+              contractor_user_id: data.data?.contractor_user_id,
+              customer_user_id: data.data.customer_user_id,
+              estimate_id: data.data.estimate_id,
+            }),
+          },
+        );
+        await fetch(
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] ?? ""}/${data.data.estimate_id ?? ""}`,
           {
             method: "PUT",
             headers: {
@@ -77,10 +80,10 @@ const previewEstimate = (data: Estimates) => async () => {
     // const queryString = new URLSearchParams(data).toString()
     // console.log('q string', queryString)
     // redirect to /contractor-dashboard/estimates/xxxxxxx
-    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`);
+    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"] ?? ""}/`);
   } else {
     // redirect to /contractor-dashboard/estimates/xxxxxxx
-    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`);
+    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"] ?? ""}/`);
   }
 };
 

@@ -1,6 +1,6 @@
-import { SetStateAction } from "react";
+import React from "react";
 
-export type ChangeOrders = {
+export type ChangeOrder = {
   id: number;
   changeOrderName: string;
   estimateName: string;
@@ -16,16 +16,18 @@ export type ChangeOrders = {
 };
 
 export type ChangeOrderRequestsProps = {
-  changeOrders: ChangeOrders[];
+  changeOrders: ChangeOrder[];
 };
 
 export type ChangeOrderRequestProps = {
-  changeOrder: ChangeOrders;
+  changeOrder: ChangeOrder;
 };
 
 export type ChangeOrderRequestRowProps = {
   orderRequest: ChangeOrderRequest;
-  setOrdersSelectedState: SetStateAction<{ [key: number]: boolean }>;
+  setOrdersSelectedState: React.Dispatch.SetStateAction<{
+    [key: number]: boolean;
+  }>;
   ordersSelectedState: { [key: number]: boolean };
   id: number;
 };

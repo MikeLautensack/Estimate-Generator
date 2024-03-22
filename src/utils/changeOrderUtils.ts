@@ -1,7 +1,7 @@
-import { ChangeOrders } from "@/types/changeOrders";
+import { ChangeOrder } from "@/types/changeOrders";
 import { sortChangeOrders } from "./sortingFunctions";
 
-const checkChangeOrders = (orders: ChangeOrders[]): boolean => {
+const checkChangeOrders = (orders: ChangeOrder[]): boolean => {
   if (!orders || orders.length === 0) {
     return false;
   }
@@ -17,7 +17,7 @@ const checkChangeOrders = (orders: ChangeOrders[]): boolean => {
   return true;
 };
 
-const createArray = (changeOrders: ChangeOrders[]): ChangeOrders[] => {
+const createArray = (changeOrders: ChangeOrder[]): ChangeOrder[] => {
   const arr = sortChangeOrders(changeOrders);
   const array = arr.filter((order) => {
     if (order.status == "Pending Approval") {

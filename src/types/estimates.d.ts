@@ -85,13 +85,13 @@ export type EstimateFormPartTwoProps = {
 export type EstimateFormTableProps = {
   fields: LineItems[];
   applyTotal: (
-    setSubtotal: React.Dispatch<React.SetStateAction<number | null>>,
+    setSubtotal: React.Dispatch<React.SetStateAction<number>>,
     setValue: (name: string, value: unknown, config?: Object) => void,
     getValues: (payload?: string | string[]) => string,
     fields: LineItems[],
   ) => void;
   remove: (index?: number | number[]) => void;
-  setSubtotal: React.Dispatch<React.SetStateAction<number | null>>;
+  setSubtotal: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export type LineItemFormFieldProps = {
@@ -99,18 +99,18 @@ export type LineItemFormFieldProps = {
   fields: LineItems[];
   index: number;
   applyTotal: (
-    setSubtotal: React.Dispatch<React.SetStateAction<number | null>>,
+    setSubtotal: React.Dispatch<React.SetStateAction<number>>,
     setValue: (name: string, value: unknown, config?: Object) => void,
     getValues: (payload?: string | string[]) => string,
     fields: LineItems[],
   ) => void;
   remove: (index?: number | number[]) => void;
-  setSubtotal: React.Dispatch<React.SetStateAction<number | null>>;
+  setSubtotal: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export type TaxSelectorProps = {
   taxRate: number;
-  setTaxRate: React.Dispatch<React.SetStateAction<number | null>>;
+  setTaxRate: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export type EstimateFormPartOneSelectProps = {

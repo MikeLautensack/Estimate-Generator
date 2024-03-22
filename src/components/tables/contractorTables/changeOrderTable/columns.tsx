@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ChangeOrders } from "@/types/changeOrders";
+import { ChangeOrder } from "@/types/changeOrders";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
@@ -17,7 +17,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 // import { changeOrders } from "@/db/schemas/changeOrders"
 
-export const columns: ColumnDef<ChangeOrders>[] = [
+export const columns: ColumnDef<ChangeOrder>[] = [
   {
     id: "select",
     header: ({ table }) => (

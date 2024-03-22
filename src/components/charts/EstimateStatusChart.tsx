@@ -48,7 +48,7 @@ const EstimateStatusChart = ({ chartArray }: estimatesChartArrayProps) => {
             {chartArray.map((entry, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={generateColor(chartArray[index].name.toLowerCase())}
+                fill={generateColor(chartArray[index].status.toLowerCase())}
               />
             ))}
           </Pie>

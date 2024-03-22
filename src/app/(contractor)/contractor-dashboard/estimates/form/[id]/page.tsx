@@ -7,9 +7,12 @@ import { authOptions } from "../../../../../../utils/authOptions";
 import { profiles } from "@/db/schemas/userProfile";
 import EstimateForm from "@/components/forms/EstimateForm";
 import { changeOrders } from "@/db/schemas/changeOrders";
-import { ChangeOrders } from "@/types/changeOrders";
+import { ChangeOrder } from "@/types/changeOrders";
 import ChangeOrderRequests from "@/components/misc/ChangeOrderRequests";
 import { checkChangeOrders, createArray } from "@/utils/changeOrderUtils";
+import { Estimates } from "@/types/estimates";
+import { Customers } from "@/types/customers";
+import { Profile } from "@/types/profile";
 
 async function getEstimate(id: number) {
   const estimateTableData = await db
@@ -55,7 +58,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const profile = await getProfile(session.user.id);
   const changeOrders = (await getChangeOrders(
     parseInt(params.id),
-  )) as ChangeOrders[];
+  )) as ChangeOrder[];
 
   return (
     <main className="flex flex-col desktop:w-[calc(100vw-256px)] desktop:flex-row-reverse gap-4 bg-neutral400 min-h-[calc(100vh-56px)] relative desktop:gap-0">
@@ -69,10 +72,10 @@ const Page = async ({ params }: { params: { id: string } }) => {
           Estimate Form
         </h1>
         <EstimateForm
-          estimate={estimate}
-          customers={customers}
-          profile={profile}
-          changeOrders={changeOrders}
+          estimate={estimate as Estimates}
+          customers={customers as Customers}
+          profile={profile[0]}
+          changeOrders={changeOrders as ChangeOrder[]}
         />
       </div>
     </main>
