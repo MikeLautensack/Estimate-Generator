@@ -14,7 +14,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
     try {
       if (data.data?.mode == "put") {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"]}/${data.data?.change_order_id}}`,
+          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"] as string}/${data.data.change_order_id as number}}`,
           {
             method: "PUT",
             headers: {
@@ -27,7 +27,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`,
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${data.data.estimate_id as number}`,
           {
             method: "PUT",
             headers: {
@@ -39,24 +39,27 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
           },
         );
       } else if (data.data?.mode == "post") {
-        await fetch(`${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"]}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            changeOrderName: formData.changeOrderName,
-            description: formData.description,
-            estimateName: data.data?.estimateName,
-            customerName: data.data?.customerName,
-            projectAddress: data.data?.projectAddress,
-            contractor_user_id: data.data?.contractor_user_id,
-            customer_user_id: data.data.customer_user_id,
-            estimate_id: data.data.estimate_id,
-          }),
-        });
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${data.data.estimate_id}`,
+          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"] as string}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              changeOrderName: formData.changeOrderName,
+              description: formData.description,
+              estimateName: data.data?.estimateName,
+              customerName: data.data?.customerName,
+              projectAddress: data.data?.projectAddress,
+              contractor_user_id: data.data?.contractor_user_id,
+              customer_user_id: data.data.customer_user_id,
+              estimate_id: data.data.estimate_id,
+            }),
+          },
+        );
+        await fetch(
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${data.data.estimate_id as number}`,
           {
             method: "PUT",
             headers: {

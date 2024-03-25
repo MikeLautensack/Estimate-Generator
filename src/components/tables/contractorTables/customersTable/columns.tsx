@@ -69,7 +69,7 @@ export const columns: ColumnDef<Customers>[] = [
       const router = useRouter();
       const delCustomer = async (id: number) => {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${id}`,
+          `${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"] as string}/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -78,7 +78,7 @@ export const columns: ColumnDef<Customers>[] = [
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_USER_DELETE_URL"]}/${customer.customer_user_id}`,
+          `${process.env["NEXT_PUBLIC_USER_DELETE_URL"] as string}/${customer.customer_user_id as string}`,
           {
             method: "DELETE",
             headers: {
@@ -100,12 +100,12 @@ export const columns: ColumnDef<Customers>[] = [
             <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}/${customer.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"] as string}/${customer.id as number}`}
             >
               <DropdownMenuItem>View Customer</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}/${customer.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"] as string}/${customer.id as number}`}
             >
               <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>

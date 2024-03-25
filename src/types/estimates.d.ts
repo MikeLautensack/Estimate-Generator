@@ -13,7 +13,7 @@ export type Estimates = {
   contractorName: string;
   contractorAddress: string;
   contractorPhone: string;
-  lineItems?: LineItems[];
+  lineItems: LineItems[];
   message: string;
   subtotal: number;
   taxRate: number;
@@ -86,7 +86,7 @@ export type EstimateFormTableProps = {
   fields: LineItems[];
   applyTotal: (
     setSubtotal: React.Dispatch<React.SetStateAction<number>>,
-    setValue: (name: string, value: unknown, config?: Object) => void,
+    setValue: (name: string, value: unknown, config?: object) => void,
     getValues: (payload?: string | string[]) => string,
     fields: LineItems[],
   ) => void;
@@ -100,7 +100,7 @@ export type LineItemFormFieldProps = {
   index: number;
   applyTotal: (
     setSubtotal: React.Dispatch<React.SetStateAction<number>>,
-    setValue: (name: string, value: unknown, config?: Object) => void,
+    setValue: (name: string, value: unknown, config?: object) => void,
     getValues: (payload?: string | string[]) => string,
     fields: LineItems[],
   ) => void;

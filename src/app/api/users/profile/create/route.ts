@@ -3,9 +3,10 @@ import { profiles } from "../../../../../db/schemas/userProfile";
 import { db } from "../../../../../db";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../../utils/authOptions";
+import { Profile } from "@/types/profile";
 
 export async function POST(request: NextRequest) {
-  const data = await request.json();
+  const data = (await request.json()) as Profile;
   const session = await getServerSession(authOptions);
 
   try {

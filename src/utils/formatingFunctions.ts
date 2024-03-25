@@ -12,8 +12,8 @@ export const formatPriceString = (num: number): string => {
 };
 
 export const formatPhoneNumber = (num: string): string | null => {
-  let cleaned = ("" + num).replace(/\D/g, "");
-  let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+  const cleaned = ("" + num).replace(/\D/g, "");
+  const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
   if (match) {
     return "(" + match[1] + ") " + match[2] + "-" + match[3];
   }

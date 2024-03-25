@@ -9,6 +9,7 @@ import {
 } from "../ui/select";
 import { useFormContext } from "react-hook-form";
 import { EstimateFormPartOneSelectProps } from "@/types/estimates";
+import { Customers } from "@/types/customers";
 
 const EstimateFormOneSelect = ({
   customers,
@@ -23,8 +24,8 @@ const EstimateFormOneSelect = ({
       </FormLabel>
       <Select
         {...field}
-        value={field.value}
-        onValueChange={field.onChange}
+        value={field.value as string}
+        onValueChange={field.onChange as string}
         {...register("customer_id" as const)}
       >
         <FormControl>
@@ -33,7 +34,7 @@ const EstimateFormOneSelect = ({
           </SelectTrigger>
         </FormControl>
         <SelectContent>
-          {customers.map((customer: any) => {
+          {customers.map((customer: Customers) => {
             return (
               <div key={customer.id}>
                 <SelectItem value={`${customer.id}`}>

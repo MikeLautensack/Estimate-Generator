@@ -20,7 +20,7 @@ async function getData(id: number) {
 
 export default async function EstimateStatusChartContainer() {
   const session = await getServerSession(authOptions);
-  const data = await getData(session.user.id);
+  const data = (await getData(session.user.id)) as Estimates[];
 
   const createChartArray = (inputArray: Estimates[]): any[] => {
     try {

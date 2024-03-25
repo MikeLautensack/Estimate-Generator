@@ -31,8 +31,8 @@ const sendVerificationRequest = async (
         react: NewCustomerEmail({
           url,
           host,
-          customerName: fotmatedCustomerName as string,
-          contractorName: fotmatedContractorName as string,
+          customerName: fotmatedCustomerName,
+          contractorName: fotmatedContractorName,
         }),
       });
     } else if (emailType == "new-estimate") {
@@ -43,8 +43,8 @@ const sendVerificationRequest = async (
         react: NewEstimateEmail({
           url,
           host,
-          customerName: fotmatedCustomerName as string,
-          contractorName: fotmatedContractorName as string,
+          customerName: fotmatedCustomerName,
+          contractorName: fotmatedContractorName,
         }),
       });
     } else if (emailType == "updated-estimate") {
@@ -55,8 +55,8 @@ const sendVerificationRequest = async (
         react: UpdatedEstimateEmail({
           url,
           host,
-          customerName: fotmatedCustomerName as string,
-          contractorName: fotmatedContractorName as string,
+          customerName: fotmatedCustomerName,
+          contractorName: fotmatedContractorName,
         }),
       });
     }

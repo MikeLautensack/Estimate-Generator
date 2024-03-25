@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../../db";
 import { profiles } from "../../../../../db/schemas/userProfile";
 import { eq } from "drizzle-orm";
+import { Profile } from "@/types/profile";
 
 export async function PUT(request: NextRequest) {
-  const data = await request.json();
+  const data = (await request.json()) as Profile;
 
   try {
     await db

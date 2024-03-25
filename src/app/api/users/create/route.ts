@@ -3,13 +3,14 @@ import { db } from "../../../../db";
 import { users } from "../../../../db/schemas/auth";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
+import { Users } from "@/types/users";
 
 export async function POST(request: NextRequest) {
-  const data = await request.json();
+  const data = (await request.json()) as Users;
   const existingUser = await db
     .select()
     .from(users)
-    .where(eq(data.email, users.email));
+    .where(eq(users.email, data.email));
 
   if (existingUser.length === 1) {
     return NextResponse.json(

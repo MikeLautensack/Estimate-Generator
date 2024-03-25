@@ -20,7 +20,7 @@ export const users = pgTable("users", {
   email: varchar("email", { length: 255 }).notNull(),
   password: varchar("password", { length: 255 }),
   role: varchar("role", { length: 255 }),
-  newUser: boolean("new_user"),
+  newUser: boolean("new_user").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),

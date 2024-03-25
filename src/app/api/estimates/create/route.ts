@@ -4,10 +4,10 @@ import { db } from "../../../../db";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../utils/authOptions";
 import { lineItem } from "@/types/types";
+import { Estimates, LineItems } from "@/types/estimates";
 
 export async function POST(request: NextRequest) {
-  const data = await request.json();
-  console.log(data);
+  const data = (await request.json()) as Estimates;
   const session = await getServerSession(authOptions);
   const estimateId = Math.floor(Math.random() * 100000000);
 
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       customer_user_id: data.customer_user_id,
     });
     await db.insert(lineItems).values(
-      data.lineItems.map((item: lineItem) => {
+      data.lineItems.map((item: LineItems) => {
         return {
           id: Math.floor(Math.random() * 100000000),
           item: item.item,
