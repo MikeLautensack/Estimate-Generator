@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../../db";
 import { customers } from "../../../../../db/schemas/customers";
 import { eq } from "drizzle-orm";
+import { Customers } from "@/types/customers";
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } },
 ) {
-  const data = await request.json();
+  const data = (await request.json()) as Customers;
 
   try {
     const customer = await db

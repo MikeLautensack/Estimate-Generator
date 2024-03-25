@@ -31,9 +31,7 @@ export default function ChangeOrdersTable<TData, TValue>({
 
   return (
     <div className="">
-      <Button className="" onClick={() => {}}>
-        testing resend
-      </Button>
+      <Button className="">testing resend</Button>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

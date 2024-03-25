@@ -7,6 +7,9 @@ import { eq } from "drizzle-orm";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import EmailProvider from "next-auth/providers/email";
 import sendVerificationRequest from "./sendVerificationRequest";
+import { Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
+import { URL } from "url";
 
 export const authOptions = {
   adapter: DrizzleAdapter(db),
@@ -63,7 +66,7 @@ export const authOptions = {
     signUp: "/signup",
   },
   callbacks: {
-    async session({ session, token }: any) {
+    session({ session, token }: any) {
       return {
         ...session,
         user: {
@@ -73,7 +76,7 @@ export const authOptions = {
         },
       };
     },
-    async jwt({ token, user }: any) {
+    jwt({ token, user }: any) {
       if (user) {
         return {
           ...token,
@@ -83,7 +86,7 @@ export const authOptions = {
       }
       return token;
     },
-    async signIn({ token, user }: any) {
+    signIn({ token, user }: any) {
       if (user) {
         return {
           ...token,

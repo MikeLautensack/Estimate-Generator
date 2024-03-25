@@ -73,7 +73,7 @@ export const columns: ColumnDef<Estimates>[] = [
       const router = useRouter();
       const deleteEstimate = async () => {
         const res = await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_DELETE_URL"]}/${estimate.id}`,
+          `${process.env["NEXT_PUBLIC_ESTIMATES_DELETE_URL"] as string}/${estimate.id}`,
           {
             method: "DELETE",
           },
@@ -95,17 +95,17 @@ export const columns: ColumnDef<Estimates>[] = [
             <DropdownMenuLabel>Estimate Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_ESTIMATE_URL"] as string}/${estimate.id}`}
             >
               <DropdownMenuItem>View Estimates</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"]}/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"] as string}/${estimate.id}`}
             >
               <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"]}/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"] as string}/${estimate.id}`}
             >
               <DropdownMenuItem>Handle Change Orders</DropdownMenuItem>
             </Link>

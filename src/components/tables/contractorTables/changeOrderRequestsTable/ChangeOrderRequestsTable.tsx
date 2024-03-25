@@ -12,7 +12,7 @@ import { ChangeOrderRequestsTableProps } from "@/types/types";
 import { useEffect, useState } from "react";
 import ChangeOrderRequestTableRow from "./ChangeOrderRequestTableRow";
 
-export default function ChangeOrderRequestsTable<TData, TValue>({
+export default function ChangeOrderRequestsTable({
   data,
   setId,
   id,

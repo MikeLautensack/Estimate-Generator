@@ -7,6 +7,7 @@ import { customers } from "@/db/schemas/customers";
 import { Customers } from "@/types/customers";
 import HighProfitCustomersChart from "@/components/charts/HighProfitCustomersChart";
 import { estimates } from "@/db/schemas/estimates";
+import { Estimates } from "@/types/estimates";
 
 async function getCustomers(id: number) {
   try {
@@ -34,7 +35,7 @@ async function getEstimates(id: number) {
 
 export default async function EstimateStatusChartContainer() {
   const session = await getServerSession(authOptions);
-  const data = await getCustomers(session.user.id);
+  const data = (await getCustomers(session.user.id)) as Customers[];
 
   const createChartArray = async (
     inputArray: Customers[],

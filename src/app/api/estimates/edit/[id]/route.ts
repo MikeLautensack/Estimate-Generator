@@ -2,14 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../../db";
 import { estimates } from "../../../../../db/schemas/estimates";
 import { lineItems } from "../../../../../db/schemas/estimates";
-import { lineItem } from "@/types/types";
 import { eq } from "drizzle-orm";
+import { Estimates, LineItems } from "@/types/estimates";
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } },
 ) {
-  const data = await request.json();
+  const data = (await request.json()) as Estimates;
 
   try {
     await db
@@ -17,7 +17,7 @@ export async function PUT(
       .set({
         estimateName: data.estimateName,
         customerName: data.customerName,
-        customerEmail: data.customerBusinessName,
+        customerEmail: data.customerEmail,
         projectAddress: data.projectAddress,
         contractorName: data.contractorName,
         contractorAddress: data.contractorAddress,
@@ -37,7 +37,7 @@ export async function PUT(
       .where(eq(lineItems.estimate_id, parseInt(params.id)));
 
     await db.insert(lineItems).values(
-      data.lineItems.map((item: lineItem) => {
+      data.lineItems.map((item: LineItems) => {
         return {
           id: Math.floor(Math.random() * 100000000),
           item: item.item,
@@ -46,7 +46,7 @@ export async function PUT(
           rateType: item.rateType,
           price: item.price,
           amount: item.amount,
-          estimate_id: params.id,
+          estimate_id: parseInt(params.id),
         };
       }),
     );

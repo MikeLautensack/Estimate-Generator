@@ -60,7 +60,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
 
   const markCompleted = async (id: number) => {
     await fetch(
-      `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`,
+      `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"] as string}/${id}`,
       {
         method: "PUT",
         headers: {
@@ -76,7 +76,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
 
   const reject = async (id: number) => {
     await fetch(
-      `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`,
+      `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"] as string}/${id}`,
       {
         method: "PUT",
         headers: {
@@ -92,7 +92,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
 
   const saveForLater = async (id: number) => {
     await fetch(
-      `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"]}/${id}`,
+      `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"] as string}/${id}`,
       {
         method: "PUT",
         headers: {

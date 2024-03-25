@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../db";
 import { changeOrders } from "@/db/schemas/changeOrders";
+import { ChangeOrder } from "@/types/changeOrders";
 
 export async function POST(request: NextRequest) {
-  const data = await request.json();
+  const data = (await request.json()) as ChangeOrder;
 
   try {
     await db.insert(changeOrders).values({

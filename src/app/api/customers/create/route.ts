@@ -3,9 +3,10 @@ import { customers } from "../../../../db/schemas/customers";
 import { db } from "../../../../db";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../utils/authOptions";
+import { Customers } from "@/types/customers";
 
 export async function POST(request: NextRequest) {
-  const data = await request.json();
+  const data = (await request.json()) as Customers;
   const session = await getServerSession(authOptions);
 
   try {

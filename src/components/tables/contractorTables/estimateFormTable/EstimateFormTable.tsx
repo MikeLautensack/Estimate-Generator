@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { EstimateFormTableProps } from "../../../../types/estimates";
+import { EstimateFormTableProps, LineItems } from "../../../../types/estimates";
 import LineItemFormField from "../../../forms/LineItemFormField";
 
 const EstimateFormTable = ({
@@ -31,7 +31,7 @@ const EstimateFormTable = ({
           </TableRow>
         </TableHeader>
         <TableBody className="">
-          {fields.map((field: any, index: any) => (
+          {fields.map((field: LineItems, index: number) => (
             <LineItemFormField
               key={field.id}
               field={field}

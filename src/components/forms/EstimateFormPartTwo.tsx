@@ -72,9 +72,9 @@ const EstimateFormPartTwo = ({
       setValue("customerEmail", customer?.email as string);
       setValue("projectAddress", customer?.address as string);
     } else {
-      setCustomerName(getValues("customerName"));
-      setCustomerEmail(getValues("customerEmail"));
-      setProjectAddress(getValues("projectAddress"));
+      setCustomerName(getValues("customerName") as string);
+      setCustomerEmail(getValues("customerEmail") as string);
+      setProjectAddress(getValues("projectAddress") as string);
     }
   }, []);
 

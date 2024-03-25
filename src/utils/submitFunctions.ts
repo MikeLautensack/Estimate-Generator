@@ -70,7 +70,7 @@ const submitChangeOrder =
     }
   };
 
-const previewEstimate = (data: Estimates) => async () => {
+const previewEstimate = (data: Estimates) => () => {
   // testing the function
   console.log("preview");
 
@@ -87,7 +87,7 @@ const previewEstimate = (data: Estimates) => async () => {
   }
 };
 
-const saveEstimate = () => async () => {};
+// const saveEstimate = () => async () => {};
 
 // const saveAndSendEstim: (data: Estimates) => SubmitHandler<EstimateFormValues> = (data: Estimates) =>  async (formData: EstimateFormValues) => {
 //   console.log(data)
@@ -122,4 +122,4 @@ const saveEstimate = () => async () => {};
 //     }
 // }
 
-export { submitChangeOrder, previewEstimate, saveEstimate };
+export { submitChangeOrder, previewEstimate };

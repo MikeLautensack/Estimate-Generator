@@ -69,7 +69,7 @@ export const columns: ColumnDef<Estimates>[] = [
 
       const acceptEstimate = async () => {
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`,
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${estimate.id}`,
           {
             method: "PUT",
             headers: {
@@ -84,7 +84,7 @@ export const columns: ColumnDef<Estimates>[] = [
 
       const rejectEstimate = async () => {
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`,
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${estimate.id}`,
           {
             method: "PUT",
             headers: {
@@ -109,7 +109,7 @@ export const columns: ColumnDef<Estimates>[] = [
             <DropdownMenuLabel>Estimate Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMER_ESTIMATES"]}/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_ESTIMATES"] as string}/${estimate.id}`}
             >
               <DropdownMenuItem>View Estimate</DropdownMenuItem>
             </Link>
@@ -117,7 +117,7 @@ export const columns: ColumnDef<Estimates>[] = [
               Accept Estimate
             </DropdownMenuItem>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"]}/new-change-order?estimateId=${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"] as string}/new-change-order?estimateId=${estimate.id}`}
             >
               <DropdownMenuItem>Request a Change Order</DropdownMenuItem>
             </Link>

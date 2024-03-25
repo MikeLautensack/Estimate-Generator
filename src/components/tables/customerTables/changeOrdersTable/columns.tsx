@@ -83,12 +83,12 @@ export const columns: ColumnDef<ChangeOrder>[] = [
             <DropdownMenuLabel>Change Order Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDER"]}?changeOrderId=${changeOrder.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDER"] as string}?changeOrderId=${changeOrder.id}`}
             >
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"]}/edit-change-order?estimateId=${changeOrder.estimate_id}&changeOrderId=${changeOrder.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"] as string}/edit-change-order?estimateId=${changeOrder.estimate_id}&changeOrderId=${changeOrder.id}`}
             >
               <DropdownMenuItem>Edit Change Order</DropdownMenuItem>
             </Link>

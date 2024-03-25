@@ -21,7 +21,7 @@ async function getDataTestOne(id: number) {
 
 const EstimatePriceChartContainer = async () => {
   const session = await getServerSession(authOptions);
-  const data = await getDataTestOne(session.user.id);
+  const data = (await getDataTestOne(session.user.id)) as Estimates[];
 
   const createChartArray = (inputArray: Estimates[]): any[] => {
     try {
