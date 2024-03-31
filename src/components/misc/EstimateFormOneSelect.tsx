@@ -25,7 +25,7 @@ const EstimateFormOneSelect = ({
       <Select
         {...field}
         value={field.value as string}
-        onValueChange={field.onChange as string}
+        onValueChange={field.onChange}
         {...register("customer_id" as const)}
       >
         <FormControl>
