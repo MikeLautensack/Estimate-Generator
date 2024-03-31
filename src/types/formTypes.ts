@@ -14,13 +14,13 @@ export type customerFormProps = {
 
 export type ChangeOrderFormParams = {
   estimateName: string | string[];
-  customerName?: string | string[];
+  customerName: string | string[];
   projectAddress: string | string[];
   mode: string;
   contractor_user_id: number;
-  estimate_id?: number;
+  estimate_id: number;
   customer_user_id: number;
-  change_order_id?: number;
+  change_order_id: number;
 };
 
 export type ChangeOrderForm = {

@@ -1,7 +1,11 @@
 import { Customers } from "./customers";
 import { Profile } from "./profile";
-import { ChangeOrder } from "./types";
-import { SubmitHandler } from "react-hook-form";
+import { ChangeOrder } from "./changeOrders";
+import {
+  ControllerRenderProps,
+  FieldValues,
+  SubmitHandler,
+} from "react-hook-form";
 import React from "react";
 
 export type Estimates = {
