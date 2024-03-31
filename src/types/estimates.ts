@@ -46,7 +46,7 @@ export type LineItems = {
 
 export type EstimateFormProps = {
   estimate: Estimates;
-  customers: Customers;
+  customers: Customers[];
   profile: Profile;
   changeOrders?: ChangeOrder[];
 };
