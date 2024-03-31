@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Button from "./Button";
 import MenuNav from "./MenuNav";
 import { BsPerson } from "react-icons/bs";
 import { FcSettings } from "react-icons/fc";
@@ -10,6 +9,7 @@ import LogoutButton from "./LogoutButton";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
+import { Button } from "../ui/button";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
