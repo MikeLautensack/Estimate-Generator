@@ -2,11 +2,11 @@
 
 import React from "react";
 import { useState } from "react";
-import Button from "../misc/Button";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { LoginFormValues } from "@/types/types";
 import { onSubmit } from "@/utils/formUtils/signInForm";
+import { Button } from "../ui/button";
 
 const SignInForm = () => {
   const [eyeOpen, setEyeOpen] = useState(false);

@@ -2,8 +2,8 @@
 
 import React from "react";
 import { FAQProps } from "../../types/types";
-import Button from "./Button";
 import { FaChevronDown } from "react-icons/fa";
+import { Button } from "../ui/button";
 
 const FAQ = ({ _id, question, answer, opened, dispatch }: FAQProps) => {
   const click = () => {

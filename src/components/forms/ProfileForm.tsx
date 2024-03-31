@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Button from "../misc/Button";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { profileFormProps } from "../../types/formTypes";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 const ProfileForm = () => {
   const { register, handleSubmit } = useForm<profileFormProps>();
