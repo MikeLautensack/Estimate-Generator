@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "./Button";
 import { SubscriptionCardProps } from "@/types/types";
 import { FaCheck } from "react-icons/fa";
+import { Button } from "../ui/button";
 
 const SubscriptionCard = ({
   heading,

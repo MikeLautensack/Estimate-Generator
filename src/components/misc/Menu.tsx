@@ -5,11 +5,11 @@ import MenuNav from "./MenuNav";
 import { BsPerson } from "react-icons/bs";
 import { FcSettings } from "react-icons/fc";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import LogoutButton from "./LogoutButton";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
 import { Button } from "../ui/button";
+import { signOut } from "next-auth/react";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,9 +63,12 @@ const Menu = () => {
           className={`${isOpen ? "flex gap-4 text-white" : "hidden"} desktop:gap-2 desktop:flex flex-col text-black`}
         />
       </div>
-      <LogoutButton
+      <Button
         className={`${isOpen ? "flex text-white justify-end items-center gap-1" : "hidden"} w-full desktop:flex desktop:gap-1 desktop:items-center desktop:justify-end font-medium text-black`}
-      />
+        onClick={() => signOut({ callbackUrl: "http://localhost:3000/" })}
+      >
+        Sign Out
+      </Button>
       <Button
         className={`${isOpen ? "hidden" : "flex"} desktop:hidden`}
         onClick={() => setIsOpen(!isOpen)}
