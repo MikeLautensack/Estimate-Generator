@@ -18,13 +18,13 @@ const preview = () => async () => {
   // }
 };
 
-// const save = async () => {
-//   console.log("save");
-// };
+const save = async () => {
+  console.log("save");
+};
 
-// const saveAndSend = async () => {
-//   console.log("save and send");
-// };
+const saveAndSend = async () => {
+  console.log("save and send");
+};
 
 const onSubmit =
   ({ estimate, customers }: { estimate: Estimates; customers: Customers[] }) =>
@@ -107,6 +107,8 @@ const calculateAmount = (
 
 export {
   preview,
+  save,
+  saveAndSend,
   onSubmit,
   getCustomerUserID,
   calculateTotal,
