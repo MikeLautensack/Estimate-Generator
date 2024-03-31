@@ -9,7 +9,6 @@ export const customers = pgTable("customers", {
   address: varchar("address", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
   phone: varchar("phone", { length: 255 }).notNull(),
-  password: varchar("password", { length: 255 }).notNull(),
   dateCreated: timestamp("date_created", { mode: "date" }).notNull(),
   dateUpdated: timestamp("date_updated", { mode: "date" }).notNull(),
   contractor_user_id: bigint("contractor_user_id", {
