@@ -1,8 +1,8 @@
 import React from "react";
-import Button from "../misc/Button";
 import { useForm } from "react-hook-form";
 import { SideMenuSearchFormProps } from "../../types/types";
 import { FiSearch } from "react-icons/fi";
+import { Button } from "../ui/button";
 
 const SearchForm = () => {
   const { register } = useForm<SideMenuSearchFormProps>();
