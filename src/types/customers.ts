@@ -4,7 +4,7 @@ export type Customers = {
   address: string;
   email: string;
   phone: string;
-  password: string;
+  password?: string;
   dateCreated: Date;
   dateUpdated: Date;
   contractor_user_id: number;
