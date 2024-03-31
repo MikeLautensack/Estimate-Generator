@@ -73,7 +73,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         </h1>
         <EstimateForm
           estimate={estimate as Estimates}
-          customers={customers as Customers}
+          customers={customers[0]}
           profile={profile[0]}
           changeOrders={changeOrders as ChangeOrder[]}
         />
