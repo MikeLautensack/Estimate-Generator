@@ -1,16 +1,8 @@
 import { ColumnDef, Table } from "@tanstack/react-table";
 import { Dispatch } from "react";
-import { ChangeOrders } from "./changeOrders";
+import { ChangeOrder } from "./changeOrders";
 import React from "react";
 import { Estimates } from "./estimates";
-
-export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  children?:
-    | string
-    | React.JSX.Element
-    | React.JSX.Element[]
-    | [React.JSX.Element, string];
-}
 
 export type FeatureCardProps = {
   icon: string;
@@ -74,7 +66,7 @@ export type TableProps<TData, TValue> = {
 };
 
 export type ChangeOrderRequestsTableProps = {
-  data: ChangeOrders[];
+  data: ChangeOrder[];
   setId: React.Dispatch<React.SetStateAction<number | null>>;
   id: number;
 };
@@ -90,8 +82,8 @@ export type lineItem = {
   quantity: number;
   rateType: string;
   price: number;
-  dateCreated?: Date;
-  dateUpdated?: Date;
+  dateCreated: Date;
+  dateUpdated: Date;
   amount: number;
   estimateId: number;
 };
