@@ -56,7 +56,7 @@ const Page = async () => {
             customer_user_id: 0,
             contractor_user_id: 0,
           }}
-          customers={customers as Customers}
+          customers={customers}
           profile={profile[0]}
         />
       </div>
