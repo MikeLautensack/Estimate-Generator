@@ -5,10 +5,11 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../utils/authOptions";
 import { lineItem } from "@/types/types";
 import { Estimates, LineItems } from "@/types/estimates";
+import { Session } from "next-auth";
 
 export async function POST(request: NextRequest) {
   const data = (await request.json()) as Estimates;
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
   const estimateId = Math.floor(Math.random() * 100000000);
 
   try {
