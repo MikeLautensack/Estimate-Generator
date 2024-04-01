@@ -17,10 +17,10 @@ const CustomerForm = ({ data }: CustomerFormType) => {
 
   useEffect(() => {
     if (data != null) {
-      setValue("name", data.name as string);
-      setValue("address", data.address as string);
-      setValue("email", data.email as string);
-      setValue("phone", data.phone as string);
+      setValue("name", data.name);
+      setValue("address", data.address);
+      setValue("email", data.email);
+      setValue("phone", data.phone);
     }
   }, []);
 

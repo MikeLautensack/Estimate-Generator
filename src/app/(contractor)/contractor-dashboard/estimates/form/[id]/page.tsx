@@ -2,7 +2,7 @@ import { estimates, lineItems } from "@/db/schemas/estimates";
 import { db } from "../../../../../../db";
 import { eq } from "drizzle-orm";
 import { customers } from "@/db/schemas/customers";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { authOptions } from "../../../../../../utils/authOptions";
 import { profiles } from "@/db/schemas/userProfile";
 import EstimateForm from "@/components/forms/EstimateForm";
@@ -52,7 +52,7 @@ async function getChangeOrders(id: number) {
 }
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
   const estimate = await getEstimate(parseInt(params.id));
   const customers = await getCustomers(session.user.id);
   const profile = await getProfile(session.user.id);
@@ -75,7 +75,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           estimate={estimate as Estimates}
           customers={customers}
           profile={profile[0]}
-          changeOrders={changeOrders as ChangeOrder[]}
+          changeOrders={changeOrders}
         />
       </div>
     </main>

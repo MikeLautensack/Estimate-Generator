@@ -9,8 +9,8 @@ export default function page() {
   return (
     <div className="flex justify-center items-center bg-primary300">
       <Button
-        onClick={() => {
-          signIn("email", {
+        onClick={async () => {
+          await signIn("email", {
             email: "mikelautensack100@gmail.com",
             callbackUrl: "http://localhost:3000/api/redirect",
             redirect: false,
@@ -20,8 +20,8 @@ export default function page() {
         <Mail className="mr-2 h-4 w-4" /> Email Provider
       </Button>
       <Button
-        onClick={() => {
-          signIn("resend", {
+        onClick={async () => {
+          await signIn("resend", {
             email: "mikelautensack100@gmail.com",
             callbackUrl: "http://localhost:3000/api/redirect",
           });

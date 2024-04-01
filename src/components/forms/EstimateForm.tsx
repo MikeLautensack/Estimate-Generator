@@ -46,7 +46,7 @@ const EstimateForm = ({
 
   useEffect(() => {
     if (estimate) {
-      setLineItems(estimate.lineItems!);
+      setLineItems(estimate.lineItems);
       methods.setValue("estimateName", estimate.estimateName);
       methods.setValue("customer_id", estimate.customer_id);
       methods.setValue("customerName", estimate.customerName);
@@ -55,31 +55,28 @@ const EstimateForm = ({
       methods.setValue("contractorName", estimate.contractorName);
       methods.setValue("contractorAddress", estimate.contractorAddress);
       methods.setValue("contractorPhone", estimate.contractorPhone);
-      methods.setValue("lineItems", estimate.lineItems!);
+      methods.setValue("lineItems", estimate.lineItems);
       methods.setValue("taxRate", estimate.taxRate);
       methods.setValue("message", estimate.message);
       methods.setValue("subtotal", estimate.subtotal);
       methods.setValue("tax", estimate.tax);
       methods.setValue("total", estimate.total);
-      for (let i = 0; i < estimate.lineItems!.length; i++) {
-        methods.setValue(`lineItems.${i}.item`, estimate.lineItems![i].item);
+      for (let i = 0; i < estimate.lineItems.length; i++) {
+        methods.setValue(`lineItems.${i}.item`, estimate.lineItems[i].item);
         methods.setValue(
           `lineItems.${i}.description`,
-          estimate.lineItems![i].description,
+          estimate.lineItems[i].description,
         );
         methods.setValue(
           `lineItems.${i}.rateType`,
-          estimate.lineItems![i].rateType,
+          estimate.lineItems[i].rateType,
         );
         methods.setValue(
           `lineItems.${i}.quantity`,
-          estimate.lineItems![i].quantity,
+          estimate.lineItems[i].quantity,
         );
-        methods.setValue(`lineItems.${i}.price`, estimate.lineItems![i].price);
-        methods.setValue(
-          `lineItems.${i}.amount`,
-          estimate.lineItems![i].amount,
-        );
+        methods.setValue(`lineItems.${i}.price`, estimate.lineItems[i].price);
+        methods.setValue(`lineItems.${i}.amount`, estimate.lineItems[i].amount);
       }
     }
   }, []);
@@ -98,11 +95,11 @@ const EstimateForm = ({
               </TabsTrigger>
             </TabsList>
             <TabsContent value="estimate-form-one" className="w-full">
-              <EstimateFormPartOne customers={customers as Customers[]} />
+              <EstimateFormPartOne customers={customers} />
             </TabsContent>
             <TabsContent value="estimate-form-two" className="w-full">
               <EstimateFormPartTwo
-                customers={customers as Customers[]}
+                customers={customers}
                 profile={profile}
                 fields={fields}
                 prepend={prepend}

@@ -78,7 +78,7 @@ export const columns: ColumnDef<Customers>[] = [
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_USER_DELETE_URL"] as string}/${customer.customer_user_id as string}`,
+          `${process.env["NEXT_PUBLIC_USER_DELETE_URL"] as string}/${customer.customer_user_id}`,
           {
             method: "DELETE",
             headers: {
@@ -100,18 +100,16 @@ export const columns: ColumnDef<Customers>[] = [
             <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"] as string}/${customer.id as number}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"] as string}/${customer.id}`}
             >
               <DropdownMenuItem>View Customer</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"] as string}/${customer.id as number}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"] as string}/${customer.id}`}
             >
               <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem
-              onClick={() => delCustomer(customer.id as number)}
-            >
+            <DropdownMenuItem onClick={() => delCustomer(customer.id)}>
               Delete Customer
             </DropdownMenuItem>
           </DropdownMenuContent>

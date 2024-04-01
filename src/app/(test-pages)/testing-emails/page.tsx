@@ -10,7 +10,7 @@ export default function page() {
       <Button
         className=""
         onClick={async () => {
-          signIn("email", {
+          await signIn("email", {
             email: "mikelautensack100@gmail.com",
             callbackUrl:
               "http://localhost:3000/api/redirect?email-type=new-customer&customer-name=john-snow&contractor-name=colorcoatings-llc&redirect-flag=new-customer",
@@ -23,7 +23,7 @@ export default function page() {
       <Button
         className=""
         onClick={async () => {
-          signIn("email", {
+          await signIn("email", {
             email: "mikelautensack100@gmail.com",
             callbackUrl:
               "http://localhost:3000/api/redirect?email-type=new-estimate&customer-name=john-snow&contractor-name=colorcoatings-llc&redirect-flag=new-estimate&estimate-id=5336368",
@@ -36,7 +36,7 @@ export default function page() {
       <Button
         className=""
         onClick={async () => {
-          signIn("email", {
+          await signIn("email", {
             email: "mikelautensack100@gmail.com",
             callbackUrl:
               "http://localhost:3000/api/redirect?email-type=updated-estimate&customer-name=john-snow&contractor-name=colorcoatings-llc&redirect-flag=updated-estimate&estimate-id=5336368",

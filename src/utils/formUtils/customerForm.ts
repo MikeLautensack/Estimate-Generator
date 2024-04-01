@@ -8,7 +8,7 @@ const submitCustomer =
     try {
       if (data != null) {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CUSTOMERS_EDIT_URL"] as string}/${data.id as number}`,
+          `${process.env["NEXT_PUBLIC_CUSTOMERS_EDIT_URL"] as string}/${data.id}`,
           {
             method: "PUT",
             headers: {
@@ -24,7 +24,7 @@ const submitCustomer =
         );
 
         await fetch(
-          `${process.env["NEXT_PUBLIC_USER_EDIT"] as string}/${data.customer_user_id as string}`,
+          `${process.env["NEXT_PUBLIC_USER_EDIT"] as string}/${data.customer_user_id}`,
           {
             method: "PUT",
             headers: {

@@ -79,7 +79,7 @@ export const columns: ColumnDef<ChangeOrder>[] = [
 
       const deleteChangeOrder = async () => {
         const res = await fetch(
-          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_DELETE"]}/${changeOrder.id}`,
+          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_DELETE"] as string}/${changeOrder.id}`,
           {
             method: "DELETE",
           },
@@ -102,7 +102,7 @@ export const columns: ColumnDef<ChangeOrder>[] = [
             <DropdownMenuLabel>Change Order Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CONTRACTOR_CHANGE_ORDER"]}/${changeOrder.id}`}
+              href={`${process.env["NEXT_PUBLIC_CONTRACTOR_CHANGE_ORDER"] as string}/${changeOrder.id}`}
             >
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>

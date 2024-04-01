@@ -2,7 +2,7 @@ import { estimates } from "@/db/schemas/estimates";
 import EstimateStatusChart from "../../charts/EstimateStatusChart";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 import { Estimates } from "@/types/estimates";
 
@@ -19,22 +19,22 @@ async function getData(id: number) {
 }
 
 export default async function EstimateStatusChartContainer() {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
   const data = (await getData(session.user.id)) as Estimates[];
 
   const createChartArray = (inputArray: Estimates[]): any[] => {
     try {
-      let outputArray: any[] = [];
-      let statusArray: string[] = [];
+      const outputArray: any[] = [];
+      const statusArray: string[] = [];
       for (let i = 0; i < inputArray.length; i++) {
-        let status = inputArray[i].status;
-        if (!statusArray.includes(status as string)) {
-          statusArray.push(status as string);
+        const status = inputArray[i].status;
+        if (!statusArray.includes(status)) {
+          statusArray.push(status);
         }
       }
       for (let i = 0; i < statusArray.length; i++) {
-        let status = statusArray[i];
-        let statusCount = countStatusFrequency(inputArray, status);
+        const status = statusArray[i];
+        const statusCount = countStatusFrequency(inputArray, status);
         outputArray.push({
           name: status,
           value: statusCount,
@@ -59,7 +59,7 @@ export default async function EstimateStatusChartContainer() {
     return count;
   };
 
-  const chartArray = createChartArray(data as Estimates[]);
+  const chartArray = createChartArray(data);
 
   return (
     <div className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative">

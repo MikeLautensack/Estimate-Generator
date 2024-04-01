@@ -1,9 +1,10 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../utils/authOptions";
 import { NextRequest, NextResponse } from "next/server";
+import { Session } from "next-auth";
 
 export async function GET(request: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
 
   const searchParams = request.nextUrl.searchParams;
   const flag = searchParams.get("redirect-flag");
@@ -31,11 +32,15 @@ export async function GET(request: NextRequest) {
       );
     } else if (flag == "new-estimate") {
       return NextResponse.redirect(
-        new URL(`http://localhost:3000/customer-dashboard/estimates/${id}`),
+        new URL(
+          `http://localhost:3000/customer-dashboard/estimates/${id as string}`,
+        ),
       );
     } else if (flag == "updated-estimate") {
       return NextResponse.redirect(
-        new URL(`http://localhost:3000/customer-dashboard/estimates/${id}`),
+        new URL(
+          `http://localhost:3000/customer-dashboard/estimates/${id as string}`,
+        ),
       );
     }
   }
