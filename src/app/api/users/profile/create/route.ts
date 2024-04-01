@@ -4,10 +4,11 @@ import { db } from "../../../../../db";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../../utils/authOptions";
 import { Profile } from "@/types/profile";
+import { Session } from "next-auth";
 
 export async function POST(request: NextRequest) {
   const data = (await request.json()) as Profile;
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
 
   try {
     await db.insert(profiles).values({
