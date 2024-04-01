@@ -2,7 +2,7 @@ import React from "react";
 import { db } from "@/db";
 import { estimates } from "@/db/schemas/estimates";
 import { eq } from "drizzle-orm";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 import { Estimates } from "@/types/estimates";
 import EstimatePriceChart from "../../charts/EstimatePriceChart";
@@ -20,21 +20,21 @@ async function getDataTestOne(id: number) {
 }
 
 const EstimatePriceChartContainer = async () => {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
   const data = (await getDataTestOne(session.user.id)) as Estimates[];
 
   const createChartArray = (inputArray: Estimates[]): any[] => {
     try {
-      let outputArray: any[] = [];
-      let statusArray: string[] = [];
+      const outputArray: any[] = [];
+      const statusArray: string[] = [];
       for (let i = 0; i < inputArray.length; i++) {
-        let status = inputArray[i].status;
-        if (!statusArray.includes(status as string)) {
-          statusArray.push(status as string);
+        const status = inputArray[i].status;
+        if (!statusArray.includes(status)) {
+          statusArray.push(status);
         }
       }
       for (let i = 0; i < statusArray.length; i++) {
-        let status = statusArray[i];
+        const status = statusArray[i];
         const obj = calcEstimatePriceStats(inputArray, status);
         outputArray.push({
           name: status,
@@ -56,7 +56,7 @@ const EstimatePriceChartContainer = async () => {
     let maxTotal = -Infinity;
     let count = 0;
     for (let i = 0; i < inputArray.length; i++) {
-      const total = inputArray[i].total as number;
+      const total = inputArray[i].total;
       if (inputArray[i].status === status) {
         currentTotal += total;
         count++;
@@ -76,7 +76,7 @@ const EstimatePriceChartContainer = async () => {
     };
   };
 
-  const chartArray = createChartArray(data as Estimates[]);
+  const chartArray = createChartArray(data);
 
   return (
     <div className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative">

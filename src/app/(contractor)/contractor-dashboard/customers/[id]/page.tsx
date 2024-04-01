@@ -34,9 +34,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         </div>
         <div className="flex gap-1 justify-start items-center">
           <p className="">Phone:</p>
-          <p className="text-base">
-            {formatPhoneNumber(customer[0].phone as string)}
-          </p>
+          <p className="text-base">{formatPhoneNumber(customer[0].phone)}</p>
         </div>
         <div className="flex gap-1 justify-start items-center">
           <p className="">Address:</p>

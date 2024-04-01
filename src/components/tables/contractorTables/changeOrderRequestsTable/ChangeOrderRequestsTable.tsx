@@ -17,51 +17,11 @@ export default function ChangeOrderRequestsTable({
   setId,
   id,
 }: ChangeOrderRequestsTableProps) {
-  const [ordersSelectedState, setOrdersSelectedState] = useState<{
-    [key: number]: boolean;
-  }>({});
+  const [ordersSelectedID, setOrdersSelectedID] = useState<number | null>(id);
 
   useEffect(() => {
-    setOrdersSelectedState(
-      data.reduce(
-        (obj, item) => {
-          if (id === item.id) {
-            obj[item.id] = true;
-          } else {
-            obj[item.id] = false;
-          }
-
-          return obj;
-        },
-        {} as { [key: number]: boolean },
-      ),
-    );
-  }, []);
-
-  useEffect(() => {
-    setOrdersSelectedState(
-      data.reduce(
-        (obj, item) => {
-          if (id === item.id) {
-            obj[item.id] = true;
-          } else {
-            obj[item.id] = false;
-          }
-          return obj;
-        },
-        {} as { [key: number]: boolean },
-      ),
-    );
-  }, [data]);
-
-  useEffect(() => {
-    const obj = { ...ordersSelectedState };
-    for (const key in ordersSelectedState) {
-      if (obj[key] == true) {
-        setId(parseInt(key));
-      }
-    }
-  }, [ordersSelectedState]);
+    setId(ordersSelectedID);
+  }, [ordersSelectedID, setId]);
 
   return (
     <div className="flex w-full h-32 rounded bg-neutral100 desktop:h-[calc(100vh-328px)]">
@@ -75,17 +35,17 @@ export default function ChangeOrderRequestsTable({
           </TableRow>
         </TableHeader>
         <TableBody className="overflow-y-scroll">
-          {data.map((element, index) => (
+          {data.map((element) => (
             <ChangeOrderRequestTableRow
               orderRequest={{
-                name: data[index].changeOrderName as string,
-                description: data[index].description as string,
-                status: data[index].status as string,
+                id: element.id,
+                name: element.changeOrderName,
+                description: element.description,
+                status: element.status,
               }}
-              ordersSelectedState={ordersSelectedState}
-              setOrdersSelectedState={setOrdersSelectedState}
-              key={data[index].id}
-              id={data[index].id}
+              ordersSelectedID={ordersSelectedID}
+              setOrdersSelectedID={setOrdersSelectedID}
+              key={element.id}
             />
           ))}
         </TableBody>

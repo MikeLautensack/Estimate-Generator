@@ -26,7 +26,7 @@ export default async function Page() {
       <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
         Estimates
       </h1>
-      <Link href={`${process.env["ESTIMATES_FORM_URL"]}`}>
+      <Link href={`${process.env["ESTIMATES_FORM_URL"] as string}`}>
         <Button
           id="new-change-order-button"
           className="flex-1 bg-blue-500 text-secondary500 font-medium"

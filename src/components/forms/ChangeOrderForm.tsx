@@ -14,7 +14,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
     try {
       if (data.data?.mode == "put") {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"] as string}/${data.data.change_order_id as number}}`,
+          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"] as string}/${data.data.change_order_id}}`,
           {
             method: "PUT",
             headers: {
@@ -27,7 +27,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${data.data.estimate_id as number}`,
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${data.data.estimate_id}`,
           {
             method: "PUT",
             headers: {
@@ -59,7 +59,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${data.data.estimate_id as number}`,
+          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${data.data.estimate_id}`,
           {
             method: "PUT",
             headers: {
@@ -95,9 +95,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
           {...register("description")}
         ></textarea>
       </div>
-      <Button onClick={() => {}} className="">
-        Submit Change Order
-      </Button>
+      <Button className="">Submit Change Order</Button>
     </form>
   );
 };

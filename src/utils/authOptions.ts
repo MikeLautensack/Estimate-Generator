@@ -9,7 +9,7 @@ import EmailProvider from "next-auth/providers/email";
 import sendVerificationRequest from "./sendVerificationRequest";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
-import { URL } from "url";
+import type { NextAuthOptions, User } from "next-auth";
 
 export const authOptions = {
   adapter: DrizzleAdapter(db),
@@ -43,7 +43,10 @@ export const authOptions = {
         };
         const res = await db.select().from(users).where(eq(users.email, email));
         const user = res[0];
-        const passMatch = await bcrypt.compare(password, user.password!);
+        const passMatch = await bcrypt.compare(
+          password,
+          user.password as string,
+        );
 
         if (passMatch) {
           return user;
@@ -63,30 +66,19 @@ export const authOptions = {
   },
   pages: {
     signIn: "/signin",
-    signUp: "/signup",
   },
   callbacks: {
-    session({ session, token }: any) {
+    session({ session, token }: { session: Session; token: JWT }) {
       return {
         ...session,
         user: {
           ...session.user,
           id: token.id,
           role: token.role,
-        },
+        } as User,
       };
     },
-    jwt({ token, user }: any) {
-      if (user) {
-        return {
-          ...token,
-          id: user.id,
-          role: user.role,
-        };
-      }
-      return token;
-    },
-    signIn({ token, user }: any) {
+    jwt({ token, user }: { token: JWT; user: User }) {
       if (user) {
         return {
           ...token,
@@ -97,4 +89,4 @@ export const authOptions = {
       return token;
     },
   },
-};
+} satisfies NextAuthOptions;

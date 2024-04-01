@@ -18,11 +18,11 @@ const preview = () => async () => {
   // }
 };
 
-const save = async () => {
+const save = () => {
   console.log("save");
 };
 
-const saveAndSend = async () => {
+const saveAndSend = () => {
   console.log("save and send");
 };
 

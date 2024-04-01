@@ -1,7 +1,7 @@
 // import EstimateStatusChart from "../../charts/EstimateStatusChart";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 import { customers } from "@/db/schemas/customers";
 import { Customers } from "@/types/customers";
@@ -34,26 +34,26 @@ async function getEstimates(id: number) {
 }
 
 export default async function EstimateStatusChartContainer() {
-  const session = await getServerSession(authOptions);
-  const data = (await getCustomers(session.user.id)) as Customers[];
+  const session = (await getServerSession(authOptions)) as Session;
+  const data = (await getCustomers(parseInt(session.user.id))) as Customers[];
 
   const createChartArray = async (
     inputArray: Customers[],
   ): Promise<{ name: string; meanTotal: number }[]> => {
     try {
-      let topFive: { name: string; meanTotal: number }[] = [];
+      const topFive: { name: string; meanTotal: number }[] = [];
       for (let i = 0; i < inputArray.length; i++) {
         const meanTotal = await calcAvgCustomerSpend(inputArray[i]);
         if (topFive.length < 5) {
           topFive.push({
-            name: inputArray[i].name as string,
+            name: inputArray[i].name,
             meanTotal: meanTotal,
           });
           sortTopFive(topFive);
         } else {
           if (meanTotal > topFive[0].meanTotal) {
             topFive.push({
-              name: inputArray[i].name as string,
+              name: inputArray[i].name,
               meanTotal: meanTotal,
             });
           }
@@ -69,15 +69,13 @@ export default async function EstimateStatusChartContainer() {
   };
 
   const calcAvgCustomerSpend = async (customer: Customers): Promise<number> => {
-    let total: number = 0;
-    const estimates = await getEstimates(
-      parseInt(customer.customer_user_id as string),
-    );
+    let total = 0;
+    const estimates = await getEstimates(parseInt(customer.customer_user_id));
     if (estimates && estimates.length > 0) {
-      for (let i = 0; i < estimates!.length; i++) {
-        total += estimates![i].total as number;
+      for (let i = 0; i < estimates.length; i++) {
+        total += estimates[i].total as number;
       }
-      const meanTotal = total / estimates!.length;
+      const meanTotal = total / estimates.length;
       return meanTotal;
     } else {
       return 0;
@@ -96,7 +94,7 @@ export default async function EstimateStatusChartContainer() {
     }
   };
 
-  const chartArray = await createChartArray(data as Customers[]);
+  const chartArray = await createChartArray(data);
 
   return (
     <div className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative">

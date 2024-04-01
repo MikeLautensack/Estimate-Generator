@@ -25,15 +25,12 @@ export type ChangeOrderRequestProps = {
 
 export type ChangeOrderRequestRowProps = {
   orderRequest: ChangeOrderRequest;
-  setOrdersSelectedState: React.Dispatch<
-    React.SetStateAction<{
-      [key: number]: boolean;
-    }>
-  >;
-  ordersSelectedState: { [key: number]: boolean };
-  id: number;
+  ordersSelectedID: number | null;
+  setOrdersSelectedID: React.Dispatch<React.SetStateAction<number | null>>;
 };
+
 export type ChangeOrderRequest = {
+  id: number;
   name: string;
   description: string;
   status: string;

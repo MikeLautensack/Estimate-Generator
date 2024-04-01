@@ -6,39 +6,31 @@ import { useEffect, useState } from "react";
 
 const ChangeOrderRequestTableRow = ({
   orderRequest,
-  setOrdersSelectedState,
-  ordersSelectedState,
-  id,
+  ordersSelectedID,
+  setOrdersSelectedID,
 }: ChangeOrderRequestRowProps) => {
-  const [selectedState, setSelectedState] = useState(false);
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
-    for (const key in ordersSelectedState) {
-      if (parseInt(key) == id) {
-        setSelectedState(ordersSelectedState[key]);
-      }
+    if (ordersSelectedID === orderRequest.id) {
+      setSelected(true);
+    } else {
+      setSelected(false);
     }
-  }, [ordersSelectedState]);
-
-  const handleOnClick = () => {
-    let obj = { ...ordersSelectedState };
-    for (const key in obj) {
-      if (parseInt(key) == id) {
-        obj[key] = true;
-      } else {
-        obj[key] = false;
-      }
-    }
-    setOrdersSelectedState(obj);
-  };
+  }, [ordersSelectedID, setSelected, orderRequest.id]);
 
   return (
-    <TableRow className={`${selectedState ? "border border-red-500" : ""}`}>
+    <TableRow className={`${selected ? "border border-red-500" : ""}`}>
       <TableCell>
         <input
-          checked={selectedState}
+          checked={selected}
           type="checkbox"
-          onChange={handleOnClick}
+          onChange={() => {
+            if (!selected) {
+              setSelected(true);
+              setOrdersSelectedID(orderRequest.id);
+            }
+          }}
         ></input>
       </TableCell>
       <TableCell>{orderRequest.name}</TableCell>
