@@ -7,7 +7,7 @@ import { profiles } from "@/db/schemas/userProfile";
 import { Customers } from "@/types/customers";
 import { Profile } from "@/types/profile";
 import { eq } from "drizzle-orm";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 
 async function getCustomers() {
   const res = await db.select().from(customers);
@@ -15,7 +15,7 @@ async function getCustomers() {
 }
 
 async function getProfile() {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
   const res = await db
     .select()
     .from(profiles)
