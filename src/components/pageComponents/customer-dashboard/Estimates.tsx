@@ -4,10 +4,10 @@ import { columns } from "@/components/tables/customerTables/estimatesTable/colum
 import { estimates } from "../../../db/schemas/estimates";
 import { db } from "../../../db";
 import { eq } from "drizzle-orm";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 
-async function getData(session: any) {
+async function getData(session: Session) {
   const res = await db
     .select()
     .from(estimates)
@@ -16,7 +16,7 @@ async function getData(session: any) {
 }
 
 const Estimates = async () => {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
   const data = (await getData(session)) as EstimateType[];
 
   return (

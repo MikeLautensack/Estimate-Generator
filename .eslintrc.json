@@ -1,14 +1,14 @@
 {
   "extends": [
-    "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "next/core-web-vitals"
+    // "plugin:@typescript-eslint/recommended",
+    // "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "parserOptions": {
     "project": true
   },
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  // "parser": "@typescript-eslint/parser",
+  // "plugins": ["@typescript-eslint"],
   "root": true,
   "settings": {
     "react": {

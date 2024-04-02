@@ -19,11 +19,11 @@ const Nav = () => {
       whileInView={{ opacity: 1 }}
     >
       <h2
-        className={`mx-5 font-medium text-[24px] text-blue-500 ${open && "text-white"}`}
+        className={`mx-5 font-medium text-[24px] text-blue-500 ${open ? "text-white" : ""}`}
       >
         Estimate Generator
       </h2>
-      <div className={`hidden tablet:flex gap-2 m-2 ${open && "flex"}`}>
+      <div className={`hidden tablet:flex gap-2 m-2 ${open ? "flex" : ""}`}>
         <Link
           id="signin-button"
           className="text-blue-500 text-base font-medium rounded p-1 w-[70px]"
@@ -42,11 +42,11 @@ const Nav = () => {
       </div>
       <FaBars
         onClick={() => setOpen(!open)}
-        className={`m-5 tablet:hidden text-primary500 ${open && "hidden"}`}
+        className={`m-5 tablet:hidden text-primary500 ${open ? "hidden" : ""}`}
       />
       <FaXmark
         onClick={() => setOpen(!open)}
-        className={`m-5 tablet:hidden text-primary500 fixed top-1 right-1 ${!open && "hidden"}`}
+        className={`m-5 tablet:hidden text-primary500 fixed top-1 right-1 ${!open ? "hidden" : ""}`}
       />
     </motion.nav>
   );

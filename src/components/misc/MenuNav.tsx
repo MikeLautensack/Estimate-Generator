@@ -9,8 +9,6 @@ import Link from "next/link";
 const MenuNav = ({ ...props }) => {
   const [selected, setSelected] = useState("dashboard");
 
-  useEffect(() => {}, []);
-
   //   const changeSelected = (selected: string) => {
   //     setSelected(selected);
   //   };
