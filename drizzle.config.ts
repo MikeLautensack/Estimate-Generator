@@ -9,5 +9,5 @@ export default {
   driver: "pg",
   dbCredentials: {
     connectionString: process.env.NEON_DB!,
-  }
-} satisfies Config
+  },
+} satisfies Config;

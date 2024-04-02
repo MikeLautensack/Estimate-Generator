@@ -1,5 +1,5 @@
-import { db } from "@/db";
-import { customers } from "@/db/schemas/customers";
+// import { db } from "@/db";
+// import { customers } from "@/db/schemas/customers";
 
 // async function getData() {
 //     try {
@@ -11,14 +11,13 @@ import { customers } from "@/db/schemas/customers";
 //     }
 // }
 
-export default async function TotalEstimateEmails() {
-
-//   const data = await getData();
+export default function TotalEstimateEmails() {
+  //   const data = await getData();
 
   return (
     <div className="flex justify-between items-center rounded-lg bg-neutral100 p-4">
-        <h1>Total Estimate Emails</h1>
-        {/* <h2>{data?.length}</h2> */}
+      <h1>Total Estimate Emails</h1>
+      {/* <h2>{data?.length}</h2> */}
     </div>
   );
 }

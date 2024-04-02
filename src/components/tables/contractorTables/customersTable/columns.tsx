@@ -2,13 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Customers } from "@/types/customers";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "../../../ui/dropdown-menu";
 import { Button } from "../../../ui/button";
 import { Checkbox } from "../../../ui/checkbox";
@@ -47,7 +47,7 @@ export const columns: ColumnDef<Customers>[] = [
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -65,23 +65,29 @@ export const columns: ColumnDef<Customers>[] = [
   {
     id: "actions",
     cell: function Cell({ row }) {
-      const customer = row.original
-      const router = useRouter()
+      const customer = row.original;
+      const router = useRouter();
       const delCustomer = async (id: number) => {
-        const deleteCustomer = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${id}`, {
-          method: 'DELETE',
-          headers: {
-              "Content-Type": "application/json"
-          }
-        })
-        const deleteUser = await fetch(`${process.env["NEXT_PUBLIC_USER_DELETE_URL"]}/${customer.customer_user_id}`, {
-          method: 'DELETE',
-          headers: {
-              "Content-Type": "application/json"
-          }
-        })
-        router.refresh()
-      }
+        await fetch(
+          `${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"] as string}/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        await fetch(
+          `${process.env["NEXT_PUBLIC_USER_DELETE_URL"] as string}/${customer.customer_user_id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        router.refresh();
+      };
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -94,23 +100,21 @@ export const columns: ColumnDef<Customers>[] = [
             <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}/${customer.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"] as string}/${customer.id}`}
             >
               <DropdownMenuItem>View Customer</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}/${customer.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"] as string}/${customer.id}`}
             >
               <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem
-              onClick={() => delCustomer(customer.id as number)}
-            >
+            <DropdownMenuItem onClick={() => delCustomer(customer.id)}>
               Delete Customer
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

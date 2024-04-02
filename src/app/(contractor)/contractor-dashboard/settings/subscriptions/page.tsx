@@ -1,7 +1,5 @@
 const Page = () => {
-  return (
-    <div>Subscriptions</div>
-  );
-}
+  return <div>Subscriptions</div>;
+};
 
 export default Page;

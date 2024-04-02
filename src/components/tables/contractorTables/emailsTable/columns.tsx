@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ChangeOrder } from "@/types/types";
+import { ChangeOrder } from "../../../../types/changeOrders";
 
 export const columns: ColumnDef<ChangeOrder>[] = [
   {
@@ -16,4 +16,4 @@ export const columns: ColumnDef<ChangeOrder>[] = [
     accessorKey: "time",
     header: "Time",
   },
-]
+];

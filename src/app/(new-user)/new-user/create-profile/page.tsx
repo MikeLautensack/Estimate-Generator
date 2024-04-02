@@ -3,9 +3,9 @@ import ProfileForm from "@/components/forms/ProfileForm";
 const Page = () => {
   return (
     <main className="">
-        <ProfileForm />
+      <ProfileForm />
     </main>
   );
-}
+};
 
 export default Page;
