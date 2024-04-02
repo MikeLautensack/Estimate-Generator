@@ -1,7 +1,6 @@
-'use client'
+"use client";
 
 import {
-  ColumnDef,
   flexRender,
   SortingState,
   ColumnFiltersState,
@@ -11,33 +10,27 @@ import {
   getFilteredRowModel,
   useReactTable,
   getPaginationRowModel,
-} from "@tanstack/react-table"
-
+} from "@tanstack/react-table";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-
-import { TableProps } from "@/types/types"
-import CustomersPagination from "./CustomersPagination"
-import { useState } from "react"
-import { Input } from "../../../ui/input"
-
-
+} from "@/components/ui/table";
+import { TableProps } from "@/types/types";
+import CustomersPagination from "./CustomersPagination";
+import { useState } from "react";
+import { Input } from "../../../ui/input";
 
 export default function CustomersTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {
-
-  const [ sorting, setSorting ] = useState<SortingState>([])
-  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([])
-  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({})
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const table = useReactTable({
     data,
     columns,
@@ -52,8 +45,8 @@ export default function CustomersTable<TData, TValue>({
     onRowSelectionChange: setRowSelection,
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getFilteredRowModel: getFilteredRowModel()
-  })
+    getFilteredRowModel: getFilteredRowModel(),
+  });
 
   return (
     <div className="flex flex-col gap-4">
@@ -75,11 +68,11 @@ export default function CustomersTable<TData, TValue>({
                 {headersGroup.headers.map((header) => (
                   <TableHead key={header.id}>
                     {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -94,14 +87,20 @@ export default function CustomersTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -109,9 +108,7 @@ export default function CustomersTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <CustomersPagination
-        table={table}
-      />
+      <CustomersPagination table={table} />
     </div>
-  )
+  );
 }

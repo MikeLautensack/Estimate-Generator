@@ -1,16 +1,21 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { ChangeOrders } from "@/types/changeOrders"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Button } from "@/components/ui/button"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { changeOrders } from "@/db/schemas/changeOrders"
+import { ColumnDef } from "@tanstack/react-table";
+import { ChangeOrder } from "@/types/changeOrders";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
-export const columns: ColumnDef<ChangeOrders>[] = [
+export const columns: ColumnDef<ChangeOrder>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -41,7 +46,7 @@ export const columns: ColumnDef<ChangeOrders>[] = [
           Change Order Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -63,9 +68,9 @@ export const columns: ColumnDef<ChangeOrders>[] = [
   {
     id: "actions",
     cell: function Cell({ row }) {
-      const changeOrder = row.original
-      const router = useRouter()
-  
+      const changeOrder = row.original;
+      // const router = useRouter()
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -78,18 +83,18 @@ export const columns: ColumnDef<ChangeOrders>[] = [
             <DropdownMenuLabel>Change Order Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDER"]}?changeOrderId=${changeOrder.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDER"] as string}?changeOrderId=${changeOrder.id}`}
             >
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"]}/edit-change-order?estimateId=${changeOrder.estimate_id}&changeOrderId=${changeOrder.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"] as string}/edit-change-order?estimateId=${changeOrder.estimate_id}&changeOrderId=${changeOrder.id}`}
             >
               <DropdownMenuItem>Edit Change Order</DropdownMenuItem>
             </Link>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

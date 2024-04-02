@@ -1,4 +1,3 @@
-import PricingSection from "../../components/pageComponents/home/PricingSection";
 import FAQSection from "../../components/pageComponents/home/FAQSection";
 import HeroSection from "../../components/pageComponents/home/HeroSection";
 import Footer from "../../components/misc/Footer";
@@ -12,10 +11,10 @@ const Home = () => {
       {/* <PricingSection /> */}
       <div className="flex flex-col h-screen w-full">
         <FAQSection />
-        <Footer /> 
+        <Footer />
       </div>
     </main>
   );
-}
+};
 
 export default Home;

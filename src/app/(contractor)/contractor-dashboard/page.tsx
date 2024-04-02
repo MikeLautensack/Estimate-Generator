@@ -10,23 +10,25 @@ import EstimatePriceChartContainer from "@/components/pageComponents/contractor-
 const Page = () => {
   return (
     <main className="flex-1 p-4 flex flex-col gap-4 bg-neutral400 min-h-screen">
-        <h1 className="text-2xl desktop:text-[42px] font-bold text-black">Dashboard</h1>
-        <div className="flex flex-col gap-4 flex-1">
-          <div className="grid gap-4 desktop:grid-cols-4">
-              <TotalCustomers />
-              <TotalEstimates />
-              <TotalChangeOrders />
-              <TotalEstimateEmails />
-          </div>
-          <div className="grid gap-4 tablet:grid-cols-2 flex-1">
-              <EstimateStatusChartContainer />
-              <EstimatePriceChartContainer />
-              <HighProfitCustomersChartContainer />
-              <EstimateStatsGraph />
-          </div>
+      <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
+        Dashboard
+      </h1>
+      <div className="flex flex-col gap-4 flex-1">
+        <div className="grid gap-4 desktop:grid-cols-4">
+          <TotalCustomers />
+          <TotalEstimates />
+          <TotalChangeOrders />
+          <TotalEstimateEmails />
         </div>
+        <div className="grid gap-4 tablet:grid-cols-2 flex-1">
+          <EstimateStatusChartContainer />
+          <EstimatePriceChartContainer />
+          <HighProfitCustomersChartContainer />
+          <EstimateStatsGraph />
+        </div>
+      </div>
     </main>
-  )
-}
+  );
+};
 
 export default Page;

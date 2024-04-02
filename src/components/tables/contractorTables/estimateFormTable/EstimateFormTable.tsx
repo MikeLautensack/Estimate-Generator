@@ -1,14 +1,21 @@
-'use client'
+"use client";
 
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import React from 'react'
-import { EstimateFormTableProps } from '../../../../types/estimates'
-import LineItemFormField from "../../../forms/LineItemFormField"
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import React from "react";
+import { EstimateFormTableProps, LineItems } from "../../../../types/estimates";
+import LineItemFormField from "../../../forms/LineItemFormField";
 
-const EstimateFormTable = ({ 
+const EstimateFormTable = ({
   fields,
   applyTotal,
-  remove
+  remove,
+  setSubtotal,
 }: EstimateFormTableProps) => {
   return (
     <div className="flex bg-neutral400 rounded-lg border-2 border-neutral400">
@@ -24,23 +31,21 @@ const EstimateFormTable = ({
           </TableRow>
         </TableHeader>
         <TableBody className="">
-          {fields.map((
-            field: any, 
-            index: any
-          ) => (
-            <LineItemFormField 
+          {fields.map((field: LineItems, index: number) => (
+            <LineItemFormField
               key={field.id}
               field={field}
               fields={fields}
               index={index}
               applyTotal={applyTotal}
               remove={remove}
+              setSubtotal={setSubtotal}
             />
           ))}
         </TableBody>
       </Table>
     </div>
-  )
-}
+  );
+};
 
-export default EstimateFormTable
+export default EstimateFormTable;
