@@ -5,113 +5,53 @@ import { EstimateFormProps, EstimateFormValues } from "@/types/estimates";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import EstimateFormPartOne from "./EstimateFormPartOne";
 import EstimateFormPartTwo from "./EstimateFormPartTwo";
-import { 
-  FormProvider, 
-  SubmitHandler, 
-  useFieldArray, 
-  useForm 
+import {
+  FormProvider,
+  UseFormReturn,
+  useFieldArray,
+  useForm,
 } from "react-hook-form";
+import {
+  preview,
+  save,
+  saveAndSend,
+} from "@/utils/formUtils/estimateFormUtils";
 import { Customers } from "@/types/customers";
-import { redirect } from "next/navigation";
 
 const EstimateForm = ({
   estimate,
   customers,
   profile,
-  changeOrders
-}:EstimateFormProps) => {
-  
-  const [ lineItems, setLineItems ] = useState([{
-    item: "",
-    description: "",
-    quantity: 0,
-    rateType: "unit",
-    price: 0,
-    amount: 0
-  }]);
+  changeOrders,
+}: EstimateFormProps) => {
+  const [lineItems, setLineItems] = useState([
+    {
+      item: "",
+      description: "",
+      quantity: 0,
+      rateType: "unit",
+      price: 0,
+      amount: 0,
+    },
+  ]);
 
-  const methods = useForm<EstimateFormValues>({
-    defaultValues: {
+  const methods: UseFormReturn<EstimateFormValues> =
+    useForm<EstimateFormValues>({
+      defaultValues: {
         lineItems: lineItems,
-        taxRate: 0
-    }
-  });
+        taxRate: 0,
+      },
+    });
 
   const control = methods.control;
-  const { 
-    fields, 
-    prepend, 
-    remove 
-  } = useFieldArray({
+
+  const { fields, prepend, remove } = useFieldArray({
     control,
-    name: "lineItems"
+    name: "lineItems",
   });
 
-  const getCustomerUserID = (customers: Customers[], id: number) => {
-    for(let i = 0; i < customers.length; i++) {
-      if(customers[i].id == id) {
-        return customers[i].customer_user_id;
-      }
-    }
-  }
-
-  const preview: SubmitHandler<EstimateFormValues> = async (data) => {
-
-    // testing the function
-    console.log("preview");
-    
-    // Check if form is in create mode or edit mode
-    if(estimate) {
-      // create query string
-      // const queryString = new URLSearchParams(data).toString()
-      // console.log('q string', queryString)
-      // redirect to /contractor-dashboard/estimates/xxxxxxx
-      redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`);
-    } else {
-      // redirect to /contractor-dashboard/estimates/xxxxxxx
-      redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"]}/`);
-    }
-  }
-
-  const save: SubmitHandler<EstimateFormValues> = async (data) => {
-    console.log("save");
-  }
-
-  const saveAndSend: SubmitHandler<EstimateFormValues> = async (data) => {
-    console.log("save and send");
-  }
-
-  const onSubmit: SubmitHandler<EstimateFormValues> = async (data) => {
-    console.log(data);
-    const customer_user_id = getCustomerUserID(customers, data.customer_id as number);
-    if(estimate) {
-      const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_EDIT_URL"]}/${estimate.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          ...data,
-          status: "Work In Progress (edited)"
-        })
-      });
-    } else {
-      const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_CREATE_URL"]}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          ...data,
-          customer_user_id,
-          status: "Work In Progress"
-        })
-      });
-    }
-  }
-
   useEffect(() => {
-    if(estimate) {
+    if (estimate) {
       setLineItems(estimate.lineItems);
       methods.setValue("estimateName", estimate.estimateName);
       methods.setValue("customer_id", estimate.customer_id);
@@ -127,61 +67,50 @@ const EstimateForm = ({
       methods.setValue("subtotal", estimate.subtotal);
       methods.setValue("tax", estimate.tax);
       methods.setValue("total", estimate.total);
-      for(let i = 0; i < estimate.lineItems.length; i++) {
+      for (let i = 0; i < estimate.lineItems.length; i++) {
         methods.setValue(`lineItems.${i}.item`, estimate.lineItems[i].item);
-        methods.setValue(`lineItems.${i}.description`, estimate.lineItems[i].description);
-        methods.setValue(`lineItems.${i}.rateType`, estimate.lineItems[i].rateType);
-        methods.setValue(`lineItems.${i}.quantity`, estimate.lineItems[i].quantity);
+        methods.setValue(
+          `lineItems.${i}.description`,
+          estimate.lineItems[i].description,
+        );
+        methods.setValue(
+          `lineItems.${i}.rateType`,
+          estimate.lineItems[i].rateType,
+        );
+        methods.setValue(
+          `lineItems.${i}.quantity`,
+          estimate.lineItems[i].quantity,
+        );
         methods.setValue(`lineItems.${i}.price`, estimate.lineItems[i].price);
         methods.setValue(`lineItems.${i}.amount`, estimate.lineItems[i].amount);
       }
     }
-  }, [])
+  }, []);
 
   return (
     <div className="">
       <FormProvider {...methods}>
-        <form
-          className="w-full bg-neutral100"
-        >
-          
-          <Tabs
-            defaultValue={"estimate-form-two"}
-            className="w-full"
-          >
+        <form className="w-full bg-neutral100">
+          <Tabs defaultValue={"estimate-form-two"} className="w-full">
             <TabsList className="flex w-full">
-                <TabsTrigger 
-                  className="flex-1" 
-                  value="estimate-form-one"
-                >
-                  1. Customer & Contact Info
-                </TabsTrigger>
-                <TabsTrigger 
-                  className="flex-1" 
-                  value="estimate-form-two"
-                >
-                  2. Estimate Info
-                </TabsTrigger>
+              <TabsTrigger className="flex-1" value="estimate-form-one">
+                1. Customer & Contact Info
+              </TabsTrigger>
+              <TabsTrigger className="flex-1" value="estimate-form-two">
+                2. Estimate Info
+              </TabsTrigger>
             </TabsList>
-            <TabsContent
-                value="estimate-form-one"
-                className="w-full"
-            >
-              <EstimateFormPartOne
-                customers={customers}
-              /> 
+            <TabsContent value="estimate-form-one" className="w-full">
+              <EstimateFormPartOne customers={customers} />
             </TabsContent>
-            <TabsContent
-                value="estimate-form-two"
-                className="w-full"
-            >
+            <TabsContent value="estimate-form-two" className="w-full">
               <EstimateFormPartTwo
-                customers={customers} 
+                customers={customers}
                 profile={profile}
                 fields={fields}
                 prepend={prepend}
                 remove={remove}
-                changeOrders={changeOrders}
+                changeOrders={changeOrders!}
                 estimate={estimate}
                 methods={methods}
                 preview={preview}
@@ -194,6 +123,6 @@ const EstimateForm = ({
       </FormProvider>
     </div>
   );
-}
+};
 
 export default EstimateForm;

@@ -10,84 +10,179 @@ import { GLTF } from "three-stdlib";
 
 type GLTFResult = GLTF & {
   nodes: {
-    Worker_Feet_1: THREE.SkinnedMesh
-    Worker_Feet_2: THREE.SkinnedMesh
-    Worker_Legs_1: THREE.SkinnedMesh
-    Worker_Legs_2: THREE.SkinnedMesh
-    Worker_Body_1: THREE.SkinnedMesh
-    Worker_Body_2: THREE.SkinnedMesh
-    Worker_Body_3: THREE.SkinnedMesh
-    Worker_Body_4: THREE.SkinnedMesh
-    Worker_Head_1: THREE.SkinnedMesh
-    Worker_Head_2: THREE.SkinnedMesh
-    Worker_Head_3: THREE.SkinnedMesh
-    Worker_Head_4: THREE.SkinnedMesh
-    Worker_Head_5: THREE.SkinnedMesh
-    Root: THREE.Bone
-  }
+    Worker_Feet_1: THREE.SkinnedMesh;
+    Worker_Feet_2: THREE.SkinnedMesh;
+    Worker_Legs_1: THREE.SkinnedMesh;
+    Worker_Legs_2: THREE.SkinnedMesh;
+    Worker_Body_1: THREE.SkinnedMesh;
+    Worker_Body_2: THREE.SkinnedMesh;
+    Worker_Body_3: THREE.SkinnedMesh;
+    Worker_Body_4: THREE.SkinnedMesh;
+    Worker_Head_1: THREE.SkinnedMesh;
+    Worker_Head_2: THREE.SkinnedMesh;
+    Worker_Head_3: THREE.SkinnedMesh;
+    Worker_Head_4: THREE.SkinnedMesh;
+    Worker_Head_5: THREE.SkinnedMesh;
+    Root: THREE.Bone;
+  };
   materials: {
-    Black: THREE.MeshStandardMaterial
-    Grey: THREE.MeshStandardMaterial
-    Brown2: THREE.MeshStandardMaterial
-    Brown: THREE.MeshStandardMaterial
-    Worker_Yellow: THREE.MeshStandardMaterial
-    Worker_Vest: THREE.MeshStandardMaterial
-    LightBrown: THREE.MeshStandardMaterial
-    Skin: THREE.MeshStandardMaterial
-    Eyebrows: THREE.MeshStandardMaterial
-    Eye: THREE.MeshStandardMaterial
-    Moustache: THREE.MeshStandardMaterial
-  }
-  animations: GLTFAction[]
-}
+    Black: THREE.MeshStandardMaterial;
+    Grey: THREE.MeshStandardMaterial;
+    Brown2: THREE.MeshStandardMaterial;
+    Brown: THREE.MeshStandardMaterial;
+    Worker_Yellow: THREE.MeshStandardMaterial;
+    Worker_Vest: THREE.MeshStandardMaterial;
+    LightBrown: THREE.MeshStandardMaterial;
+    Skin: THREE.MeshStandardMaterial;
+    Eyebrows: THREE.MeshStandardMaterial;
+    Eye: THREE.MeshStandardMaterial;
+    Moustache: THREE.MeshStandardMaterial;
+  };
+  animations: GLTFAction[];
+};
 
-type ActionName = "CharacterArmature|Death" | "CharacterArmature|Gun_Shoot" | "CharacterArmature|HitRecieve" | "CharacterArmature|HitRecieve_2" | 'CharacterArmature|Idle' | 'CharacterArmature|Idle_Gun' | 'CharacterArmature|Idle_Gun_Pointing' | 'CharacterArmature|Idle_Gun_Shoot' | 'CharacterArmature|Idle_Neutral' | 'CharacterArmature|Idle_Sword' | 'CharacterArmature|Interact' | 'CharacterArmature|Kick_Left' | 'CharacterArmature|Kick_Right' | 'CharacterArmature|Punch_Left' | 'CharacterArmature|Punch_Right' | 'CharacterArmature|Roll' | 'CharacterArmature|Run' | 'CharacterArmature|Run_Back' | 'CharacterArmature|Run_Left' | 'CharacterArmature|Run_Right' | 'CharacterArmature|Run_Shoot' | 'CharacterArmature|Sword_Slash' | 'CharacterArmature|Walk' | 'CharacterArmature|Wave'
+type ActionName =
+  | "CharacterArmature|Death"
+  | "CharacterArmature|Gun_Shoot"
+  | "CharacterArmature|HitRecieve"
+  | "CharacterArmature|HitRecieve_2"
+  | "CharacterArmature|Idle"
+  | "CharacterArmature|Idle_Gun"
+  | "CharacterArmature|Idle_Gun_Pointing"
+  | "CharacterArmature|Idle_Gun_Shoot"
+  | "CharacterArmature|Idle_Neutral"
+  | "CharacterArmature|Idle_Sword"
+  | "CharacterArmature|Interact"
+  | "CharacterArmature|Kick_Left"
+  | "CharacterArmature|Kick_Right"
+  | "CharacterArmature|Punch_Left"
+  | "CharacterArmature|Punch_Right"
+  | "CharacterArmature|Roll"
+  | "CharacterArmature|Run"
+  | "CharacterArmature|Run_Back"
+  | "CharacterArmature|Run_Left"
+  | "CharacterArmature|Run_Right"
+  | "CharacterArmature|Run_Shoot"
+  | "CharacterArmature|Sword_Slash"
+  | "CharacterArmature|Walk"
+  | "CharacterArmature|Wave";
 interface GLTFAction extends THREE.AnimationClip {
-  name: ActionName
+  name: ActionName;
 }
-type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements["skinnedMesh"] | JSX.IntrinsicElements["bone"]>>
+// type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements["skinnedMesh"] | JSX.IntrinsicElements["bone"]>>
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
-  const group = useRef<THREE.Group | null>(null)
-  const { nodes, materials, animations } = useGLTF("models/Worker.glb") as GLTFResult
-  const { ref, mixer, names, actions, clips } = useAnimations(animations, group)
+export function Model(props: React.JSX.IntrinsicElements["group"]) {
+  const group = useRef<THREE.Group | null>(null);
+  const { nodes, materials, animations } = useGLTF(
+    "models/Worker.glb",
+  ) as GLTFResult;
+  const { names, actions } = useAnimations(animations, group);
 
   useEffect(() => {
-    actions[names[23]]?.reset().fadeIn(1.5).setEffectiveTimeScale(0.6).play()
-  }, [])
+    actions[names[23]]?.reset().fadeIn(1.5).setEffectiveTimeScale(0.6).play();
+  }, []);
 
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Root_Scene">
         <group name="RootNode">
-          <group name="CharacterArmature" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
+          <group
+            name="CharacterArmature"
+            rotation={[-Math.PI / 2, 0, 0]}
+            scale={100}
+          >
             <primitive object={nodes.Root} />
           </group>
           <group name="Worker_Feet" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
-            <skinnedMesh name="Worker_Feet_1" geometry={nodes.Worker_Feet_1.geometry} material={materials.Black} skeleton={nodes.Worker_Feet_1.skeleton} />
-            <skinnedMesh name="Worker_Feet_2" geometry={nodes.Worker_Feet_2.geometry} material={materials.Grey} skeleton={nodes.Worker_Feet_2.skeleton} />
+            <skinnedMesh
+              name="Worker_Feet_1"
+              geometry={nodes.Worker_Feet_1.geometry}
+              material={materials.Black}
+              skeleton={nodes.Worker_Feet_1.skeleton}
+            />
+            <skinnedMesh
+              name="Worker_Feet_2"
+              geometry={nodes.Worker_Feet_2.geometry}
+              material={materials.Grey}
+              skeleton={nodes.Worker_Feet_2.skeleton}
+            />
           </group>
           <group name="Worker_Legs" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
-            <skinnedMesh name="Worker_Legs_1" geometry={nodes.Worker_Legs_1.geometry} material={materials.Brown2} skeleton={nodes.Worker_Legs_1.skeleton} />
-            <skinnedMesh name="Worker_Legs_2" geometry={nodes.Worker_Legs_2.geometry} material={materials.Brown} skeleton={nodes.Worker_Legs_2.skeleton} />
+            <skinnedMesh
+              name="Worker_Legs_1"
+              geometry={nodes.Worker_Legs_1.geometry}
+              material={materials.Brown2}
+              skeleton={nodes.Worker_Legs_1.skeleton}
+            />
+            <skinnedMesh
+              name="Worker_Legs_2"
+              geometry={nodes.Worker_Legs_2.geometry}
+              material={materials.Brown}
+              skeleton={nodes.Worker_Legs_2.skeleton}
+            />
           </group>
           <group name="Worker_Body" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
-            <skinnedMesh name="Worker_Body_1" geometry={nodes.Worker_Body_1.geometry} material={materials.Worker_Yellow} skeleton={nodes.Worker_Body_1.skeleton} />
-            <skinnedMesh name="Worker_Body_2" geometry={nodes.Worker_Body_2.geometry} material={materials.Worker_Vest} skeleton={nodes.Worker_Body_2.skeleton} />
-            <skinnedMesh name="Worker_Body_3" geometry={nodes.Worker_Body_3.geometry} material={materials.LightBrown} skeleton={nodes.Worker_Body_3.skeleton} />
-            <skinnedMesh name="Worker_Body_4" geometry={nodes.Worker_Body_4.geometry} material={materials.Skin} skeleton={nodes.Worker_Body_4.skeleton} />
+            <skinnedMesh
+              name="Worker_Body_1"
+              geometry={nodes.Worker_Body_1.geometry}
+              material={materials.Worker_Yellow}
+              skeleton={nodes.Worker_Body_1.skeleton}
+            />
+            <skinnedMesh
+              name="Worker_Body_2"
+              geometry={nodes.Worker_Body_2.geometry}
+              material={materials.Worker_Vest}
+              skeleton={nodes.Worker_Body_2.skeleton}
+            />
+            <skinnedMesh
+              name="Worker_Body_3"
+              geometry={nodes.Worker_Body_3.geometry}
+              material={materials.LightBrown}
+              skeleton={nodes.Worker_Body_3.skeleton}
+            />
+            <skinnedMesh
+              name="Worker_Body_4"
+              geometry={nodes.Worker_Body_4.geometry}
+              material={materials.Skin}
+              skeleton={nodes.Worker_Body_4.skeleton}
+            />
           </group>
           <group name="Worker_Head" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
-            <skinnedMesh name="Worker_Head_1" geometry={nodes.Worker_Head_1.geometry} material={materials.Worker_Yellow} skeleton={nodes.Worker_Head_1.skeleton} />
-            <skinnedMesh name="Worker_Head_2" geometry={nodes.Worker_Head_2.geometry} material={materials.Skin} skeleton={nodes.Worker_Head_2.skeleton} />
-            <skinnedMesh name="Worker_Head_3" geometry={nodes.Worker_Head_3.geometry} material={materials.Eyebrows} skeleton={nodes.Worker_Head_3.skeleton} />
-            <skinnedMesh name="Worker_Head_4" geometry={nodes.Worker_Head_4.geometry} material={materials.Eye} skeleton={nodes.Worker_Head_4.skeleton} />
-            <skinnedMesh name="Worker_Head_5" geometry={nodes.Worker_Head_5.geometry} material={materials.Moustache} skeleton={nodes.Worker_Head_5.skeleton} />
+            <skinnedMesh
+              name="Worker_Head_1"
+              geometry={nodes.Worker_Head_1.geometry}
+              material={materials.Worker_Yellow}
+              skeleton={nodes.Worker_Head_1.skeleton}
+            />
+            <skinnedMesh
+              name="Worker_Head_2"
+              geometry={nodes.Worker_Head_2.geometry}
+              material={materials.Skin}
+              skeleton={nodes.Worker_Head_2.skeleton}
+            />
+            <skinnedMesh
+              name="Worker_Head_3"
+              geometry={nodes.Worker_Head_3.geometry}
+              material={materials.Eyebrows}
+              skeleton={nodes.Worker_Head_3.skeleton}
+            />
+            <skinnedMesh
+              name="Worker_Head_4"
+              geometry={nodes.Worker_Head_4.geometry}
+              material={materials.Eye}
+              skeleton={nodes.Worker_Head_4.skeleton}
+            />
+            <skinnedMesh
+              name="Worker_Head_5"
+              geometry={nodes.Worker_Head_5.geometry}
+              material={materials.Moustache}
+              skeleton={nodes.Worker_Head_5.skeleton}
+            />
           </group>
         </group>
       </group>
     </group>
-  )
+  );
 }
 
-useGLTF.preload("models/Worker.glb")
+useGLTF.preload("models/Worker.glb");

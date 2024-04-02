@@ -1,57 +1,72 @@
 "use client";
 
+import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
-import React, { useState,  useEffect } from "react";
+import { useState, useEffect } from "react";
 import { LineItemFormFieldProps } from "@/types/estimates";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useFormContext } from "react-hook-form";
 import { formatPriceString } from "@/utils/formatingFunctions";
 import { FaTrashAlt } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import { FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { calculateAmount } from "@/utils/formUtils/estimateFormUtils";
 
 const LineItemFormField = ({
-    field,
-    fields,
-    index,
-    applyTotal,
-    remove
+  fields,
+  index,
+  applyTotal,
+  remove,
+  setSubtotal,
 }: LineItemFormFieldProps) => {
-
   const { register, watch, setValue, getValues, control } = useFormContext();
-  const [ amount, setAmount ] = useState(0);
 
-  const calculateAmount = (quantity: number, price: number): number => {
-    const result = quantity * price;
-    setAmount(result);
-    return result;
-  }
+  const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     watch(() => {
-      const amount = calculateAmount(watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const));
-    })
+      calculateAmount(
+        watch(`lineItems.${index}.quantity` as const),
+        watch(`lineItems.${index}.price` as const),
+        setAmount,
+      );
+    });
     setValue(`lineItems.${index}.amount`, amount);
-  }, [watch(`lineItems.${index}.quantity` as const), watch(`lineItems.${index}.price` as const), fields]);
+  }, [
+    watch(`lineItems.${index}.quantity` as const),
+    watch(`lineItems.${index}.price` as const),
+    fields,
+  ]);
 
   useEffect(() => {
-    applyTotal();
-  }, [watch(`lineItems.${index}.amount` as const)])
+    applyTotal(setSubtotal, setValue, getValues, fields);
+  }, [watch(`lineItems.${index}.amount` as const)]);
 
   useEffect(() => {
-    const value = getValues(`lineItems.${index}.rateType`)
-    if(value === "flat") {
-      setValue(`lineItems.${index}.quantity`, 1)
+    const value = getValues(`lineItems.${index}.rateType`);
+    if (value === "flat") {
+      setValue(`lineItems.${index}.quantity`, 1);
     }
-  }, [watch(`lineItems.${index}.rateType` as const)])
+  }, [watch(`lineItems.${index}.rateType` as const)]);
 
   return (
     <TableRow className="bg-neutral100">
       <TableCell className="align-top">
         <div className="flex flex-col gap-1 justify-start items-start">
           <label>Item Name</label>
-          <input 
-            {...register(`lineItems.${index}.item` as const)} 
+          <input
+            {...register(`lineItems.${index}.item` as const)}
             className="border border-primary300 rounded"
           ></input>
         </div>
@@ -59,18 +74,22 @@ const LineItemFormField = ({
       <TableCell className="align-top">
         <div className="flex flex-col gap-1 justify-start items-start">
           <label>Item Description</label>
-          <textarea 
-            {...register(`lineItems.${index}.description` as const)} 
+          <textarea
+            {...register(`lineItems.${index}.description` as const)}
             className="border border-primary300 rounded"
           ></textarea>
         </div>
       </TableCell>
       <TableCell className="align-top">
-        <div className={`${getValues(`lineItems.${index}.rateType`) === "flat" ? "hidden" : "flex"} flex-col gap-1 justify-start items-start`}>
+        <div
+          className={`${getValues(`lineItems.${index}.rateType`) === "flat" ? "hidden" : "flex"} flex-col gap-1 justify-start items-start`}
+        >
           <label>Quantity</label>
-          <input 
-            type="number" 
-            {...register(`lineItems.${index}.quantity` as const, {valueAsNumber: true})} 
+          <input
+            type="number"
+            {...register(`lineItems.${index}.quantity` as const, {
+              valueAsNumber: true,
+            })}
             className="border border-primary300 rounded"
           ></input>
         </div>
@@ -84,12 +103,12 @@ const LineItemFormField = ({
               render={({ field }) => (
                 <FormItem className="w-full flex flex-col gap-1">
                   <FormLabel>Rate Type</FormLabel>
-                  <Select 
-                    value={field.value} 
-                    onValueChange={field.onChange} 
+                  <Select
+                    value={field.value as string}
+                    onValueChange={field.onChange}
                     {...register(`lineItems.${index}.rateType` as const)}
                   >
-                    <FormControl>                        
+                    <FormControl>
                       <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Rate Type" />
                       </SelectTrigger>
@@ -109,8 +128,11 @@ const LineItemFormField = ({
           </div>
           <div className="flex flex-col gap-1">
             <label>Price</label>
-            <input 
-              type="number" {...register(`lineItems.${index}.price` as const, {valueAsNumber: true})} 
+            <input
+              type="number"
+              {...register(`lineItems.${index}.price` as const, {
+                valueAsNumber: true,
+              })}
               className="border border-primary300 rounded"
             ></input>
           </div>
@@ -125,17 +147,17 @@ const LineItemFormField = ({
         <div className="">
           <Button
             onClick={() => {
-              remove(index)
+              remove(index);
             }}
             className=""
             variant="ghost"
           >
-            <FaTrashAlt className="text-error500"/>
+            <FaTrashAlt className="text-error500" />
           </Button>
         </div>
       </TableCell>
     </TableRow>
   );
-}
+};
 
 export default LineItemFormField;

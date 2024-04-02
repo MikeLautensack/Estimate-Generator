@@ -5,32 +5,33 @@ import { Estimates } from "@/types/estimates";
 import { eq } from "drizzle-orm";
 
 async function getData(id: number) {
-    try {
-      const estimateTableData = await db.select()
-                                        .from(estimates)
-                                        .where(eq(estimates.id, id));
-      const lineItemsTableData = await db.select()
-                                         .from(lineItems)
-                                         .where(eq(lineItems.estimate_id, id));
-      const estimate = {
-        ...estimateTableData[0],
-        lineItems: lineItemsTableData
-      };
-      return estimate;
-    } catch (error) {
-      console.log(error);
-    }
+  try {
+    const estimateTableData = await db
+      .select()
+      .from(estimates)
+      .where(eq(estimates.id, id));
+    const lineItemsTableData = await db
+      .select()
+      .from(lineItems)
+      .where(eq(lineItems.estimate_id, id));
+    const estimate = {
+      ...estimateTableData[0],
+      lineItems: lineItemsTableData,
+    };
+    return estimate;
+  } catch (error) {
+    console.log(error);
   }
+}
 
-export default async function page({ params }: { params: { id: string } }) {
-
-    const data = await getData(parseInt(params.id)) as Estimates;
+const Page = async ({ params }: { params: { id: string } }) => {
+  const data = (await getData(parseInt(params.id))) as Estimates;
 
   return (
-    <main
-        className="bg-gradient-to-br from-primary200 to-secondary200 flex-1 p-8 min-h-screen"
-    >
-        <Estimate data={data} />
+    <main className="bg-gradient-to-br from-primary200 to-secondary200 flex-1 p-8 min-h-screen">
+      <Estimate data={data} />
     </main>
   );
-}
+};
+
+export default Page;

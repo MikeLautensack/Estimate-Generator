@@ -5,28 +5,28 @@ import { db } from "../../../../db";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 import { Customers } from "@/types/customers";
 
-async function getData(session: any) {
-  const res = await db.select()
-                .from(customers)
-                .where(eq(customers.contractor_user_id, session.user.id));
+async function getData(session: Session) {
+  const res = await db
+    .select()
+    .from(customers)
+    .where(eq(customers.contractor_user_id, session.user?.id));
   return res;
 }
 
-export default async function Page() {
+const Page = async () => {
+  const session = (await getServerSession(authOptions)) as Session;
+  const data = (await getData(session)) as Customers[];
 
-  const session = await getServerSession(authOptions);
-  const data = await getData(session) as Customers[];
-  
   return (
     <main className="flex-grow p-4 flex flex-col gap-4 bg-neutral400">
-      <h1 className="text-2xl desktop:text-[42px] font-bold text-black">Customers</h1>
-      <Link
-        href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}`}
-      >
+      <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
+        Customers
+      </h1>
+      <Link href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"] as string}`}>
         <Button
           id="new-change-order-button"
           className="flex-1 bg-blue-500 text-secondary500"
@@ -38,4 +38,6 @@ export default async function Page() {
       <CustomersTable columns={columns} data={data} />
     </main>
   );
-}
+};
+
+export default Page;

@@ -15,6 +15,41 @@
       "when": 1710132750260,
       "tag": "0001_special_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1710623402094,
+      "tag": "0002_typical_kang",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1710623656533,
+      "tag": "0003_grey_johnny_storm",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1710623683670,
+      "tag": "0004_silent_skrulls",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1710684306151,
+      "tag": "0005_slow_overlord",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1711068444874,
+      "tag": "0006_fair_dragon_man",
+      "breakpoints": true
     }
   ]
 }
