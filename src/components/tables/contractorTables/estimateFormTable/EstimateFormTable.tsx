@@ -1,21 +1,21 @@
 "use client";
 
-import { 
-  Table, 
-  TableBody, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { EstimateFormTableProps } from "../../../../types/estimates";
+import { EstimateFormTableProps, LineItems } from "../../../../types/estimates";
 import LineItemFormField from "../../../forms/LineItemFormField";
 
-const EstimateFormTable = ({ 
+const EstimateFormTable = ({
   fields,
   applyTotal,
   remove,
-  setSubtotal
+  setSubtotal,
 }: EstimateFormTableProps) => {
   return (
     <div className="flex bg-neutral400 rounded-lg border-2 border-neutral400">
@@ -31,11 +31,8 @@ const EstimateFormTable = ({
           </TableRow>
         </TableHeader>
         <TableBody className="">
-          {fields.map((
-            field: any, 
-            index: any
-          ) => (
-            <LineItemFormField 
+          {fields.map((field: LineItems, index: number) => (
+            <LineItemFormField
               key={field.id}
               field={field}
               fields={fields}
@@ -48,7 +45,7 @@ const EstimateFormTable = ({
         </TableBody>
       </Table>
     </div>
-  )
-}
+  );
+};
 
 export default EstimateFormTable;

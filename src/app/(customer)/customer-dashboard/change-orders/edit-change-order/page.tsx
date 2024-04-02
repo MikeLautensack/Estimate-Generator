@@ -6,9 +6,10 @@ import { ChangeOrderFormParams } from "@/types/formTypes";
 
 async function getEstimate(id: number) {
   try {
-    const estimate = await db.select()
-                             .from(estimates)
-                             .where(eq(estimates.id, id));
+    const estimate = await db
+      .select()
+      .from(estimates)
+      .where(eq(estimates.id, id));
     return estimate;
   } catch (error) {
     console.log(error);
@@ -18,10 +19,11 @@ async function getEstimate(id: number) {
 const Page = async ({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  
-  const estimateResponse = await getEstimate(parseInt(searchParams.estimateId as string));
+  const estimateResponse = await getEstimate(
+    parseInt(searchParams.estimateId as string),
+  );
 
   const data = {
     estimateName: estimateResponse![0]?.estimateName,
@@ -29,7 +31,7 @@ const Page = async ({
     contractor_user_id: estimateResponse![0]?.contractor_user_id,
     customer_user_id: estimateResponse![0]?.customer_user_id,
     change_order_id: parseInt(searchParams.changeOrderId as string),
-    mode: "put"
+    mode: "put",
   };
 
   return (
@@ -37,6 +39,6 @@ const Page = async ({
       <ChangeOrderForm data={data as ChangeOrderFormParams} />
     </main>
   );
-}
+};
 
 export default Page;

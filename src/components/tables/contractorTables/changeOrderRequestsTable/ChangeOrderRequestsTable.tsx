@@ -12,75 +12,44 @@ import { ChangeOrderRequestsTableProps } from "@/types/types";
 import { useEffect, useState } from "react";
 import ChangeOrderRequestTableRow from "./ChangeOrderRequestTableRow";
 
-export default function ChangeOrderRequestsTable<TData, TValue>({
+export default function ChangeOrderRequestsTable({
   data,
   setId,
-  id 
-}: ChangeOrderRequestsTableProps<TData, TValue>) {
-
-  const [ ordersSelectedState, setOrdersSelectedState ] = useState<{ [key: number]: boolean}>({})
-
-  useEffect(() => {
-    setOrdersSelectedState(
-      data.reduce((obj, item) => {
-        if (id === item.id) {
-          obj[item.id] = true
-        } else {
-          obj[item.id] = false;
-        }
-        
-      return obj;
-    }, {} as {[key: number]: boolean}))
-  }, [])
+  id,
+}: ChangeOrderRequestsTableProps) {
+  const [ordersSelectedID, setOrdersSelectedID] = useState<number | null>(id);
 
   useEffect(() => {
-    setOrdersSelectedState(
-      data.reduce((obj, item) => {
-        if (id === item.id) {
-          obj[item.id] = true
-        } else {
-          obj[item.id] = false;
-        }
-      return obj;
-    }, {} as {[key: number]: boolean}))
-  }, [data])
-
-  useEffect(() => {
-    const obj = {...ordersSelectedState}
-    for (const key in ordersSelectedState) {
-      if ( obj[key] == true) {
-        setId(key)
-      }
-    }
-  }, [ordersSelectedState])
+    setId(ordersSelectedID);
+  }, [ordersSelectedID, setId]);
 
   return (
     <div className="flex w-full h-32 rounded bg-neutral100 desktop:h-[calc(100vh-328px)]">
       <Table className="relative">
         <TableHeader>
-            <TableRow>
-                <TableHead></TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Status</TableHead>
-            </TableRow>
+          <TableRow>
+            <TableHead></TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead>Description</TableHead>
+            <TableHead>Status</TableHead>
+          </TableRow>
         </TableHeader>
         <TableBody className="overflow-y-scroll">
-              {data.map((element, index) => (
-                <ChangeOrderRequestTableRow 
-                  orderRequest={{
-                    name: data[index].changeOrderName as string,
-                    description: data[index].description as string,
-                    status: data[index].status as string,
-                  }}
-                  ordersSelectedState={ordersSelectedState}
-                  setOrdersSelectedState={setOrdersSelectedState}
-                  key={data[index].id}
-                  id={data[index].id}
-                />
-              ))}
+          {data.map((element) => (
+            <ChangeOrderRequestTableRow
+              orderRequest={{
+                id: element.id,
+                name: element.changeOrderName,
+                description: element.description,
+                status: element.status,
+              }}
+              ordersSelectedID={ordersSelectedID}
+              setOrdersSelectedID={setOrdersSelectedID}
+              key={element.id}
+            />
+          ))}
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }
