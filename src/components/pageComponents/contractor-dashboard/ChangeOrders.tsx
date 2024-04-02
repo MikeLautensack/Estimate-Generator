@@ -25,7 +25,7 @@ const ChangeOrders = async () => {
 
   return (
     <div className="">
-      <ChangeOrdersTable columns={columns} data={data!} />
+      <ChangeOrdersTable columns={columns} data={data} />
     </div>
   );
 };

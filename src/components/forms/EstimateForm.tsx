@@ -5,7 +5,12 @@ import { EstimateFormProps, EstimateFormValues } from "@/types/estimates";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import EstimateFormPartOne from "./EstimateFormPartOne";
 import EstimateFormPartTwo from "./EstimateFormPartTwo";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import {
+  FormProvider,
+  UseFormReturn,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import {
   preview,
   save,
@@ -30,12 +35,13 @@ const EstimateForm = ({
     },
   ]);
 
-  const methods = useForm<EstimateFormValues>({
-    defaultValues: {
-      lineItems: lineItems,
-      taxRate: 0,
-    },
-  });
+  const methods: UseFormReturn<EstimateFormValues> =
+    useForm<EstimateFormValues>({
+      defaultValues: {
+        lineItems: lineItems,
+        taxRate: 0,
+      },
+    });
 
   const control = methods.control;
 

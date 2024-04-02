@@ -104,7 +104,7 @@ const LineItemFormField = ({
                 <FormItem className="w-full flex flex-col gap-1">
                   <FormLabel>Rate Type</FormLabel>
                   <Select
-                    value={field.value}
+                    value={field.value as string}
                     onValueChange={field.onChange}
                     {...register(`lineItems.${index}.rateType` as const)}
                   >

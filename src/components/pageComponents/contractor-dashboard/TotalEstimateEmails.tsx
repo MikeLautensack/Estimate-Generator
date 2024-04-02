@@ -11,7 +11,7 @@
 //     }
 // }
 
-export default async function TotalEstimateEmails() {
+export default function TotalEstimateEmails() {
   //   const data = await getData();
 
   return (

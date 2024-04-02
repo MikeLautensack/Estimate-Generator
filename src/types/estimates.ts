@@ -5,6 +5,7 @@ import {
   ControllerRenderProps,
   FieldValues,
   SubmitHandler,
+  UseFormReturn,
 } from "react-hook-form";
 import React from "react";
 
@@ -80,8 +81,8 @@ export type EstimateFormPartTwoProps = {
   remove: (index?: number | number[]) => void;
   changeOrders: ChangeOrder[];
   estimate: Estimates;
-  methods: any;
-  preview: (estimates: Estimates) => SubmitHandler<EstimateFormValues>;
+  methods: UseFormReturn<EstimateFormValues>;
+  preview: SubmitHandler<EstimateFormValues>;
   save: SubmitHandler<EstimateFormValues>;
   saveAndSend: SubmitHandler<EstimateFormValues>;
 };

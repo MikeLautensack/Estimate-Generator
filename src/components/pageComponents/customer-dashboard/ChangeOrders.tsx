@@ -4,10 +4,10 @@ import { db } from "../../../db";
 import { ChangeOrder } from "@/types/changeOrders";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { eq } from "drizzle-orm";
-import { getServerSession } from "next-auth";
+import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 
-async function getData(session: any) {
+async function getData(session: Session) {
   const res = await db
     .select()
     .from(changeOrders)
@@ -16,7 +16,7 @@ async function getData(session: any) {
 }
 
 const ChangeOrders = async () => {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
   const data = (await getData(session)) as ChangeOrder[];
 
   return (
