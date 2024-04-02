@@ -4,9 +4,10 @@ import { db } from "../../../../../db";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../../utils/authOptions";
 import { eq } from "drizzle-orm";
+import { Session } from "next-auth";
 
 export async function DELETE() {
-  const session = await getServerSession(authOptions);
+  const session = (await getServerSession(authOptions)) as Session;
 
   try {
     await db.delete(profiles).where(eq(profiles.user_id, session.user.id));
