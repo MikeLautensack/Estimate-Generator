@@ -43,11 +43,17 @@ export const authOptions = {
         };
         const res = await db.select().from(users).where(eq(users.email, email));
         const user = res[0];
+        if (!user) {
+          throw new Error("Email not found");
+        }
         const passMatch = await bcrypt.compare(
           password,
           user.password as string,
         );
 
+        if (!passMatch) {
+          throw new Error("Invalid password");
+        }
         if (passMatch) {
           return user;
         }
@@ -66,6 +72,7 @@ export const authOptions = {
   },
   pages: {
     signIn: "/signin",
+    error: "signin",
   },
   callbacks: {
     session({ session, token }: { session: Session; token: JWT }) {
@@ -88,5 +95,15 @@ export const authOptions = {
       }
       return token;
     },
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   if (user) {
+    //     return process.env.NEXT_PUBLIC_SIGN_IN_CALLBACK_URL!;
+    //   } else {
+    //     // Return false to display a default error message
+    //     return false;
+    //     // Or you can return a URL to redirect to:
+    //     // return '/unauthorized'
+    //   }
+    // },
   },
 } satisfies NextAuthOptions;
