@@ -50,6 +50,34 @@
       "when": 1711068444874,
       "tag": "0006_fair_dragon_man",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1717708781633,
+      "tag": "0007_unknown_lord_tyger",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1717709192813,
+      "tag": "0008_stale_greymalkin",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1717709658059,
+      "tag": "0009_dazzling_jazinda",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1717710060493,
+      "tag": "0010_petite_veda",
+      "breakpoints": true
     }
   ]
 }
