@@ -14,11 +14,11 @@ export async function PUT(
     const customer = await db
       .update(customers)
       .set({
-        name: data.name,
         address: data.address,
         email: data.email,
+        name: data.name,
         phone: data.phone,
-        dateUpdated: new Date(),
+        updatedAt: new Date(),
       })
       .where(eq(customers.id, parseInt(params.id)));
     return NextResponse.json(customer);

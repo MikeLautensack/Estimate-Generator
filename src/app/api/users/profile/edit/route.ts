@@ -11,11 +11,11 @@ export async function PUT(request: NextRequest) {
     await db
       .update(profiles)
       .set({
-        businessName: data.businessName,
         businessAddress: data.businessAddress,
         businessEmail: data.businessEmail,
+        businessName: data.businessName,
         businessPhone: data.businessPhone,
-        dateUpdated: new Date(),
+        updatedAt: new Date(),
       })
       .where(eq(profiles.id, data.id));
     return NextResponse.json("Profile sucsussfully updated");

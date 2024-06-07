@@ -5,7 +5,6 @@ import {
   timestamp,
   real,
   integer,
-  serial,
 } from "drizzle-orm/pg-core";
 import { users } from "./auth";
 import { relations, sql } from "drizzle-orm";

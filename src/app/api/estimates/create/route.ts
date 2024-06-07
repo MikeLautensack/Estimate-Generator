@@ -3,7 +3,6 @@ import { estimates, lineItems } from "../../../../db/schemas/estimates";
 import { db } from "../../../../db";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../utils/authOptions";
-import { lineItem } from "@/types/types";
 import { Estimates, LineItems } from "@/types/estimates";
 import { Session } from "next-auth";
 
@@ -15,36 +14,38 @@ export async function POST(request: NextRequest) {
   try {
     await db.insert(estimates).values({
       id: estimateId,
-      estimateName: data.estimateName,
-      customerName: data.customerName,
-      customerEmail: data.customerEmail,
-      projectAddress: data.projectAddress,
-      contractorName: data.contractorName,
-      contractorAddress: data.contractorAddress,
-      contractorPhone: data.contractorPhone,
-      message: data.message,
-      subtotal: data.subtotal,
-      taxRate: data.taxRate,
-      tax: data.tax,
-      total: data.total,
-      status: data.status,
-      dateCreated: new Date(),
-      dateUpdated: new Date(),
-      customer_id: data.customer_id,
       contractor_user_id: session.user.id,
+      customer_id: data.customer_id,
       customer_user_id: data.customer_user_id,
+      contractorAddress: data.contractorAddress,
+      contractorName: data.contractorName,
+      contractorPhone: data.contractorPhone,
+      customerEmail: data.customerEmail,
+      customerName: data.customerName,
+      estimateName: data.estimateName,
+      message: data.message,
+      projectAddress: data.projectAddress,
+      status: data.status,
+      subtotal: data.subtotal,
+      tax: data.tax,
+      taxRate: data.taxRate,
+      total: data.total,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
     await db.insert(lineItems).values(
       data.lineItems.map((item: LineItems) => {
         return {
           id: Math.floor(Math.random() * 100000000),
-          item: item.item,
+          estimate_id: estimateId,
+          amount: item.amount,
           description: item.description,
+          item: item.item,
+          price: item.price,
           quantity: item.quantity,
           rateType: item.rateType,
-          price: item.price,
-          amount: item.amount,
-          estimate_id: estimateId,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         };
       }),
     );
