@@ -9,7 +9,6 @@ export async function PUT(
   { params }: { params: { id: string } },
 ) {
   const data: ChangeOrder = await request.json();
-
   try {
     await db
       .update(changeOrders)

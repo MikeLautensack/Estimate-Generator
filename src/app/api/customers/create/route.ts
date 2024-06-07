@@ -13,14 +13,14 @@ export async function POST(request: NextRequest) {
   try {
     await db.insert(customers).values({
       id: Math.floor(Math.random() * 100000000),
-      name: data.name,
-      address: data.address,
-      phone: data.phone,
-      email: data.email,
-      dateCreated: new Date(),
-      dateUpdated: new Date(),
       contractor_user_id: session.user.id,
       customer_user_id: data.customer_user_id,
+      address: data.address,
+      email: data.email,
+      name: data.name,
+      phone: data.phone,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     return NextResponse.json("Customer sucsessfully created");

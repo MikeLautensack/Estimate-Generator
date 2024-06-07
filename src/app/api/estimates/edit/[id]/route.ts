@@ -15,20 +15,20 @@ export async function PUT(
     await db
       .update(estimates)
       .set({
-        estimateName: data.estimateName,
-        customerName: data.customerName,
-        customerEmail: data.customerEmail,
-        projectAddress: data.projectAddress,
-        contractorName: data.contractorName,
         contractorAddress: data.contractorAddress,
+        contractorName: data.contractorName,
         contractorPhone: data.contractorPhone,
+        customerEmail: data.customerEmail,
+        customerName: data.customerName,
+        estimateName: data.estimateName,
         message: data.message,
-        subtotal: data.subtotal,
-        taxRate: data.taxRate,
-        tax: data.tax,
-        total: data.total,
+        projectAddress: data.projectAddress,
         status: data.status,
-        dateUpdated: new Date(),
+        subtotal: data.subtotal,
+        tax: data.tax,
+        taxRate: data.taxRate,
+        total: data.total,
+        updatedAt: new Date(),
       })
       .where(eq(estimates.id, parseInt(params.id)));
 
@@ -40,13 +40,14 @@ export async function PUT(
       data.lineItems.map((item: LineItems) => {
         return {
           id: Math.floor(Math.random() * 100000000),
-          item: item.item,
+          estimate_id: parseInt(params.id),
+          amount: item.amount,
           description: item.description,
+          item: item.item,
+          price: item.price,
           quantity: item.quantity,
           rateType: item.rateType,
-          price: item.price,
-          amount: item.amount,
-          estimate_id: parseInt(params.id),
+          updatedAt: new Date(),
         };
       }),
     );

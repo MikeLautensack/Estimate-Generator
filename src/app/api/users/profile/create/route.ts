@@ -13,13 +13,13 @@ export async function POST(request: NextRequest) {
   try {
     await db.insert(profiles).values({
       id: Math.floor(Math.random() * 100000000),
-      businessName: data.businessName,
+      user_id: session.user.id,
       businessAddress: data.businessAddress,
       businessEmail: data.businessEmail,
+      businessName: data.businessName,
       businessPhone: data.businessPhone,
-      dateCreated: new Date(),
-      dateUpdated: new Date(),
-      user_id: session.user.id,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
     return NextResponse.json("Profile sucsessfully created");
   } catch (error) {
