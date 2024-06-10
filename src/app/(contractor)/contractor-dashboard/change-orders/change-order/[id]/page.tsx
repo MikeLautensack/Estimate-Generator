@@ -16,7 +16,6 @@ async function getData(id: number) {
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const data = await getData(parseInt(params.id));
-
   return (
     <main className="flex flex-col flex-1 p-4 bg-neutral400">
       <div className="flex flex-col flex-1 gap-2 p-4 rounded-md bg-neutral100">
