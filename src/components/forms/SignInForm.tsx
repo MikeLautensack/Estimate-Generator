@@ -1,63 +1,111 @@
 "use client";
 
-import React from "react";
-import { useState } from "react";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { LoginFormValues } from "@/types/types";
 import { onSubmit } from "@/utils/formUtils/signInForm";
-import { Button } from "../ui/button";
+import signInSchema from "@/validations/signInSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, TextField } from "@mui/material";
+import { useSearchParams } from "next/navigation";
 
 const SignInForm = () => {
-  const [eyeOpen, setEyeOpen] = useState(false);
-  const { register, handleSubmit } = useForm<LoginFormValues>();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  // Search params
+  const searchParams = useSearchParams();
+
+  // State
+  const [serverEmailErrorText, setServerEmailErrorText] = useState<string>("");
+  const [serverPasswordErrorText, setServerPasswordErrorText] =
+    useState<string>("");
+  const [emailInputServerError, setEmailInputServerError] =
+    useState<boolean>(false);
+  const [passwordInputServerError, setPasswordInputServerError] =
+    useState<boolean>(false);
+
+  // Effects
+  useEffect(() => {}, []);
+
+  useEffect(() => {
+    let authError: string | null = null;
+    if (searchParams) {
+      authError = searchParams.get("error");
+      if (authError) {
+        if (authError === "Email not found") {
+          setEmailInputServerError(true);
+          setServerEmailErrorText(authError);
+        } else if (authError === "Invalid password") {
+          setPasswordInputServerError(true);
+          setServerPasswordErrorText(authError);
+        }
+      }
+    }
+  }, [searchParams]);
 
   return (
     <form
       className="bg-blue-100 m-8 p-4 rounded-xl w-4/5 tablet:w-3/5 desktop:w-1/2 max-w-xl"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h1 className="text-[32px] font-bold text-black text-center">
-        Welcome Back
-      </h1>
-      <p className="text-base text-normal text-black text-center">
-        Please log in to continue
-      </p>
-      <div className="my-2">
-        <label className="">Email Address</label>
-        <input
-          className="w-full rounded p-1"
-          {...register("email", { required: true })}
-        ></input>
+      <div className="flex flex-col justify-center items-center gap-2">
+        <h1 className="text-3xl font-bold">Welcome Back</h1>
+        <h2 className="text-base font-medium">Please log in to continue</h2>
       </div>
-      <div className="my-2">
-        <label className="">Password</label>
-        <div className="relative">
-          <input
-            className="w-full rounded p-1"
-            type={eyeOpen ? "text" : "password"}
-            {...register("password", { required: true })}
-          ></input>
-          <Button
-            className="absolute top-2 right-2"
-            onClick={() => setEyeOpen(!eyeOpen)}
-          >
-            {eyeOpen ? <FaRegEye /> : <FaRegEyeSlash />}
-          </Button>
-        </div>
+      <div className="my-2 w-full">
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              fullWidth
+              {...field}
+              label="Email Address"
+              error={!!errors.email || emailInputServerError}
+              helperText={errors.email?.message || serverEmailErrorText}
+            />
+          )}
+        />
       </div>
-      <div className="flex justify-between my-2">
-        <div className="flex gap-2">
+      <div className="my-2 w-full">
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              fullWidth
+              {...field}
+              label="Password"
+              error={!!errors.password || passwordInputServerError}
+              helperText={errors.password?.message || serverPasswordErrorText}
+            />
+          )}
+        />
+      </div>
+      <div className="flex justify-between my-2 items-center">
+        <div className="flex gap-2 justify-center items-center">
           <input className="" type="checkbox"></input>
           <label className="text-black">Remember me</label>
         </div>
         <Button className="text-black">Forgot Password?</Button>
       </div>
-      <Button className="w-full bg-blue-500 text-secondary500 py-2 rounded">
-        Log In
-      </Button>
+      <div className="w-full flex justify-center items-center">
+        <Button type="submit" variant="contained">
+          Sign In
+        </Button>
+      </div>
       <div id="divider" className="w-full border border-black my-4"></div>
-      <div className="flex gap-1 justify-center">
+      <div className="flex justify-center items-center">
         <p className="text-[14px] text-black font-normal">No account yet?</p>
         <Button className="text-[14px] font-normal text-black">Sign Up</Button>
       </div>
