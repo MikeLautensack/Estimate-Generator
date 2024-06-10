@@ -10,6 +10,10 @@ export async function POST(request: NextRequest) {
   const data = (await request.json()) as Profile;
   const session = (await getServerSession(authOptions)) as Session;
 
+  if (!session) {
+    return NextResponse.json("No session", { status: 500 });
+  }
+
   try {
     await db.insert(profiles).values({
       id: Math.floor(Math.random() * 100000000),
@@ -21,10 +25,11 @@ export async function POST(request: NextRequest) {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    return NextResponse.json("Profile sucsessfully created");
-  } catch (error) {
-    console.log("Request Data: ", data);
-    console.log("Error: ", error);
-    return NextResponse.json(error);
+    return NextResponse.json("Profile sucsessfully created", { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 }
