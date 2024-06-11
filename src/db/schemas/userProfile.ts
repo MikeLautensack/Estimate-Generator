@@ -2,7 +2,7 @@ import { pgTable, varchar, bigint, timestamp } from "drizzle-orm/pg-core";
 
 export const profiles = pgTable("profiles", {
   id: bigint("id", { mode: "number" }).notNull().primaryKey(),
-  user_id: bigint("user_id", { mode: "number" }).notNull(),
+  user_id: varchar("user_id").notNull(),
   businessAddress: varchar("business_address", { length: 255 }).notNull(),
   businessEmail: varchar("business_email", { length: 255 }).notNull(),
   businessName: varchar("business_name", { length: 255 }).notNull(),

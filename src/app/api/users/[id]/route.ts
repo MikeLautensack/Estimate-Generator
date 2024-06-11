@@ -84,9 +84,14 @@ export async function PATCH(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
-  // Edit user
+  // Check id is valid
+  if (params.id.length !== 8) {
+    return NextResponse.json({ error: "Invalid id" }, { status: 400 });
+  }
+
   try {
-    const user = await db
+    // Update user resource
+    await db
       .update(users)
       .set({
         name: bodyData.name,
@@ -94,8 +99,10 @@ export async function PATCH(
         newUser: bodyData.newUser,
       })
       .where(eq(users.id, params.id));
+    // Get updated user
+    const user = await db.select().from(users).where(eq(users.id, params.id));
     return NextResponse.json(
-      { message: "User name successfully updated", user: user },
+      { message: "User successfully updated", user: user },
       { status: 200 },
     );
   } catch (error: any) {
@@ -107,6 +114,19 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } },
 ) {
+  // Get session
+  const session = (await getServerSession(authOptions)) as Session;
+
+  // Check session is present
+  if (!session) {
+    return NextResponse.json({ error: "No session" }, { status: 401 });
+  }
+
+  // Check id is valid
+  if (params.id.length !== 8) {
+    return NextResponse.json({ error: "Invalid id" }, { status: 400 });
+  }
+
   // Check to see if a user with the same email exists
   const [user] = await db
     .select()

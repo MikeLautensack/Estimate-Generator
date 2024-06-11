@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../db";
+import { db } from "../../../../../db";
 import { eq } from "drizzle-orm";
-import { profiles } from "../../../../db/schemas/userProfile";
+import { profiles } from "../../../../../db/schemas/userProfile";
 import { getServerSession } from "next-auth/next";
 import { Session } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
 import { Profile } from "@/types/profile";
 
-export async function POST(request: NextRequest) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
   // Get request body data
   const bodyData = (await request.json()) as Profile;
 
@@ -19,18 +22,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
+  // Check id is valid
+  if (params.id.length !== 8) {
+    return NextResponse.json({ error: "Invalid id" }, { status: 400 });
+  }
+
   // Create profile resource
   try {
-    const profile = await db.insert(profiles).values({
+    const profile = {
       id: Math.floor(Math.random() * 100000000),
-      user_id: session.user.id,
+      user_id: params.id,
       businessAddress: bodyData.businessAddress,
       businessEmail: bodyData.businessEmail,
       businessName: bodyData.businessName,
       businessPhone: bodyData.businessPhone,
       createdAt: new Date(),
       updatedAt: new Date(),
-    });
+    };
+    await db.insert(profiles).values(profile);
     return NextResponse.json(
       { message: "Profile successfully created", profile: profile },
       { status: 200 },
@@ -50,15 +59,9 @@ export async function PATCH(
   // Get session
   const session = (await getServerSession(authOptions)) as Session;
 
-  // Convert path var "id" to number
-  const profileID = parseInt(params.id);
-
-  // Check profileID is vaild
-  if (isNaN(profileID)) {
-    return NextResponse.json(
-      { error: `Profile id: ${params.id} is not valid` },
-      { status: 400 },
-    );
+  // Check id is valid
+  if (params.id.length !== 8) {
+    return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
 
   // Check session is present
@@ -68,16 +71,17 @@ export async function PATCH(
 
   // Update profile resource
   try {
-    const profile = await db
+    const profile = {
+      businessAddress: bodyData.businessAddress,
+      businessEmail: bodyData.businessEmail,
+      businessName: bodyData.businessName,
+      businessPhone: bodyData.businessPhone,
+      updatedAt: new Date(),
+    };
+    await db
       .update(profiles)
-      .set({
-        businessAddress: bodyData.businessAddress,
-        businessEmail: bodyData.businessEmail,
-        businessName: bodyData.businessName,
-        businessPhone: bodyData.businessPhone,
-        updatedAt: new Date(),
-      })
-      .where(eq(profiles.id, profileID));
+      .set(profile)
+      .where(eq(profiles.user_id, params.id));
     return NextResponse.json(
       { message: "Profile successfully updated", profile: profile },
       { status: 200 },
@@ -94,15 +98,9 @@ export async function DELETE(
   // Get session
   const session = (await getServerSession(authOptions)) as Session;
 
-  // Convert path var "id" to number
-  const profileID = parseInt(params.id);
-
-  // Check profileID is vaild
-  if (isNaN(profileID)) {
-    return NextResponse.json(
-      { error: `Profile id: ${params.id} is not valid` },
-      { status: 400 },
-    );
+  // Check id is valid
+  if (params.id.length !== 8) {
+    return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
 
   // Check session is present
@@ -112,7 +110,7 @@ export async function DELETE(
 
   //
   try {
-    await db.delete(profiles).where(eq(profiles.id, profileID));
+    await db.delete(profiles).where(eq(profiles.user_id, params.id));
     return NextResponse.json(
       { message: "Profile successfully deleted" },
       { status: 200 },
