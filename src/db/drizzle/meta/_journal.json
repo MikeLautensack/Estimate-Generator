@@ -78,6 +78,13 @@
       "when": 1717710060493,
       "tag": "0010_petite_veda",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "5",
+      "when": 1718069400608,
+      "tag": "0011_chunky_red_hulk",
+      "breakpoints": true
     }
   ]
 }
