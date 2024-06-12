@@ -9,6 +9,7 @@ const sendVerificationRequest = async (
   params: SendVerificationRequestParams,
 ) => {
   const { identifier, url } = params;
+  console.log("testing email, url val: ", url);
   const urlObj = new URL(url);
   const host = urlObj.host;
   const searchParams = new URLSearchParams(urlObj.search);
