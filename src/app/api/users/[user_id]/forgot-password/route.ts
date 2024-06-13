@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../db";
-import { profiles } from "../../../../db/schemas/userProfile";
+import { db } from "../../../../../db";
+import { profiles } from "../../../../../db/schemas/userProfile";
 import { getServerSession } from "next-auth/next";
 import { Session } from "next-auth";
 import { authOptions } from "@/utils/authOptions";

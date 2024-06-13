@@ -33,10 +33,10 @@ export async function POST(
 
   try {
     const changeOrder = {
-      id: params.changeorder_id,
-      contractor_user_id: params.user_id,
+      id: parseInt(params.changeorder_id),
+      contractor_user_id: parseInt(params.user_id),
       customer_user_id: bodyData.customer_user_id,
-      estimate_id: params.estimate_id,
+      estimate_id: parseInt(params.estimate_id),
       changeOrderName: bodyData.changeOrderName,
       customerName: bodyData.customerName,
       description: bodyData.description,
