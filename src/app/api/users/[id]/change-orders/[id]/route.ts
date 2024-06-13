@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../db";
+import { eq } from "drizzle-orm";
+import { db } from "../../../../../../db";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { ChangeOrder } from "@/types/changeOrders";
 
@@ -23,6 +24,40 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json("Customer sucsessfully created");
+  } catch (error) {
+    return NextResponse.json(error);
+  }
+}
+
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  try {
+    const data: ChangeOrder = await request.json();
+    await db
+      .update(changeOrders)
+      .set({
+        changeOrderName: data.changeOrderName,
+        description: data.description,
+        updatedAt: new Date(),
+      })
+      .where(eq(changeOrders.id, parseInt(params.id)));
+    return NextResponse.json("Profile sucsussfully updated");
+  } catch (error) {
+    return NextResponse.json(error);
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  try {
+    await db
+      .delete(changeOrders)
+      .where(eq(changeOrders.id, parseInt(params.id)));
+    return NextResponse.json("Profile sucsussfully updated");
   } catch (error) {
     return NextResponse.json(error);
   }
