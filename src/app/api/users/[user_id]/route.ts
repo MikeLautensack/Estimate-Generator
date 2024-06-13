@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: { user_id: string } },
 ) {
   // Get request body data
   const bodyData = await request.json();
@@ -85,7 +85,7 @@ export async function PATCH(
   }
 
   // Check id is valid
-  if (params.id.length !== 8) {
+  if (params.user_id.length !== 8) {
     return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
 
@@ -98,9 +98,12 @@ export async function PATCH(
         role: bodyData.role,
         newUser: bodyData.newUser,
       })
-      .where(eq(users.id, params.id));
+      .where(eq(users.id, params.user_id));
     // Get updated user
-    const user = await db.select().from(users).where(eq(users.id, params.id));
+    const user = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, params.user_id));
     return NextResponse.json(
       { message: "User successfully updated", user: user },
       { status: 200 },
@@ -112,7 +115,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: { user_id: string } },
 ) {
   // Get session
   const session = (await getServerSession(authOptions)) as Session;
@@ -123,7 +126,7 @@ export async function DELETE(
   }
 
   // Check id is valid
-  if (params.id.length !== 8) {
+  if (params.user_id.length !== 8) {
     return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
 
@@ -131,7 +134,7 @@ export async function DELETE(
   const [user] = await db
     .select()
     .from(users)
-    .where(eq(users.id, params.id))
+    .where(eq(users.id, params.user_id))
     .limit(1);
 
   if (!user) {
@@ -140,7 +143,7 @@ export async function DELETE(
 
   // Delete user from DB
   try {
-    await db.delete(users).where(eq(users.id, params.id));
+    await db.delete(users).where(eq(users.id, params.user_id));
     return NextResponse.json(
       { message: "User successfully deleted" },
       { status: 200 },
