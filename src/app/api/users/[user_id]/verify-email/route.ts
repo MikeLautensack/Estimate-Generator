@@ -42,17 +42,17 @@ export async function POST(request: NextRequest) {
 
   // Send email
   try {
-    await resend.emails.send({
-      from: "Estimate Generator LLC<onboarding@resend.dev>",
-      to: [email],
-      subject: `Reset Password ${host}`,
-      react: NewCustomerEmail({
-        url,
-        host,
-        customerName: fotmatedCustomerName,
-        contractorName: fotmatedContractorName,
-      }),
-    });
+    // await resend.emails.send({
+    //   from: "Estimate Generator LLC<onboarding@resend.dev>",
+    //   to: [email],
+    //   subject: `Reset Password ${host}`,
+    //   react: NewCustomerEmail({
+    //     url,
+    //     host,
+    //     customerName: fotmatedCustomerName,
+    //     contractorName: fotmatedContractorName,
+    //   }),
+    // });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

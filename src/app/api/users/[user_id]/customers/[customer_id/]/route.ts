@@ -24,8 +24,8 @@ export async function POST(
 
   try {
     const customer = {
-      id: params.customer_id,
-      contractor_user_id: params.user_id,
+      id: parseInt(params.customer_id),
+      contractor_user_id: parseInt(params.user_id),
       customer_user_id: bodyData.customer_user_id,
       address: bodyData.address,
       email: bodyData.email,

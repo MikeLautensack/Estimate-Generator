@@ -59,13 +59,11 @@ export async function POST(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
-  const estimateId = Math.floor(Math.random() * 100000000);
-
   try {
     await db.insert(estimates).values({
       id: parseInt(params.estimate_id),
-      contractor_user_id: params.user_id,
-      customer_id: params.customer_id,
+      contractor_user_id: parseInt(params.user_id),
+      customer_id: parseInt(params.customer_id),
       customer_user_id: bodyData.customer_user_id,
       contractorAddress: bodyData.contractorAddress,
       contractorName: bodyData.contractorName,
