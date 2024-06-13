@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
-import { db } from "../../../../../../../../../../../db";
+import { db } from "../../../../../../../../../../db";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { ChangeOrder } from "@/types/changeOrders";
 import { authOptions } from "@/utils/authOptions";
