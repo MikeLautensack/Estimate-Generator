@@ -31,6 +31,7 @@ export async function POST(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
+  // Insert change order data
   try {
     const changeOrder = {
       id: parseInt(params.changeorder_id),
@@ -84,6 +85,7 @@ export async function PATCH(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
+  // Update change order data
   try {
     const changeOrder = await db
       .update(changeOrders)
@@ -126,6 +128,7 @@ export async function DELETE(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
+  // Delete change order data
   try {
     const changeOrder = await db
       .delete(changeOrders)

@@ -28,6 +28,7 @@ export async function GET(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
+  // Select estimate
   try {
     const estimate = await db
       .select()
@@ -59,6 +60,7 @@ export async function POST(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
+  // Insert estimate data
   try {
     await db.insert(estimates).values({
       id: parseInt(params.estimate_id),
@@ -81,6 +83,12 @@ export async function POST(
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Insert lineitems data
+  try {
     await db.insert(lineItems).values(
       bodyData.lineItems.map((item: LineItems) => {
         return {
@@ -97,13 +105,15 @@ export async function POST(
         };
       }),
     );
-    return NextResponse.json(
-      { message: "Estimate successfully created" },
-      { status: 200 },
-    );
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  // Respond 200 after all DB operations
+  return NextResponse.json(
+    { message: "Estimate successfully created" },
+    { status: 200 },
+  );
 }
 
 export async function PATCH(
@@ -123,6 +133,7 @@ export async function PATCH(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
+  // Update estimate data
   try {
     await db
       .update(estimates)
@@ -143,11 +154,21 @@ export async function PATCH(
         updatedAt: new Date(),
       })
       .where(eq(estimates.id, parseInt(params.estimate_id)));
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
+  // Delete old lineitems
+  try {
     await db
       .delete(lineItems)
       .where(eq(lineItems.estimate_id, parseInt(params.estimate_id)));
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
+  // Insert new lineitems
+  try {
     await db.insert(lineItems).values(
       bodyData.lineItems.map((item: LineItems) => {
         return {
@@ -163,13 +184,15 @@ export async function PATCH(
         };
       }),
     );
-    return NextResponse.json(
-      { message: "Estimate successfully updated" },
-      { status: 200 },
-    );
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  // Respond with 200 after all DB operations
+  return NextResponse.json(
+    { message: "Estimate successfully updated" },
+    { status: 200 },
+  );
 }
 
 export async function DELETE(
@@ -186,24 +209,36 @@ export async function DELETE(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
+  // Delete estimate tabel row
   try {
     await db
       .delete(estimates)
       .where(eq(estimates.id, parseInt(params.estimate_id)));
-
-    await db
-      .delete(lineItems)
-      .where(eq(lineItems.estimate_id, parseInt(params.estimate_id)));
-
-    await db
-      .delete(changeOrders)
-      .where(eq(changeOrders.estimate_id, parseInt(params.estimate_id)));
-
-    return NextResponse.json(
-      { message: "Estimate successfully deleted" },
-      { status: 200 },
-    );
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  // Delete associated line items
+  try {
+    await db
+      .delete(lineItems)
+      .where(eq(lineItems.estimate_id, parseInt(params.estimate_id)));
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Delete associated change orders
+  try {
+    await db
+      .delete(changeOrders)
+      .where(eq(changeOrders.estimate_id, parseInt(params.estimate_id)));
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Respond 200 after all DB operations
+  return NextResponse.json(
+    { message: "Estimate successfully deleted" },
+    { status: 200 },
+  );
 }

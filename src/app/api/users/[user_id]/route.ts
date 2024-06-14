@@ -29,17 +29,21 @@ export async function POST(request: NextRequest) {
   }
 
   // Check to see if a user with the same email exists
-  const [existingUser] = await db
-    .select()
-    .from(users)
-    .where(eq(users.email, bodyData.email))
-    .limit(1);
+  try {
+    const [existingUser] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, bodyData.email))
+      .limit(1);
 
-  if (existingUser) {
-    return NextResponse.json(
-      { error: "User already registered" },
-      { status: 409 },
-    );
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "User already registered" },
+        { status: 409 },
+      );
+    }
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   // Create user in DB
@@ -99,6 +103,11 @@ export async function PATCH(
         newUser: bodyData.newUser,
       })
       .where(eq(users.id, params.user_id));
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  try {
     // Get updated user
     const user = await db
       .select()
@@ -131,14 +140,18 @@ export async function DELETE(
   }
 
   // Check to see if a user with the same email exists
-  const [user] = await db
-    .select()
-    .from(users)
-    .where(eq(users.id, params.user_id))
-    .limit(1);
+  try {
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, params.user_id))
+      .limit(1);
 
-  if (!user) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   // Delete user from DB
