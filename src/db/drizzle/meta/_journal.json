@@ -85,6 +85,13 @@
       "when": 1718069400608,
       "tag": "0011_chunky_red_hulk",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1718560010786,
+      "tag": "0012_keen_blindfold",
+      "breakpoints": true
     }
   ]
 }
