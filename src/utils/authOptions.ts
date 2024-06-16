@@ -72,7 +72,7 @@ export const authOptions = {
   },
   pages: {
     signIn: "/signin",
-    error: "signin",
+    error: "/signin",
   },
   callbacks: {
     session({ session, token }: { session: Session; token: JWT }) {
