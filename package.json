@@ -11,7 +11,8 @@
     "test:watch": "jest --watch",
     "migrations:generate": "drizzle-kit generate:pg",
     "migrations:push": "drizzle-kit push:pg",
-    "migrations:drop": "drizzle-kit drop"
+    "migrations:drop": "drizzle-kit drop",
+    "migrations:pull": "drizzle-kit introspect:pg"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^0.3.2",
