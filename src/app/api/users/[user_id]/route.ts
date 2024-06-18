@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../db";
 import { users } from "../../../../db/schemas/auth";
-import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import { Users } from "@/types/users";
 import { auth } from "../../../../../auth";
+var bcrypt = require('bcryptjs');
 
 export async function POST(request: NextRequest) {
   // Get request body data

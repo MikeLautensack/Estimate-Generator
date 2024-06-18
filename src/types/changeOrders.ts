@@ -11,7 +11,7 @@ export type ChangeOrder = {
   estimate_id: number;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date;
+  deletedAt?: Date;
   contractor_user_id: number;
   customer_user_id: number;
 };

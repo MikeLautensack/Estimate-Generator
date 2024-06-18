@@ -1,5 +1,4 @@
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcrypt";
 import { db } from "./src/db/index";
 import { users } from "./src//db/schemas/auth";
 import { eq } from "drizzle-orm";
@@ -8,6 +7,7 @@ import sendVerificationRequest from "./src/utils/sendVerificationRequest";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import type { NextAuthConfig, User } from "next-auth";
+var bcrypt = require('bcryptjs');
 
 export default { 
     providers: [
