@@ -1,9 +1,7 @@
-import { authOptions } from "@/utils/authOptions";
 import { sendEmail } from "@/utils/sendEmail";
-import { Session } from "next-auth";
-import { getServerSession } from "next-auth/next";
 import { NextRequest, NextResponse } from "next/server";
 import UpdatedEstimateEmail from "@/emails/UpdatedEstimateEmail";
+import { auth } from "../../../../../auth";
 
 export async function POST(
   request: NextRequest,
@@ -13,7 +11,7 @@ export async function POST(
   const bodyData = await request.json();
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {

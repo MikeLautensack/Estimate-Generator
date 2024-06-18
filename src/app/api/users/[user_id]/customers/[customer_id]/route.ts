@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { customers } from "../../../../../../db/schemas/customers";
 import { db } from "../../../../../../db";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../../../../../utils/authOptions";
+import authConfig from "../../../../../../../auth.config";
 import { Customers } from "@/types/customers";
 import { Session } from "next-auth";
 import { eq } from "drizzle-orm";
+import { auth } from "../../../../../../../auth";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { user_id: string; customer_id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Customers;
+  const bodyData = await request.json() as Customers;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
@@ -51,10 +51,10 @@ export async function PATCH(
   { params }: { params: { user_id: string; customer_id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Customers;
+  const bodyData = await request.json() as Customers;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
@@ -86,7 +86,7 @@ export async function DELETE(
   { params }: { params: { user_id: string; customer_id: string } },
 ) {
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {

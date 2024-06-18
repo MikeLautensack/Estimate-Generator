@@ -1,16 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../../db";
-import { profiles } from "../../../../../db/schemas/userProfile";
-import { getServerSession } from "next-auth/next";
-import { Session } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
+// import { db } from "../../../../../db";
+// import { profiles } from "../../../../../db/schemas/userProfile";
 import { Profile } from "@/types/profile";
 
 export async function POST(request: NextRequest) {
   // // Get request body data
   // const bodyData = (await request.json()) as Profile;
   // // Get session
-  // const session = (await getServerSession(authOptions)) as Session;
+  // const session = (await getServerSession(authConfig)) as Session;
   // // Check session is present
   // if (!session) {
   //   return NextResponse.json({ error: "No session" }, { status: 401 });
