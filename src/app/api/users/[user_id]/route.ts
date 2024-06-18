@@ -4,13 +4,11 @@ import { users } from "../../../../db/schemas/auth";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import { Users } from "@/types/users";
-import { getServerSession } from "next-auth/next";
-import { Session } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
+import { auth } from "../../../../../auth";
 
 export async function POST(request: NextRequest) {
   // Get request body data
-  const bodyData = (await request.json()) as Users;
+  const bodyData = await request.json() as Users;
 
   // Check to make sure the bodyData has all the neccassary data
   if (
@@ -81,7 +79,7 @@ export async function PATCH(
   const bodyData = await request.json();
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
@@ -127,7 +125,7 @@ export async function DELETE(
   { params }: { params: { user_id: string } },
 ) {
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {

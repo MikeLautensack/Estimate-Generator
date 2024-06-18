@@ -1,22 +1,20 @@
-import { getServerSession } from "next-auth/next";
 import { NextRequest, NextResponse } from "next/server";
-import { Session } from "next-auth";
 import { EmailEndpointBody } from "@/types/email";
-import { authOptions } from "@/utils/authOptions";
 import { Resend } from "resend";
 import NewCustomerEmail from "../../../../emails/NewCustomerEmail";
 import NewEstimateEmail from "../../../../emails/NewEstimateEmail";
 import UpdatedEstimateEmail from "../../../../emails/UpdatedEstimateEmail";
+import { auth } from "../../../../../auth";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { "email-type": string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as EmailEndpointBody;
+  const bodyData = await request.json() as EmailEndpointBody;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
