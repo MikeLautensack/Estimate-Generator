@@ -27,8 +27,8 @@ const sendVerificationRequest = async (
   };
 
   try {
-    const res = fetch(endpoint, options);
-    console.log("res from hitting email endpoint: ", res);
+    // const res = fetch(endpoint, options);
+    // console.log("res from hitting email endpoint: ", res);
   } catch (error: any) {
     throw new Error("Failed to send the verification email.", error);
   }
