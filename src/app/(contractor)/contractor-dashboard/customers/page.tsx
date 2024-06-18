@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Session, getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
+import { authConfig } from "@/utils/authConfig";
 import { Customers } from "@/types/customers";
 
 async function getData(session: Session) {
@@ -18,7 +18,7 @@ async function getData(session: Session) {
 }
 
 const Page = async () => {
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = (await getServerSession(authConfig)) as Session;
   const data = (await getData(session)) as Customers[];
 
   return (

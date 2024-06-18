@@ -7,7 +7,7 @@ import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { Button } from "@/components/ui/button";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
+import { authConfig } from "@/utils/authConfig";
 
 async function getData(session: any) {
   const res = await db
@@ -18,7 +18,7 @@ async function getData(session: any) {
 }
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authConfig);
   const data = (await getData(session)) as Estimates[];
 
   return (
