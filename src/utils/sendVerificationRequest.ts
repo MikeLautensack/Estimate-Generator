@@ -1,7 +1,6 @@
-import { SendVerificationRequestParams } from "next-auth/providers/email";
 
 const sendVerificationRequest = async (
-  params: SendVerificationRequestParams,
+  params: any
 ) => {
   const { identifier, url } = params;
   console.log("testing sendVerificationRequest, url val: ", url);
@@ -28,8 +27,8 @@ const sendVerificationRequest = async (
   };
 
   try {
-    const res = fetch(endpoint, options);
-    console.log("res from hitting email endpoint: ", res);
+    // const res = fetch(endpoint, options);
+    // console.log("res from hitting email endpoint: ", res);
   } catch (error: any) {
     throw new Error("Failed to send the verification email.", error);
   }

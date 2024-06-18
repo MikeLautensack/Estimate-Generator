@@ -1,13 +1,11 @@
-import { authOptions } from "../../../../../utils/authOptions";
+import authConfig from "../../../../../../auth.config";
 import EstimateForm from "@/components/forms/EstimateForm";
-import Estimates from "@/components/pageComponents/customer-dashboard/Estimates";
 import { db } from "@/db";
 import { customers } from "@/db/schemas/customers";
 import { profiles } from "@/db/schemas/userProfile";
-import { Customers } from "@/types/customers";
-import { Profile } from "@/types/profile";
 import { eq } from "drizzle-orm";
-import { Session, getServerSession } from "next-auth";
+import { auth } from "../../../../../../auth";
+import { Customers } from "@/types/customers";
 
 async function getCustomers() {
   const res = await db.select().from(customers);
@@ -15,11 +13,11 @@ async function getCustomers() {
 }
 
 async function getProfile() {
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
   const res = await db
     .select()
     .from(profiles)
-    .where(eq(profiles.user_id, session.user.id));
+    .where(eq(profiles.user_id, session?.user.id));
   return res;
 }
 
@@ -50,8 +48,8 @@ const Page = async () => {
             tax: 0,
             total: 0,
             status: "",
-            dateCreated: new Date(),
-            dateUpdated: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
             customer_id: 0,
             customer_user_id: 0,
             contractor_user_id: 0,

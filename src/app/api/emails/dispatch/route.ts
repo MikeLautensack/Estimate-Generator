@@ -1,15 +1,13 @@
-import { getServerSession } from "next-auth/next";
 import { NextRequest, NextResponse } from "next/server";
-import { Session } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
 import { EmailDipatchBody } from "@/types/email";
+import { auth } from "../../../../../auth";
 
 export async function POST(request: NextRequest) {
   // Get request body data
-  const bodyData = (await request.json()) as EmailDipatchBody<unknown>;
+  const bodyData = await request.json() as EmailDipatchBody<unknown>;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {

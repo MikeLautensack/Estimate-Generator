@@ -2,10 +2,9 @@ import React from "react";
 import { db } from "@/db";
 import { estimates } from "@/db/schemas/estimates";
 import { eq } from "drizzle-orm";
-import { Session, getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
 import { Estimates } from "@/types/estimates";
 import EstimatePriceChart from "../../charts/EstimatePriceChart";
+import { auth } from "../../../../auth";
 
 async function getDataTestOne(id: number) {
   try {
@@ -20,8 +19,8 @@ async function getDataTestOne(id: number) {
 }
 
 const EstimatePriceChartContainer = async () => {
-  const session = (await getServerSession(authOptions)) as Session;
-  const data = (await getDataTestOne(session.user.id)) as Estimates[];
+  const session = await auth();
+  const data = await getDataTestOne(session?.user.id) as Estimates[];
 
   const createChartArray = (inputArray: Estimates[]): any[] => {
     try {

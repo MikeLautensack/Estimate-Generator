@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../../db";
-import { profiles } from "../../../../../db/schemas/userProfile";
-import { getServerSession } from "next-auth/next";
-import { Session } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
-import { Profile } from "@/types/profile";
 import { eq } from "drizzle-orm";
 import { users } from "@/db/schemas/auth";
 import { Users } from "@/types/users";
@@ -13,7 +8,7 @@ import { Resend } from "resend";
 
 export async function POST(request: NextRequest) {
   // Get email from request body
-  const { email } = (await request.json()) as Users;
+  const { email } = await request.json() as Users;
 
   // Generate verification token from email
   const token = generateValidationToken(email);

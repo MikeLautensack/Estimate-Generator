@@ -4,12 +4,12 @@ import {
   lineItems,
 } from "../../../../../../../../db/schemas/estimates";
 import { db } from "../../../../../../../../db";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../../../../../../../utils/authOptions";
+import authConfig from "../../../../../../../../../auth.config";
 import { Estimates, LineItems } from "@/types/estimates";
 import { Session } from "next-auth";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { eq } from "drizzle-orm";
+import { auth } from "../../../../../../../../../auth";
 
 export async function GET(
   request: NextRequest,
@@ -17,11 +17,8 @@ export async function GET(
     params,
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
-  // Get request body data
-  const bodyData = (await request.json()) as Estimates;
-
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
@@ -53,7 +50,7 @@ export async function POST(
   const bodyData = (await request.json()) as Estimates;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
@@ -123,10 +120,10 @@ export async function PATCH(
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Estimates;
+  const bodyData = await request.json() as Estimates;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
@@ -202,8 +199,8 @@ export async function DELETE(
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
-
+  const session = await auth();
+  
   // Check session is present
   if (!session) {
     return NextResponse.json({ error: "No session" }, { status: 401 });
