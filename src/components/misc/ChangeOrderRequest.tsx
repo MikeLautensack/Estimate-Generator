@@ -21,16 +21,16 @@ const ChangeOrderRequest = ({ changeOrder }: ChangeOrderRequestProps) => {
           className="flex flex-col gap-1 max-w-[50%]"
         >
           <p>
-            {changeOrder.dateCreated?.getTime() ===
-            changeOrder.dateUpdated?.getTime()
+            {changeOrder.createdAt?.getTime() ===
+            changeOrder.updatedAt?.getTime()
               ? "Date Created: "
               : "Date Updated: "}
           </p>
           <p>
-            {changeOrder.dateCreated?.getTime() ===
-            changeOrder.dateUpdated?.getTime()
-              ? changeOrder.dateCreated?.toString()
-              : changeOrder.dateUpdated?.toString()}
+            {changeOrder.createdAt?.getTime() ===
+            changeOrder.updatedAt?.getTime()
+              ? changeOrder.createdAt?.toString()
+              : changeOrder.updatedAt?.toString()}
           </p>
         </div>
         <div id="status-container" className="max-w-[50%]">

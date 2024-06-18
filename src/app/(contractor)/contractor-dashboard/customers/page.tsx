@@ -5,9 +5,9 @@ import { db } from "../../../../db";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Session, getServerSession } from "next-auth";
-import { authConfig } from "@/utils/authConfig";
+import { Session } from "next-auth";
 import { Customers } from "@/types/customers";
+import { auth } from "../../../../../auth";
 
 async function getData(session: Session) {
   const res = await db
@@ -18,8 +18,8 @@ async function getData(session: Session) {
 }
 
 const Page = async () => {
-  const session = (await getServerSession(authConfig)) as Session;
-  const data = (await getData(session)) as Customers[];
+  const session = await auth();
+  const data = await getData(session!) as Customers[];
 
   return (
     <main className="flex-grow p-4 flex flex-col gap-4 bg-neutral400">

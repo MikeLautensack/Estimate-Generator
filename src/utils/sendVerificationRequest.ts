@@ -1,7 +1,6 @@
-import { SendVerificationRequestParams } from "next-auth/providers/email";
 
 const sendVerificationRequest = async (
-  params: SendVerificationRequestParams,
+  params: any
 ) => {
   const { identifier, url } = params;
   console.log("testing sendVerificationRequest, url val: ", url);

@@ -20,7 +20,7 @@ export type createUserAccountAction = {
   name: string;
   email: string;
   password: string;
-  dateCreated: Date;
-  dateUpdated: Date;
+  createdAt: Date;
+  updatedAt: Date;
   role: string;
 };

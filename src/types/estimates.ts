@@ -41,8 +41,8 @@ export type LineItems = {
   rateType: string;
   price: number;
   amount: number;
-  dateCreated?: Date;
-  dateUpdated?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   estimate_id?: number;
 };
 
