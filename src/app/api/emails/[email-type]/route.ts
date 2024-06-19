@@ -23,37 +23,37 @@ export async function POST(
 
   console.log("Email sending endpoint session log: ", session);
 
-  // const resend = new Resend(process.env["EMAIL_KEY"]);
+  const resend = new Resend(process.env["EMAIL_KEY"]);
 
-  // let react = NewCustomerEmail;
+  let react = NewCustomerEmail;
 
-  // switch (params["email-type"]) {
-  //   case "new-customer":
-  //     react = NewCustomerEmail;
-  //     break;
-  //   case "new-estimate":
-  //     react = NewEstimateEmail;
-  //     break;
-  //   case "updated-estimate":
-  //     react = UpdatedEstimateEmail;
-  //     break;
-  // }
+  switch (params["email-type"]) {
+    case "new-customer":
+      react = NewCustomerEmail;
+      break;
+    case "new-estimate":
+      react = NewEstimateEmail;
+      break;
+    case "updated-estimate":
+      react = UpdatedEstimateEmail;
+      break;
+  }
 
-  // try {
-  //   await resend.emails.send({
-  //     from: "Testing new email sending endpoints ..... <onboarding@resend.dev>",
-  //     to: bodyData.email,
-  //     subject: ``,
-  //     react: react({
-  //       url: bodyData.magicLink,
-  //       host: bodyData.host,
-  //       customerName: "customer 123",
-  //       contractorName: "contractor 123",
-  //     }),
-  //   });
-  // } catch (error: any) {
-  //   return NextResponse.json({ error: error.message }, { status: 500 });
-  // }
+  try {
+    await resend.emails.send({
+      from: "Testing new email sending endpoints ..... <onboarding@resend.dev>",
+      to: bodyData.email,
+      subject: `testing 1234567890`,
+      react: react({
+        url: bodyData.magicLink,
+        host: bodyData.host,
+        customerName: "customer 123",
+        contractorName: "contractor 123",
+      }),
+    });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
   return new NextResponse("redirecting...");
 }

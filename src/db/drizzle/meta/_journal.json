@@ -8,6 +8,41 @@
       "when": 1718598586018,
       "tag": "0000_peaceful_earthquake",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1718767514287,
+      "tag": "0001_wide_garia",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1718811309643,
+      "tag": "0002_broken_starfox",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1718818277420,
+      "tag": "0003_high_roughhouse",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1718818703196,
+      "tag": "0004_odd_stepford_cuckoos",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1718818742836,
+      "tag": "0005_charming_snowbird",
+      "breakpoints": true
     }
   ]
 }

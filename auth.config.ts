@@ -2,12 +2,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "./src/db/index";
 import { users } from "./src//db/schemas/auth";
 import { eq } from "drizzle-orm";
-import EmailProvider from "next-auth/providers/email";
 import sendVerificationRequest from "./src/utils/sendVerificationRequest";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import type { NextAuthConfig, User } from "next-auth";
 var bcrypt = require('bcryptjs');
+import Resend from "next-auth/providers/resend"
 
 export default { 
     providers: [
@@ -58,11 +58,11 @@ export default {
               return null;
             },
         }),
-        // EmailProvider({
-        //   server: process.env.EMAIL_SERVER,
-        //   from: process.env.EMAIL_FROM,
-        //   sendVerificationRequest,
-        // }),
+        Resend({
+          server: process.env.EMAIL_SERVER,
+          from: process.env.EMAIL_FROM,
+          sendVerificationRequest,
+        }),
     ], 
     callbacks: {
         session({ session, token }: { session: Session; token: JWT }) {
