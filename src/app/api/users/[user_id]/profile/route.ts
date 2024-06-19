@@ -2,20 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../../db";
 import { eq } from "drizzle-orm";
 import { profiles } from "../../../../../db/schemas/userProfile";
-import { getServerSession } from "next-auth/next";
-import { Session } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
 import { Profile } from "@/types/profile";
+import { auth } from "../../../../../../auth";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Profile;
+  const bodyData = await request.json() as Profile;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
@@ -54,10 +52,10 @@ export async function PATCH(
   { params }: { params: { id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Profile;
+  const bodyData = await request.json() as Profile;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check id is valid
   if (params.id.length !== 8) {
@@ -96,7 +94,7 @@ export async function DELETE(
   { params }: { params: { id: string } },
 ) {
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check id is valid
   if (params.id.length !== 8) {

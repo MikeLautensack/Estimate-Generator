@@ -3,9 +3,7 @@ import { eq } from "drizzle-orm";
 import { db } from "../../../../../../../../../../db";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { ChangeOrder } from "@/types/changeOrders";
-import { authOptions } from "@/utils/authOptions";
-import { Session } from "next-auth";
-import { getServerSession } from "next-auth/next";
+import { auth } from "../../../../../../../../../../../auth";
 
 export async function POST(
   request: NextRequest,
@@ -21,10 +19,10 @@ export async function POST(
   },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as ChangeOrder;
+  const bodyData = await request.json() as ChangeOrder;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
@@ -75,10 +73,10 @@ export async function PATCH(
   },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as ChangeOrder;
+  const bodyData = await request.json() as ChangeOrder;
 
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
@@ -121,7 +119,7 @@ export async function DELETE(
   },
 ) {
   // Get session
-  const session = (await getServerSession(authOptions)) as Session;
+  const session = await auth();
 
   // Check session is present
   if (!session) {
