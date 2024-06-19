@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { EmailEndpointBody } from "@/types/email";
 import { Resend } from "resend";
-import NewCustomerEmail from "../../../../emails/NewCustomerEmail";
-import NewEstimateEmail from "../../../../emails/NewEstimateEmail";
-import UpdatedEstimateEmail from "../../../../emails/UpdatedEstimateEmail";
-import { auth } from "../../../../../auth";
+import NewCustomerEmail from "../../../../../emails/NewCustomerEmail";
+import NewEstimateEmail from "../../../../../emails/NewEstimateEmail";
+import UpdatedEstimateEmail from "../../../../../emails/UpdatedEstimateEmail";
+import { auth } from "../../../../../../auth";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { "email-type": string } },
 ) {
   // Get request body data
-  const bodyData = await request.json() as EmailEndpointBody;
+  const bodyData = (await request.json()) as EmailEndpointBody;
 
   // Get session
   const session = await auth();
