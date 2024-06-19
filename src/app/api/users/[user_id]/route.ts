@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../db";
 import { users } from "../../../../db/schemas/auth";
+import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import { Users } from "@/types/users";
 import { auth } from "../../../../../auth";
-var bcrypt = require('bcryptjs');
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest,
+  { params }: { params: { user_id: string } },
+) {
   // Get request body data
   const bodyData = await request.json() as Users;
 
@@ -46,9 +48,8 @@ export async function POST(request: NextRequest) {
 
   // Create user in DB
   try {
-    const id = Math.floor(Math.random() * 100000000).toString();
     const user = {
-      id: id,
+      id: params.user_id,
       name: bodyData.name,
       email: bodyData.email,
       password:
@@ -67,6 +68,7 @@ export async function POST(request: NextRequest) {
       { status: 200 },
     );
   } catch (error: any) {
+    console.log("testing.-.-.-")
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
