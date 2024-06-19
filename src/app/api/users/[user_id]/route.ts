@@ -6,11 +6,12 @@ import { eq } from "drizzle-orm";
 import { Users } from "@/types/users";
 import { auth } from "../../../../../auth";
 
-export async function POST(request: NextRequest,
+export async function POST(
+  request: NextRequest,
   { params }: { params: { user_id: string } },
 ) {
   // Get request body data
-  const bodyData = await request.json() as Users;
+  const bodyData = (await request.json()) as Users;
 
   // Check to make sure the bodyData has all the neccassary data
   if (
@@ -54,7 +55,7 @@ export async function POST(request: NextRequest,
       email: bodyData.email,
       password:
         bodyData.password == null || undefined
-          ? null
+          ? ""
           : bcrypt.hashSync(bodyData.password, 10),
       newUser: true,
       role: bodyData.role,
@@ -68,7 +69,7 @@ export async function POST(request: NextRequest,
       { status: 200 },
     );
   } catch (error: any) {
-    console.log("testing.-.-.-")
+    console.log("testing.-.-.-");
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
