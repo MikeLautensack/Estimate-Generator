@@ -1,0 +1,3 @@
+ALTER TABLE "account" ADD CONSTRAINT "account_provider_providerAccountId" PRIMARY KEY("provider","providerAccountId");--> statement-breakpoint
+ALTER TABLE "authenticator" ADD CONSTRAINT "authenticator_userId_credentialID" PRIMARY KEY("userId","credentialID");--> statement-breakpoint
+ALTER TABLE "verificationToken" ADD CONSTRAINT "verificationToken_identifier_token" PRIMARY KEY("identifier","token");

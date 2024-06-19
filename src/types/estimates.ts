@@ -25,8 +25,9 @@ export type Estimates = {
   tax: number;
   total: number;
   status: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
   customer_id: number;
   customer_user_id: number;
   contractor_user_id: number;
@@ -40,8 +41,8 @@ export type LineItems = {
   rateType: string;
   price: number;
   amount: number;
-  dateCreated?: Date;
-  dateUpdated?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   estimate_id?: number;
 };
 

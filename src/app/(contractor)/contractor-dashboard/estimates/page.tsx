@@ -6,8 +6,7 @@ import { Estimates } from "@/types/estimates";
 import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { Button } from "@/components/ui/button";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
+import { auth } from "../../../../../auth";
 
 async function getData(session: any) {
   const res = await db
@@ -18,8 +17,8 @@ async function getData(session: any) {
 }
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
-  const data = (await getData(session)) as Estimates[];
+  const session = await auth();
+  const data = await getData(session) as Estimates[];
 
   return (
     <main className="flex flex-col flex-1 gap-4 p-4 bg-neutral400">

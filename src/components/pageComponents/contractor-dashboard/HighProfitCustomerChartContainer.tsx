@@ -1,13 +1,11 @@
 // import EstimateStatusChart from "../../charts/EstimateStatusChart";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { Session, getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
 import { customers } from "@/db/schemas/customers";
 import { Customers } from "@/types/customers";
 import HighProfitCustomersChart from "@/components/charts/HighProfitCustomersChart";
 import { estimates } from "@/db/schemas/estimates";
-import { Estimates } from "@/types/estimates";
+import { auth } from "../../../../auth";
 
 async function getCustomers(id: number) {
   try {
@@ -34,8 +32,8 @@ async function getEstimates(id: number) {
 }
 
 export default async function EstimateStatusChartContainer() {
-  const session = (await getServerSession(authOptions)) as Session;
-  const data = (await getCustomers(parseInt(session.user.id))) as Customers[];
+  const session = await auth();
+  const data = await getCustomers(parseInt(session?.user.id)) as Customers[];
 
   const createChartArray = async (
     inputArray: Customers[],
