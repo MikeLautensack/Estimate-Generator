@@ -1,18 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { customers } from "../../../../../../db/schemas/customers";
 import { db } from "../../../../../../db";
-import authConfig from "../../../../../../../auth.config";
 import { Customers } from "@/types/customers";
-import { Session } from "next-auth";
 import { eq } from "drizzle-orm";
 import { auth } from "../../../../../../../auth";
+import { users } from "@/db/schemas/auth";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { user_id: string; customer_id: string } },
 ) {
   // Get request body data
-  const bodyData = await request.json() as Customers;
+  const bodyData = (await request.json()) as Customers;
 
   // Get session
   const session = await auth();
@@ -22,23 +21,46 @@ export async function POST(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
-  try {
-    const customer = {
-      id: parseInt(params.customer_id),
-      contractor_user_id: parseInt(params.user_id),
-      customer_user_id: bodyData.customer_user_id,
-      address: bodyData.address,
-      email: bodyData.email,
+  // Create customer
+  const customer = {
+    id: parseInt(params.customer_id),
+    contractor_user_id: parseInt(params.user_id),
+    customer_user_id: bodyData.customer_user_id,
+    address: bodyData.address,
+    email: bodyData.email,
+    name: bodyData.name,
+    phone: bodyData.phone,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
+  // Create customer user request options object
+  const createCustomerUserReqOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
       name: bodyData.name,
-      phone: bodyData.phone,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+      email: bodyData.email,
+      password: `${params.customer_id}${params.user_id}`,
+      role: "customer",
+    }),
+  };
 
+  try {
     await db.insert(customers).values(customer);
-
+    const createCustomerUserRes = await fetch(
+      `${process.env.HOST}/api/users/${bodyData.customer_user_id}`,
+      createCustomerUserReqOptions,
+    );
+    const customerUser = await createCustomerUserRes.json();
     return NextResponse.json(
-      { message: "Customer successfully created", customer: customer },
+      {
+        message: "Customer successfully created",
+        customer: customer,
+        customerUser: customerUser.user,
+      },
       { status: 200 },
     );
   } catch (error: any) {
@@ -51,7 +73,7 @@ export async function PATCH(
   { params }: { params: { user_id: string; customer_id: string } },
 ) {
   // Get request body data
-  const bodyData = await request.json() as Customers;
+  const bodyData = (await request.json()) as Customers;
 
   // Get session
   const session = await auth();
@@ -72,8 +94,20 @@ export async function PATCH(
         updatedAt: new Date(),
       })
       .where(eq(customers.id, parseInt(params.customer_id)));
+    const customerUser = await db
+      .update(users)
+      .set({
+        email: bodyData.email,
+        name: bodyData.name,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, bodyData.customer_user_id));
     return NextResponse.json(
-      { message: "Customer successfully updated", customer: customer },
+      {
+        message: "Customer successfully updated",
+        updatedCustomer: customer,
+        updatedCustomerUser: customerUser,
+      },
       { status: 200 },
     );
   } catch (error: any) {
