@@ -51,8 +51,8 @@ const Page = async () => {
             createdAt: new Date(),
             updatedAt: new Date(),
             customer_id: 0,
-            customer_user_id: 0,
-            contractor_user_id: 0,
+            customer_user_id: "",
+            contractor_user_id: "",
           }}
           customers={customers}
           profile={profile[0]}

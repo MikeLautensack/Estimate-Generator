@@ -10,7 +10,7 @@ async function getData(id: number) {
     const data = await db
       .select()
       .from(estimates)
-      .where(eq(estimates.contractor_user_id, id));
+      .where(eq(estimates.contractor_user_id, id.toString()));
     return data;
   } catch (error) {
     console.log(error);
@@ -19,7 +19,7 @@ async function getData(id: number) {
 
 export default async function EstimateStatusChartContainer() {
   const session = await auth();
-  const data = await getData(session?.user.id) as Estimates[];
+  const data = (await getData(session?.user.id)) as Estimates[];
 
   const createChartArray = (inputArray: Estimates[]): any[] => {
     try {

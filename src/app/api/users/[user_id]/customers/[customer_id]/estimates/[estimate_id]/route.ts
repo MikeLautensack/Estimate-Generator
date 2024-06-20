@@ -29,7 +29,7 @@ export async function POST(
   // Create estimate data object
   const estimateData = {
     id: parseInt(params.estimate_id),
-    contractor_user_id: parseInt(params.user_id),
+    contractor_user_id: params.user_id,
     customer_id: parseInt(params.customer_id),
     customer_user_id: bodyData.customer_user_id.toString(),
     contractorAddress: bodyData.contractorAddress,
@@ -52,14 +52,12 @@ export async function POST(
   // Insert estimate data
   try {
     await db.insert(estimates).values(estimateData);
-    console.log("estimate ____");
   } catch (error: any) {
-    console.log("estimate", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   // Create line items data array
-  const lineItemsArr = bodyData.lineItems.map((item: LineItems) => {
+  const lineItemsArr = bodyData.lineItems?.map((item: LineItems) => {
     return {
       id: Math.floor(Math.random() * 100000000),
       estimate_id: parseInt(params.estimate_id),
@@ -76,7 +74,7 @@ export async function POST(
 
   // Insert lineitems data
   try {
-    await db.insert(lineItems).values(lineItemsArr);
+    await db.insert(lineItems).values(lineItemsArr!);
     console.log("lineItems ____");
   } catch (error: any) {
     console.log("lineitems", error);
@@ -149,7 +147,7 @@ export async function PATCH(
   }
 
   // Create line items data array
-  const lineItemsArr = bodyData.lineItems.map((item: LineItems) => {
+  const lineItemsArr = bodyData.lineItems?.map((item: LineItems) => {
     return {
       id: Math.floor(Math.random() * 100000000),
       estimate_id: parseInt(params.estimate_id),
@@ -165,7 +163,7 @@ export async function PATCH(
 
   // Insert new lineitems
   try {
-    await db.insert(lineItems).values(lineItemsArr);
+    await db.insert(lineItems).values(lineItemsArr!);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
