@@ -19,7 +19,7 @@ export async function POST(
   },
 ) {
   // Get request body data
-  const bodyData = await request.json() as ChangeOrder;
+  const bodyData = (await request.json()) as ChangeOrder;
 
   // Get session
   const session = await auth();
@@ -73,7 +73,7 @@ export async function PATCH(
   },
 ) {
   // Get request body data
-  const bodyData = await request.json() as ChangeOrder;
+  const bodyData = (await request.json()) as ChangeOrder;
 
   // Get session
   const session = await auth();
@@ -85,13 +85,14 @@ export async function PATCH(
 
   // Update change order data
   try {
-    const changeOrder = await db
+    const changeOrder = {
+      changeOrderName: bodyData.changeOrderName,
+      description: bodyData.description,
+      updatedAt: new Date(),
+    };
+    await db
       .update(changeOrders)
-      .set({
-        changeOrderName: bodyData.changeOrderName,
-        description: bodyData.description,
-        updatedAt: new Date(),
-      })
+      .set(changeOrder)
       .where(eq(changeOrders.id, parseInt(params.changeorder_id)));
     return NextResponse.json(
       {
@@ -133,8 +134,7 @@ export async function DELETE(
       .where(eq(changeOrders.id, parseInt(params.changeorder_id)));
     return NextResponse.json(
       {
-        message: "Change order successfully deleted",
-        changeOrder: changeOrder,
+        message: `Change order ${params.changeorder_id} successfully deleted`,
       },
       { status: 200 },
     );
