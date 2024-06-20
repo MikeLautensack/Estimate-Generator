@@ -18,7 +18,7 @@ export type Estimates = {
   contractorName: string;
   contractorAddress: string;
   contractorPhone: string;
-  lineItems: LineItems[];
+  lineItems?: LineItems[];
   message: string;
   subtotal: number;
   taxRate: number;
@@ -29,8 +29,8 @@ export type Estimates = {
   updatedAt?: Date;
   deletedAt?: Date;
   customer_id: number;
-  customer_user_id: number;
-  contractor_user_id: number;
+  customer_user_id: string;
+  contractor_user_id: string;
 };
 
 export type LineItems = {
