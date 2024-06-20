@@ -51,7 +51,7 @@ const EstimateForm = ({
   });
 
   useEffect(() => {
-    if (estimate) {
+    if (estimate && estimate.lineItems) {
       setLineItems(estimate.lineItems);
       methods.setValue("estimateName", estimate.estimateName);
       methods.setValue("customer_id", estimate.customer_id);

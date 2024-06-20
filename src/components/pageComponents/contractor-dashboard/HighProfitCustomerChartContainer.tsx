@@ -24,7 +24,7 @@ async function getEstimates(id: number) {
     const data = await db
       .select()
       .from(estimates)
-      .where(eq(estimates.customer_user_id, id));
+      .where(eq(estimates.customer_user_id, id.toString()));
     return data;
   } catch (error) {
     console.log(error);
@@ -33,7 +33,7 @@ async function getEstimates(id: number) {
 
 export default async function EstimateStatusChartContainer() {
   const session = await auth();
-  const data = await getCustomers(parseInt(session?.user.id)) as Customers[];
+  const data = (await getCustomers(parseInt(session?.user.id))) as Customers[];
 
   const createChartArray = async (
     inputArray: Customers[],
