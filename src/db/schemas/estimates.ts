@@ -13,7 +13,7 @@ import { customers } from "./customers";
 
 export const estimates = pgTable("estimates", {
   id: bigint("id", { mode: "number" }).notNull().primaryKey(),
-  contractor_user_id: bigint("contractor_user_id", { mode: "number" }),
+  contractor_user_id: text("customer_user_id"),
   customer_id: bigint("customer_id", { mode: "number" }),
   customer_user_id: text("customer_user_id"),
   contractorAddress: varchar("contractor_address", { length: 255 }),
