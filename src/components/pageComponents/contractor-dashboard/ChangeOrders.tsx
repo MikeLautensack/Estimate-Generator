@@ -4,8 +4,7 @@ import { columns } from "../../tables/contractorTables/changeOrderTable/columns"
 import { ChangeOrder } from "@/types/changeOrders";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { eq } from "drizzle-orm";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
+import { auth } from "../../../../auth";
 
 async function getChangeOrders(session: any) {
   try {
@@ -20,8 +19,8 @@ async function getChangeOrders(session: any) {
 }
 
 const ChangeOrders = async () => {
-  const session = await getServerSession(authOptions);
-  const data = (await getChangeOrders(session)) as ChangeOrder[];
+  const session = await auth();
+  const data = await getChangeOrders(session) as ChangeOrder[];
 
   return (
     <div className="">

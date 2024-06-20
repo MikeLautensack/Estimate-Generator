@@ -1,0 +1,1 @@
+ALTER TABLE "estimates" DROP COLUMN IF EXISTS "contractor_user_id";

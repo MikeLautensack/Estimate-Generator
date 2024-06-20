@@ -17,9 +17,9 @@ export type ChangeOrderFormParams = {
   customerName: string | string[];
   projectAddress: string | string[];
   mode: string;
-  contractor_user_id: number;
-  estimate_id: number;
-  customer_user_id: number;
+  contractor_user_id: string;
+  estimate_id?: number;
+  customer_user_id: string;
   change_order_id: number;
 };
 

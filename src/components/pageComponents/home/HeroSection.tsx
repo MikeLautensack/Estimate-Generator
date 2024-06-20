@@ -34,14 +34,14 @@ export default function HeroSection() {
           <div className="w-full flex gap-4 my-2">
             <Link
               id="signup-button"
-              className="flex flex-1 py-2 px-16 rounded-full justify-center font-semibold bg-blue-500 text-secondary500 desktop:flex-none"
+              className="flex flex-1 py-2 px-16 rounded-full justify-center font-semibold bg-blue-500 text-secondary500"
               href="/signup"
             >
               Sign Up
             </Link>
             <Link
               id="signin-button"
-              className="flex flex-1 py-2 rounded-full justify-center font-semibold border-2 border-blue-500 text-secondary500 desktop:hidden"
+              className="flex flex-1 py-2 rounded-full justify-center font-semibold border-2 border-blue-500 text-secondary500"
               href="/signin"
             >
               Sign In
