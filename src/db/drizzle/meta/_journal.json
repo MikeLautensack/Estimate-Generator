@@ -5,50 +5,64 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1710129137100,
-      "tag": "0000_common_apocalypse",
+      "when": 1718598586018,
+      "tag": "0000_peaceful_earthquake",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1710132750260,
-      "tag": "0001_special_night_thrasher",
+      "when": 1718767514287,
+      "tag": "0001_wide_garia",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "5",
-      "when": 1710623402094,
-      "tag": "0002_typical_kang",
+      "when": 1718811309643,
+      "tag": "0002_broken_starfox",
       "breakpoints": true
     },
     {
       "idx": 3,
       "version": "5",
-      "when": 1710623656533,
-      "tag": "0003_grey_johnny_storm",
+      "when": 1718818277420,
+      "tag": "0003_high_roughhouse",
       "breakpoints": true
     },
     {
       "idx": 4,
       "version": "5",
-      "when": 1710623683670,
-      "tag": "0004_silent_skrulls",
+      "when": 1718818703196,
+      "tag": "0004_odd_stepford_cuckoos",
       "breakpoints": true
     },
     {
       "idx": 5,
       "version": "5",
-      "when": 1710684306151,
-      "tag": "0005_slow_overlord",
+      "when": 1718818742836,
+      "tag": "0005_charming_snowbird",
       "breakpoints": true
     },
     {
       "idx": 6,
       "version": "5",
-      "when": 1711068444874,
-      "tag": "0006_fair_dragon_man",
+      "when": 1718847710758,
+      "tag": "0006_fuzzy_glorian",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1718848271475,
+      "tag": "0007_ordinary_nightcrawler",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1718854529334,
+      "tag": "0008_nasty_ikaris",
       "breakpoints": true
     }
   ]

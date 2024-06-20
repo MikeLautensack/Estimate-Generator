@@ -49,7 +49,7 @@ export default function Estimate({ data }: { data: Estimates }) {
         </div>
       </div>
       <div className="bg-primary100 rounded p-2">
-        <EstimateTable data={data.lineItems} columns={columns} />
+        <EstimateTable data={data.lineItems!} columns={columns} />
       </div>
       <div className="flex flex-col gap-2 tablet:flex-row">
         <div className="flex-1 flex flex-col">

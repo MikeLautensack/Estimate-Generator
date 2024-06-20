@@ -5,16 +5,17 @@ import { estimates } from "./estimates";
 
 export const customers = pgTable("customers", {
   id: bigint("id", { mode: "number" }).notNull().primaryKey(),
-  name: varchar("name", { length: 255 }).notNull(),
-  address: varchar("address", { length: 255 }).notNull(),
-  email: varchar("email", { length: 255 }).notNull(),
-  phone: varchar("phone", { length: 255 }).notNull(),
-  dateCreated: timestamp("date_created", { mode: "date" }).notNull(),
-  dateUpdated: timestamp("date_updated", { mode: "date" }).notNull(),
   contractor_user_id: bigint("contractor_user_id", {
     mode: "number",
   }).notNull(),
   customer_user_id: varchar("customer_user_id", { length: 255 }).notNull(),
+  address: varchar("address", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  phone: varchar("phone", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  deletedAt: timestamp("deleted_at"),
 });
 
 export const customerContractorRelationship = relations(
