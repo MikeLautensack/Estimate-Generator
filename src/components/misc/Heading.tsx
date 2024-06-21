@@ -4,6 +4,7 @@ import { formatCapitalize } from "@/utils/formatingFunctions";
 import { Session } from "next-auth";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
+import { redirect } from "next/navigation";
 
 type HeadingProps = {
   session: Session;
@@ -13,16 +14,16 @@ const Heading = ({ session }: HeadingProps) => {
   const pathname = usePathname();
 
   // State
-  const [heading, setHeading] = useState<string>("");
+  const [heading, setHeading] = useState<string>("Estimate Generator");
 
   // Values
   const name = useMemo(
-    () => formatCapitalize(session.user.name),
-    [session.user.name],
+    () => formatCapitalize(session?.user.name),
+    [session?.user.name],
   );
   const role = useMemo(
-    () => formatCapitalize(session.user.role),
-    [session.user.role],
+    () => formatCapitalize(session?.user.role),
+    [session?.user.role],
   );
 
   // Effects
@@ -34,7 +35,7 @@ const Heading = ({ session }: HeadingProps) => {
       setHeading("Estimate Generator");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [session]);
 
   return <div>{heading}</div>;
 };
