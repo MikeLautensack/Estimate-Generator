@@ -58,11 +58,16 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
     });
   };
 
-  const markCompleted = async (id: number) => {
+  const markCompleted = async (
+    id: number,
+    user_id: number,
+    customer_id: number,
+    estimate_id: number,
+  ) => {
     await fetch(
-      `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"] as string}/${id}`,
+      `${process.env.HOST}/api/users/${user_id}/customers/${customer_id}/estimates/${estimate_id}/change-orders/${id}`,
       {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -74,11 +79,16 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
     removeItem(id);
   };
 
-  const reject = async (id: number) => {
+  const reject = async (
+    id: number,
+    user_id: number,
+    customer_id: number,
+    estimate_id: number,
+  ) => {
     await fetch(
-      `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"] as string}/${id}`,
+      `${process.env.HOST}/api/users/${user_id}/customers/${customer_id}/estimates/${estimate_id}/change-orders/${id}`,
       {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -90,11 +100,16 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
     removeItem(id);
   };
 
-  const saveForLater = async (id: number) => {
+  const saveForLater = async (
+    id: number,
+    user_id: number,
+    customer_id: number,
+    estimate_id: number,
+  ) => {
     await fetch(
-      `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_UPDATE_STATUS"] as string}/${id}`,
+      `${process.env.HOST}/api/users/${user_id}/customers/${customer_id}/estimates/${estimate_id}/change-orders/${id}`,
       {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -129,21 +144,42 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
             <Button
               id=""
               className="flex-1"
-              onClick={() => markCompleted(id as number)}
+              onClick={() =>
+                markCompleted(
+                  id as number,
+                  changeOrder.contractor_user_id,
+                  changeOrder.customer_user_id,
+                  changeOrder.estimate_id,
+                )
+              }
             >
               Mark Completed
             </Button>
             <Button
               id=""
               className="flex-1"
-              onClick={() => saveForLater(id as number)}
+              onClick={() =>
+                saveForLater(
+                  id as number,
+                  changeOrder.contractor_user_id,
+                  changeOrder.customer_user_id,
+                  changeOrder.estimate_id,
+                )
+              }
             >
               Save For Later
             </Button>
             <Button
               id=""
               className="flex-1"
-              onClick={() => reject(id as number)}
+              onClick={() =>
+                reject(
+                  id as number,
+                  changeOrder.contractor_user_id,
+                  changeOrder.customer_user_id,
+                  changeOrder.estimate_id,
+                )
+              }
             >
               Reject
             </Button>

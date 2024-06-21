@@ -23,7 +23,7 @@ export async function POST(
 
   console.log("Email sending endpoint session log: ", session);
 
-  const resend = new Resend(process.env["EMAIL_KEY"]);
+  const resend = new Resend(process.env.EMAIL_KEY);
 
   let react = NewCustomerEmail;
 
