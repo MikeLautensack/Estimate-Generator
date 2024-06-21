@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import MenuNav from "./MenuNav";
 import { BsPerson } from "react-icons/bs";
 import { FcSettings } from "react-icons/fc";
 import { IoMdNotificationsOutline } from "react-icons/io";
@@ -10,8 +9,9 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
 import { Button } from "../ui/button";
 import { signOut } from "next-auth/react";
+import SideBarNav from "./SideBarNav";
 
-const Menu = () => {
+const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const isDesktop = useMediaQuery({
     query: "(min-width: 1024px)",
@@ -26,7 +26,7 @@ const Menu = () => {
 
   return (
     <div
-      className={`${isOpen ? "fixed h-screen w-64 flex-col items-center right-0 z-10 gap-4 bg-blue-500" : "h-14"} flex items-center desktop:h-screen desktop:flex-col justify-between desktop:items-start desktop:gap-6 p-4 desktop:px-6 top-0 desktop:sticky desktop:w-64`}
+      className={`${isOpen ? "fixed h-screen w-64 flex-col items-center right-0 z-10 gap-4 bg-blue-500" : "h-14"} flex items-center desktop:flex-col desktop:h-[calc(100vh-56px)] justify-between desktop:items-start desktop:gap-6 p-4 desktop:px-6 top-0 desktop:sticky desktop:w-64`}
     >
       <Button
         className={`${isOpen ? "absolute top-2 right-2" : "hidden"} text-secondary500`}
@@ -59,7 +59,7 @@ const Menu = () => {
             </Button>
           </nav>
         </div>
-        <MenuNav
+        <SideBarNav
           className={`${isOpen ? "flex gap-4 text-white" : "hidden"} desktop:gap-2 desktop:flex flex-col text-black`}
         />
       </div>
@@ -79,4 +79,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default SideBar;

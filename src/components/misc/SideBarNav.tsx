@@ -5,13 +5,27 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { BsFilePerson } from "react-icons/bs";
 import { FcDocument } from "react-icons/fc";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const MenuNav = ({ ...props }) => {
-  const [selected, setSelected] = useState("dashboard");
+const SideBarNav = ({ ...props }) => {
+  // Hooks
+  const pathname = usePathname();
 
-  //   const changeSelected = (selected: string) => {
-  //     setSelected(selected);
-  //   };
+  // State
+  const [selected, setSelected] = useState<string>("dashboard");
+
+  // Effects
+  useEffect(() => {
+    if (pathname === "/contractor-dashboard") {
+      setSelected("dashboard");
+    } else if (pathname === "/contractor-dashboard/customers") {
+      setSelected("customers");
+    } else if (pathname === "/contractor-dashboard/estimates") {
+      setSelected("estimates");
+    } else if (pathname === "/contractor-dashboard/change-orders") {
+      setSelected("change-orders");
+    }
+  }, [pathname]);
 
   return (
     <nav {...props}>
@@ -27,7 +41,7 @@ const MenuNav = ({ ...props }) => {
       <Link
         id="customers-button"
         className={`text-base font-medium flex gap-2 items-center py-1 px-2 ${selected === "customers" ? "bg-blue-500 text-white rounded" : ""}`}
-        href=""
+        href="/contractor-dashboard/customers"
         onClick={() => setSelected("customers")}
       >
         <BsFilePerson className="text-secondary500" />
@@ -55,4 +69,4 @@ const MenuNav = ({ ...props }) => {
   );
 };
 
-export default MenuNav;
+export default SideBarNav;

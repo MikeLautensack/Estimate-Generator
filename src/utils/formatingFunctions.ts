@@ -26,3 +26,16 @@ export const formatName = (name: string): string => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 };
+
+export const formatCapitalize = (input: string): string => {
+  return input
+    .split(" ") // Split the input string by spaces to get an array of words
+    .map((word) => {
+      if (word.length > 0) {
+        return word[0].toUpperCase() + word.slice(1); // Capitalize the first char and concatenate with the rest of the word
+      } else {
+        return word; // In case there are multiple spaces, return the empty string as it is
+      }
+    })
+    .join(" "); // Join the array of words back into a single string
+};

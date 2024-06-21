@@ -19,11 +19,11 @@ async function getData(session: Session) {
 
 const Page = async () => {
   const session = await auth();
-  const data = await getData(session!) as Customers[];
+  const data = (await getData(session!)) as Customers[];
 
   return (
     <main className="flex-grow p-4 flex flex-col gap-4 bg-neutral400">
-      <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
+      <h1 className="text-xl desktop:text-[42px] font-bold text-black">
         Customers
       </h1>
       <Link href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"] as string}`}>
