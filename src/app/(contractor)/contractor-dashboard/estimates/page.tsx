@@ -7,17 +7,19 @@ import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { Button } from "@/components/ui/button";
 import { auth } from "../../../../../auth";
+import { redirect } from "next/navigation";
 
 async function getData(session: any) {
   const res = await db
     .select()
     .from(estimates)
-    .where(eq(estimates.contractor_user_id, session.user.id));
+    .where(eq(estimates.contractor_user_id, session?.user.id));
   return res;
 }
 
 export default async function Page() {
   const session = await auth();
+  if (!session) return redirect("/signin");
   const data = (await getData(session)) as Estimates[];
 
   return (

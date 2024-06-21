@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Session } from "next-auth";
 import { Customers } from "@/types/customers";
 import { auth } from "../../../../../auth";
+import { redirect } from "next/navigation";
 
 async function getData(session: Session) {
   const res = await db
@@ -19,6 +20,7 @@ async function getData(session: Session) {
 
 const Page = async () => {
   const session = await auth();
+  if (!session) return redirect("/signin");
   const data = (await getData(session!)) as Customers[];
 
   return (
