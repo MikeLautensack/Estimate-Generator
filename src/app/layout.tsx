@@ -1,11 +1,8 @@
+import Header from "@/components/misc/Header";
 import "./globals.css";
 import type { Metadata } from "next";
-// import { Inter } from "next/font/google";
-// import { Rubik_Moonrocks } from "next/font/google";
 import { Roboto } from "next/font/google";
 import React from "react";
-
-// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Estimate Generator",
@@ -19,13 +16,6 @@ const roboto = Roboto({
   variable: "--font-roboto",
 });
 
-// const rubik = Rubik_Moonrocks({
-//   weight: "400",
-//   subsets: ["latin"],
-//   display: "swap",
-//   variable: "--font-rubik",
-// });
-
 export default function RootLayout({
   children,
 }: {
@@ -33,7 +23,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className="flex bg-blue-50 min-h-screen">{children}</body>
+      <body className="flex flex-col bg-blue-50 min-h-screen">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

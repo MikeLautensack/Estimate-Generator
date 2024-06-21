@@ -9,7 +9,7 @@ import EstimatePriceChartContainer from "@/components/pageComponents/contractor-
 
 const Page = () => {
   return (
-    <main className="flex-1 p-4 flex flex-col gap-4 bg-neutral400 min-h-screen">
+    <main className="p-4 flex flex-col flex-grow gap-4 bg-neutral400">
       <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
         Dashboard
       </h1>

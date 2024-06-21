@@ -11,8 +11,6 @@ import { Model } from "@/components/models/Worker";
 export default function HeroSection() {
   return (
     <section id="hero" className="flex flex-col w-full h-screen">
-      <Nav />
-
       <div
         id="content"
         className="flex flex-col flex-grow justify-center desktop:justify-between items-center desktop:items-center desktop:flex-row relative max-h-[calc(100vh-52px)]"
