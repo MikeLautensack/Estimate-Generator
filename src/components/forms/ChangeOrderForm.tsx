@@ -11,12 +11,16 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
   const { register, handleSubmit } = useForm<ChangeOrderFormProps>();
 
   const onSubmit: SubmitHandler<ChangeOrderFormProps> = async (formData) => {
+    const USER_ID = data.data.contractor_user_id;
+    const CUSTOMER_ID = data.data.customer_user_id;
+    const ESTIMATE_ID = data.data.estimate_id;
+    const CHANGE_ORDERS_ID = data.data.change_order_id;
     try {
       if (data.data?.mode == "put") {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"] as string}/${data.data.change_order_id}}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDERS_ID}`,
           {
-            method: "PUT",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
@@ -27,9 +31,9 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${data.data.estimate_id}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
-            method: "PUT",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
@@ -40,7 +44,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
         );
       } else if (data.data?.mode == "post") {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"] as string}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDERS_ID}`,
           {
             method: "POST",
             headers: {
@@ -59,9 +63,9 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${data.data.estimate_id}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
-            method: "PUT",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },

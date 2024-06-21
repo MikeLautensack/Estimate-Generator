@@ -75,11 +75,15 @@ export const columns: ColumnDef<ChangeOrder>[] = [
     id: "actions",
     cell: function Cell({ row }) {
       const changeOrder = row.original;
+      const USER_ID = changeOrder.contractor_user_id;
+      const CUSTOMER_ID = changeOrder.customer_user_id;
+      const ESTIMATE_ID = changeOrder.estimate_id;
+      const CHANGE_ORDER_ID = changeOrder.id;
       const router = useRouter();
 
       const deleteChangeOrder = async () => {
         const res = await fetch(
-          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_DELETE"] as string}/${changeOrder.id}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDER_ID}`,
           {
             method: "DELETE",
           },
@@ -102,7 +106,7 @@ export const columns: ColumnDef<ChangeOrder>[] = [
             <DropdownMenuLabel>Change Order Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CONTRACTOR_CHANGE_ORDER"] as string}/${changeOrder.id}`}
+              href={`${process.env.HOST}/contractor-dashboard/change-orders/change-order/${changeOrder.id}`}
             >
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>
