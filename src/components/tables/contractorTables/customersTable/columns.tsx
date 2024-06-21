@@ -66,10 +66,13 @@ export const columns: ColumnDef<Customers>[] = [
     id: "actions",
     cell: function Cell({ row }) {
       const customer = row.original;
+      const USER_ID = customer.contractor_user_id;
+      const CUSTOMER_ID = customer.id;
+      const CUSTOMER_USER_ID = customer.customer_user_id;
       const router = useRouter();
       const delCustomer = async (id: number) => {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"] as string}/${id}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
           {
             method: "DELETE",
             headers: {
@@ -77,15 +80,12 @@ export const columns: ColumnDef<Customers>[] = [
             },
           },
         );
-        await fetch(
-          `${process.env["NEXT_PUBLIC_USER_DELETE_URL"] as string}/${customer.customer_user_id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
+        await fetch(`${process.env.HOST}/api/users/${CUSTOMER_USER_ID}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
+        });
         router.refresh();
       };
       return (
@@ -100,16 +100,16 @@ export const columns: ColumnDef<Customers>[] = [
             <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"] as string}/${customer.id}`}
+              href={`${process.env.HOST}/contractor-dashboard/customers/${CUSTOMER_ID}`}
             >
               <DropdownMenuItem>View Customer</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"] as string}/${customer.id}`}
+              href={`${process.env.HOST}/contractor-dashboard/customers/form/${CUSTOMER_ID}`}
             >
               <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem onClick={() => delCustomer(customer.id)}>
+            <DropdownMenuItem onClick={() => delCustomer(CUSTOMER_ID)}>
               Delete Customer
             </DropdownMenuItem>
           </DropdownMenuContent>
