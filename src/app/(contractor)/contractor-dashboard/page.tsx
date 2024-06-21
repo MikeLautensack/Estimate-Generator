@@ -6,8 +6,12 @@ import TotalChangeOrders from "@/components/pageComponents/contractor-dashboard/
 import TotalEstimateEmails from "@/components/pageComponents/contractor-dashboard/TotalEstimateEmails";
 import EstimateStatusChartContainer from "@/components/pageComponents/contractor-dashboard/EstimateStatusChartContainer";
 import EstimatePriceChartContainer from "@/components/pageComponents/contractor-dashboard/EstimatePriceChartContainer";
+import { auth } from "../../../../auth";
+import { redirect } from "next/navigation";
 
-const Page = () => {
+const Page = async () => {
+  const session = await auth();
+  if (!session) return redirect("/signin");
   return (
     <main className="p-4 flex flex-col flex-grow gap-4 bg-neutral400">
       <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
