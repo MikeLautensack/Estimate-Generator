@@ -5,12 +5,14 @@ import { Users } from "@/types/users";
 
 const submitCustomer =
   (data: Customers) => async (formData: customerFormProps) => {
+    const USER_ID = data.contractor_user_id;
+    const CUSTOMER_ID = data.id;
     try {
       if (data != null) {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CUSTOMERS_EDIT_URL"] as string}/${data.id}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
           {
-            method: "PUT",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
@@ -19,45 +21,12 @@ const submitCustomer =
               address: formData.address,
               email: formData.email,
               phone: formData.phone,
-            }),
-          },
-        );
-
-        await fetch(
-          `${process.env["NEXT_PUBLIC_USER_EDIT"] as string}/${data.customer_user_id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name: formData.name,
-              email: formData.email,
             }),
           },
         );
       } else {
-        const customerUserObject = {
-          name: formData.name,
-          email: formData.email,
-          role: "customer",
-        };
-
-        const createCustomerUserObject = await fetch(
-          `${process.env["NEXT_PUBLIC_USER_CREATE"] as string}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(customerUserObject),
-          },
-        );
-
-        const data = (await createCustomerUserObject.json()) as Users;
-
         await fetch(
-          `${process.env["NEXT_PUBLIC_CUSTOMERS_CREATE_URL"] as string}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
           {
             method: "POST",
             headers: {
@@ -68,7 +37,7 @@ const submitCustomer =
               address: formData.address,
               phone: formData.phone,
               email: formData.email,
-              customer_user_id: data.id,
+              customer_user_id: USER_ID,
             }),
           },
         );

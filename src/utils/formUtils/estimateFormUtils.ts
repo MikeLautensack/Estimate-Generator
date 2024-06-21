@@ -33,11 +33,14 @@ const onSubmit =
       customers,
       data.customer_id as number,
     );
+    const USER_ID = estimate.contractor_user_id;
+    const CUSTOMER_ID = estimate.customer_id;
+    const ESTIMATE_ID = estimate.id;
     if (estimate) {
       await fetch(
-        `${process.env["NEXT_PUBLIC_ESTIMATES_EDIT_URL"] as string}/${estimate.id}`,
+        `${process.env.HOST}/api/users/${USER_ID}customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -49,7 +52,7 @@ const onSubmit =
       );
     } else {
       await fetch(
-        `${process.env["NEXT_PUBLIC_ESTIMATES_CREATE_URL"] as string}`,
+        `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
         {
           method: "POST",
           headers: {

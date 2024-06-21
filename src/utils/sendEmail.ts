@@ -11,7 +11,7 @@ const sendEmail = async (
   template: any,
 ) => {
   // Instanciate resend
-  const resend = new Resend(process.env["EMAIL_KEY"]);
+  const resend = new Resend(process.env.EMAIL_KEY);
 
   // Send email
   try {

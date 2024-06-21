@@ -8,13 +8,13 @@ import { Resend } from "resend";
 
 export async function POST(request: NextRequest) {
   // Get email from request body
-  const { email } = await request.json() as Users;
+  const { email } = (await request.json()) as Users;
 
   // Generate verification token from email
   const token = generateValidationToken(email);
 
   // Instanciate resend
-  const resend = new Resend(process.env["EMAIL_KEY"]);
+  const resend = new Resend(process.env.EMAIL_KEY);
 
   // Chekc user
   try {

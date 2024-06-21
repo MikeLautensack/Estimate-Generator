@@ -67,11 +67,15 @@ export const columns: ColumnDef<Estimates>[] = [
       const estimate = row.original;
       // const router = useRouter()
 
+      const USER_ID = estimate.contractor_user_id;
+      const CUSTOMER_ID = estimate.customer_user_id;
+      const ESTIMATE_ID = estimate.id;
+
       const acceptEstimate = async () => {
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${estimate.id}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
-            method: "PUT",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
@@ -84,9 +88,9 @@ export const columns: ColumnDef<Estimates>[] = [
 
       const rejectEstimate = async () => {
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] as string}/${estimate.id}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
-            method: "PUT",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },

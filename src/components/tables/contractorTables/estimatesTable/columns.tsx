@@ -70,10 +70,13 @@ export const columns: ColumnDef<Estimates>[] = [
     id: "actions",
     cell: function Cell({ row }) {
       const estimate = row.original;
+      const USER_ID = estimate.contractor_user_id;
+      const CUSTOMER_ID = estimate.customer_id;
+      const ESTIMATE_ID = estimate.id;
       const router = useRouter();
       const deleteEstimate = async () => {
         const res = await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_DELETE_URL"] as string}/${estimate.id}`,
+          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "DELETE",
           },
@@ -95,17 +98,17 @@ export const columns: ColumnDef<Estimates>[] = [
             <DropdownMenuLabel>Estimate Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATE_URL"] as string}/${estimate.id}`}
+              href={`${process.env.HOST}/contractor-dashboard/estimates/${estimate.id}`}
             >
               <DropdownMenuItem>View Estimates</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"] as string}/${estimate.id}`}
+              href={`${process.env.HOST}/contractor-dashboard/estimates/${estimate.id}`}
             >
               <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_ESTIMATES_FORM_URL"] as string}/${estimate.id}`}
+              href={`${process.env.HOST}/contractor-dashboard/estimates/${estimate.id}`}
             >
               <DropdownMenuItem>Handle Change Orders</DropdownMenuItem>
             </Link>

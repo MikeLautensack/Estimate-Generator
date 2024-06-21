@@ -28,7 +28,7 @@ const Page = async () => {
       <h1 className="text-xl desktop:text-[42px] font-bold text-black">
         Customers
       </h1>
-      <Link href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"] as string}`}>
+      <Link href={`${process.env.HOST}/contractor-dashboard/customers/form`}>
         <Button
           id="new-change-order-button"
           className="flex-1 bg-blue-500 text-secondary500"
