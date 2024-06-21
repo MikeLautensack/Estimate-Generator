@@ -60,7 +60,7 @@ const AccountMenu = ({}: AccountMenuProps) => {
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+      <div className="flex items-center">
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -79,7 +79,7 @@ const AccountMenu = ({}: AccountMenuProps) => {
             </StyledBadge>
           </IconButton>
         </Tooltip>
-      </Box>
+      </div>
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
