@@ -3,13 +3,13 @@
 import React from "react";
 import theme from "../theme";
 import { Experimental_CssVarsProvider as CssVarsProvider } from "@mui/material/styles";
-import { AppBar, Container, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 
-type ThemeProviderProps = {
+type ThemeProviderWrapperProps = {
   children: React.ReactNode;
 };
 
-const ThemeProvider = ({ children }: ThemeProviderProps) => {
+const ThemeProviderWrapper = ({ children }: ThemeProviderWrapperProps) => {
   return (
     <CssVarsProvider theme={theme}>
       <Paper square>{children}</Paper>
@@ -17,4 +17,4 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
   );
 };
 
-export default ThemeProvider;
+export default ThemeProviderWrapper;

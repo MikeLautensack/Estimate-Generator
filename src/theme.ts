@@ -11,19 +11,17 @@ const roboto = Roboto({
 });
 
 const theme = extendTheme({
-  colorSchemes: {
-    light: {
-      palette: {
-        primary: {
-          main: pink[600],
-        },
-      },
-    },
-    dark: {
-      palette: {
-        primary: {
-          main: pink[400],
-        },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.vars.palette.primary.main,
+          // When the mode switches to dark, the attribute selector is attached to
+          // the <html> tag by default.
+          '[data-mui-color-scheme="dark"] &': {
+            color: "#fff",
+          },
+        }),
       },
     },
   },
