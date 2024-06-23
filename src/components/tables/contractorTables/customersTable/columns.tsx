@@ -72,7 +72,7 @@ export const columns: ColumnDef<Customers>[] = [
       const router = useRouter();
       const delCustomer = async (id: number) => {
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
           {
             method: "DELETE",
             headers: {
@@ -80,12 +80,15 @@ export const columns: ColumnDef<Customers>[] = [
             },
           },
         );
-        await fetch(`${process.env.HOST}/api/users/${CUSTOMER_USER_ID}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
+        await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${CUSTOMER_USER_ID}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
           },
-        });
+        );
         router.refresh();
       };
       return (
@@ -100,12 +103,12 @@ export const columns: ColumnDef<Customers>[] = [
             <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env.HOST}/contractor-dashboard/customers/${CUSTOMER_ID}`}
+              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/customers/${CUSTOMER_ID}`}
             >
               <DropdownMenuItem>View Customer</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env.HOST}/contractor-dashboard/customers/form/${CUSTOMER_ID}`}
+              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/customers/form/${CUSTOMER_ID}`}
             >
               <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>

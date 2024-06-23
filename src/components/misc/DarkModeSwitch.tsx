@@ -1,9 +1,11 @@
 "use client";
 
-import { FormControlLabel, Switch, styled } from "@mui/material";
+import { Switch, styled, useColorScheme } from "@mui/material";
 import React from "react";
 
 const DarkModeSwitch = () => {
+  const { mode, setMode } = useColorScheme();
+
   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
     height: 34,
@@ -52,7 +54,19 @@ const DarkModeSwitch = () => {
     },
   }));
 
-  return <MaterialUISwitch sx={{ m: 1 }} defaultChecked />;
+  return (
+    <MaterialUISwitch
+      sx={{ m: 1 }}
+      checked={mode === "light" ? false : true}
+      onChange={(event: any) => {
+        if (event.target.checked) {
+          setMode("dark");
+        } else {
+          setMode("light");
+        }
+      }}
+    />
+  );
 };
 
 export default DarkModeSwitch;

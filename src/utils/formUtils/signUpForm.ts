@@ -4,7 +4,7 @@ import { SubmitHandler } from "react-hook-form";
 
 const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
   try {
-    const response = await fetch(`${process.env.HOST}/api/users`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/users`, {
       method: "POST",
       body: JSON.stringify({
         name: data.name,
@@ -18,7 +18,7 @@ const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
       email: data.email,
       password: data.password,
       redirect: true,
-      callbackUrl: `${process.env.HOST}/api/redirect?newUser=true`,
+      callbackUrl: `${process.env.NEXT_PUBLIC_HOST}/api/redirect?newUser=true`,
     });
 
     return response;

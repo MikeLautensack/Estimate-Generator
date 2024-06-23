@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
   console.log("Email dipatch endpoint session log: ", session);
 
-  const host = process.env.HOST;
+  const host = process.env.NEXT_PUBLIC_HOST;
   const emailPath = "/api/auth/signin/resend";
   const csrfPath = "/api/auth/csrf";
   const emailUrl = `${host}${emailPath}`;

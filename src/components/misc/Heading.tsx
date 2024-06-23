@@ -4,7 +4,7 @@ import { formatCapitalize } from "@/utils/formatingFunctions";
 import { Session } from "next-auth";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
-import { redirect } from "next/navigation";
+import { Typography } from "@mui/material";
 
 type HeadingProps = {
   session: Session;
@@ -37,7 +37,7 @@ const Heading = ({ session }: HeadingProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  return <div>{heading}</div>;
+  return <Typography color="primary">{heading}</Typography>;
 };
 
 export default Heading;
