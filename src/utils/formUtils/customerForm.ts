@@ -10,7 +10,7 @@ const submitCustomer =
     try {
       if (data != null) {
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
           {
             method: "PATCH",
             headers: {
@@ -26,7 +26,7 @@ const submitCustomer =
         );
       } else {
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
           {
             method: "POST",
             headers: {

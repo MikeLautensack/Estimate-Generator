@@ -76,7 +76,7 @@ export const columns: ColumnDef<Estimates>[] = [
       const router = useRouter();
       const deleteEstimate = async () => {
         const res = await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "DELETE",
           },
@@ -98,17 +98,17 @@ export const columns: ColumnDef<Estimates>[] = [
             <DropdownMenuLabel>Estimate Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env.HOST}/contractor-dashboard/estimates/${estimate.id}`}
+              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/${estimate.id}`}
             >
               <DropdownMenuItem>View Estimates</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env.HOST}/contractor-dashboard/estimates/${estimate.id}`}
+              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/${estimate.id}`}
             >
               <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env.HOST}/contractor-dashboard/estimates/${estimate.id}`}
+              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/${estimate.id}`}
             >
               <DropdownMenuItem>Handle Change Orders</DropdownMenuItem>
             </Link>

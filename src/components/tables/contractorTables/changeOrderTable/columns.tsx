@@ -83,7 +83,7 @@ export const columns: ColumnDef<ChangeOrder>[] = [
 
       const deleteChangeOrder = async () => {
         const res = await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDER_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDER_ID}`,
           {
             method: "DELETE",
           },
@@ -106,7 +106,7 @@ export const columns: ColumnDef<ChangeOrder>[] = [
             <DropdownMenuLabel>Change Order Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env.HOST}/contractor-dashboard/change-orders/change-order/${changeOrder.id}`}
+              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/change-orders/change-order/${changeOrder.id}`}
             >
               <DropdownMenuItem>View Change Order</DropdownMenuItem>
             </Link>

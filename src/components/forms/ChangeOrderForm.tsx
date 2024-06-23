@@ -18,7 +18,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
     try {
       if (data.data?.mode == "put") {
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDERS_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDERS_ID}`,
           {
             method: "PATCH",
             headers: {
@@ -31,7 +31,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
           },
         );
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "PATCH",
             headers: {
@@ -44,7 +44,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
         );
       } else if (data.data?.mode == "post") {
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDERS_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDERS_ID}`,
           {
             method: "POST",
             headers: {
@@ -63,7 +63,7 @@ const ChangeOrderForm = (data: ChangeOrderFormType) => {
           },
         );
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "PATCH",
             headers: {
