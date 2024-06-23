@@ -38,7 +38,7 @@ const onSubmit =
     const ESTIMATE_ID = estimate.id;
     if (estimate) {
       await fetch(
-        `${process.env.HOST}/api/users/${USER_ID}customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+        `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
         {
           method: "PATCH",
           headers: {
@@ -52,7 +52,7 @@ const onSubmit =
       );
     } else {
       await fetch(
-        `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+        `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
         {
           method: "POST",
           headers: {
