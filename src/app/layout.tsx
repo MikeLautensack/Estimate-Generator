@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
-import ThemeProvider from "@/contexts/ThemeProvider";
+import ThemeProviderWrapper from "@/contexts/ThemeProviderWrapper";
 
 export const metadata: Metadata = {
   title: "Estimate Generator",
@@ -27,10 +27,10 @@ export default function RootLayout({
     <html lang="en" className={roboto.className}>
       <body className="flex flex-col bg-blue-50 min-h-screen">
         <AppRouterCacheProvider>
-          <ThemeProvider>
+          <ThemeProviderWrapper>
             <Header />
             {children}
-          </ThemeProvider>
+          </ThemeProviderWrapper>
         </AppRouterCacheProvider>
       </body>
     </html>
