@@ -73,7 +73,7 @@ export const columns: ColumnDef<Estimates>[] = [
 
       const acceptEstimate = async () => {
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "PATCH",
             headers: {
@@ -88,7 +88,7 @@ export const columns: ColumnDef<Estimates>[] = [
 
       const rejectEstimate = async () => {
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "PATCH",
             headers: {

@@ -9,6 +9,8 @@ export async function GET(request: NextRequest) {
   const id = searchParams.get("estimate-id");
   const newUser = searchParams.get("newUser");
 
+  console.log("testing_*_**__*_*_*_*_*_**__**_*", flag, id, newUser);
+
   if (session?.user.role === "admin") {
     return NextResponse.redirect(
       new URL("http://localhost:3000/admin-dashboard"),

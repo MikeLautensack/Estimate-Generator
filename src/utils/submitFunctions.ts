@@ -12,7 +12,7 @@ const submitChangeOrder =
     try {
       if (data.data?.mode == "put") {
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDER_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDER_ID}`,
           {
             method: "PATCH",
             headers: {
@@ -25,7 +25,7 @@ const submitChangeOrder =
           },
         );
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "PATCH",
             headers: {
@@ -38,7 +38,7 @@ const submitChangeOrder =
         );
       } else if (data.data?.mode == "post") {
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDER_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDER_ID}`,
           {
             method: "POST",
             headers: {
@@ -57,7 +57,7 @@ const submitChangeOrder =
           },
         );
         await fetch(
-          `${process.env.HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "PATCH",
             headers: {
@@ -84,10 +84,10 @@ const previewEstimate = (data: Estimates) => () => {
     // const queryString = new URLSearchParams(data).toString()
     // console.log('q string', queryString)
     // redirect to /contractor-dashboard/estimates/xxxxxxx
-    redirect(`${process.env.HOST}/contractor-dashboard/estimates`);
+    redirect(`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates`);
   } else {
     // redirect to /contractor-dashboard/estimates/xxxxxxx
-    redirect(`${process.env.HOST}/contractor-dashboard/estimates`);
+    redirect(`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates`);
   }
 };
 

@@ -65,7 +65,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
     estimate_id: number,
   ) => {
     await fetch(
-      `${process.env.HOST}/api/users/${user_id}/customers/${customer_id}/estimates/${estimate_id}/change-orders/${id}`,
+      `${process.env.NEXT_PUBLIC_HOST}/api/users/${user_id}/customers/${customer_id}/estimates/${estimate_id}/change-orders/${id}`,
       {
         method: "PATCH",
         headers: {
@@ -86,7 +86,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
     estimate_id: number,
   ) => {
     await fetch(
-      `${process.env.HOST}/api/users/${user_id}/customers/${customer_id}/estimates/${estimate_id}/change-orders/${id}`,
+      `${process.env.NEXT_PUBLIC_HOST}/api/users/${user_id}/customers/${customer_id}/estimates/${estimate_id}/change-orders/${id}`,
       {
         method: "PATCH",
         headers: {
@@ -107,7 +107,7 @@ const ChangeOrderRequests = ({ changeOrders }: ChangeOrderRequestsProps) => {
     estimate_id: number,
   ) => {
     await fetch(
-      `${process.env.HOST}/api/users/${user_id}/customers/${customer_id}/estimates/${estimate_id}/change-orders/${id}`,
+      `${process.env.NEXT_PUBLIC_HOST}/api/users/${user_id}/customers/${customer_id}/estimates/${estimate_id}/change-orders/${id}`,
       {
         method: "PATCH",
         headers: {
