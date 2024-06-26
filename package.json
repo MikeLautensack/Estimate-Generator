@@ -20,7 +20,7 @@
     "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.3.2",
     "@mui/icons-material": "^5.15.20",
-    "@mui/material": "^5.15.14",
+    "@mui/material": "^6.0.0-alpha.12",
     "@mui/material-nextjs": "^5.15.11",
     "@neondatabase/serverless": "^0.9.0",
     "@radix-ui/react-checkbox": "^1.0.4",
