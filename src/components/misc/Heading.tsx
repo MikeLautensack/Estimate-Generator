@@ -9,6 +9,7 @@ import { Typography } from "@mui/material";
 type HeadingProps = {
   session: Session;
 };
+
 const Heading = ({ session }: HeadingProps) => {
   // Hooks
   const pathname = usePathname();
@@ -31,7 +32,12 @@ const Heading = ({ session }: HeadingProps) => {
     if (session) {
       setHeading(`${name}'s ${role} Dashboard`);
     }
-    if (pathname === "/" || !session) {
+    if (
+      pathname === "/" ||
+      pathname === "/signin" ||
+      pathname === "/signup" ||
+      !session
+    ) {
       setHeading("Estimate Generator");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

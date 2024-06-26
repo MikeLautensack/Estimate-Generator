@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { Estimates } from "@/types/estimates";
 import EstimatePriceChart from "../../charts/EstimatePriceChart";
 import { auth } from "../../../../auth";
+import { Card } from "@mui/material";
 
 async function getDataTestOne(id: number) {
   try {
@@ -78,9 +79,9 @@ const EstimatePriceChartContainer = async () => {
   const chartArray = createChartArray(data);
 
   return (
-    <div className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative">
+    <Card className="rounded-lg p-2 max-desktop:aspect-square relative">
       <EstimatePriceChart chartArray={chartArray} />
-    </div>
+    </Card>
   );
 };
 

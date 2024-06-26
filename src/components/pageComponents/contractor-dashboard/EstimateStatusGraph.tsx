@@ -1,10 +1,12 @@
+import { Card } from "@mui/material";
+
 export default function EstimateStatsGraph() {
   return (
-    <div
+    <Card
       id="estiamte-stats-graph"
-      className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative"
+      className="rounded-lg p-2 max-desktop:aspect-square relative"
     >
       Coming Soon
-    </div>
+    </Card>
   );
 }

@@ -3,7 +3,7 @@ import SignInForm from "../../../components/forms/SignInForm";
 
 const Page = async () => {
   return (
-    <main className="flex justify-center items-center h-screen bg-blue-400 w-full">
+    <main className="flex justify-center items-center w-full">
       <Suspense fallback={<>Loading...</>}>
         <SignInForm />
       </Suspense>

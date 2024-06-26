@@ -24,7 +24,7 @@ const Page = async () => {
   const data = (await getData(session!)) as Customers[];
 
   return (
-    <main className="flex-grow p-4 flex flex-col gap-4 bg-neutral400">
+    <main className="flex-grow p-4 flex flex-col gap-4">
       <h1 className="text-xl desktop:text-[42px] font-bold text-black">
         Customers
       </h1>

@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { Estimates } from "@/types/estimates";
 import { auth } from "../../../../auth";
+import { Card } from "@mui/material";
 
 async function getData(id: number) {
   try {
@@ -61,9 +62,9 @@ export default async function EstimateStatusChartContainer() {
   const chartArray = createChartArray(data);
 
   return (
-    <div className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative">
+    <Card className="rounded-lg p-2 relative">
       {/* <h1>Estimate Staus Chart</h1> */}
       <EstimateStatusChart chartArray={chartArray} />
-    </div>
+    </Card>
   );
 }

@@ -6,6 +6,7 @@ import { Customers } from "@/types/customers";
 import HighProfitCustomersChart from "@/components/charts/HighProfitCustomersChart";
 import { estimates } from "@/db/schemas/estimates";
 import { auth } from "../../../../auth";
+import { Card } from "@mui/material";
 
 async function getCustomers(id: number) {
   try {
@@ -95,9 +96,9 @@ export default async function EstimateStatusChartContainer() {
   const chartArray = await createChartArray(data);
 
   return (
-    <div className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative">
+    <Card className="rounded-lg p-2 max-desktop:aspect-square relative">
       {/* <h1>Estimate Staus Chart</h1> */}
       <HighProfitCustomersChart chartArray={chartArray} />
-    </div>
+    </Card>
   );
 }

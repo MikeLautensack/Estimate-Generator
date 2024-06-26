@@ -6,6 +6,7 @@ import { BsFilePerson } from "react-icons/bs";
 import { FcDocument } from "react-icons/fc";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "@mui/material";
 
 const SideBarNav = ({ ...props }) => {
   // Hooks
@@ -28,42 +29,62 @@ const SideBarNav = ({ ...props }) => {
   }, [pathname]);
 
   return (
-    <nav {...props}>
+    <nav {...props} className="flex flex-col gap-2">
       <Link
         id="dashboard-button"
-        className={`text-base font-medium flex gap-2 items-center py-1 px-2 ${selected === "dashboard" ? "bg-blue-500 text-white rounded" : ""}`}
         href="/contractor-dashboard"
         onClick={() => setSelected("dashboard")}
       >
-        <LuLayoutDashboard className="text-secondary500" />
-        Dashboard
+        <Button
+          variant={selected === "dashboard" ? "contained" : "text"}
+          fullWidth
+          sx={{ justifyContent: "left", gap: ".5rem" }}
+        >
+          <LuLayoutDashboard className="text-secondary500" />
+          Dashboard
+        </Button>
       </Link>
       <Link
         id="customers-button"
-        className={`text-base font-medium flex gap-2 items-center py-1 px-2 ${selected === "customers" ? "bg-blue-500 text-white rounded" : ""}`}
         href="/contractor-dashboard/customers"
         onClick={() => setSelected("customers")}
       >
-        <BsFilePerson className="text-secondary500" />
-        Customers
+        <Button
+          variant={selected === "customers" ? "contained" : "text"}
+          fullWidth
+          sx={{ justifyContent: "left", gap: ".5rem" }}
+        >
+          <BsFilePerson className="text-secondary500" />
+          Customers
+        </Button>
       </Link>
       <Link
         id="estimates-button"
-        className={`text-base font-medium flex gap-2 items-center py-1 px-2 ${selected === "estimates" ? "bg-blue-500 text-white rounded" : ""}`}
         href="/contractor-dashboard/estimates"
         onClick={() => setSelected("estimates")}
       >
-        <FcDocument />
-        Estimates
+        <Button
+          variant={selected === "estimates" ? "contained" : "text"}
+          fullWidth
+          sx={{ justifyContent: "left", gap: ".5rem" }}
+        >
+          <FcDocument />
+          Estimates
+        </Button>
       </Link>
       <Link
         id="estimates-button"
-        className={`text-base font-medium flex gap-2 items-center py-1 px-2 ${selected === "change-orders" ? "bg-blue-500 text-white rounded" : ""}`}
         href="/contractor-dashboard/change-orders"
         onClick={() => setSelected("change-orders")}
       >
-        <FcDocument />
-        Change Orders
+        <Button
+          variant={selected === "change-orders" ? "contained" : "text"}
+          fullWidth
+          sx={{ justifyContent: "left", gap: ".5rem" }}
+        >
+          <FcDocument />
+          Change Orders
+        </Button>
       </Link>
     </nav>
   );
