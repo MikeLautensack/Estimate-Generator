@@ -5,6 +5,7 @@ import { Roboto } from "next/font/google";
 import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ThemeProviderWrapper from "@/contexts/ThemeProviderWrapper";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 
 export const metadata: Metadata = {
   title: "Estimate Generator",
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen bg-blue-100 dark:bg-blue-950">
+        <InitColorSchemeScript />
         <AppRouterCacheProvider>
           <ThemeProviderWrapper>
             <Header />
