@@ -1,10 +1,11 @@
 "use client";
 
-import { Switch, styled, useColorScheme } from "@mui/material";
+import { Switch, styled } from "@mui/material";
+import { useTheme } from "next-themes";
 import React from "react";
 
 const DarkModeSwitch = () => {
-  const { mode, setMode } = useColorScheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -57,12 +58,12 @@ const DarkModeSwitch = () => {
   return (
     <MaterialUISwitch
       sx={{ m: 1 }}
-      checked={mode === "light" ? false : true}
+      checked={resolvedTheme === "light" ? false : true}
       onChange={(event: any) => {
         if (event.target.checked) {
-          setMode("dark");
+          setTheme("dark");
         } else {
-          setMode("light");
+          setTheme("light");
         }
       }}
     />
