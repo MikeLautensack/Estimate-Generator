@@ -54,7 +54,10 @@ export default function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ ease: "easeOut", delay: 1, duration: 2 }}
         >
-          <Canvas id="canvas" className="w-[300px]">
+          <Canvas
+            id="canvas"
+            className="w-[300px] bg-blue-100 dark:bg-blue-950"
+          >
             <ambientLight intensity={4.5} />
             <directionalLight position={[-2, 5, 2]} intensity={1} />
             <Model scale={1.8} />
