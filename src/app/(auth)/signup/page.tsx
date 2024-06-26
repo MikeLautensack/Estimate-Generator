@@ -1,9 +1,12 @@
+import { Suspense } from "react";
 import SignUpForm from "../../../components/forms/SignUpForm";
 
 const Page = () => {
   return (
-    <main className="flex justify-center items-center bg-blue-400 h-screen">
-      <SignUpForm />
+    <main className="flex justify-center items-center w-full">
+      <Suspense fallback={<>Loading...</>}>
+        <SignUpForm />
+      </Suspense>
     </main>
   );
 };

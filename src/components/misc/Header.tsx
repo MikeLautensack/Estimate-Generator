@@ -2,8 +2,9 @@ import React from "react";
 import Heading from "./Heading";
 import { auth } from "../../../auth";
 import HomeHeaderNav from "./HomeHeaderNav";
-import ContractorDashboardNav from "./ContractorDashboardNav";
+import UserNav from "./UserNav";
 import Box from "@mui/material/Box";
+import HeaderNavContainer from "./HeaderNavContainer";
 
 const Header = async () => {
   // Get session
@@ -11,13 +12,11 @@ const Header = async () => {
 
   return (
     <Box
-      className="flex px-8 justify-between items-center h-14"
+      className="flex px-8 justify-between items-center h-14 border-b border-gray-400"
       component="div"
     >
       <Heading session={session!} />
-      <div id="header-nav-container" className="">
-        {session ? <ContractorDashboardNav /> : <HomeHeaderNav />}
-      </div>
+      <HeaderNavContainer session={session!} />
     </Box>
   );
 };

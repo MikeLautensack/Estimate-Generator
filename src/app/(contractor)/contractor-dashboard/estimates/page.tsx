@@ -23,7 +23,7 @@ export default async function Page() {
   const data = (await getData(session)) as Estimates[];
 
   return (
-    <main className="flex flex-col flex-grow gap-4 p-4 bg-neutral400">
+    <main className="flex flex-col flex-grow gap-4 p-4">
       <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
         Estimates
       </h1>
