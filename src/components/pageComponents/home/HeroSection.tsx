@@ -49,15 +49,12 @@ export default function HeroSection() {
 
         <motion.div
           id="canvas-container"
-          className="flex aspect-square w-full h-1/2 mx-auto max-h-[calc(100vh-52px)] desktop:absolute"
+          className="flex w-full h-1/2 mx-auto max-h-[calc(100vh-52px)] desktop:absolute"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ ease: "easeOut", delay: 1, duration: 2 }}
         >
-          <Canvas
-            id="canvas"
-            className="w-[300px] bg-blue-100 dark:bg-blue-950"
-          >
+          <Canvas id="canvas" className="w-[300px]">
             <ambientLight intensity={4.5} />
             <directionalLight position={[-2, 5, 2]} intensity={1} />
             <Model scale={1.8} />
