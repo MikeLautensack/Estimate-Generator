@@ -1,5 +1,6 @@
-import { Button, Link } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
+import Link from "next/link";
 
 const AuthButtonGroup = () => {
   return (
@@ -7,24 +8,12 @@ const AuthButtonGroup = () => {
       id="auth-buttons-group"
       className="flex justify-center items-center gap-4"
     >
-      <Button>
-        <Link
-          id="signin-button"
-          className="text-blue-500 text-base font-medium rounded p-1 w-[70px]"
-          href="/signin"
-        >
-          Sign In
-        </Link>
-      </Button>
-      <Button>
-        <Link
-          id="signin-button"
-          className="text-blue-500 text-base font-medium rounded p-1 w-[70px]"
-          href="/signup"
-        >
-          Sign Up
-        </Link>
-      </Button>
+      <Link id="signin-button" href="/signin">
+        <Button variant="outlined">Sign In</Button>
+      </Link>
+      <Link id="signin-button" href="/signup">
+        <Button variant="contained">Sign Up</Button>
+      </Link>
     </div>
   );
 };

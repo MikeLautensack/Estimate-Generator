@@ -16,6 +16,8 @@ import {
 import React, { useState } from "react";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 type AccountMenuProps = {};
 
@@ -115,20 +117,31 @@ const AccountMenu = ({}: AccountMenuProps) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
+        <Link href="/contractor-dashboard/profile">
+          <MenuItem onClick={handleClose}>
+            <Avatar /> Profile
+          </MenuItem>
+        </Link>
+        <Link href="/contractor-dashboard/account">
+          <MenuItem onClick={handleClose}>
+            <Avatar /> My account
+          </MenuItem>
+        </Link>
         <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <Link href="/contractor-dashboard/settings">
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+        </Link>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            signOut({ callbackUrl: process.env.NEXT_PUBLIC_HOST });
+          }}
+        >
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

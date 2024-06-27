@@ -1,12 +1,23 @@
 "use client";
 
-import { Switch, styled } from "@mui/material";
-import { useTheme } from "next-themes";
+import { Switch, styled, useColorScheme } from "@mui/material";
 import React from "react";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 const DarkModeSwitch = () => {
-  const { setTheme, resolvedTheme } = useTheme();
+  const { mode, setMode } = useColorScheme();
+  const [mounted, setMounted] = React.useState(false);
 
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    // for server-side rendering
+    // learn more at https://github.com/pacocoursey/next-themes#avoid-hydration-mismatch
+    return null;
+  }
   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
     height: 34,
@@ -58,12 +69,12 @@ const DarkModeSwitch = () => {
   return (
     <MaterialUISwitch
       sx={{ m: 1 }}
-      checked={resolvedTheme === "light" ? false : true}
+      checked={mode === "light" ? false : true}
       onChange={(event: any) => {
         if (event.target.checked) {
-          setTheme("dark");
+          setMode("dark");
         } else {
-          setTheme("light");
+          setMode("light");
         }
       }}
     />
