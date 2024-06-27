@@ -65,7 +65,7 @@ export default function ChangeOrdersTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border bg-neutral100">
+      <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headersGroup) => (

@@ -4,11 +4,11 @@ import { customers } from "../../../../db/schemas/customers";
 import { db } from "../../../../db";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Session } from "next-auth";
 import { Customers } from "@/types/customers";
 import { auth } from "../../../../../auth";
 import { redirect } from "next/navigation";
+import { Button, Typography } from "@mui/material";
 
 async function getData(session: Session) {
   const res = await db
@@ -25,17 +25,13 @@ const Page = async () => {
 
   return (
     <main className="flex-grow p-4 flex flex-col gap-4">
-      <h1 className="text-xl desktop:text-[42px] font-bold text-black">
+      <Typography variant="h4" color="primary" className="">
         Customers
-      </h1>
+      </Typography>
       <Link
         href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/customers/form`}
       >
-        <Button
-          id="new-change-order-button"
-          className="flex-1 bg-blue-500 text-secondary500"
-          variant={"outline"}
-        >
+        <Button id="new-change-order-button" variant="contained">
           New Customer
         </Button>
       </Link>
