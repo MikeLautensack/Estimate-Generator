@@ -3,7 +3,7 @@ import AccountMenu from "./AccountMenu";
 import NotificationsMenu from "./NotificationsMenu";
 import DarkModeSwitch from "./DarkModeSwitch";
 
-const ContractorDashboardNav = () => {
+const UserNav = () => {
   return (
     <div
       id="contractor-dashboard-nav"
@@ -16,4 +16,4 @@ const ContractorDashboardNav = () => {
   );
 };
 
-export default ContractorDashboardNav;
+export default UserNav;

@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { ThemeProvider } from "next-themes";
+import { CssVarsProvider } from "@mui/material/styles";
+import theme from "@/theme";
+import { CssBaseline, Paper } from "@mui/material";
 
 type ThemeProviderWrapperProps = {
   children: React.ReactNode;
@@ -9,9 +11,10 @@ type ThemeProviderWrapperProps = {
 
 const ThemeProviderWrapper = ({ children }: ThemeProviderWrapperProps) => {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      {children}
-    </ThemeProvider>
+    <CssVarsProvider theme={theme}>
+      <CssBaseline />
+      <Paper square>{children}</Paper>
+    </CssVarsProvider>
   );
 };
 

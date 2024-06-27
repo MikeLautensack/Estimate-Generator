@@ -8,7 +8,7 @@ export default function ContractorLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col desktop:flex-row bg-neutral100">
+    <div className="flex flex-col desktop:flex-row">
       <SideBar />
       {children}
     </div>
