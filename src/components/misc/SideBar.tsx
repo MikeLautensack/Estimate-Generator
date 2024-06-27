@@ -19,28 +19,9 @@ const SideBar = () => {
   return (
     <div className="flex flex-col justify-between w-64 p-4 h-[calc(100vh-56px)] border-r border-gray-400">
       <div className="flex flex-col w-full gap-8">
-        <div className="flex flex-col gap-8 w-full">
-          <Typography color="primary" className="">
-            Estimate Generator
-          </Typography>
-          <nav className="flex justify-center items-center">
-            <Link id="profile-button" href="/settings/profile">
-              <Button variant="text">
-                <BsPerson className="text-secondary800" />
-              </Button>
-            </Link>
-            <Link id="settings-button" href="/settings/account">
-              <Button variant="text">
-                <FcSettings />
-              </Button>
-            </Link>
-            <Link href="/notifications">
-              <Button variant="text" id="notifications-button">
-                <IoMdNotificationsOutline className="text-secondary500" />
-              </Button>
-            </Link>
-          </nav>
-        </div>
+        <Typography color="primary" className="">
+          Estimate Generator
+        </Typography>
         <SideBarNav className="" />
       </div>
       <Button

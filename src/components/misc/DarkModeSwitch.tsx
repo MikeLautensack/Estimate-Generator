@@ -2,6 +2,8 @@
 
 import { Switch, styled, useColorScheme } from "@mui/material";
 import React from "react";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 const DarkModeSwitch = () => {
   const { mode, setMode } = useColorScheme();
