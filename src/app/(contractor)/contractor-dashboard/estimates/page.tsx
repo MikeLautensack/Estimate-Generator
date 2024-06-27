@@ -5,9 +5,9 @@ import { db } from "../../../../db";
 import { Estimates } from "@/types/estimates";
 import Link from "next/link";
 import { eq } from "drizzle-orm";
-import { Button } from "@/components/ui/button";
 import { auth } from "../../../../../auth";
 import { redirect } from "next/navigation";
+import { Button, Typography } from "@mui/material";
 
 async function getData(session: any) {
   const res = await db
@@ -24,15 +24,11 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col flex-grow gap-4 p-4">
-      <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
+      <Typography variant="h4" color="primary" className="">
         Estimates
-      </h1>
+      </Typography>
       <Link href={`${process.env.POST}/contractor-dashboard/estimates/form`}>
-        <Button
-          id="new-change-order-button"
-          className="flex-1 bg-blue-500 text-secondary500 font-medium"
-          variant={"outline"}
-        >
+        <Button id="new-change-order-button" variant="contained">
           New Estimate
         </Button>
       </Link>
