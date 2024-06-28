@@ -21,7 +21,14 @@ const TextInput = ({ name, label }: TextInputProps) => {
   });
 
   label;
-  return <TextField label={label} {...field} />;
+  return (
+    <TextField
+      sx={{ backgroundColor: "surfaceContainerHighest" }}
+      label={label}
+      fullWidth
+      {...field}
+    />
+  );
 };
 
 export default TextInput;
