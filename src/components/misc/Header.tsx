@@ -1,8 +1,6 @@
 import React from "react";
 import Heading from "./Heading";
 import { auth } from "../../../auth";
-import HomeHeaderNav from "./HomeHeaderNav";
-import UserNav from "./UserNav";
 import Box from "@mui/material/Box";
 import HeaderNavContainer from "./HeaderNavContainer";
 
@@ -12,8 +10,13 @@ const Header = async () => {
 
   return (
     <Box
-      className="flex px-8 justify-between items-center h-14 border-b border-gray-400"
+      className="flex px-8 justify-between items-center h-14"
       component="div"
+      sx={{
+        backgroundColor: "surfaceContainer",
+        borderBottom: "solid 1px",
+        borderColor: "outlineVariant",
+      }}
     >
       <Heading session={session!} />
       <HeaderNavContainer session={session!} />

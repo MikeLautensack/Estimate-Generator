@@ -1,13 +1,12 @@
 "use client";
 
-import Nav from "../../misc/Nav";
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 // import ThreeDLogo from "../../misc/ThreeDLogo";
 import Link from "next/link";
 import { FaAnglesDown } from "react-icons/fa6";
 import { Model } from "@/components/models/Worker";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 export default function HeroSection() {
   return (
@@ -27,29 +26,34 @@ export default function HeroSection() {
           transition={{ ease: "easeOut", duration: 1.3 }}
           whileInView={{ opacity: 1 }}
         >
-          <p className="text-blue-500 text-[16px] font-medium text-center tablet:text-left">
+          <Typography color="primary" variant="h6">
             Welcome to
-          </p>
-          <h1 className="text-blue-500 text-[32px] font-bold desktop:text-left tablet:text-[89.76px] tablet:text-left">
+          </Typography>
+          <Typography color="primary" variant="h1">
             Estimate Generator
-          </h1>
-          <div className="w-full flex gap-4 my-2">
-            <Button
-              variant="outlined"
-              className="flex flex-1 py-2 rounded-full justify-center font-semibold border-2 border-blue-500 text-secondary500"
-            >
-              <Link id="signin-button" href="/signin">
+          </Typography>
+          <div
+            id="hero-section-auth-buttons-group"
+            className="w-full flex gap-4 my-2"
+          >
+            <Link id="signin-button" href="/signin" className="w-full">
+              <Button
+                variant="outlined"
+                className="flex flex-1 py-2 rounded-full justify-center"
+                fullWidth
+              >
                 Sign In
-              </Link>
-            </Button>
-            <Button
-              variant="contained"
-              className="flex flex-1 py-2 rounded-full justify-center font-semibold border-2 border-blue-500 bg-blue-500 text-secondary500"
-            >
-              <Link id="signup-button" href="/signup">
+              </Button>
+            </Link>
+            <Link id="signup-button" href="/signup" className="w-full">
+              <Button
+                variant="contained"
+                className="flex flex-1 py-2 rounded-full justify-center"
+                fullWidth
+              >
                 Sign Up
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </motion.div>
 

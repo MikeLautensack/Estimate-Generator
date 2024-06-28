@@ -15,7 +15,10 @@ export default async function TotalCustomers() {
   const data = await getData();
 
   return (
-    <Card className="flex justify-between items-center p-4 rounded-lg">
+    <Card
+      sx={{ backgroundColor: "surfaceContainerLow" }}
+      className="flex justify-between items-center p-4 rounded-lg"
+    >
       <h1>Total Customers</h1>
       <h2>{data?.length}</h2>
     </Card>

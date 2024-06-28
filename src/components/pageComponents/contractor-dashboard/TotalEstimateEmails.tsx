@@ -17,7 +17,10 @@ export default function TotalEstimateEmails() {
   //   const data = await getData();
 
   return (
-    <Card className="flex justify-between items-center rounded-lg p-4">
+    <Card
+      sx={{ backgroundColor: "surfaceContainerLow" }}
+      className="flex justify-between items-center rounded-lg p-4"
+    >
       <h1>Total Estimate Emails</h1>
       {/* <h2>{data?.length}</h2> */}
     </Card>

@@ -79,7 +79,10 @@ const EstimatePriceChartContainer = async () => {
   const chartArray = createChartArray(data);
 
   return (
-    <Card className="rounded-lg p-2 max-desktop:aspect-square relative">
+    <Card
+      sx={{ backgroundColor: "surfaceContainerLow" }}
+      className="rounded-lg p-2 max-desktop:aspect-square relative"
+    >
       <EstimatePriceChart chartArray={chartArray} />
     </Card>
   );
