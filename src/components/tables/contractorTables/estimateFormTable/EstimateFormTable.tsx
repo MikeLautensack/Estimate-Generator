@@ -18,7 +18,7 @@ const EstimateFormTable = ({
   setSubtotal,
 }: EstimateFormTableProps) => {
   return (
-    <div className="flex bg-neutral400 rounded-lg border-2 border-neutral400">
+    <div>
       <Table className="relative">
         <TableHeader>
           <TableRow>

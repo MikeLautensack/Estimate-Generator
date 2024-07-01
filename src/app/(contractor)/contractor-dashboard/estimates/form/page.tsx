@@ -1,11 +1,10 @@
-import authConfig from "../../../../../../auth.config";
-import EstimateForm from "@/components/forms/EstimateForm";
 import { db } from "@/db";
 import { customers } from "@/db/schemas/customers";
 import { profiles } from "@/db/schemas/userProfile";
 import { eq } from "drizzle-orm";
 import { auth } from "../../../../../../auth";
-import { Customers } from "@/types/customers";
+import { Typography } from "@mui/material";
+import EstimateForm from "@/components/forms/estimate-form/EstimateForm";
 
 async function getCustomers() {
   const res = await db.select().from(customers);
@@ -26,10 +25,10 @@ const Page = async () => {
   const profile = await getProfile();
 
   return (
-    <main className="bg-gradient-to-br from-primary200 to-secondary200 p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1 gap-4">
-      <h1 className="text-2xl desktop:text-[42px] font-bold font-sans text-primary500">
+    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1 gap-4">
+      <Typography variant="h4" color="primary">
         Estimate Form
-      </h1>
+      </Typography>
       <div className="flex justify-center items-center flex-1 w-full">
         <EstimateForm
           estimate={{

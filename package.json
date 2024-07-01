@@ -20,7 +20,7 @@
     "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.3.2",
     "@mui/icons-material": "^6.0.0-alpha.12",
-    "@mui/material": "^6.0.0-alpha.12",
+    "@mui/material": "^6.0.0-alpha.13",
     "@mui/material-nextjs": "^6.0.0-alpha.11",
     "@mui/system": "^6.0.0-alpha.12",
     "@neondatabase/serverless": "^0.9.0",

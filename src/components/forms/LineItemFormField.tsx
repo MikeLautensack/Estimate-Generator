@@ -61,7 +61,7 @@ const LineItemFormField = ({
   }, [watch(`lineItems.${index}.rateType` as const)]);
 
   return (
-    <TableRow className="bg-neutral100">
+    <TableRow>
       <TableCell className="align-top">
         <div className="flex flex-col gap-1 justify-start items-start">
           <label>Item Name</label>
