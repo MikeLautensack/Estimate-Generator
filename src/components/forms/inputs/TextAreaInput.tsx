@@ -23,8 +23,11 @@ const TextInput = ({ name, label }: TextInputProps) => {
   return (
     <TextField
       sx={{ backgroundColor: "surfaceContainerHighest" }}
+      id="outlined-multiline-static"
       label={label}
-      fullWidth
+      multiline
+      rows={4}
+      defaultValue="..."
       {...field}
     />
   );
