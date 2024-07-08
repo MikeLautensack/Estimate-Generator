@@ -13,7 +13,7 @@ export default function HeroSection() {
     <section id="hero" className="flex flex-col w-full h-screen">
       <div
         id="content"
-        className="flex flex-col flex-grow justify-center desktop:justify-between items-center desktop:items-center desktop:flex-row relative max-h-[calc(100vh-52px)]"
+        className="flex flex-col flex-grow justify-center desktop:justify-between items-center desktop:items-center desktop:flex-row relative h-[calc(100vh-56px)]"
       >
         {/**
          * Hero content
@@ -77,7 +77,7 @@ export default function HeroSection() {
         {/**
          * Animated down arrow
          */}
-        <motion.div
+        {/* <motion.div
           id="arrow"
           className="my-4 bottom-0 absolute desktop:w-full flex justify-center items-center"
           initial={{ y: -10 }}
@@ -85,7 +85,7 @@ export default function HeroSection() {
           transition={{ duration: 1.25, repeat: Infinity }}
         >
           <FaAnglesDown />
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

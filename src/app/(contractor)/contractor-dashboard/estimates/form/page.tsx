@@ -25,7 +25,7 @@ const Page = async () => {
   const profile = await getProfile();
 
   return (
-    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1 gap-4">
+    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start gap-4  w-full lg:w-[calc(100vw-258px)]">
       <Typography variant="h4" color="primary">
         Estimate Form
       </Typography>

@@ -94,7 +94,10 @@ const EstimateForm = ({
   }, []);
 
   return (
-    <Card sx={{ padding: "1rem", backgroundColor: "surfaceContainerLow" }}>
+    <Card
+      sx={{ padding: "1rem", backgroundColor: "surfaceContainerLow" }}
+      className="flex w-full"
+    >
       <FormProvider {...methods}>
         <form className="w-full">
           <Tabs

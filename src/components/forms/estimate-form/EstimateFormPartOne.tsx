@@ -2,22 +2,31 @@
 
 import { EstimateFormPartOneProps } from "@/types/estimates";
 import { useFormContext } from "react-hook-form";
-import { FormField } from "../../ui/form";
-import EstimateFormOneSelect from "../../misc/EstimateFormOneSelect";
 import TextInput from "../inputs/TextInput";
+import MVLAutocomplete from "../inputs/MVLAutocomplete";
+import { Customers } from "@/types/customers";
+
+const getCustomerStrings = (customers: Customers[]) => {
+  return customers.map((customer: Customers) => customer.name);
+};
 
 const EstimateFormPartOne = ({ customers }: EstimateFormPartOneProps) => {
   const { register, getValues, control } = useFormContext();
-
+  const customerStrings = getCustomerStrings(customers);
   return (
     <div className="">
       <div className="">
-        <FormField
+        {/* <FormField
           control={control}
           name={"customer_id"}
           render={({ field }) => (
             <EstimateFormOneSelect customers={customers} field={field} />
           )}
+        /> */}
+        <MVLAutocomplete
+          name="customer_id"
+          label="Customers"
+          options={customerStrings}
         />
       </div>
       <div

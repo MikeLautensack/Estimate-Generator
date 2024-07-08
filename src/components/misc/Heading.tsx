@@ -44,7 +44,26 @@ const Heading = ({ session }: HeadingProps) => {
   }, [session]);
 
   return (
-    <Typography color="primary" variant="h6">
+    <Typography
+      color="primary"
+      sx={{
+        fontSize: {
+          xs: "0.875rem",
+          sm: "1rem",
+          md: "1.25rem",
+        },
+        lineHeight: {
+          xs: 1.43,
+          sm: 1.5,
+          md: 1.6,
+        },
+        fontWeight: {
+          xs: 400,
+          sm: 400,
+          md: 500,
+        },
+      }}
+    >
       {heading}
     </Typography>
   );

@@ -5,9 +5,10 @@ import { useController, useFormContext } from "react-hook-form";
 type TextInputProps = {
   name: string;
   label?: string;
+  size?: any;
 };
 
-const TextInput = ({ name, label }: TextInputProps) => {
+const TextInput = ({ name, label, size }: TextInputProps) => {
   // Hooks
   const {
     control,
@@ -25,6 +26,7 @@ const TextInput = ({ name, label }: TextInputProps) => {
       sx={{ backgroundColor: "surfaceContainerHighest" }}
       label={label}
       fullWidth
+      size={size}
       {...field}
     />
   );
