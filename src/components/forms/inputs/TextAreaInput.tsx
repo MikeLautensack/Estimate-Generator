@@ -5,10 +5,9 @@ import { useController, useFormContext } from "react-hook-form";
 type TextInputProps = {
   name: string;
   label?: string;
-  size?: any;
 };
 
-const TextInput = ({ name, label, size }: TextInputProps) => {
+const TextAreaInput = ({ name, label }: TextInputProps) => {
   // Hooks
   const {
     control,
@@ -24,12 +23,15 @@ const TextInput = ({ name, label, size }: TextInputProps) => {
   return (
     <TextField
       sx={{ backgroundColor: "surfaceContainerHighest" }}
+      id="outlined-multiline-static"
       label={label}
+      multiline
+      rows={5}
+      defaultValue=""
       fullWidth
-      size={size}
       {...field}
     />
   );
 };
 
-export default TextInput;
+export default TextAreaInput;

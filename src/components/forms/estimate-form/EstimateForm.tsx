@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { EstimateFormProps, EstimateFormValues } from "@/types/estimates";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import EstimateFormPartOne from "./EstimateFormPartOne";
 import EstimateFormPartTwo from "./EstimateFormPartTwo";
 import {
@@ -16,7 +15,9 @@ import {
   save,
   saveAndSend,
 } from "@/utils/formUtils/estimateFormUtils";
-import { Customers } from "@/types/customers";
+import { Box, Card, Tab, Tabs } from "@mui/material";
+import CustomTabPanel from "./CustomTabPanel";
+import { a11yProps } from "./utils";
 
 const EstimateForm = ({
   estimate,
@@ -24,6 +25,8 @@ const EstimateForm = ({
   profile,
   changeOrders,
 }: EstimateFormProps) => {
+  // State
+  const [tab, setTab] = useState<number>(0);
   const [lineItems, setLineItems] = useState([
     {
       item: "",
@@ -35,6 +38,7 @@ const EstimateForm = ({
     },
   ]);
 
+  // Hooks
   const methods: UseFormReturn<EstimateFormValues> =
     useForm<EstimateFormValues>({
       defaultValues: {
@@ -50,6 +54,7 @@ const EstimateForm = ({
     name: "lineItems",
   });
 
+  // Effects
   useEffect(() => {
     if (estimate && estimate.lineItems) {
       setLineItems(estimate.lineItems);
@@ -85,43 +90,47 @@ const EstimateForm = ({
         methods.setValue(`lineItems.${i}.amount`, estimate.lineItems[i].amount);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="">
+    <Card
+      sx={{ padding: "1rem", backgroundColor: "surfaceContainerLow" }}
+      className="flex w-full"
+    >
       <FormProvider {...methods}>
-        <form className="w-full bg-neutral100">
-          <Tabs defaultValue={"estimate-form-two"} className="w-full">
-            <TabsList className="flex w-full">
-              <TabsTrigger className="flex-1" value="estimate-form-one">
-                1. Customer & Contact Info
-              </TabsTrigger>
-              <TabsTrigger className="flex-1" value="estimate-form-two">
-                2. Estimate Info
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="estimate-form-one" className="w-full">
-              <EstimateFormPartOne customers={customers} />
-            </TabsContent>
-            <TabsContent value="estimate-form-two" className="w-full">
-              <EstimateFormPartTwo
-                customers={customers}
-                profile={profile}
-                fields={fields}
-                prepend={prepend}
-                remove={remove}
-                changeOrders={changeOrders!}
-                estimate={estimate}
-                methods={methods}
-                preview={preview}
-                save={save}
-                saveAndSend={saveAndSend}
-              />
-            </TabsContent>
+        <form className="w-full">
+          <Tabs
+            defaultValue={"estimate-form-two"}
+            className="w-full"
+            onChange={(event: React.SyntheticEvent, newValue: number) =>
+              setTab(newValue)
+            }
+          >
+            <Tab label="1. Customer & Contact Info" {...a11yProps(0)} />
+            <Tab label="2. Estimate Info" {...a11yProps(1)} />
           </Tabs>
+          <CustomTabPanel value={tab} index={0}>
+            <EstimateFormPartOne customers={customers} />
+          </CustomTabPanel>
+          <CustomTabPanel value={tab} index={1}>
+            <EstimateFormPartTwo
+              customers={customers}
+              profile={profile}
+              fields={fields}
+              prepend={prepend}
+              remove={remove}
+              changeOrders={changeOrders!}
+              estimate={estimate}
+              methods={methods}
+              preview={preview}
+              save={save}
+              saveAndSend={saveAndSend}
+            />
+          </CustomTabPanel>
         </form>
       </FormProvider>
-    </div>
+    </Card>
   );
 };
 

@@ -62,7 +62,10 @@ export default async function EstimateStatusChartContainer() {
   const chartArray = createChartArray(data);
 
   return (
-    <Card className="rounded-lg p-2 relative">
+    <Card
+      sx={{ backgroundColor: "surfaceContainerLow" }}
+      className="rounded-lg p-2 relative"
+    >
       {/* <h1>Estimate Staus Chart</h1> */}
       <EstimateStatusChart chartArray={chartArray} />
     </Card>

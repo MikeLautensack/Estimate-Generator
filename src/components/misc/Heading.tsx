@@ -43,7 +43,30 @@ const Heading = ({ session }: HeadingProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
-  return <Typography color="primary">{heading}</Typography>;
+  return (
+    <Typography
+      color="primary"
+      sx={{
+        fontSize: {
+          xs: "0.875rem",
+          sm: "1rem",
+          md: "1.25rem",
+        },
+        lineHeight: {
+          xs: 1.43,
+          sm: 1.5,
+          md: 1.6,
+        },
+        fontWeight: {
+          xs: 400,
+          sm: 400,
+          md: 500,
+        },
+      }}
+    >
+      {heading}
+    </Typography>
+  );
 };
 
 export default Heading;

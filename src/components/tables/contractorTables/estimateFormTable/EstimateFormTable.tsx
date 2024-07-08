@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import React from "react";
 import { EstimateFormTableProps, LineItems } from "../../../../types/estimates";
-import LineItemFormField from "../../../forms/LineItemFormField";
+import LineItemFormField from "@/components/forms/estimate-form/LineItemFormField";
 
 const EstimateFormTable = ({
   fields,
@@ -18,8 +18,8 @@ const EstimateFormTable = ({
   setSubtotal,
 }: EstimateFormTableProps) => {
   return (
-    <div className="flex bg-neutral400 rounded-lg border-2 border-neutral400">
-      <Table className="relative">
+    <div>
+      <Table className="flex-1 w-full">
         <TableHeader>
           <TableRow>
             <TableHead className="">Item Name</TableHead>
@@ -30,7 +30,7 @@ const EstimateFormTable = ({
             <TableHead className=""></TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="">
+        <TableBody className="overflow-x-scroll">
           {fields.map((field: LineItems, index: number) => (
             <LineItemFormField
               key={field.id}
