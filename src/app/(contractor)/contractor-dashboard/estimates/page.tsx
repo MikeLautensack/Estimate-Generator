@@ -27,7 +27,9 @@ export default async function Page() {
       <Typography variant="h4" color="primary" className="">
         Estimates
       </Typography>
-      <Link href={`${process.env.POST}/contractor-dashboard/estimates/form`}>
+      <Link
+        href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/form`}
+      >
         <Button id="new-change-order-button" variant="contained">
           New Estimate
         </Button>

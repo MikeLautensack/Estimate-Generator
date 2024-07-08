@@ -2,7 +2,6 @@ import { estimates, lineItems } from "@/db/schemas/estimates";
 import { db } from "../../../../../../db";
 import { eq } from "drizzle-orm";
 import { customers } from "@/db/schemas/customers";
-import EstimateForm from "@/components/forms/EstimateForm";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { ChangeOrder } from "@/types/changeOrders";
 import ChangeOrderRequests from "@/components/misc/ChangeOrderRequests";
@@ -10,6 +9,8 @@ import { checkChangeOrders, createArray } from "@/utils/changeOrderUtils";
 import { Estimates } from "@/types/estimates";
 import { auth } from "../../../../../../../auth";
 import { profiles } from "@/db/schemas/userProfile";
+import EstimateForm from "@/components/forms/estimate-form/EstimateForm";
+import { Typography } from "@mui/material";
 
 async function getEstimate(id: number) {
   const estimateTableData = await db
@@ -58,16 +59,16 @@ const Page = async ({ params }: { params: { id: string } }) => {
   )) as ChangeOrder[];
 
   return (
-    <main className="flex flex-col desktop:w-[calc(100vw-256px)] desktop:flex-row-reverse gap-4 bg-neutral400 min-h-[calc(100vh-56px)] relative desktop:gap-0">
+    <main className="flex flex-col desktop:w-[calc(100vw-256px)] desktop:flex-row-reverse gap-4 min-h-[calc(100vh-56px)] relative desktop:gap-0">
       {checkChangeOrders(changeOrders) ? (
         <ChangeOrderRequests changeOrders={createArray(changeOrders)} />
       ) : (
         <></>
       )}
       <div className="flex flex-col gap-4 w-full desktop:w-[calc(100%-24rem)] p-4">
-        <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
+        <Typography variant="h4" color="primary">
           Estimate Form
-        </h1>
+        </Typography>
         <EstimateForm
           estimate={estimate as Estimates}
           customers={customers}

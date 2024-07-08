@@ -8,13 +8,13 @@ import EstimateStatusChartContainer from "@/components/pageComponents/contractor
 import EstimatePriceChartContainer from "@/components/pageComponents/contractor-dashboard/EstimatePriceChartContainer";
 import { auth } from "../../../../auth";
 import { redirect } from "next/navigation";
-import { Card, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 
 const Page = async () => {
   const session = await auth();
   if (!session) return redirect("/signin");
   return (
-    <main className="p-4 flex flex-col flex-grow gap-2 h-[calc(100vh-56px)]">
+    <main className={`p-4 flex flex-col flex-grow gap-2 h-[calc(100vh-56px)]`}>
       <Typography variant="h4" color="primary" className="">
         Dashboard
       </Typography>
