@@ -12,6 +12,8 @@ import EstimateFormPartTwoButtons from "./EstimateFormPartTwoButtons";
 import { Box, Button } from "@mui/material";
 import DataField from "./DataField";
 import TextAreaInput from "../inputs/TextAreaInput";
+import TaxAndTotal from "./TaxAndTotal";
+import MVLReadOnlyInput from "../inputs/MVLReadOnlyInput";
 
 const EstimateFormPartTwo = ({
   customers,
@@ -86,37 +88,49 @@ const EstimateFormPartTwo = ({
   }, []);
 
   return (
-    <div className="p-4 flex flex-col gap-2 desktop:gap-4">
+    <div className="p-4 flex flex-col gap-2 desktop:gap-4 w-full">
       <TextInput name="estimateName" label="Estimate Name" />
       <div className="flex flex-col gap-2 desktop:gap-4">
-        <div className="flex flex-col gap-2 desktop:gap-4 desktop:flex-row desktop:overflow-x-scroll">
+        <div className="flex flex-col gap-2 desktop:gap-4 md:flex-row desktop:overflow-x-scroll items-start">
           <Box
             component="div"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItem: "center",
-              gap: "0.5rem",
-            }}
+            className="flex flex-col gap-3 items-start w-full pt-3"
           >
-            <DataField name="Customer Name" val={customerName} />
-            <DataField name="Customer Email" val={customerEmail} />
-            <DataField name="Project Address" val={projectAddress} />
+            <MVLReadOnlyInput
+              label="Customer Name"
+              name="customerName"
+              size="small"
+            />
+            <MVLReadOnlyInput
+              label="Customer Email"
+              name="customerEmail"
+              size="small"
+            />
+            <MVLReadOnlyInput
+              label="Project Address"
+              name="projectAddress"
+              size="small"
+            />
           </Box>
           <Box
             component="div"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItem: "center",
-              gap: "0.5rem",
-            }}
+            className="flex flex-col gap-3 items-start w-full pt-3"
           >
-            <DataField name="Business Name" val={businessName} />
-            <DataField name="Business Address" val={businessAddress} />
-            <DataField name="Business Phone" val={businessPhone} />
+            <MVLReadOnlyInput
+              label="Business Name"
+              value={businessName}
+              size="small"
+            />
+            <MVLReadOnlyInput
+              label="Business Address"
+              value={businessAddress}
+              size="small"
+            />
+            <MVLReadOnlyInput
+              label="Business Phone"
+              value={businessPhone}
+              size="small"
+            />
           </Box>
         </div>
         <div className="flex flex-col gap-2 desktop:gap-4">
@@ -145,26 +159,11 @@ const EstimateFormPartTwo = ({
           />
         </div>
         <div className="flex flex-col desktop:flex-row gap-4">
-          <TextAreaInput name="message" label="Message" />
-          <div className="flex flex-col gap-1 my-2 flex-1">
-            <div className="flex justify-between items-center">
-              <p className="font-semibold">Subtotal:</p>
-              <p className="text-green-400">{formatPriceString(subtotal)}</p>
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="font-semibold flex-1">Tax:</p>
-              <div className="flex flex-row-reverse flex-1 justify-start gap-8">
-                {/* <input type='number' min={1} max={100}></input> */}
-                <TaxSelector taxRate={taxRate} setTaxRate={setTaxRate} />
-                <p className="text-green-500">{formatPriceString(tax)}</p>
-              </div>
-            </div>
-            <div className="flex justify-between items-center">
-              <p className="font-semibold">Total:</p>
-              <p className="text-green-700 font-semibold">
-                {formatPriceString(total)}
-              </p>
-            </div>
+          <div className="flex-grow">
+            <TextAreaInput name="message" label="Message" />
+          </div>
+          <div className="flex justify-end">
+            <TaxAndTotal />
           </div>
         </div>
         <EstimateFormPartTwoButtons />

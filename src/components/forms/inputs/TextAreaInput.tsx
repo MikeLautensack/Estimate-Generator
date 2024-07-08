@@ -7,7 +7,7 @@ type TextInputProps = {
   label?: string;
 };
 
-const TextInput = ({ name, label }: TextInputProps) => {
+const TextAreaInput = ({ name, label }: TextInputProps) => {
   // Hooks
   const {
     control,
@@ -26,11 +26,12 @@ const TextInput = ({ name, label }: TextInputProps) => {
       id="outlined-multiline-static"
       label={label}
       multiline
-      rows={4}
-      defaultValue="..."
+      rows={5}
+      defaultValue=""
+      fullWidth
       {...field}
     />
   );
 };
 
-export default TextInput;
+export default TextAreaInput;

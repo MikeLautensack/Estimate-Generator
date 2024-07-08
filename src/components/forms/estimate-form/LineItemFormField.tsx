@@ -22,6 +22,8 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { calculateAmount } from "@/utils/formUtils/estimateFormUtils";
+import TextInput from "../inputs/TextInput";
+import MVLAutocomplete from "../inputs/MVLAutocomplete";
 
 const LineItemFormField = ({
   fields,
@@ -30,10 +32,13 @@ const LineItemFormField = ({
   remove,
   setSubtotal,
 }: LineItemFormFieldProps) => {
+  // Hooks
   const { register, watch, setValue, getValues, control } = useFormContext();
 
+  // State
   const [amount, setAmount] = useState(0);
 
+  // Effects
   useEffect(() => {
     watch(() => {
       calculateAmount(
@@ -63,85 +68,58 @@ const LineItemFormField = ({
   return (
     <TableRow>
       <TableCell className="align-top">
-        <div className="flex flex-col gap-1 justify-start items-start">
-          <label>Item Name</label>
-          <input
-            {...register(`lineItems.${index}.item` as const)}
-            className="border border-primary300 rounded"
-          ></input>
-        </div>
+        <TextInput
+          name={`lineItems.${index}.item` as const}
+          label="Item Name"
+          size="small"
+        />
       </TableCell>
       <TableCell className="align-top">
-        <div className="flex flex-col gap-1 justify-start items-start">
-          <label>Item Description</label>
-          <textarea
-            {...register(`lineItems.${index}.description` as const)}
-            className="border border-primary300 rounded"
-          ></textarea>
-        </div>
+        <TextInput
+          name={`lineItems.${index}.description` as const}
+          label="Item Description"
+          size="small"
+        />
       </TableCell>
       <TableCell className="align-top">
         <div
           className={`${getValues(`lineItems.${index}.rateType`) === "flat" ? "hidden" : "flex"} flex-col gap-1 justify-start items-start`}
         >
-          <label>Quantity</label>
-          <input
-            type="number"
-            {...register(`lineItems.${index}.quantity` as const, {
-              valueAsNumber: true,
-            })}
-            className="border border-primary300 rounded"
-          ></input>
+          <TextInput
+            name={`lineItems.${index}.quantity` as const}
+            label="Quantity"
+            size="small"
+          />
         </div>
       </TableCell>
       <TableCell className="align-top">
-        <div className="flex flex-col desktop:flex-row w-full">
+        <div className="flex w-full gap-8">
           <div className="w-full">
-            <FormField
-              control={control}
+            <MVLAutocomplete
               name={`lineItems.${index}.rateType`}
-              render={({ field }) => (
-                <FormItem className="w-full flex flex-col gap-1">
-                  <FormLabel>Rate Type</FormLabel>
-                  <Select
-                    value={field.value as string}
-                    onValueChange={field.onChange}
-                    {...register(`lineItems.${index}.rateType` as const)}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Rate Type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="unit">Unit Rate</SelectItem>
-                      <SelectItem value="sqft">SQFT</SelectItem>
-                      <SelectItem value="lnft">LNFT</SelectItem>
-                      <SelectItem value="hour">Hourly</SelectItem>
-                      <SelectItem value="day">Dayly</SelectItem>
-                      <SelectItem value="flat">Flat Rate</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
+              label="Rate Type"
+              options={[
+                "Unit Rate",
+                "SQFT",
+                "LNFT",
+                "Hourly",
+                "Daily",
+                "Flat Rate",
+              ]}
+              size="small"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label>Price</label>
-            <input
-              type="number"
-              {...register(`lineItems.${index}.price` as const, {
-                valueAsNumber: true,
-              })}
-              className="border border-primary300 rounded"
-            ></input>
+            <TextInput
+              name={`lineItems.${index}.price` as const}
+              label="Price"
+              size="small"
+            />
           </div>
         </div>
       </TableCell>
-      <TableCell className="align-top">
-        <div className="">
-          <p>{formatPriceString(amount)}</p>
-        </div>
+      <TableCell className="align-center">
+        <p>{formatPriceString(amount)}</p>
       </TableCell>
       <TableCell className="align-top">
         <div className="">

@@ -5,14 +5,14 @@ import FeaturesSection from "../../components/pageComponents/home/FeaturesSectio
 
 const Home = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex h-[calc(100vh-56px)] flex-col items-center justify-between">
       <HeroSection />
-      <FeaturesSection />
+      {/* <FeaturesSection /> */}
       {/* <PricingSection /> */}
-      <div className="flex flex-col h-screen w-full">
+      {/* <div className="flex flex-col h-screen w-full">
         <FAQSection />
         <Footer />
-      </div>
+      </div> */}
     </main>
   );
 };

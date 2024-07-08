@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className="flex flex-col min-h-screen">
+      <body className="min-h-screen">
         <InitColorSchemeScript />
         <AppRouterCacheProvider>
           <ThemeProviderWrapper>

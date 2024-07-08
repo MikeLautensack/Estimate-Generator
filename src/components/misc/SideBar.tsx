@@ -13,8 +13,12 @@ const SideBar = () => {
         backgroundColor: "surfaceContainer",
         borderRight: "solid 1px",
         borderColor: "outlineVariant",
+        display: {
+          xs: "none",
+          lg: "flex",
+        },
       }}
-      className="flex flex-col justify-between w-64 p-4 h-[calc(100vh-56px)]"
+      className="flex flex-col justify-between w-64 p-4 h-[calc(100vh-56px)] sticky top-14"
     >
       <div className="flex flex-col w-full gap-8">
         <Typography color="primary" className="">

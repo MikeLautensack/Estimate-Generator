@@ -13,23 +13,29 @@ const EstimateFormPartTwoButtons = () => {
   return (
     <Box
       component="div"
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "1rem",
-      }}
+      className="flex flex-col desktop:flex-row justify-center items-center gap-4"
     >
-      <Button type="submit" onClick={handleSubmit(preview)} variant="contained">
+      <Button
+        type="submit"
+        onClick={handleSubmit(preview)}
+        variant="contained"
+        className="w-full"
+      >
         Preview Estimate
       </Button>
-      <Button type="submit" onClick={handleSubmit(save)} variant="contained">
+      <Button
+        type="submit"
+        onClick={handleSubmit(save)}
+        variant="contained"
+        className="w-full"
+      >
         Save
       </Button>
       <Button
         type="submit"
         onClick={handleSubmit(saveAndSend)}
         variant="contained"
+        className="w-full"
       >
         Save & Send
       </Button>
