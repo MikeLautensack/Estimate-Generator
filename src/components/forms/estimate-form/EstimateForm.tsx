@@ -1,20 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Estimates } from "@/types/estimates";
 import EstimateFormPartOne from "./EstimateFormPartOne";
 import EstimateFormPartTwo from "./EstimateFormPartTwo";
 import {
   FormProvider,
+  SubmitHandler,
   UseFormReturn,
   useFieldArray,
   useForm,
 } from "react-hook-form";
-import {
-  preview,
-  save,
-  saveAndSend,
-} from "@/utils/formUtils/estimateFormUtils";
+import { getCustomerUserID } from "@/utils/formUtils/estimateFormUtils";
 import { Card, Tab, Tabs } from "@mui/material";
 import CustomTabPanel from "./CustomTabPanel";
 import { a11yProps } from "./utils";
@@ -30,7 +27,7 @@ export type EstimateFormProps = {
   customers: Customers[];
   profile: Profile;
   changeOrders?: ChangeOrder[];
-  mode: "new-estimate" | "edit-customer";
+  mode: "new-estimate" | "edit-estimate";
 };
 
 const LineItemsSchema = z.object({
@@ -61,9 +58,6 @@ const EstimateFormSchema = z.object({
   tax: z.number(),
   total: z.number(),
   status: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  deletedAt: z.date(),
   customer_id: z.number(),
   customer_user_id: z.string(),
   contractor_user_id: z.string(),
@@ -86,7 +80,7 @@ const EstimateForm = ({
   const methods: UseFormReturn<EstimateFormValues> =
     useForm<EstimateFormValues>({
       defaultValues: {
-        lineItems: estimate.lineItems,
+        id: estimate.id,
         estimateName: estimate.estimateName,
         customerName: estimate.customerName,
         customerEmail: estimate.customerEmail,
@@ -94,6 +88,7 @@ const EstimateForm = ({
         contractorName: estimate.contractorName,
         contractorAddress: estimate.contractorAddress,
         contractorPhone: estimate.contractorPhone,
+        lineItems: estimate.lineItems,
         message: estimate.message,
         subtotal: estimate.subtotal,
         taxRate: estimate.taxRate,
@@ -101,6 +96,8 @@ const EstimateForm = ({
         total: estimate.total,
         status: estimate.status,
         customer_id: estimate.customer_id,
+        customer_user_id: estimate.customer_user_id,
+        contractor_user_id: estimate.contractor_user_id,
       },
     });
 
@@ -110,6 +107,58 @@ const EstimateForm = ({
     control,
     name: "lineItems",
   });
+
+  // Callbacks
+  const save: SubmitHandler<EstimateFormValues> = useCallback(
+    async (data) => {
+      console.log("save callback data log", data);
+      // IDs
+      const USER_ID = estimate.contractor_user_id;
+      const CUSTOMER_ID = estimate.customer_id;
+      const ESTIMATE_ID = estimate.id;
+      const CUSTOMER_USER_ID = estimate.customer_user_id;
+
+      // Fetchs
+      if (mode === "new-estimate") {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...data,
+              CUSTOMER_USER_ID,
+            }),
+          },
+        );
+      } else if (mode === "edit-estimate") {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...data,
+              CUSTOMER_USER_ID,
+            }),
+          },
+        );
+      }
+    },
+    [
+      estimate.contractor_user_id,
+      estimate.customer_id,
+      estimate.customer_user_id,
+      estimate.id,
+      mode,
+    ],
+  );
+  const saveAndSend = useCallback(() => {}, []);
+  const preview = useCallback(() => {}, []);
 
   // Effects
   // useEffect(() => {
