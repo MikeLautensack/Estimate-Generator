@@ -1,12 +1,12 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { customerFormProps } from "../../../types/formTypes";
 import { Customers } from "@/types/customers";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Card } from "@mui/material";
+import { Button, Card, CircularProgress, Typography } from "@mui/material";
 import TextInput from "../inputs/TextInput";
 import { generateNumericId } from "@/utils/generateRandom";
 
@@ -18,6 +18,13 @@ const CustomerFormSchema = z.object({
 });
 
 type CustomerFormValues = z.infer<typeof CustomerFormSchema>;
+
+type LoadingState =
+  | ""
+  | "loading"
+  | "customer-created"
+  | "customer-updated"
+  | "error";
 
 export type CustomerFormProps = {
   data: Customers;
@@ -32,6 +39,9 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
     defaultValues: { name: "", address: "", email: "", phone: "" },
   });
 
+  // State
+  const [loadingState, setLoadingState] = useState<LoadingState>("");
+
   // Callbacks
   const submit = useCallback(async (formData: CustomerFormValues) => {
     const USER_ID = data.contractor_user_id;
@@ -39,9 +49,10 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
 
     if (mode === "new-customer") {
       try {
-        console.log("post customer");
+        setLoadingState("loading");
         const id = generateNumericId();
-        await fetch(
+        const CUSTOMER_USER_ID = generateNumericId();
+        const res = await fetch(
           `${process.env.NEXT_PUBLIC_HOST}/api/users/${user_id}/customers/${id}`,
           {
             method: "POST",
@@ -53,17 +64,21 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
               address: formData.address,
               phone: formData.phone,
               email: formData.email,
-              customer_user_id: user_id,
+              customer_user_id: CUSTOMER_USER_ID,
             }),
           },
         );
+        if (res.status === 200) {
+          setLoadingState("customer-created");
+        }
       } catch (error) {
         console.log("new customer form error", error);
+        setLoadingState("error");
       }
     } else {
       try {
-        console.log("patch customer");
-        await fetch(
+        setLoadingState("loading");
+        const res = await fetch(
           `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
           {
             method: "PATCH",
@@ -78,8 +93,12 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
             }),
           },
         );
+        if (res.status === 200) {
+          setLoadingState("customer-updated");
+        }
       } catch (error) {
         console.log("edit customer form error", error);
+        setLoadingState("error");
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,8 +132,34 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
           <TextInput name="address" label="Address" />
           <TextInput name="email" label="Email" />
           <TextInput name="phone" label="Phone" />
-          <Button type="submit" variant="contained">
-            Submit
+          <Button
+            variant="contained"
+            type="submit"
+            color={
+              loadingState === ""
+                ? "primary"
+                : loadingState === "loading"
+                  ? "primary"
+                  : loadingState === "error"
+                    ? "error"
+                    : "success"
+            }
+          >
+            {mode === "new-customer" && loadingState === "" ? (
+              <Typography>Create Customer</Typography>
+            ) : mode === "edit-customer" && loadingState === "" ? (
+              <Typography>Update Customer</Typography>
+            ) : loadingState === "loading" ? (
+              <CircularProgress sx={{ color: "#001824" }} />
+            ) : loadingState === "error" ? (
+              <Typography>Error</Typography>
+            ) : loadingState === "customer-created" ? (
+              <Typography>Customer Created!</Typography>
+            ) : (
+              loadingState === "customer-updated" && (
+                <Typography>Customer Updated!</Typography>
+              )
+            )}
           </Button>
         </form>
       </FormProvider>

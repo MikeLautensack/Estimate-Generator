@@ -70,7 +70,7 @@ const onSubmit =
 
 const getCustomerUserID = (customers: Customers[], id: number) => {
   for (let i = 0; i < customers.length; i++) {
-    if (customers[i].id == id) {
+    if (customers[i].id === id) {
       return customers[i].customer_user_id;
     }
   }

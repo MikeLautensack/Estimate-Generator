@@ -31,13 +31,13 @@ export async function POST(
 
   // Check to see if a user with the same email exists
   try {
-    const [existingUser] = await db
+    const existingUser = await db
       .select()
       .from(users)
       .where(eq(users.email, bodyData.email))
       .limit(1);
 
-    if (existingUser) {
+    if (existingUser.length > 0) {
       return NextResponse.json(
         { error: "User already registered" },
         { status: 409 },
@@ -49,6 +49,7 @@ export async function POST(
 
   // Create user in DB
   try {
+    // User Object
     const user = {
       id: params.user_id,
       name: bodyData.name,
@@ -63,7 +64,10 @@ export async function POST(
       createdAt: new Date(),
       updatedAt: new Date(),
     };
+
+    // Insert Query
     await db.insert(users).values(user);
+
     return NextResponse.json(
       { message: "User successfully created", user: user },
       { status: 200 },

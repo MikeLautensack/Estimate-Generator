@@ -74,7 +74,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           customers={customers}
           profile={profile[0]}
           changeOrders={changeOrders}
-          mode="edit-customer"
+          mode="edit-estimate"
         />
       </div>
     </main>

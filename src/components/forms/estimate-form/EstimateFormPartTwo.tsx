@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SubmitHandler, useFormContext, UseFormReturn } from "react-hook-form";
+import { SubmitHandler, useFormContext } from "react-hook-form";
 import EstimateFormTable from "../../tables/contractorTables/estimateFormTable/EstimateFormTable";
 import { applyTotal } from "@/utils/formUtils/estimateFormUtils";
 import TextInput from "../inputs/TextInput";
@@ -12,9 +12,9 @@ import TaxAndTotal from "./TaxAndTotal";
 import MVLReadOnlyInput from "../inputs/MVLReadOnlyInput";
 import { Customers } from "@/types/customers";
 import { Profile } from "@/types/profile";
-import { EstimateFormValues, Estimates, LineItems } from "@/types/estimates";
+import { Estimates, LineItems } from "@/types/estimates";
 import { ChangeOrder } from "@/types/changeOrders";
-import { LineItemsValues } from "./EstimateForm";
+import { EstimateFormValues, LineItemsValues } from "./EstimateForm";
 
 export type EstimateFormPartTwoProps = {
   customers: Customers[];
@@ -173,7 +173,7 @@ const EstimateFormPartTwo = ({
             <TaxAndTotal />
           </div>
         </div>
-        <EstimateFormPartTwoButtons />
+        <EstimateFormPartTwoButtons save={save} />
       </div>
     </div>
   );

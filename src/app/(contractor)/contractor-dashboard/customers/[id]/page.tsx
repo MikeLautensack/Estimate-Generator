@@ -25,7 +25,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const estimates = (await getEstimates(parseInt(params.id))) as Estimates[];
 
   return (
-    <main className="bg-neutral400 flex flex-col gap-2 flex-1 p-8">
+    <main className="flex flex-col gap-2 flex-1 p-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-5xl">{customer[0].name}</h1>
         <div className="flex gap-1 justify-start items-center">
