@@ -11,27 +11,18 @@ const getCustomerStrings = (customers: Customers[]) => {
 };
 
 const EstimateFormPartOne = ({ customers }: EstimateFormPartOneProps) => {
-  const { register, getValues, control } = useFormContext();
+  const { getValues } = useFormContext();
   const customerStrings = getCustomerStrings(customers);
   return (
     <div className="">
       <div className="">
-        {/* <FormField
-          control={control}
-          name={"customer_id"}
-          render={({ field }) => (
-            <EstimateFormOneSelect customers={customers} field={field} />
-          )}
-        /> */}
         <MVLAutocomplete
           name="customer_id"
           label="Customers"
           options={customerStrings}
         />
       </div>
-      <div
-        className={`${getValues("customer_id") ? "hidden" : "flex"} flex-col gap-2 my-2 text-black`}
-      >
+      <div className="flex flex-col gap-2 my-2 text-black">
         <TextInput name="customerName" label="Customer Name" />
         <TextInput name="customerEmail" label="Customer Email" />
         <TextInput name="projectAddress" label="Project Address" />

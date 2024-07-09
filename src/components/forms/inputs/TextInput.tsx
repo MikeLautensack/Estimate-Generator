@@ -8,7 +8,7 @@ type TextInputProps = {
   size?: any;
 };
 
-const TextInput = ({ name, label, size }: TextInputProps) => {
+const TextInput = ({ name, label, size = "normal" }: TextInputProps) => {
   // Hooks
   const {
     control,

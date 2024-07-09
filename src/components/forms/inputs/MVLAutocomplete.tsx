@@ -1,6 +1,6 @@
 "use client";
 
-import { Autocomplete, Box, TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 import React from "react";
 import { useController, useFormContext } from "react-hook-form";
 
@@ -36,10 +36,10 @@ const MVLAutocomplete = ({
       options={options}
       sx={{ backgroundColor: "surfaceContainerHighest" }}
       renderInput={(params) => <TextField {...params} label={label} />}
-      onChange={(_, value: string) => {
-        setValue(name, value);
+      onChange={(_, newValue: string) => {
+        setValue(name, newValue);
       }}
-      value={field ? field.value : ""}
+      value={field.value ? field.value : ""}
       fullWidth
       size={size}
     />

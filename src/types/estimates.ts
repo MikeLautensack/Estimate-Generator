@@ -46,13 +46,6 @@ export type LineItems = {
   estimate_id?: number;
 };
 
-export type EstimateFormProps = {
-  estimate: Estimates;
-  customers: Customers[];
-  profile: Profile;
-  changeOrders?: ChangeOrder[];
-};
-
 export type EstimateFormValues = {
   estimateName: string;
   customer_id?: number;
@@ -72,20 +65,6 @@ export type EstimateFormValues = {
 
 export type EstimateFormPartOneProps = {
   customers: Customers[];
-};
-
-export type EstimateFormPartTwoProps = {
-  customers: Customers[];
-  profile: Profile;
-  fields: LineItems[];
-  prepend: (obj: LineItems | LineItems[]) => void;
-  remove: (index?: number | number[]) => void;
-  changeOrders: ChangeOrder[];
-  estimate: Estimates;
-  methods: UseFormReturn<EstimateFormValues>;
-  preview: SubmitHandler<EstimateFormValues>;
-  save: SubmitHandler<EstimateFormValues>;
-  saveAndSend: SubmitHandler<EstimateFormValues>;
 };
 
 export type EstimateFormTableProps = {

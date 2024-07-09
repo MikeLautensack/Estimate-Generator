@@ -13,9 +13,7 @@ const ThemeProviderWrapper = ({ children }: ThemeProviderWrapperProps) => {
   return (
     <CssVarsProvider theme={theme}>
       <CssBaseline />
-      <Paper square sx={{ backgroundColor: "surface" }}>
-        {children}
-      </Paper>
+      {children}
     </CssVarsProvider>
   );
 };
