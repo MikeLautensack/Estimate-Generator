@@ -1,6 +1,5 @@
 "use client";
 
-import ProfileForm from "@/components/forms/ProfileForm";
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
 import { signIn } from "next-auth/react";
@@ -29,7 +28,6 @@ export default function page() {
       >
         <Mail className="mr-2 h-4 w-4" /> Custom Provider
       </Button>
-      <ProfileForm />
     </div>
   );
 }
