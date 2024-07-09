@@ -18,6 +18,7 @@ import {
 import { Box, Card, Tab, Tabs } from "@mui/material";
 import CustomTabPanel from "./CustomTabPanel";
 import { a11yProps } from "./utils";
+import EstimateFormChangeOrdersTab from "./EstimateFormChangeOrdersTab";
 
 const EstimateForm = ({
   estimate,
@@ -109,6 +110,7 @@ const EstimateForm = ({
           >
             <Tab label="1. Customer & Contact Info" {...a11yProps(0)} />
             <Tab label="2. Estimate Info" {...a11yProps(1)} />
+            {changeOrders && <Tab label="3. Change Orders" {...a11yProps(2)} />}
           </Tabs>
           <CustomTabPanel value={tab} index={0}>
             <EstimateFormPartOne customers={customers} />
@@ -127,6 +129,9 @@ const EstimateForm = ({
               save={save}
               saveAndSend={saveAndSend}
             />
+          </CustomTabPanel>
+          <CustomTabPanel value={tab} index={2}>
+            <EstimateFormChangeOrdersTab changeOrders={changeOrders} />
           </CustomTabPanel>
         </form>
       </FormProvider>

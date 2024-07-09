@@ -3,14 +3,11 @@
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import EstimateFormTable from "../../tables/contractorTables/estimateFormTable/EstimateFormTable";
-import TaxSelector from "../../misc/TaxSelector";
-import { formatPriceString } from "@/utils/formatingFunctions";
 import { EstimateFormPartTwoProps } from "@/types/estimates";
 import { applyTotal } from "@/utils/formUtils/estimateFormUtils";
 import TextInput from "../inputs/TextInput";
 import EstimateFormPartTwoButtons from "./EstimateFormPartTwoButtons";
 import { Box, Button } from "@mui/material";
-import DataField from "./DataField";
 import TextAreaInput from "../inputs/TextAreaInput";
 import TaxAndTotal from "./TaxAndTotal";
 import MVLReadOnlyInput from "../inputs/MVLReadOnlyInput";
@@ -25,14 +22,12 @@ const EstimateFormPartTwo = ({
   preview,
   save,
   saveAndSend,
+  changeOrders,
 }: EstimateFormPartTwoProps) => {
   // Hooks
   const { register, setValue, getValues } = useFormContext();
 
   // State
-  const [customerName, setCustomerName] = useState("");
-  const [customerEmail, setCustomerEmail] = useState("");
-  const [projectAddress, setProjectAddress] = useState("");
   const [businessName, setBusinessName] = useState("");
   const [businessAddress, setBusinessAddress] = useState("");
   const [businessPhone, setBusinessPhone] = useState("");
@@ -74,16 +69,9 @@ const EstimateFormPartTwo = ({
           customer = customers[i];
         }
       }
-      setCustomerName(customer?.name as string);
-      setCustomerEmail(customer?.email as string);
-      setProjectAddress(customer?.address as string);
       setValue("customerName", customer?.name as string);
       setValue("customerEmail", customer?.email as string);
       setValue("projectAddress", customer?.address as string);
-    } else {
-      setCustomerName(getValues("customerName") as string);
-      setCustomerEmail(getValues("customerEmail") as string);
-      setProjectAddress(getValues("projectAddress") as string);
     }
   }, []);
 
