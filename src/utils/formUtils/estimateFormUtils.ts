@@ -18,8 +18,8 @@ const preview = () => async () => {
   // }
 };
 
-const save = () => {
-  console.log("save");
+const save = (data: any) => {
+  console.log("save", data);
 };
 
 const saveAndSend = () => {

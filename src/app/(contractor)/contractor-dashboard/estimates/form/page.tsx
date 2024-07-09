@@ -55,6 +55,7 @@ const Page = async () => {
           }}
           customers={customers}
           profile={profile[0]}
+          mode="new-estimate"
         />
       </div>
     </main>

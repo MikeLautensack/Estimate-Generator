@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { SubmitHandler, useFormContext, UseFormReturn } from "react-hook-form";
 import EstimateFormTable from "../../tables/contractorTables/estimateFormTable/EstimateFormTable";
-import { EstimateFormPartTwoProps } from "@/types/estimates";
 import { applyTotal } from "@/utils/formUtils/estimateFormUtils";
 import TextInput from "../inputs/TextInput";
 import EstimateFormPartTwoButtons from "./EstimateFormPartTwoButtons";
@@ -11,6 +10,25 @@ import { Box, Button } from "@mui/material";
 import TextAreaInput from "../inputs/TextAreaInput";
 import TaxAndTotal from "./TaxAndTotal";
 import MVLReadOnlyInput from "../inputs/MVLReadOnlyInput";
+import { Customers } from "@/types/customers";
+import { Profile } from "@/types/profile";
+import { EstimateFormValues, Estimates, LineItems } from "@/types/estimates";
+import { ChangeOrder } from "@/types/changeOrders";
+import { LineItemsValues } from "./EstimateForm";
+
+export type EstimateFormPartTwoProps = {
+  customers: Customers[];
+  profile: Profile;
+  fields: LineItems[];
+  prepend: (obj: LineItemsValues) => void;
+  remove: (index?: number | number[]) => void;
+  changeOrders: ChangeOrder[];
+  estimate: Estimates;
+  methods: any;
+  preview: SubmitHandler<EstimateFormValues>;
+  save: SubmitHandler<EstimateFormValues>;
+  saveAndSend: SubmitHandler<EstimateFormValues>;
+};
 
 const EstimateFormPartTwo = ({
   customers,
@@ -126,6 +144,7 @@ const EstimateFormPartTwo = ({
             type="button"
             onClick={() => {
               prepend({
+                id: 0,
                 item: "",
                 description: "",
                 quantity: 0,
