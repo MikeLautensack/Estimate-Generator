@@ -30,7 +30,10 @@ const EstimateFormTable = ({
             <TableHead className=""></TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="overflow-x-scroll">
+        <TableBody
+          id="tabel-body"
+          className="overflow-x-scroll scrollbar-eform"
+        >
           {fields.map((field: LineItems, index: number) => (
             <LineItemFormField
               key={field.id}
