@@ -5,7 +5,8 @@ export const formatTaxString = (num: number): string => {
   return taxString;
 };
 
-export const formatPriceString = (num: number): string => {
+export const formatPriceString = (numStr: string): string => {
+  const num = parseFloat(numStr);
   const roundedNumber = num.toFixed(2);
   const priceString = `$${roundedNumber}`;
   return priceString;

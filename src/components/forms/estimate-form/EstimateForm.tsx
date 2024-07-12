@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Estimates } from "@/types/estimates";
 import EstimateFormPartOne from "./EstimateFormPartOne";
 import EstimateFormPartTwo from "./EstimateFormPartTwo";
 import {
@@ -10,8 +9,8 @@ import {
   UseFormReturn,
   useFieldArray,
   useForm,
+  useWatch,
 } from "react-hook-form";
-import { getCustomerUserID } from "@/utils/formUtils/estimateFormUtils";
 import { Card, Tab, Tabs } from "@mui/material";
 import CustomTabPanel from "./CustomTabPanel";
 import { a11yProps } from "./utils";
@@ -20,24 +19,24 @@ import { Customers } from "@/types/customers";
 import { Profile } from "@/types/profile";
 import { ChangeOrder } from "@/types/changeOrders";
 import { z } from "zod";
-import { estimates } from "@/db/schemas/estimates";
+import useCalcTotal from "./hooks/useCalcTotal";
 
 export type EstimateFormProps = {
-  estimate: Estimates;
+  estimate: EstimateFormValues;
   customers: Customers[];
   profile: Profile;
   changeOrders?: ChangeOrder[];
-  mode: "new-estimate" | "edit-estimate";
+  mode: "new-estimate" | "update-estimate";
 };
 
 const LineItemsSchema = z.object({
   id: z.number(),
   item: z.string(),
   description: z.string(),
-  quantity: z.number(),
+  quantity: z.string(),
   rateType: z.string(),
-  price: z.number(),
-  amount: z.number(),
+  price: z.string(),
+  amount: z.string(),
 });
 
 const LineItemsArraySchema = z.array(LineItemsSchema);
@@ -53,12 +52,12 @@ const EstimateFormSchema = z.object({
   contractorPhone: z.string(),
   lineItems: LineItemsArraySchema,
   message: z.string(),
-  subtotal: z.number(),
-  taxRate: z.number(),
-  tax: z.number(),
-  total: z.number(),
+  subtotal: z.string(),
+  taxRate: z.string(),
+  tax: z.string(),
+  total: z.string(),
   status: z.string(),
-  customer_id: z.number(),
+  customer_id: z.string(),
   customer_user_id: z.string(),
   contractor_user_id: z.string(),
 });
@@ -108,6 +107,18 @@ const EstimateForm = ({
     name: "lineItems",
   });
 
+  // Watched fields
+  const subtotal = useWatch({ control, name: "subtotal" });
+  const tax = useWatch({ control, name: "tax" });
+
+  // Custom hooks
+  const total = useCalcTotal(subtotal, tax);
+
+  // Effects
+  useEffect(() => {
+    methods.setValue("total", total);
+  }, [methods, total]);
+
   // Callbacks
   const save: SubmitHandler<EstimateFormValues> = useCallback(
     async (data) => {
@@ -133,7 +144,7 @@ const EstimateForm = ({
             }),
           },
         );
-      } else if (mode === "edit-estimate") {
+      } else if (mode === "update-estimate") {
         await fetch(
           `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
@@ -159,50 +170,6 @@ const EstimateForm = ({
   );
   const saveAndSend = useCallback(() => {}, []);
   const preview = useCallback(() => {}, []);
-
-  // Effects
-  // useEffect(() => {
-  //   if (mode === "edit-customer") {
-  //     if (estimate && estimate.lineItems) {
-  //       setLineItems(estimate.lineItems);
-  //       methods.setValue("estimateName", estimate.estimateName);
-  //       methods.setValue("customer_id", estimate.customer_id);
-  //       methods.setValue("customerName", estimate.customerName);
-  //       methods.setValue("customerEmail", estimate.customerEmail);
-  //       methods.setValue("projectAddress", estimate.projectAddress);
-  //       methods.setValue("contractorName", estimate.contractorName);
-  //       methods.setValue("contractorAddress", estimate.contractorAddress);
-  //       methods.setValue("contractorPhone", estimate.contractorPhone);
-  //       methods.setValue("lineItems", estimate.lineItems);
-  //       methods.setValue("taxRate", estimate.taxRate);
-  //       methods.setValue("message", estimate.message);
-  //       methods.setValue("subtotal", estimate.subtotal);
-  //       methods.setValue("tax", estimate.tax);
-  //       methods.setValue("total", estimate.total);
-  //       for (let i = 0; i < estimate.lineItems.length; i++) {
-  //         methods.setValue(`lineItems.${i}.item`, estimate.lineItems[i].item);
-  //         methods.setValue(
-  //           `lineItems.${i}.description`,
-  //           estimate.lineItems[i].description,
-  //         );
-  //         methods.setValue(
-  //           `lineItems.${i}.rateType`,
-  //           estimate.lineItems[i].rateType,
-  //         );
-  //         methods.setValue(
-  //           `lineItems.${i}.quantity`,
-  //           estimate.lineItems[i].quantity,
-  //         );
-  //         methods.setValue(`lineItems.${i}.price`, estimate.lineItems[i].price);
-  //         methods.setValue(
-  //           `lineItems.${i}.amount`,
-  //           estimate.lineItems[i].amount,
-  //         );
-  //       }
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   return (
     <Card
@@ -237,6 +204,7 @@ const EstimateForm = ({
               preview={preview}
               save={save}
               saveAndSend={saveAndSend}
+              mode={mode}
             />
           </CustomTabPanel>
           {changeOrders && (

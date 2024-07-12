@@ -8,15 +8,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { EstimateFormTableProps, LineItems } from "../../../../types/estimates";
+import { EstimateFormTableProps } from "../../../../types/estimates";
 import LineItemFormField from "@/components/forms/estimate-form/LineItemFormField";
+import { LineItemsValues } from "@/components/forms/estimate-form/EstimateForm";
 
-const EstimateFormTable = ({
-  fields,
-  applyTotal,
-  remove,
-  setSubtotal,
-}: EstimateFormTableProps) => {
+const EstimateFormTable = ({ fields, remove }: EstimateFormTableProps) => {
   return (
     <div>
       <Table className="flex-1 w-full">
@@ -34,15 +30,13 @@ const EstimateFormTable = ({
           id="tabel-body"
           className="overflow-x-scroll scrollbar-eform"
         >
-          {fields.map((field: LineItems, index: number) => (
+          {fields.map((field: LineItemsValues, index: number) => (
             <LineItemFormField
               key={field.id}
               field={field}
               fields={fields}
               index={index}
-              applyTotal={applyTotal}
               remove={remove}
-              setSubtotal={setSubtotal}
             />
           ))}
         </TableBody>
