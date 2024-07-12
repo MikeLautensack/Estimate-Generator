@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useController, useFormContext, useWatch } from "react-hook-form";
 
 type MVLReadOnlyInputProps = {
-  name?: string;
+  name: string;
   label?: string;
   prefix?: string;
   value?: string;
@@ -19,21 +19,33 @@ const MVLReadOnlyInput = ({
 }: MVLReadOnlyInputProps) => {
   // State
   const [val, setVal] = useState<string>("");
+
   // Hooks
   const {
     control,
     formState: { errors },
-    watch,
+    getValues,
   } = useFormContext();
+
+  // Values
+  const field = getValues(name);
 
   // Effects
   useEffect(() => {
     if (name) {
-      const val = watch(name);
+      const val = getValues(name);
+      if (typeof val !== "string") {
+        console.log(
+          "testing type check in readonly input, typeof val: ",
+          typeof val,
+        );
+        const stringVal = val.toString();
+        setVal(stringVal);
+      }
       setVal(val);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [field]);
 
   return (
     <TextField

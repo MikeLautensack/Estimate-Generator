@@ -6,11 +6,13 @@ import { changeOrders } from "@/db/schemas/changeOrders";
 import { ChangeOrder } from "@/types/changeOrders";
 import ChangeOrderRequests from "@/components/misc/ChangeOrderRequests";
 import { checkChangeOrders, createArray } from "@/utils/changeOrderUtils";
-import { Estimates } from "@/types/estimates";
 import { auth } from "../../../../../../../auth";
 import { profiles } from "@/db/schemas/userProfile";
-import EstimateForm from "@/components/forms/estimate-form/EstimateForm";
+import EstimateForm, {
+  EstimateFormValues,
+} from "@/components/forms/estimate-form/EstimateForm";
 import { Typography } from "@mui/material";
+import { Session } from "next-auth";
 
 async function getEstimate(id: number) {
   const estimateTableData = await db
@@ -28,11 +30,11 @@ async function getEstimate(id: number) {
   return res;
 }
 
-async function getCustomers(id: number) {
+async function getCustomers(session: Session) {
   const res = await db
     .select()
     .from(customers)
-    .where(eq(customers.contractor_user_id, id));
+    .where(eq(customers.contractor_user_id, session?.user.id));
   return res;
 }
 
@@ -52,7 +54,7 @@ async function getChangeOrders(id: number) {
 const Page = async ({ params }: { params: { id: string } }) => {
   const session = await auth();
   const estimate = await getEstimate(parseInt(params.id));
-  const customers = await getCustomers(session?.user.id);
+  const customers = await getCustomers(session!);
   const profile = await getProfile(session?.user.id);
   const changeOrders = (await getChangeOrders(
     parseInt(params.id),
@@ -70,11 +72,59 @@ const Page = async ({ params }: { params: { id: string } }) => {
           Estimate Form
         </Typography>
         <EstimateForm
-          estimate={estimate as Estimates}
+          estimate={{
+            id: estimate.id,
+            estimateName: estimate.estimateName ? estimate.estimateName : "",
+            customerName: estimate.customerName ? estimate.customerName : "",
+            customerEmail: estimate.customerEmail ? estimate.customerEmail : "",
+            projectAddress: estimate.projectAddress
+              ? estimate.projectAddress
+              : "",
+            contractorName: estimate.contractorName
+              ? estimate.contractorName
+              : "",
+            contractorAddress: estimate.contractorAddress
+              ? estimate.contractorAddress
+              : "",
+            contractorPhone: estimate.contractorPhone
+              ? estimate.contractorPhone
+              : "",
+            lineItems: estimate.lineItems
+              ? estimate.lineItems.map((item) => {
+                  return {
+                    id:
+                      typeof item.id === "number"
+                        ? item.id
+                        : parseInt(item.id || "", 10),
+                    item: item.item || "",
+                    description: item.description || "",
+                    quantity: item.quantity ? item.quantity.toString() : "0",
+                    rateType: item.rateType || "",
+                    price: item.price ? item.price.toString() : "0",
+                    amount: item.amount ? item.amount.toString() : "0",
+                  };
+                })
+              : [],
+            message: estimate.message ? estimate.message : "",
+            subtotal: estimate.subtotal ? estimate.subtotal.toString() : "0",
+            taxRate: estimate.taxRate ? estimate.taxRate.toString() : "0",
+            tax: estimate.tax ? estimate.tax.toString() : "0",
+            total: estimate.total ? estimate.total.toString() : "0",
+            status: estimate.status ? estimate.status : "",
+            customer_id: estimate.customer_id
+              ? estimate.customer_id.toString()
+              : "",
+            customer_user_id: estimate.customer_user_id
+              ? estimate.customer_user_id
+              : "",
+            contractor_user_id: estimate.contractor_user_id
+              ? estimate.contractor_user_id
+              : "",
+          }}
           customers={customers}
           profile={profile[0]}
           changeOrders={changeOrders}
-          mode="edit-estimate"
+          mode="update-estimate"
         />
       </div>
     </main>

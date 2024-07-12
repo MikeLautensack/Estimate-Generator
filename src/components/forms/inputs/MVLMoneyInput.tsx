@@ -1,20 +1,23 @@
 import { TextField } from "@mui/material";
 import React from "react";
 import { useController, useFormContext } from "react-hook-form";
+import { NumericFormat } from "react-number-format";
+import TextInput from "./TextInput";
 
-type TextInputProps = {
+type MVLMoneyInputProps = {
   name: string;
-  label?: string;
+  label: string;
   size?: any;
   readonly?: boolean;
 };
 
-const TextInput = ({
+// This is a branch level component
+const MVLMoneyInput = ({
   name,
   label,
   size = "normal",
   readonly,
-}: TextInputProps) => {
+}: MVLMoneyInputProps) => {
   // Hooks
   const {
     control,
@@ -26,21 +29,17 @@ const TextInput = ({
     name,
     defaultValue: {},
   });
-
   return (
-    <TextField
-      sx={{ backgroundColor: "surfaceContainerHighest" }}
-      label={label}
-      fullWidth
+    <NumericFormat
+      customInput={TextInput}
+      thousandSeparator
+      valueIsNumericString
+      readOnly={readonly}
       size={size}
-      slotProps={{
-        input: {
-          readOnly: readonly,
-        },
-      }}
+      label={label}
       {...field}
     />
   );
 };
 
-export default TextInput;
+export default MVLMoneyInput;

@@ -5,9 +5,13 @@ import { eq } from "drizzle-orm";
 import { auth } from "../../../../../../auth";
 import { Typography } from "@mui/material";
 import EstimateForm from "@/components/forms/estimate-form/EstimateForm";
+import { Session } from "next-auth";
 
-async function getCustomers() {
-  const res = await db.select().from(customers);
+async function getCustomers(session: Session) {
+  const res = await db
+    .select()
+    .from(customers)
+    .where(eq(customers.contractor_user_id, session?.user.id));
   return res;
 }
 
@@ -21,7 +25,8 @@ async function getProfile() {
 }
 
 const Page = async () => {
-  const customers = await getCustomers();
+  const session = await auth();
+  const customers = await getCustomers(session!);
   const profile = await getProfile();
 
   return (
@@ -42,14 +47,12 @@ const Page = async () => {
             contractorPhone: "",
             lineItems: [],
             message: "",
-            subtotal: 0,
-            taxRate: 0,
-            tax: 0,
-            total: 0,
+            subtotal: "0",
+            taxRate: "0",
+            tax: "0",
+            total: "0",
             status: "",
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            customer_id: 0,
+            customer_id: "",
             customer_user_id: "",
             contractor_user_id: "",
           }}

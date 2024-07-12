@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import EstimateFormTable from "../../tables/contractorTables/estimateFormTable/EstimateFormTable";
-import { applyTotal } from "@/utils/formUtils/estimateFormUtils";
 import TextInput from "../inputs/TextInput";
 import EstimateFormPartTwoButtons from "./EstimateFormPartTwoButtons";
 import { Box, Button } from "@mui/material";
@@ -12,22 +10,23 @@ import TaxAndTotal from "./TaxAndTotal";
 import MVLReadOnlyInput from "../inputs/MVLReadOnlyInput";
 import { Customers } from "@/types/customers";
 import { Profile } from "@/types/profile";
-import { Estimates, LineItems } from "@/types/estimates";
 import { ChangeOrder } from "@/types/changeOrders";
 import { EstimateFormValues, LineItemsValues } from "./EstimateForm";
+import { useEffect } from "react";
 
 export type EstimateFormPartTwoProps = {
   customers: Customers[];
   profile: Profile;
-  fields: LineItems[];
+  fields: LineItemsValues[];
   prepend: (obj: LineItemsValues) => void;
   remove: (index?: number | number[]) => void;
   changeOrders: ChangeOrder[];
-  estimate: Estimates;
+  estimate: EstimateFormValues;
   methods: any;
   preview: SubmitHandler<EstimateFormValues>;
   save: SubmitHandler<EstimateFormValues>;
   saveAndSend: SubmitHandler<EstimateFormValues>;
+  mode: "new-estimate" | "update-estimate";
 };
 
 const EstimateFormPartTwo = ({
@@ -41,66 +40,32 @@ const EstimateFormPartTwo = ({
   save,
   saveAndSend,
   changeOrders,
+  mode,
 }: EstimateFormPartTwoProps) => {
   // Hooks
-  const { register, setValue, getValues } = useFormContext();
+  const { setValue } = useFormContext();
 
-  // State
-  const [businessName, setBusinessName] = useState("");
-  const [businessAddress, setBusinessAddress] = useState("");
-  const [businessPhone, setBusinessPhone] = useState("");
-  const [subtotal, setSubtotal] = useState(0);
-  const [taxRate, setTaxRate] = useState(0.07);
-  const [tax, setTax] = useState(0);
-  const [total, setTotal] = useState(0);
+  // Values
+  const businessName = profile.businessName;
+  const businessAddress = profile.businessAddress;
+  const businessPhone = profile.businessPhone;
 
   // Effects
   useEffect(() => {
-    applyTotal(setSubtotal, setValue, getValues, fields);
-  }, [fields]);
-
-  useEffect(() => {
-    const currentTax = subtotal * taxRate;
-    setTax(currentTax);
-    setValue("tax", currentTax);
-    setValue("taxRate", taxRate);
-    const total = subtotal + currentTax;
-    setTotal(total);
-    setValue("total", total);
-  }, [subtotal, taxRate]);
-
-  useEffect(() => {
-    const name = profile?.businessName;
-    const address = profile?.businessAddress;
-    const phone = profile?.businessPhone;
-    setBusinessName(name);
-    setBusinessAddress(address);
-    setBusinessPhone(phone);
-    setValue("contractorName", name);
-    setValue("contractorAddress", address);
-    setValue("contractorPhone", phone);
-
-    if (getValues("customer_id")) {
-      let customer;
-      for (let i = 0; i < customers.length; i++) {
-        if (customers[i].id == getValues("customer_id")) {
-          customer = customers[i];
-        }
-      }
-      setValue("customerName", customer?.name as string);
-      setValue("customerEmail", customer?.email as string);
-      setValue("projectAddress", customer?.address as string);
-    }
+    setValue("contractorName", businessName);
+    setValue("contractorAddress", businessAddress);
+    setValue("contractorPhone", businessPhone);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="p-4 flex flex-col gap-2 desktop:gap-4 w-full">
       <TextInput name="estimateName" label="Estimate Name" />
-      <div className="flex flex-col gap-2 desktop:gap-4">
-        <div className="flex flex-col gap-2 desktop:gap-4 md:flex-row desktop:overflow-x-scroll items-start">
+      <div className="flex flex-col gap-2 desktop:gap-4 w-full">
+        <div className="flex flex-col gap-2 desktop:gap-4 md:flex-row items-start pt-2 w-full">
           <Box
             component="div"
-            className="flex flex-col gap-3 items-start w-full pt-3"
+            className="flex flex-col gap-3 items-start w-full"
           >
             <MVLReadOnlyInput
               label="Customer Name"
@@ -120,21 +85,21 @@ const EstimateFormPartTwo = ({
           </Box>
           <Box
             component="div"
-            className="flex flex-col gap-3 items-start w-full pt-3"
+            className="flex flex-col gap-3 items-start w-full"
           >
             <MVLReadOnlyInput
-              label="Business Name"
-              value={businessName}
+              label="Contractor Name"
+              name="contractorName"
               size="small"
             />
             <MVLReadOnlyInput
-              label="Business Address"
-              value={businessAddress}
+              label="Contractor Address"
+              name="contractorAddress"
               size="small"
             />
             <MVLReadOnlyInput
-              label="Business Phone"
-              value={businessPhone}
+              label="Contractor Phone"
+              name="contractorPhone"
               size="small"
             />
           </Box>
@@ -147,10 +112,10 @@ const EstimateFormPartTwo = ({
                 id: 0,
                 item: "",
                 description: "",
-                quantity: 0,
+                quantity: "0",
                 rateType: "unit",
-                price: 0,
-                amount: 0,
+                price: "0",
+                amount: "0",
               });
             }}
             className="w-full desktop:w-56"
@@ -158,12 +123,7 @@ const EstimateFormPartTwo = ({
           >
             New Line Item
           </Button>
-          <EstimateFormTable
-            fields={fields}
-            applyTotal={applyTotal}
-            remove={remove}
-            setSubtotal={setSubtotal}
-          />
+          <EstimateFormTable fields={fields} remove={remove} />
         </div>
         <div className="flex flex-col desktop:flex-row gap-4">
           <div className="flex-grow">

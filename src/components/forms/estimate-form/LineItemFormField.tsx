@@ -2,88 +2,71 @@
 
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { LineItemFormFieldProps } from "@/types/estimates";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { formatPriceString } from "@/utils/formatingFunctions";
 import { FaTrashAlt } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { calculateAmount } from "@/utils/formUtils/estimateFormUtils";
 import TextInput from "../inputs/TextInput";
 import MVLAutocomplete from "../inputs/MVLAutocomplete";
+import { Button } from "@mui/material";
+import useCalcAmount from "./hooks/useCalcAmount";
+import useCalcSubtotal from "./hooks/useCalcSubtotal";
+import MVLMoneyInput from "../inputs/MVLMoneyInput";
 
 const LineItemFormField = ({
   fields,
   index,
-  applyTotal,
   remove,
-  setSubtotal,
 }: LineItemFormFieldProps) => {
   // Hooks
-  const { register, watch, setValue, getValues, control } = useFormContext();
+  const { control, setValue, getValues } = useFormContext();
 
-  // State
-  const [amount, setAmount] = useState(0);
+  // Watched fields
+  const quantityVal = useWatch({
+    control,
+    name: `lineItems.${index}.quantity` as const,
+  });
+  const priceVal = useWatch({
+    control,
+    name: `lineItems.${index}.price` as const,
+  });
+
+  // Field names
+  const amountName = `lineItems.${index}.amount`;
+
+  // Custom hooks
+  const amount = useCalcAmount(quantityVal, priceVal);
+  const subtotal = useCalcSubtotal(fields, amount, index);
 
   // Effects
   useEffect(() => {
-    watch(() => {
-      calculateAmount(
-        watch(`lineItems.${index}.quantity` as const),
-        watch(`lineItems.${index}.price` as const),
-        setAmount,
-      );
-    });
-    setValue(`lineItems.${index}.amount`, amount);
-  }, [
-    watch(`lineItems.${index}.quantity` as const),
-    watch(`lineItems.${index}.price` as const),
-    fields,
-  ]);
+    setValue(amountName, amount);
+  }, [amount, amountName, setValue]);
 
   useEffect(() => {
-    applyTotal(setSubtotal, setValue, getValues, fields);
-  }, [watch(`lineItems.${index}.amount` as const)]);
-
-  useEffect(() => {
-    const value = getValues(`lineItems.${index}.rateType`);
-    if (value === "flat") {
-      setValue(`lineItems.${index}.quantity`, 1);
-    }
-  }, [watch(`lineItems.${index}.rateType` as const)]);
+    setValue("subtotal", subtotal);
+  }, [setValue, subtotal]);
 
   return (
     <TableRow>
-      <TableCell className="align-top">
+      <TableCell className="align-top w-36">
         <TextInput
           name={`lineItems.${index}.item` as const}
           label="Item Name"
           size="small"
         />
       </TableCell>
-      <TableCell className="align-top">
+      <TableCell className="align-top w-full">
         <TextInput
           name={`lineItems.${index}.description` as const}
           label="Item Description"
           size="small"
         />
       </TableCell>
-      <TableCell className="align-top">
+      <TableCell className="align-top w-24">
         <div
-          className={`${getValues(`lineItems.${index}.rateType`) === "flat" ? "hidden" : "flex"} flex-col gap-1 justify-start items-start`}
+          className={`${getValues(`lineItems.${index}.rateType`) === "flat" ? "hidden" : "flex"} flex-col gap-1 justify-start items-start w-24`}
         >
           <TextInput
             name={`lineItems.${index}.quantity` as const}
@@ -92,9 +75,9 @@ const LineItemFormField = ({
           />
         </div>
       </TableCell>
-      <TableCell className="align-top">
-        <div className="flex w-full gap-8">
-          <div className="w-full">
+      <TableCell className="align-top w-56">
+        <div className="flex gap-8">
+          <div className="w-24">
             <MVLAutocomplete
               name={`lineItems.${index}.rateType`}
               label="Rate Type"
@@ -109,8 +92,8 @@ const LineItemFormField = ({
               size="small"
             />
           </div>
-          <div className="flex flex-col gap-1">
-            <TextInput
+          <div className="flex flex-col gap-1 w-24">
+            <MVLMoneyInput
               name={`lineItems.${index}.price` as const}
               label="Price"
               size="small"
@@ -128,7 +111,7 @@ const LineItemFormField = ({
               remove(index);
             }}
             className=""
-            variant="ghost"
+            variant="text"
           >
             <FaTrashAlt className="text-error500" />
           </Button>
