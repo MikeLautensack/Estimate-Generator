@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import MVLReadOnlyInput from "../inputs/MVLReadOnlyInput";
 import { useFormContext, useWatch } from "react-hook-form";
 import useCalcTax from "./hooks/useCalcTax";
+import MVLMoneyInput from "../inputs/MVLMoneyInput";
+import MVLPercent from "../inputs/MVLPercent";
 
 const TaxAndTotal = () => {
   // Hooks
@@ -31,18 +33,26 @@ const TaxAndTotal = () => {
   return (
     <Box component="div" className="flex flex-col gap-4">
       <div className="w-44">
-        <MVLReadOnlyInput
+        <MVLMoneyInput
           label="Subtotal"
           size="small"
           name="subtotal"
-          prefix="$"
+          readonly={true}
         />
       </div>
       <div className="w-44">
-        <MVLReadOnlyInput label="Tax" size="small" name="tax" prefix="%" />
+        <MVLPercent label="Tax Rate" size="small" name="taxRate" />
       </div>
       <div className="w-44">
-        <MVLReadOnlyInput label="Total" size="small" name="total" prefix="$" />
+        <MVLMoneyInput label="Tax" size="small" name="tax" />
+      </div>
+      <div className="w-44">
+        <MVLMoneyInput
+          label="Total"
+          size="small"
+          name="total"
+          readonly={true}
+        />
       </div>
     </Box>
   );

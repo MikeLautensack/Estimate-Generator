@@ -26,7 +26,7 @@ const TextAreaInput = ({ name, label }: TextInputProps) => {
       id="outlined-multiline-static"
       label={label}
       multiline
-      rows={5.2}
+      rows={7.61}
       defaultValue=""
       fullWidth
       {...field}
