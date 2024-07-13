@@ -13,6 +13,7 @@ import { Button } from "@mui/material";
 import useCalcAmount from "./hooks/useCalcAmount";
 import useCalcSubtotal from "./hooks/useCalcSubtotal";
 import MVLMoneyInput from "../inputs/MVLMoneyInput";
+import MVLNumber from "../inputs/MVLNumber";
 
 const LineItemFormField = ({
   fields,
@@ -46,7 +47,7 @@ const LineItemFormField = ({
 
   useEffect(() => {
     setValue("subtotal", subtotal);
-  }, [setValue, subtotal]);
+  }, [setValue, subtotal, fields]);
 
   return (
     <TableRow>
@@ -68,7 +69,7 @@ const LineItemFormField = ({
         <div
           className={`${getValues(`lineItems.${index}.rateType`) === "flat" ? "hidden" : "flex"} flex-col gap-1 justify-start items-start w-24`}
         >
-          <TextInput
+          <MVLNumber
             name={`lineItems.${index}.quantity` as const}
             label="Quantity"
             size="small"

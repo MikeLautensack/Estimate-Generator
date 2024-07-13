@@ -3,7 +3,6 @@
 import { SubmitHandler, useFormContext } from "react-hook-form";
 import EstimateFormTable from "../../tables/contractorTables/estimateFormTable/EstimateFormTable";
 import TextInput from "../inputs/TextInput";
-import EstimateFormPartTwoButtons from "./EstimateFormPartTwoButtons";
 import { Box, Button } from "@mui/material";
 import TextAreaInput from "../inputs/TextAreaInput";
 import TaxAndTotal from "./TaxAndTotal";
@@ -133,7 +132,6 @@ const EstimateFormPartTwo = ({
             <TaxAndTotal />
           </div>
         </div>
-        <EstimateFormPartTwoButtons save={save} />
       </div>
     </div>
   );

@@ -3,20 +3,14 @@ import React from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 
-type MVLMoneyInputProps = {
+type MVLNumberProps = {
   name: string;
   label: string;
   size?: any;
   readonly?: boolean;
 };
 
-// This is a branch level component
-const MVLMoneyInput = ({
-  name,
-  label,
-  size = "normal",
-  readonly,
-}: MVLMoneyInputProps) => {
+const MVLNumber = ({ name, label, size, readonly }: MVLNumberProps) => {
   // Hooks
   const {
     control,
@@ -32,10 +26,10 @@ const MVLMoneyInput = ({
   return (
     <NumericFormat
       customInput={TextField}
-      decimalScale={2}
       fixedDecimalScale={true}
-      thousandSeparator
+      decimalScale={0}
       valueIsNumericString
+      thousandSeparator
       size={size}
       label={label}
       sx={{ backgroundColor: "surfaceContainerHighest" }}
@@ -43,7 +37,6 @@ const MVLMoneyInput = ({
       slotProps={{
         input: {
           readOnly: readonly,
-          startAdornment: <InputAdornment position="start">$</InputAdornment>,
         },
       }}
       {...field}
@@ -51,4 +44,4 @@ const MVLMoneyInput = ({
   );
 };
 
-export default MVLMoneyInput;
+export default MVLNumber;

@@ -20,6 +20,7 @@ import { Profile } from "@/types/profile";
 import { ChangeOrder } from "@/types/changeOrders";
 import { z } from "zod";
 import useCalcTotal from "./hooks/useCalcTotal";
+import EstimateFormButtons from "./EstimateFormButtons";
 
 export type EstimateFormProps = {
   estimate: EstimateFormValues;
@@ -74,6 +75,7 @@ const EstimateForm = ({
 }: EstimateFormProps) => {
   // State
   const [tab, setTab] = useState<number>(0);
+  const [tabsCount, setTabsCount] = useState<number>(2);
 
   // Hooks
   const methods: UseFormReturn<EstimateFormValues> =
@@ -212,6 +214,12 @@ const EstimateForm = ({
               <EstimateFormChangeOrdersTab changeOrders={changeOrders} />
             </CustomTabPanel>
           )}
+          <EstimateFormButtons
+            tab={tab}
+            setTab={setTab}
+            tabsCount={changeOrders ? 3 : 2}
+            save={save}
+          />
         </form>
       </FormProvider>
     </Card>
