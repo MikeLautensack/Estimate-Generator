@@ -12,6 +12,7 @@ import { Profile } from "@/types/profile";
 import { ChangeOrder } from "@/types/changeOrders";
 import { EstimateFormValues, LineItemsValues } from "./EstimateForm";
 import { useEffect } from "react";
+import { generateNumericId } from "@/utils/generateRandom";
 
 export type EstimateFormPartTwoProps = {
   customers: Customers[];
@@ -56,6 +57,9 @@ const EstimateFormPartTwo = ({
     setValue("contractorPhone", businessPhone);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Generate id
+  const newId = generateNumericId();
 
   return (
     <div className="p-4 flex flex-col gap-2 desktop:gap-4 w-full">
@@ -108,11 +112,11 @@ const EstimateFormPartTwo = ({
             type="button"
             onClick={() => {
               prepend({
-                id: 0,
+                id: newId.toString(),
                 item: "",
                 description: "",
                 quantity: "0",
-                rateType: "unit",
+                rateType: "Unit",
                 price: "0",
                 amount: "0",
               });

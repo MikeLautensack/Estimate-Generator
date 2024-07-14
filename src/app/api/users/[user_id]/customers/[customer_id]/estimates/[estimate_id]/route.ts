@@ -16,7 +16,7 @@ export async function POST(
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Estimates;
+  const bodyData = (await request.json());
 
   // Get session
   const session = await auth();
