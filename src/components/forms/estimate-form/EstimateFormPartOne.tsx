@@ -64,7 +64,7 @@ const EstimateFormPartOne = ({ customers }: EstimateFormPartOneProps) => {
     <div className="">
       <div className="">
         <MVLAutocomplete
-          name="customer_id"
+          name="customerName"
           label="Customers"
           options={customerStrings}
         />

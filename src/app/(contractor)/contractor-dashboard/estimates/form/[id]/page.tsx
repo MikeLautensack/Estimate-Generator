@@ -73,7 +73,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         </Typography>
         <EstimateForm
           estimate={{
-            id: estimate.id,
+            id: estimate.id.toString(),
             estimateName: estimate.estimateName ? estimate.estimateName : "",
             customerName: estimate.customerName ? estimate.customerName : "",
             customerEmail: estimate.customerEmail ? estimate.customerEmail : "",
@@ -92,10 +92,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
             lineItems: estimate.lineItems
               ? estimate.lineItems.map((item) => {
                   return {
-                    id:
-                      typeof item.id === "number"
-                        ? item.id
-                        : parseInt(item.id || "", 10),
+                    id: item.id.toString(),
                     item: item.item || "",
                     description: item.description || "",
                     quantity: item.quantity ? item.quantity.toString() : "0",

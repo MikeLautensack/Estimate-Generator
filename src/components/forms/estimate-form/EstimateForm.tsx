@@ -21,6 +21,7 @@ import { ChangeOrder } from "@/types/changeOrders";
 import { z } from "zod";
 import useCalcTotal from "./hooks/useCalcTotal";
 import EstimateFormButtons from "./EstimateFormButtons";
+import useGetCustomerUserId from "./hooks/useGetCustomerUserId";
 
 export type EstimateFormProps = {
   estimate: EstimateFormValues;
@@ -31,7 +32,7 @@ export type EstimateFormProps = {
 };
 
 const LineItemsSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   item: z.string(),
   description: z.string(),
   quantity: z.string(),
@@ -43,7 +44,7 @@ const LineItemsSchema = z.object({
 const LineItemsArraySchema = z.array(LineItemsSchema);
 
 const EstimateFormSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   estimateName: z.string(),
   customerName: z.string(),
   customerEmail: z.string(),
@@ -75,7 +76,6 @@ const EstimateForm = ({
 }: EstimateFormProps) => {
   // State
   const [tab, setTab] = useState<number>(0);
-  const [tabsCount, setTabsCount] = useState<number>(2);
 
   // Hooks
   const methods: UseFormReturn<EstimateFormValues> =
@@ -112,14 +112,25 @@ const EstimateForm = ({
   // Watched fields
   const subtotal = useWatch({ control, name: "subtotal" });
   const tax = useWatch({ control, name: "tax" });
+  const customerName = useWatch({ control, name: "customerName" });
 
   // Custom hooks
   const total = useCalcTotal(subtotal, tax);
+  const customerUserId = useGetCustomerUserId(customers, customerName);
 
   // Effects
   useEffect(() => {
     methods.setValue("total", total);
   }, [methods, total]);
+
+  console.log("loging customers", customers);
+  useEffect(() => {
+    console.log(
+      "This log is testing if the `useGetCustomerUserId` hook is working correctly, customerUserId val: ",
+      customerUserId,
+    );
+    methods.setValue("customer_id", customerUserId!);
+  }, [customerUserId, methods]);
 
   // Callbacks
   const save: SubmitHandler<EstimateFormValues> = useCallback(
@@ -127,13 +138,13 @@ const EstimateForm = ({
       console.log("save callback data log", data);
       // IDs
       const USER_ID = estimate.contractor_user_id;
-      const CUSTOMER_ID = estimate.customer_id;
       const ESTIMATE_ID = estimate.id;
-      const CUSTOMER_USER_ID = estimate.customer_user_id;
+      const CUSTOMER_ID = data.customer_id;
+      const customer_user_id = data.customer_user_id;
 
       // Fetchs
       if (mode === "new-estimate") {
-        await fetch(
+        const res = await fetch(
           `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "POST",
@@ -142,10 +153,11 @@ const EstimateForm = ({
             },
             body: JSON.stringify({
               ...data,
-              CUSTOMER_USER_ID,
+              customer_user_id,
             }),
           },
         );
+        console.log("new estimate post res: ", res);
       } else if (mode === "update-estimate") {
         await fetch(
           `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
@@ -156,19 +168,13 @@ const EstimateForm = ({
             },
             body: JSON.stringify({
               ...data,
-              CUSTOMER_USER_ID,
+              customer_user_id,
             }),
           },
         );
       }
     },
-    [
-      estimate.contractor_user_id,
-      estimate.customer_id,
-      estimate.customer_user_id,
-      estimate.id,
-      mode,
-    ],
+    [estimate.contractor_user_id, estimate.id, mode],
   );
   const saveAndSend = useCallback(() => {}, []);
   const preview = useCallback(() => {}, []);

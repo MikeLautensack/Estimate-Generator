@@ -17,20 +17,24 @@ const SideBarNav = ({ ...props }) => {
 
   // Effects
   useEffect(() => {
-    if (pathname === "/contractor-dashboard") {
-      setSelected("dashboard");
-    } else if (pathname === "/contractor-dashboard/customers") {
-      setSelected("customers");
-    } else if (pathname === "/contractor-dashboard/estimates") {
-      setSelected("estimates");
-    } else if (pathname === "/contractor-dashboard/change-orders") {
-      setSelected("change-orders");
-    } else if (pathname === "/contractor-dashboard/profile") {
-      setSelected("profile");
-    } else if (pathname === "/contractor-dashboard/account") {
-      setSelected("account");
-    } else if (pathname === "/contractor-dashboard/settings") {
-      setSelected("settings");
+    const routeMap = [
+      { baseRoute: "/contractor-dashboard/customers", state: "customers" },
+      { baseRoute: "/contractor-dashboard/estimates", state: "estimates" },
+      {
+        baseRoute: "/contractor-dashboard/change-orders",
+        state: "change-orders",
+      },
+      { baseRoute: "/contractor-dashboard/profile", state: "profile" },
+      { baseRoute: "/contractor-dashboard/account", state: "account" },
+      { baseRoute: "/contractor-dashboard/settings", state: "settings" },
+      { baseRoute: "/contractor-dashboard", state: "dashboard" },
+    ];
+
+    for (const { baseRoute, state } of routeMap) {
+      if (pathname.startsWith(baseRoute)) {
+        setSelected(state);
+        break; // Exit the loop once a match is found
+      }
     }
   }, [pathname]);
 
