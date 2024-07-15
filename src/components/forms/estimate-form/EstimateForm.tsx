@@ -66,6 +66,8 @@ const EstimateFormSchema = z.object({
 
 export type EstimateFormValues = z.infer<typeof EstimateFormSchema>;
 export type LineItemsValues = z.infer<typeof LineItemsSchema>;
+export type SaveStatus = "not-saved" | "saving" | "saved" | "error";
+export type SaveAndSentStatus = "not-saved" | "saving" | "saved" | "errror";
 
 const EstimateForm = ({
   estimate,
@@ -76,6 +78,11 @@ const EstimateForm = ({
 }: EstimateFormProps) => {
   // State
   const [tab, setTab] = useState<number>(0);
+  const [saveStatus, setSaveStatus] = useState<SaveStatus>("not-saved");
+  const [saveAndSaveStatus, setSaveAndSaveStatus] =
+    useState<SaveAndSentStatus>("not-saved");
+
+  console.log("testing customers...", customers);
 
   // Hooks
   const methods: UseFormReturn<EstimateFormValues> =
@@ -123,13 +130,8 @@ const EstimateForm = ({
     methods.setValue("total", total);
   }, [methods, total]);
 
-  console.log("loging customers", customers);
   useEffect(() => {
-    console.log(
-      "This log is testing if the `useGetCustomerUserId` hook is working correctly, customerUserId val: ",
-      customerUserId,
-    );
-    methods.setValue("customer_id", customerUserId!);
+    methods.setValue("customer_user_id", customerUserId!);
   }, [customerUserId, methods]);
 
   // Callbacks
@@ -144,6 +146,7 @@ const EstimateForm = ({
 
       // Fetchs
       if (mode === "new-estimate") {
+        setSaveStatus("saving");
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
@@ -157,10 +160,15 @@ const EstimateForm = ({
             }),
           },
         );
-        console.log("new estimate post res: ", res);
+        if (res.status === 200) {
+          setSaveStatus("saved");
+        } else {
+          setSaveStatus("saving");
+        }
       } else if (mode === "update-estimate") {
-        await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+        setSaveStatus("saving");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "PATCH",
             headers: {
@@ -169,9 +177,15 @@ const EstimateForm = ({
             body: JSON.stringify({
               ...data,
               customer_user_id,
+              status: "updated-estimate",
             }),
           },
         );
+        if (res.status === 200) {
+          setSaveStatus("saved");
+        } else {
+          setSaveStatus("saving");
+        }
       }
     },
     [estimate.contractor_user_id, estimate.id, mode],
@@ -225,6 +239,8 @@ const EstimateForm = ({
             setTab={setTab}
             tabsCount={changeOrders ? 3 : 2}
             save={save}
+            saveStatus={saveStatus}
+            mode={mode}
           />
         </form>
       </FormProvider>
