@@ -9,7 +9,7 @@ import { formatPriceString } from "@/utils/formatingFunctions";
 import { FaTrashAlt } from "react-icons/fa";
 import TextInput from "../inputs/TextInput";
 import MVLAutocomplete from "../inputs/MVLAutocomplete";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import useCalcAmount from "./hooks/useCalcAmount";
 import useCalcSubtotal from "./hooks/useCalcSubtotal";
 import MVLMoneyInput from "../inputs/MVLMoneyInput";
@@ -51,21 +51,21 @@ const LineItemFormField = ({
 
   return (
     <TableRow>
-      <TableCell className="align-top w-36 pr-2 pb-0 pl-0">
+      <TableCell className="align-top w-36 pr-2">
         <TextInput
           name={`lineItems.${index}.item` as const}
           label="Item Name"
           size="small"
         />
       </TableCell>
-      <TableCell className="align-top w-full px-2 pb-0">
+      <TableCell className="align-top w-full px-2">
         <TextInput
           name={`lineItems.${index}.description` as const}
           label="Item Description"
           size="small"
         />
       </TableCell>
-      <TableCell className="align-top w-32 px-2 pb-0">
+      <TableCell className="align-top w-32 px-2">
         <div
           className={`${getValues(`lineItems.${index}.rateType`) === "flat" ? "hidden" : "flex"} flex-col gap-1 justify-start items-start w-32`}
         >
@@ -76,7 +76,7 @@ const LineItemFormField = ({
           />
         </div>
       </TableCell>
-      <TableCell className="align-top w-[272px] px-2 pb-0">
+      <TableCell className="align-top w-[272px] px-2">
         <div className="flex gap-4">
           <div className="w-32">
             <MVLAutocomplete
@@ -102,10 +102,12 @@ const LineItemFormField = ({
           </div>
         </div>
       </TableCell>
-      <TableCell className="align-center px-2 pb-0">
-        <p>{formatPriceString(amount)}</p>
+      <TableCell className="align-center px-2">
+        <Typography variant="body1" color="#3e9c35">
+          {formatPriceString(amount)}
+        </Typography>
       </TableCell>
-      <TableCell className="align-top pl-2 pb-0 pr-0">
+      <TableCell className="align-top pl-2 pr-0">
         <div className="">
           <Button
             onClick={() => {

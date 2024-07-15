@@ -3,6 +3,7 @@ import { db } from "../../../../../db";
 import { eq } from "drizzle-orm";
 import Estimate from "@/components/pageComponents/estimates/Estimate";
 import { Estimates } from "@/types/estimates";
+import { Card } from "@mui/material";
 
 async function getData(id: number) {
   try {
@@ -29,7 +30,9 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   return (
     <main className="flex-1 p-4 min-h-screen">
-      <Estimate data={data} />
+      <Card sx={{ padding: "1rem", backgroundColor: "surfaceContainerLow" }}>
+        <Estimate estimate={data} />
+      </Card>
     </main>
   );
 };

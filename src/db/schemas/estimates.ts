@@ -8,7 +8,7 @@ import {
   text,
 } from "drizzle-orm/pg-core";
 import { users } from "./auth";
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import { customers } from "./customers";
 
 export const estimates = pgTable("estimates", {

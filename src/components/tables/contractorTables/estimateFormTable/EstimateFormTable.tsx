@@ -18,7 +18,7 @@ const EstimateFormTable = ({ fields, remove }: EstimateFormTableProps) => {
       <Table className="flex-1 w-full">
         <TableHeader>
           <TableRow>
-            <TableHead className="pr-2 pl-0">Item Name</TableHead>
+            <TableHead className="pr-2">Item Name</TableHead>
             <TableHead className="px-2">Item Description</TableHead>
             <TableHead className="px-2">Quantity</TableHead>
             <TableHead className="px-2">Rate</TableHead>

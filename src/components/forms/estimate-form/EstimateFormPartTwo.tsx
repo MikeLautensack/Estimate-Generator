@@ -64,11 +64,11 @@ const EstimateFormPartTwo = ({
   return (
     <div className="p-4 flex flex-col gap-2 desktop:gap-4 w-full">
       <TextInput name="estimateName" label="Estimate Name" />
-      <div className="flex flex-col gap-2 desktop:gap-4 w-full">
-        <div className="flex flex-col gap-2 desktop:gap-4 md:flex-row items-start pt-2 w-full">
+      <div className="flex flex-col w-full">
+        <div className="flex flex-col gap-2 desktop:gap-4 md:flex-row items-start pt-2 pb-4 w-full">
           <Box
             component="div"
-            className="flex flex-col gap-3 items-start w-full"
+            className="flex flex-col gap-4 items-start w-full"
           >
             <MVLReadOnlyInput
               label="Customer Name"
@@ -88,7 +88,7 @@ const EstimateFormPartTwo = ({
           </Box>
           <Box
             component="div"
-            className="flex flex-col gap-3 items-start w-full"
+            className="flex flex-col gap-4 items-start w-full"
           >
             <MVLReadOnlyInput
               label="Contractor Name"
