@@ -28,7 +28,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const data = (await getData(parseInt(params.id))) as Estimates;
 
   return (
-    <main className="flex-1 p-4 min-h-screen bg-neutral400">
+    <main className="flex-1 p-4 min-h-screen">
       <Estimate data={data} />
     </main>
   );

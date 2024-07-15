@@ -51,23 +51,23 @@ const LineItemFormField = ({
 
   return (
     <TableRow>
-      <TableCell className="align-top w-36">
+      <TableCell className="align-top w-36 pr-2 pb-0 pl-0">
         <TextInput
           name={`lineItems.${index}.item` as const}
           label="Item Name"
           size="small"
         />
       </TableCell>
-      <TableCell className="align-top w-full">
+      <TableCell className="align-top w-full px-2 pb-0">
         <TextInput
           name={`lineItems.${index}.description` as const}
           label="Item Description"
           size="small"
         />
       </TableCell>
-      <TableCell className="align-top w-24">
+      <TableCell className="align-top w-32 px-2 pb-0">
         <div
-          className={`${getValues(`lineItems.${index}.rateType`) === "flat" ? "hidden" : "flex"} flex-col gap-1 justify-start items-start w-24`}
+          className={`${getValues(`lineItems.${index}.rateType`) === "flat" ? "hidden" : "flex"} flex-col gap-1 justify-start items-start w-32`}
         >
           <MVLNumber
             name={`lineItems.${index}.quantity` as const}
@@ -76,24 +76,24 @@ const LineItemFormField = ({
           />
         </div>
       </TableCell>
-      <TableCell className="align-top w-56">
-        <div className="flex gap-8">
-          <div className="w-24">
+      <TableCell className="align-top w-[272px] px-2 pb-0">
+        <div className="flex gap-4">
+          <div className="w-32">
             <MVLAutocomplete
               name={`lineItems.${index}.rateType`}
               label="Rate Type"
               options={[
-                "Unit Rate",
-                "SQFT",
-                "LNFT",
-                "Hourly",
-                "Daily",
-                "Flat Rate",
+                { label: "Unit Rate" },
+                { label: "SQFT" },
+                { label: "LNFT" },
+                { label: "Hourly" },
+                { label: "Daily" },
+                { label: "Flat Rate" },
               ]}
               size="small"
             />
           </div>
-          <div className="flex flex-col gap-1 w-24">
+          <div className="flex flex-col gap-1 w-32">
             <MVLMoneyInput
               name={`lineItems.${index}.price` as const}
               label="Price"
@@ -102,10 +102,10 @@ const LineItemFormField = ({
           </div>
         </div>
       </TableCell>
-      <TableCell className="align-center">
+      <TableCell className="align-center px-2 pb-0">
         <p>{formatPriceString(amount)}</p>
       </TableCell>
-      <TableCell className="align-top">
+      <TableCell className="align-top pl-2 pb-0 pr-0">
         <div className="">
           <Button
             onClick={() => {

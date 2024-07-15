@@ -61,69 +61,62 @@ const Page = async ({ params }: { params: { id: string } }) => {
   )) as ChangeOrder[];
 
   return (
-    <main className="flex flex-col desktop:w-[calc(100vw-256px)] desktop:flex-row-reverse gap-4 min-h-[calc(100vh-56px)] relative desktop:gap-0">
-      {checkChangeOrders(changeOrders) ? (
-        <ChangeOrderRequests changeOrders={createArray(changeOrders)} />
-      ) : (
-        <></>
-      )}
-      <div className="flex flex-col gap-4 w-full desktop:w-[calc(100%-24rem)] p-4">
-        <Typography variant="h4" color="primary">
-          Estimate Form
-        </Typography>
-        <EstimateForm
-          estimate={{
-            id: estimate.id.toString(),
-            estimateName: estimate.estimateName ? estimate.estimateName : "",
-            customerName: estimate.customerName ? estimate.customerName : "",
-            customerEmail: estimate.customerEmail ? estimate.customerEmail : "",
-            projectAddress: estimate.projectAddress
-              ? estimate.projectAddress
-              : "",
-            contractorName: estimate.contractorName
-              ? estimate.contractorName
-              : "",
-            contractorAddress: estimate.contractorAddress
-              ? estimate.contractorAddress
-              : "",
-            contractorPhone: estimate.contractorPhone
-              ? estimate.contractorPhone
-              : "",
-            lineItems: estimate.lineItems
-              ? estimate.lineItems.map((item) => {
-                  return {
-                    id: item.id.toString(),
-                    item: item.item || "",
-                    description: item.description || "",
-                    quantity: item.quantity ? item.quantity.toString() : "0",
-                    rateType: item.rateType || "",
-                    price: item.price ? item.price.toString() : "0",
-                    amount: item.amount ? item.amount.toString() : "0",
-                  };
-                })
-              : [],
-            message: estimate.message ? estimate.message : "",
-            subtotal: estimate.subtotal ? estimate.subtotal.toString() : "0",
-            taxRate: estimate.taxRate ? estimate.taxRate.toString() : "0",
-            tax: estimate.tax ? estimate.tax.toString() : "0",
-            total: estimate.total ? estimate.total.toString() : "0",
-            status: estimate.status ? estimate.status : "",
-            customer_id: estimate.customer_id
-              ? estimate.customer_id.toString()
-              : "",
-            customer_user_id: estimate.customer_user_id
-              ? estimate.customer_user_id
-              : "",
-            contractor_user_id: estimate.contractor_user_id
-              ? estimate.contractor_user_id
-              : "",
-          }}
-          customers={customers}
-          profile={profile[0]}
-          changeOrders={changeOrders}
-          mode="update-estimate"
-        />
-      </div>
+    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start gap-4 w-full lg:w-[calc(100vw-258px)]">
+      <Typography variant="h4" color="primary">
+        Estimate Form
+      </Typography>
+      <EstimateForm
+        estimate={{
+          id: estimate.id.toString(),
+          estimateName: estimate.estimateName ? estimate.estimateName : "",
+          customerName: estimate.customerName ? estimate.customerName : "",
+          customerEmail: estimate.customerEmail ? estimate.customerEmail : "",
+          projectAddress: estimate.projectAddress
+            ? estimate.projectAddress
+            : "",
+          contractorName: estimate.contractorName
+            ? estimate.contractorName
+            : "",
+          contractorAddress: estimate.contractorAddress
+            ? estimate.contractorAddress
+            : "",
+          contractorPhone: estimate.contractorPhone
+            ? estimate.contractorPhone
+            : "",
+          lineItems: estimate.lineItems
+            ? estimate.lineItems.map((item) => {
+                return {
+                  id: item.id.toString(),
+                  item: item.item || "",
+                  description: item.description || "",
+                  quantity: item.quantity ? item.quantity.toString() : "0",
+                  rateType: item.rateType || "",
+                  price: item.price ? item.price.toString() : "0",
+                  amount: item.amount ? item.amount.toString() : "0",
+                };
+              })
+            : [],
+          message: estimate.message ? estimate.message : "",
+          subtotal: estimate.subtotal ? estimate.subtotal.toString() : "0",
+          taxRate: estimate.taxRate ? estimate.taxRate.toString() : "0",
+          tax: estimate.tax ? estimate.tax.toString() : "0",
+          total: estimate.total ? estimate.total.toString() : "0",
+          status: estimate.status ? estimate.status : "",
+          customer_id: estimate.customer_id
+            ? estimate.customer_id.toString()
+            : "",
+          customer_user_id: estimate.customer_user_id
+            ? estimate.customer_user_id
+            : "",
+          contractor_user_id: estimate.contractor_user_id
+            ? estimate.contractor_user_id
+            : "",
+        }}
+        customers={customers}
+        profile={profile[0]}
+        changeOrders={changeOrders}
+        mode="update-estimate"
+      />
     </main>
   );
 };

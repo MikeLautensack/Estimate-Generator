@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { customerFormProps } from "../../../types/formTypes";
 import { Customers } from "@/types/customers";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

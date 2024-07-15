@@ -1,7 +1,7 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import React, { SetStateAction } from "react";
 import { SubmitHandler, useFormContext } from "react-hook-form";
-import { EstimateFormValues } from "./EstimateForm";
+import { EstimateFormValues, SaveStatus } from "./EstimateForm";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import useConditionalNextButton from "./hooks/useConditionalNextButton";
@@ -11,6 +11,8 @@ type EstimateFormButtonsProps = {
   setTab: React.Dispatch<SetStateAction<number>>;
   tabsCount: number;
   save: SubmitHandler<EstimateFormValues>;
+  saveStatus: SaveStatus;
+  mode: "new-estimate" | "update-estimate";
 };
 
 const EstimateFormButtons = ({
@@ -18,6 +20,8 @@ const EstimateFormButtons = ({
   setTab,
   tabsCount,
   save,
+  saveStatus,
+  mode,
 }: EstimateFormButtonsProps) => {
   // Hooks
   const { handleSubmit } = useFormContext<EstimateFormValues>();
@@ -30,7 +34,6 @@ const EstimateFormButtons = ({
     >
       {tab !== 0 && (
         <Button
-          type="submit"
           variant="contained"
           className="w-full"
           onClick={() => setTab(tab - 1)}
@@ -47,15 +50,36 @@ const EstimateFormButtons = ({
         onClick={handleSubmit(save)}
         variant="contained"
         className="w-full"
+        color={
+          saveStatus === "error"
+            ? "error"
+            : saveStatus === "saved"
+              ? "success"
+              : "primary"
+        }
       >
-        Save
+        {mode === "new-estimate" && saveStatus === "not-saved" ? (
+          <Typography variant="button">Save New Estimate</Typography>
+        ) : mode === "update-estimate" && saveStatus === "not-saved" ? (
+          <Typography variant="button">Update Estimate</Typography>
+        ) : saveStatus === "saving" ? (
+          <CircularProgress sx={{ color: "#001824" }} />
+        ) : saveStatus === "error" ? (
+          <Typography variant="button">Error</Typography>
+        ) : mode === "new-estimate" && saveStatus === "saved" ? (
+          <Typography variant="button">New Estimate Saved!</Typography>
+        ) : (
+          mode === "update-estimate" &&
+          saveStatus === "saved" && (
+            <Typography variant="button">Estimate Updated!</Typography>
+          )
+        )}
       </Button>
       <Button type="submit" variant="contained" className="w-full">
         Save & Send
       </Button>
       {isLastTab && (
         <Button
-          type="submit"
           variant="contained"
           className="w-full"
           onClick={() => setTab(tab + 1)}

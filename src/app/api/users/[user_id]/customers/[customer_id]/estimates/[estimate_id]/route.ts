@@ -16,7 +16,7 @@ export async function POST(
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json());
+  const bodyData = await request.json();
 
   // Get session
   const session = await auth();
@@ -75,9 +75,7 @@ export async function POST(
   // Insert lineitems data
   try {
     await db.insert(lineItems).values(lineItemsArr!);
-    console.log("lineItems ____");
   } catch (error: any) {
-    console.log("lineitems", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
