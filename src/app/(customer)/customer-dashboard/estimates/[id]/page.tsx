@@ -29,7 +29,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
   return (
     <main className="bg-gradient-to-br from-primary200 to-secondary200 flex-1 p-8 min-h-screen">
-      <Estimate data={data} />
+      <Estimate estimate={data} />
     </main>
   );
 };

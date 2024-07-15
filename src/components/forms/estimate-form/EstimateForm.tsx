@@ -208,7 +208,9 @@ const EstimateForm = ({
           >
             <Tab label="1. Customer & Contact Info" {...a11yProps(0)} />
             <Tab label="2. Estimate Info" {...a11yProps(1)} />
-            {changeOrders && <Tab label="3. Change Orders" {...a11yProps(2)} />}
+            {changeOrders && changeOrders?.length !== 0 && (
+              <Tab label="3. Change Orders" {...a11yProps(2)} />
+            )}
           </Tabs>
           <CustomTabPanel value={tab} index={0}>
             <EstimateFormPartOne customers={customers} />
@@ -229,7 +231,7 @@ const EstimateForm = ({
               mode={mode}
             />
           </CustomTabPanel>
-          {changeOrders && (
+          {changeOrders && changeOrders?.length !== 0 && (
             <CustomTabPanel value={tab} index={2}>
               <EstimateFormChangeOrdersTab changeOrders={changeOrders} />
             </CustomTabPanel>
@@ -237,7 +239,7 @@ const EstimateForm = ({
           <EstimateFormButtons
             tab={tab}
             setTab={setTab}
-            tabsCount={changeOrders ? 3 : 2}
+            tabsCount={changeOrders && changeOrders.length !== 0 ? 3 : 2}
             save={save}
             saveStatus={saveStatus}
             mode={mode}
