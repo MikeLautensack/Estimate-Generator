@@ -6,6 +6,7 @@ export const changeOrders = pgTable("changeOrders", {
   id: bigint("id", { mode: "number" }).notNull().primaryKey(),
   contractor_user_id: bigint("contractor_user_id", { mode: "number" }),
   customer_user_id: bigint("customer_user_id", { mode: "number" }),
+  customer_id: bigint("customer_id", { mode: "number" }),
   estimate_id: bigint("estimate_id", { mode: "number" }),
   changeOrderName: varchar("change_order_name", { length: 255 }),
   customerName: varchar("customer_name", { length: 255 }),

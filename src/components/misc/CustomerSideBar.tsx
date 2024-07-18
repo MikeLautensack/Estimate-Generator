@@ -1,10 +1,9 @@
 "use client";
 
-import { signOut } from "next-auth/react";
-import SideBarNav from "./SideBarNav";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import CustomerSideBarNav from "./CustomerSideBarNav";
 
-const SideBar = () => {
+const CustomerSideBar = () => {
   return (
     <Box
       component="div"
@@ -23,16 +22,10 @@ const SideBar = () => {
         <Typography color="primary" className="">
           Estimate Generator
         </Typography>
-        <SideBarNav className="" />
+        <CustomerSideBarNav />
       </div>
-      <Button
-        onClick={() => signOut({ callbackUrl: process.env.NEXT_PUBLIC_HOST })}
-        variant="contained"
-      >
-        Sign Out
-      </Button>
     </Box>
   );
 };
 
-export default SideBar;
+export default CustomerSideBar;

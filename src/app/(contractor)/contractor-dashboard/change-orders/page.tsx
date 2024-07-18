@@ -7,7 +7,7 @@ export default async function page() {
   const session = await auth();
   if (!session) return redirect("/signin");
   return (
-    <main className="p-4 flex-grow">
+    <main className="flex flex-col gap-4 justify-start items-start p-8 w-full">
       <Typography variant="h4" color="primary" className="">
         Change Orders
       </Typography>
