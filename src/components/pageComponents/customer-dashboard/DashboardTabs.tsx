@@ -40,7 +40,10 @@ const DashboardTabs = ({ estimates, changeOrders }: DashboardTabsProps) => {
         {...other}
       >
         {value === index && (
-          <Box sx={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
+          <Box
+            component="div"
+            sx={{ paddingTop: "1rem", paddingBottom: "1rem" }}
+          >
             {children}
           </Box>
         )}
@@ -49,8 +52,8 @@ const DashboardTabs = ({ estimates, changeOrders }: DashboardTabsProps) => {
   }
 
   return (
-    <Box components="div" className="flex flex-col">
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+    <Box component="div" className="flex flex-col">
+      <Box component="div" sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
           onChange={(event: React.SyntheticEvent, newValue: number) =>

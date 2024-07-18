@@ -18,39 +18,39 @@ const sendVerificationRequest = async (params: any) => {
 
   const resend = new Resend(process.env.EMAIL_KEY);
 
-  let react = NewCustomerEmail;
+  // let react = NewCustomerEmail;
 
-  switch (emailType) {
-    case "new-customer":
-      react = NewCustomerEmail;
-      break;
-    case "new-estimate":
-      react = NewEstimateEmail;
-      break;
-    case "updated-estimate":
-      react = UpdatedEstimateEmail;
-      break;
-  }
+  // switch (emailType) {
+  //   case "new-customer":
+  //     react = NewCustomerEmail;
+  //     break;
+  //   case "new-estimate":
+  //     react = NewEstimateEmail;
+  //     break;
+  //   case "updated-estimate":
+  //     react = UpdatedEstimateEmail;
+  //     break;
+  // }
 
   try {
-    await resend.emails.send({
-      from: `... <onboarding@resend.dev>`,
-      to: identifier,
-      subject:
-        emailType === "new-customer"
-          ? `${contractorName} has added you as a new customer`
-          : emailType === "new-estimate"
-            ? `${contractorName} has created a new estimate for you`
-            : emailType === "updated-estimate"
-              ? `${contractorName} has updated one of your estimates`
-              : `New email from ${contractorName}`,
-      react: react({
-        url: url,
-        host: host,
-        customerName: customerName!,
-        contractorName: contractorName!,
-      }),
-    });
+    // await resend.emails.send({
+    //   from: `... <onboarding@resend.dev>`,
+    //   to: identifier,
+    //   subject:
+    //     emailType === "new-customer"
+    //       ? `${contractorName} has added you as a new customer`
+    //       : emailType === "new-estimate"
+    //         ? `${contractorName} has created a new estimate for you`
+    //         : emailType === "updated-estimate"
+    //           ? `${contractorName} has updated one of your estimates`
+    //           : `New email from ${contractorName}`,
+    //   react: react({
+    //     url: url,
+    //     host: host,
+    //     customerName: customerName!,
+    //     contractorName: contractorName!,
+    //   }),
+    // });
   } catch (error: any) {
     throw new Error("Failed to send the verification email.", error);
   }
