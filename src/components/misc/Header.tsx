@@ -10,7 +10,7 @@ const Header = async () => {
 
   return (
     <Box
-      className="flex px-8 justify-between items-center h-14 sticky w-full z-10 top-0"
+      className="flex px-4 justify-between items-center h-14 sticky w-full z-10 top-0"
       component="div"
       sx={{
         backgroundColor: "surfaceContainer",

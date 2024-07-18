@@ -22,6 +22,7 @@ import { z } from "zod";
 import useCalcTotal from "./hooks/useCalcTotal";
 import EstimateFormButtons from "./EstimateFormButtons";
 import useGetCustomerUserId from "./hooks/useGetCustomerUserId";
+import { sendAuthEmail } from "@/utils/sendAuthEmail";
 
 export type EstimateFormProps = {
   estimate: EstimateFormValues;
@@ -67,7 +68,12 @@ const EstimateFormSchema = z.object({
 export type EstimateFormValues = z.infer<typeof EstimateFormSchema>;
 export type LineItemsValues = z.infer<typeof LineItemsSchema>;
 export type SaveStatus = "not-saved" | "saving" | "saved" | "error";
-export type SaveAndSentStatus = "not-saved" | "saving" | "saved" | "errror";
+export type SaveAndSentStatus =
+  | "not-saved"
+  | "saving"
+  | "saved"
+  | "sending"
+  | "error";
 
 const EstimateForm = ({
   estimate,
@@ -81,8 +87,6 @@ const EstimateForm = ({
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("not-saved");
   const [saveAndSaveStatus, setSaveAndSaveStatus] =
     useState<SaveAndSentStatus>("not-saved");
-
-  console.log("testing customers...", customers);
 
   // Hooks
   const methods: UseFormReturn<EstimateFormValues> =
@@ -163,7 +167,7 @@ const EstimateForm = ({
         if (res.status === 200) {
           setSaveStatus("saved");
         } else {
-          setSaveStatus("saving");
+          setSaveStatus("error");
         }
       } else if (mode === "update-estimate") {
         setSaveStatus("saving");
@@ -184,13 +188,85 @@ const EstimateForm = ({
         if (res.status === 200) {
           setSaveStatus("saved");
         } else {
-          setSaveStatus("saving");
+          setSaveStatus("error");
         }
       }
     },
     [estimate.contractor_user_id, estimate.id, mode],
   );
-  const saveAndSend = useCallback(() => {}, []);
+  const saveAndSend: SubmitHandler<EstimateFormValues> = useCallback(
+    async (data) => {
+      console.log("save callback data log", data);
+      // IDs
+      const USER_ID = estimate.contractor_user_id;
+      const ESTIMATE_ID = estimate.id;
+      const CUSTOMER_ID = data.customer_id;
+      const customer_user_id = data.customer_user_id;
+
+      // Fetchs
+      if (mode === "new-estimate") {
+        setSaveAndSaveStatus("saving");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...data,
+              customer_user_id,
+            }),
+          },
+        );
+        if (res.status === 200) {
+          setSaveAndSaveStatus("sending");
+          const emailRes = sendAuthEmail(
+            data.customerEmail,
+            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${data.customerName}&contractor-name=${data.contractorName}&redirect-flag=new-estimate&estimate-id=${data.id}`,
+            false,
+          );
+          console.log(
+            "testing emailRes in saveAndSend callback (new estimate)",
+            emailRes,
+          );
+        } else {
+          setSaveAndSaveStatus("error");
+        }
+      } else if (mode === "update-estimate") {
+        setSaveAndSaveStatus("saving");
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...data,
+              customer_user_id,
+              status: "updated-estimate",
+            }),
+          },
+        );
+        if (res.status === 200) {
+          setSaveAndSaveStatus("sending");
+          const emailRes = sendAuthEmail(
+            data.customerEmail,
+            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=updated-estimate&customer-name=${data.customerName}&contractor-name=${data.contractorName}&redirect-flag=updated-estimate&estimate-id=${data.id}`,
+            false,
+          );
+          console.log(
+            "testing emailRes in saveAndSend callback (updated estimate)",
+            emailRes,
+          );
+        } else {
+          setSaveAndSaveStatus("error");
+        }
+      }
+    },
+    [estimate.contractor_user_id, estimate.id, mode],
+  );
   const preview = useCallback(() => {}, []);
 
   return (
@@ -241,7 +317,9 @@ const EstimateForm = ({
             setTab={setTab}
             tabsCount={changeOrders && changeOrders.length !== 0 ? 3 : 2}
             save={save}
+            saveAndSend={saveAndSend}
             saveStatus={saveStatus}
+            saveAndSaveStatus={saveAndSaveStatus}
             mode={mode}
           />
         </form>

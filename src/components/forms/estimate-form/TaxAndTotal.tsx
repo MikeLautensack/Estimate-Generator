@@ -44,7 +44,7 @@ const TaxAndTotal = () => {
         <MVLPercent label="Tax Rate" size="small" name="taxRate" />
       </div>
       <div className="w-44">
-        <MVLMoneyInput label="Tax" size="small" name="tax" />
+        <MVLMoneyInput label="Tax" size="small" name="tax" readonly={true} />
       </div>
       <div className="w-44">
         <MVLMoneyInput

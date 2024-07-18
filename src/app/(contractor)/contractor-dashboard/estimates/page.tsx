@@ -8,6 +8,7 @@ import { eq } from "drizzle-orm";
 import { auth } from "../../../../../auth";
 import { redirect } from "next/navigation";
 import { Button, Typography } from "@mui/material";
+import ContractorEstimatesTable from "@/components/tables/contractorTables/estimatesTable/ContractorEstimatesTable";
 
 async function getData(session: any) {
   const res = await db
@@ -34,7 +35,7 @@ export default async function Page() {
           New Estimate
         </Button>
       </Link>
-      <EstimatesTable columns={columns} data={data} />
+      <ContractorEstimatesTable estimates={data} />
     </main>
   );
 }

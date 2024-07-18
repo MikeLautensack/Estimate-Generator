@@ -26,7 +26,7 @@ const Page = async () => {
           <TotalEstimateEmails />
         </div>
         <div className="grid gap-4 tablet:grid-cols-2 flex-1">
-          <EstimateStatusChartContainer />
+          {/* <EstimateStatusChartContainer /> */}
           <EstimatePriceChartContainer />
           <HighProfitCustomersChartContainer />
           <EstimateStatsGraph />

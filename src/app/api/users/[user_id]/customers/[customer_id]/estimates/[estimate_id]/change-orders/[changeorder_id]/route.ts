@@ -36,12 +36,13 @@ export async function POST(
       contractor_user_id: parseInt(params.user_id),
       customer_user_id: bodyData.customer_user_id,
       estimate_id: parseInt(params.estimate_id),
+      customer_id: parseInt(params.customer_id),
       changeOrderName: bodyData.changeOrderName,
       customerName: bodyData.customerName,
       description: bodyData.description,
       estimateName: bodyData.estimateName,
       projectAddress: bodyData.projectAddress,
-      status: "Pending Approval",
+      status: bodyData.status,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -89,6 +90,7 @@ export async function PATCH(
       changeOrderName: bodyData.changeOrderName,
       description: bodyData.description,
       updatedAt: new Date(),
+      status: bodyData.status,
     };
     await db
       .update(changeOrders)
