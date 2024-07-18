@@ -5,7 +5,6 @@ import { Roboto } from "next/font/google";
 import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ThemeProviderWrapper from "@/contexts/ThemeProviderWrapper";
-import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { Paper } from "@mui/material";
 
 export const metadata: Metadata = {
@@ -28,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.className}>
       <body className="min-h-screen">
-        <InitColorSchemeScript />
+        {/* <InitColorSchemeScript /> */}
         <AppRouterCacheProvider>
           <ThemeProviderWrapper>
             <Paper square sx={{ backgroundColor: "surface" }}>
