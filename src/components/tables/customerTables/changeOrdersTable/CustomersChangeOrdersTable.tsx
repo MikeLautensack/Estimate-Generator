@@ -35,7 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 type EstimateFormChangeOrdersTableProps = {
-  changeOrders: ChangeOrder[];
+  changeOrders: any[];
 };
 
 const EstimateFormChangeOrdersTable = ({
