@@ -35,8 +35,16 @@ const MVLMoneyInput = ({
       decimalScale={2}
       fixedDecimalScale={true}
       thousandSeparator
-      // valueIsNumericString
+      valueIsNumericString
       size={size}
+      sx={{ backgroundColor: "surfaceContainerHighest" }}
+      fullWidth
+      slotProps={{
+        input: {
+          readOnly: readonly,
+          startAdornment: <InputAdornment position="start">$</InputAdornment>,
+        },
+      }}
       {...field}
     />
   );
