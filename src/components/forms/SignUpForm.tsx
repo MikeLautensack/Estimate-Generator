@@ -46,7 +46,9 @@ const SignUpForm = () => {
             </div>
             <Button variant="text">Forgot Password?</Button>
           </div>
-          <Button variant="contained">Sign Up FREE</Button>
+          <Button variant="contained" type="submit">
+            Sign Up FREE
+          </Button>
           <Divider
             flexItem
             sx={{ color: "outlineVariant", borderWidth: "1px" }}

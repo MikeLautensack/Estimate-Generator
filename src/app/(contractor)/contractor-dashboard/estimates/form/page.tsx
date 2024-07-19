@@ -5,9 +5,14 @@ import { eq } from "drizzle-orm";
 import { auth } from "../../../../../../auth";
 import { Typography } from "@mui/material";
 import EstimateForm from "@/components/forms/estimate-form/EstimateForm";
+import { Session } from "next-auth";
+import { generateNumericId } from "@/utils/generateRandom";
 
-async function getCustomers() {
-  const res = await db.select().from(customers);
+async function getCustomers(session: Session) {
+  const res = await db
+    .select()
+    .from(customers)
+    .where(eq(customers.contractor_user_id, session?.user.id));
   return res;
 }
 
@@ -21,18 +26,22 @@ async function getProfile() {
 }
 
 const Page = async () => {
-  const customers = await getCustomers();
+  const session = await auth();
+  const customers = await getCustomers(session!);
   const profile = await getProfile();
 
+  const newEstimateId = generateNumericId();
+  const newLineItemId = generateNumericId();
+
   return (
-    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start gap-4  w-full lg:w-[calc(100vw-258px)]">
+    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start gap-4 w-full lg:w-[calc(100vw-258px)]">
       <Typography variant="h4" color="primary">
         Estimate Form
       </Typography>
       <div className="flex justify-center items-center flex-1 w-full">
         <EstimateForm
           estimate={{
-            id: 0,
+            id: newEstimateId.toString(),
             estimateName: "",
             customerName: "",
             customerEmail: "",
@@ -40,21 +49,30 @@ const Page = async () => {
             contractorName: "",
             contractorAddress: "",
             contractorPhone: "",
-            lineItems: [],
+            lineItems: [
+              {
+                id: newLineItemId.toString(),
+                item: "",
+                description: "",
+                quantity: "0",
+                rateType: "Unit",
+                price: "0",
+                amount: "0",
+              },
+            ],
             message: "",
-            subtotal: 0,
-            taxRate: 0,
-            tax: 0,
-            total: 0,
-            status: "",
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            customer_id: 0,
+            subtotal: "0",
+            taxRate: "7",
+            tax: "",
+            total: "0",
+            status: "new-estimate",
+            customer_id: "",
             customer_user_id: "",
-            contractor_user_id: "",
+            contractor_user_id: session?.user.id,
           }}
           customers={customers}
           profile={profile[0]}
+          mode="new-estimate"
         />
       </div>
     </main>

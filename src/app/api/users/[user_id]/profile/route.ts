@@ -7,10 +7,11 @@ import { auth } from "../../../../../../auth";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: { user_id: string } },
 ) {
   // Get request body data
-  const bodyData = await request.json() as Profile;
+  const bodyData = (await request.json()) as Profile;
+  console.log("testing profile 1", bodyData);
 
   // Get session
   const session = await auth();
@@ -21,15 +22,16 @@ export async function POST(
   }
 
   // Check id is valid
-  if (params.id.length !== 8) {
+  if (params.user_id.length !== 8) {
     return NextResponse.json({ error: "Invalid id" }, { status: 400 });
   }
+  console.log("testing profile 2");
 
   // Create profile resource
   try {
     const profile = {
       id: Math.floor(Math.random() * 100000000),
-      user_id: params.id,
+      user_id: params.user_id,
       businessAddress: bodyData.businessAddress,
       businessEmail: bodyData.businessEmail,
       businessName: bodyData.businessName,
@@ -52,7 +54,7 @@ export async function PATCH(
   { params }: { params: { id: string } },
 ) {
   // Get request body data
-  const bodyData = await request.json() as Profile;
+  const bodyData = (await request.json()) as Profile;
 
   // Get session
   const session = await auth();

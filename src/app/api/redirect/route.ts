@@ -9,37 +9,37 @@ export async function GET(request: NextRequest) {
   const id = searchParams.get("estimate-id");
   const newUser = searchParams.get("newUser");
 
-  console.log("testing_*_**__*_*_*_*_*_**__**_*", flag, id, newUser);
-
   if (session?.user.role === "admin") {
     return NextResponse.redirect(
-      new URL("http://localhost:3000/admin-dashboard"),
+      new URL(`${process.env.NEXT_PUBLIC_HOST}admin-dashboard`),
     );
   } else if (session?.user.role === "contractor") {
     if (newUser === "true") {
       return NextResponse.redirect(
-        new URL("http://localhost:3000/new-user/create-profile"),
+        new URL(
+          `${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/new-contractor-profile`,
+        ),
       );
     } else {
       return NextResponse.redirect(
-        new URL("http://localhost:3000/contractor-dashboard"),
+        new URL(`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard`),
       );
     }
   } else if (session?.user.role === "customer") {
     if (flag == "new-customer") {
       return NextResponse.redirect(
-        new URL("http://localhost:3000/customer-dashboard"),
+        new URL(`${process.env.NEXT_PUBLIC_HOST}customer-dashboard`),
       );
     } else if (flag == "new-estimate") {
       return NextResponse.redirect(
         new URL(
-          `http://localhost:3000/customer-dashboard/estimates/${id as string}`,
+          `${process.env.NEXT_PUBLIC_HOST}customer-dashboard/estimates/${id as string}`,
         ),
       );
     } else if (flag == "updated-estimate") {
       return NextResponse.redirect(
         new URL(
-          `http://localhost:3000/customer-dashboard/estimates/${id as string}`,
+          `${process.env.NEXT_PUBLIC_HOST}customer-dashboard/estimates/${id as string}`,
         ),
       );
     }

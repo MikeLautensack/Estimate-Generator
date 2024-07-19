@@ -1,5 +1,3 @@
-import CustomersTable from "@/components/tables/contractorTables/customersTable/CustomersTable";
-import { columns } from "@/components/tables/contractorTables/customersTable/columns";
 import { customers } from "../../../../db/schemas/customers";
 import { db } from "../../../../db";
 import { eq } from "drizzle-orm";
@@ -9,6 +7,7 @@ import { Customers } from "@/types/customers";
 import { auth } from "../../../../../auth";
 import { redirect } from "next/navigation";
 import { Button, Typography } from "@mui/material";
+import ContractorsCustomersTable from "@/components/tables/contractorTables/customersTable/ContractorsCustomersTable";
 
 async function getData(session: Session) {
   const res = await db
@@ -35,7 +34,7 @@ const Page = async () => {
           New Customer
         </Button>
       </Link>
-      <CustomersTable columns={columns} data={data} />
+      <ContractorsCustomersTable customers={data} />
     </main>
   );
 };

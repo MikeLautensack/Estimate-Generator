@@ -9,7 +9,7 @@ const UserNav = () => {
       id="contractor-dashboard-nav"
       className="flex justify-center items-center gap-2"
     >
-      <NotificationsMenu />
+      {/* <NotificationsMenu /> */}
       <AccountMenu />
       <DarkModeSwitch />
     </div>

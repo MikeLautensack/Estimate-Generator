@@ -6,9 +6,15 @@ type TextInputProps = {
   name: string;
   label?: string;
   size?: any;
+  readonly?: boolean;
 };
 
-const TextInput = ({ name, label, size }: TextInputProps) => {
+const TextInput = ({
+  name,
+  label,
+  size = "normal",
+  readonly,
+}: TextInputProps) => {
   // Hooks
   const {
     control,
@@ -27,6 +33,11 @@ const TextInput = ({ name, label, size }: TextInputProps) => {
       label={label}
       fullWidth
       size={size}
+      slotProps={{
+        input: {
+          readOnly: readonly,
+        },
+      }}
       {...field}
     />
   );
