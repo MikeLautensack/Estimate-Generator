@@ -103,7 +103,7 @@ const LineItemFormField = ({
         </div>
       </TableCell>
       <TableCell className="align-center px-2">
-        <Typography variant="body1" color="#3e9c35">
+        <Typography variant="body1" color="#3e9c35" noWrap>
           {formatPriceString(amount)}
         </Typography>
       </TableCell>
