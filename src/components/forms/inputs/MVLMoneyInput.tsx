@@ -35,7 +35,7 @@ const MVLMoneyInput = ({
       decimalScale={2}
       fixedDecimalScale={true}
       thousandSeparator
-      valueIsNumericString
+      // valueIsNumericString
       size={size}
       {...field}
     />
