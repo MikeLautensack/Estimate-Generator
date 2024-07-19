@@ -7,6 +7,8 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ThemeProviderWrapper from "@/contexts/ThemeProviderWrapper";
 import { Paper } from "@mui/material";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: "Estimate Generator",
@@ -37,6 +39,8 @@ export default function RootLayout({
             </Paper>
           </ThemeProviderWrapper>
         </AppRouterCacheProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
