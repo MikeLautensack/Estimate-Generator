@@ -1,5 +1,3 @@
-import { sendEmail } from "@/actions/emailActions";
-
 const sendVerificationRequest = async (params: any) => {
   const { identifier, url } = params;
 
@@ -40,7 +38,7 @@ const sendVerificationRequest = async (params: any) => {
     console.log("Response from /api/emails", res);
   } catch (error: any) {
     throw new Error(
-      `Failed to send the verification email.  Error: ${error}`,
+      `Failed to send the verification email.  Error: ${error.message}`,
       error,
     );
   }
