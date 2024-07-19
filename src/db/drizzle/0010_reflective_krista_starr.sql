@@ -1,0 +1,1 @@
+ALTER TABLE "changeOrders" ADD COLUMN "customer_id" bigint;

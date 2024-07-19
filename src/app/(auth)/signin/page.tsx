@@ -1,9 +1,15 @@
+import { Suspense } from "react";
 import SignInForm from "../../../components/forms/SignInForm";
+import { Card } from "@mui/material";
 
-const Page = () => {
+const Page = async () => {
   return (
-    <main className="flex justify-center items-center h-screen bg-blue-400 w-full">
-      <SignInForm />
+    <main className="flex justify-center items-center w-full">
+      <Suspense fallback={<>Loading...</>}>
+        <Card sx={{ backgroundColor: "surfaceContainerLow" }}>
+          <SignInForm />
+        </Card>
+      </Suspense>
     </main>
   );
 };

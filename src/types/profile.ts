@@ -4,7 +4,8 @@ export type Profile = {
   businessAddress: string;
   businessEmail: string;
   businessPhone: string;
-  dateCreated: Date;
-  dateUpdated: Date;
-  user_id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  user_id: string;
 };

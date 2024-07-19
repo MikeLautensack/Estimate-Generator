@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { customers } from "@/db/schemas/customers";
+import { Card } from "@mui/material";
 
 async function getData() {
   try {
@@ -14,9 +15,12 @@ export default async function TotalCustomers() {
   const data = await getData();
 
   return (
-    <div className="flex justify-between items-center p-4 rounded-lg bg-neutral100">
+    <Card
+      sx={{ backgroundColor: "surfaceContainerLow" }}
+      className="flex justify-between items-center p-4 rounded-lg"
+    >
       <h1>Total Customers</h1>
       <h2>{data?.length}</h2>
-    </div>
+    </Card>
   );
 }

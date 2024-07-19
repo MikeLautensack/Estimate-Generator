@@ -60,8 +60,8 @@ export default function CustomersTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border-4 border-purple-500 bg-neutral100">
-        <Table className="relative border-4 border-pink-500">
+      <div className="rounded-md border">
+        <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headersGroup) => (
               <TableRow key={headersGroup.id}>

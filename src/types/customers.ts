@@ -5,14 +5,10 @@ export type Customers = {
   email: string;
   phone: string;
   password?: string;
-  dateCreated: Date;
-  dateUpdated: Date;
+  createdAt: Date;
+  updatedAt: Date;
   contractor_user_id: number;
   customer_user_id: string;
-};
-
-export type CustomerForm = {
-  data: Customers;
 };
 
 export type createUserAccountAction = {
@@ -20,7 +16,7 @@ export type createUserAccountAction = {
   name: string;
   email: string;
   password: string;
-  dateCreated: Date;
-  dateUpdated: Date;
+  createdAt: Date;
+  updatedAt: Date;
   role: string;
 };

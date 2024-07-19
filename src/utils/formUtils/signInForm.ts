@@ -7,7 +7,7 @@ const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     email: data.email,
     password: data.password,
     redirect: true,
-    callbackUrl: process.env["NEXT_PUBLIC_SIGN_IN_CALLBACK_URL"],
+    callbackUrl: `${process.env.NEXT_PUBLIC_HOST}api/redirect`,
   });
 };
 

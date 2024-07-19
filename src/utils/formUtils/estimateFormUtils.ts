@@ -18,8 +18,8 @@ const preview = () => async () => {
   // }
 };
 
-const save = () => {
-  console.log("save");
+const save = (data: any) => {
+  console.log("save", data);
 };
 
 const saveAndSend = () => {
@@ -33,11 +33,14 @@ const onSubmit =
       customers,
       data.customer_id as number,
     );
+    const USER_ID = estimate.contractor_user_id;
+    const CUSTOMER_ID = estimate.customer_id;
+    const ESTIMATE_ID = estimate.id;
     if (estimate) {
       await fetch(
-        `${process.env["NEXT_PUBLIC_ESTIMATES_EDIT_URL"] as string}/${estimate.id}`,
+        `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -49,7 +52,7 @@ const onSubmit =
       );
     } else {
       await fetch(
-        `${process.env["NEXT_PUBLIC_ESTIMATES_CREATE_URL"] as string}`,
+        `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
         {
           method: "POST",
           headers: {
@@ -67,7 +70,7 @@ const onSubmit =
 
 const getCustomerUserID = (customers: Customers[], id: number) => {
   for (let i = 0; i < customers.length; i++) {
-    if (customers[i].id == id) {
+    if (customers[i].id === id) {
       return customers[i].customer_user_id;
     }
   }

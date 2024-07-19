@@ -5,37 +5,37 @@ import { db } from "../../../../db";
 import { Estimates } from "@/types/estimates";
 import Link from "next/link";
 import { eq } from "drizzle-orm";
-import { Button } from "@/components/ui/button";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
+import { auth } from "../../../../../auth";
+import { redirect } from "next/navigation";
+import { Button, Typography } from "@mui/material";
+import ContractorEstimatesTable from "@/components/tables/contractorTables/estimatesTable/ContractorEstimatesTable";
 
 async function getData(session: any) {
   const res = await db
     .select()
     .from(estimates)
-    .where(eq(estimates.contractor_user_id, session.user.id));
+    .where(eq(estimates.contractor_user_id, session?.user.id));
   return res;
 }
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
+  if (!session) return redirect("/signin");
   const data = (await getData(session)) as Estimates[];
 
   return (
-    <main className="flex flex-col flex-1 gap-4 p-4 bg-neutral400">
-      <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
+    <main className="flex flex-col flex-grow gap-4 p-4">
+      <Typography variant="h4" color="primary" className="">
         Estimates
-      </h1>
-      <Link href={`${process.env["ESTIMATES_FORM_URL"] as string}`}>
-        <Button
-          id="new-change-order-button"
-          className="flex-1 bg-blue-500 text-secondary500 font-medium"
-          variant={"outline"}
-        >
+      </Typography>
+      <Link
+        href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/form`}
+      >
+        <Button id="new-change-order-button" variant="contained">
           New Estimate
         </Button>
       </Link>
-      <EstimatesTable columns={columns} data={data} />
+      <ContractorEstimatesTable estimates={data} />
     </main>
   );
 }
