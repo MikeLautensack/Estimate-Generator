@@ -2,53 +2,53 @@ import React from "react";
 import { db } from "@/db";
 import { estimates } from "@/db/schemas/estimates";
 import { eq } from "drizzle-orm";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
 import { Estimates } from "@/types/estimates";
 import EstimatePriceChart from "../../charts/EstimatePriceChart";
+import { auth } from "../../../../auth";
+import { Card } from "@mui/material";
 
 async function getDataTestOne(id: number) {
-    try {
-        const data = await db.select()
-                             .from(estimates)
-                             .where(eq(estimates.contractor_user_id, id));
-        return data;
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    const data = await db
+      .select()
+      .from(estimates)
+      .where(eq(estimates.contractor_user_id, id.toString()));
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-export default async function EstimatePriceChartContainer() {
-
-  const session = await getServerSession(authOptions);
-  const data = await getDataTestOne(session.user.id);
+const EstimatePriceChartContainer = async () => {
+  const session = await auth();
+  const data = (await getDataTestOne(session?.user.id)) as Estimates[];
 
   const createChartArray = (inputArray: Estimates[]): any[] => {
     try {
-        let outputArray: any[] = [];
-        let statusArray: string[] = [];
-        for (let i = 0; i < inputArray.length; i++) {
-            let status = inputArray[i].status;
-            if (!statusArray.includes(status as string)) {
-                statusArray.push(status as string);
-            }
+      const outputArray: any[] = [];
+      const statusArray: string[] = [];
+      for (let i = 0; i < inputArray.length; i++) {
+        const status = inputArray[i].status;
+        if (!statusArray.includes(status)) {
+          statusArray.push(status);
         }
-        for (let i = 0; i < statusArray.length; i++) {
-            let status = statusArray[i];
-            const obj = calcEstimatePriceStats(inputArray, status);
-            outputArray.push({
-                name: status,
-                meanPrice: obj.meanTotal,
-                minPrice: obj.minTotal,
-                maxPrice: obj.maxTotal
-            });
-        }
-        return outputArray;
+      }
+      for (let i = 0; i < statusArray.length; i++) {
+        const status = statusArray[i];
+        const obj = calcEstimatePriceStats(inputArray, status);
+        outputArray.push({
+          name: status,
+          meanPrice: obj.meanTotal,
+          minPrice: obj.minTotal,
+          maxPrice: obj.maxTotal,
+        });
+      }
+      return outputArray;
     } catch (error) {
-        console.log(error);
-        return [];
+      console.log(error);
+      return [];
     }
-  }
+  };
 
   const calcEstimatePriceStats = (inputArray: Estimates[], status: string) => {
     let currentTotal = 0;
@@ -56,31 +56,36 @@ export default async function EstimatePriceChartContainer() {
     let maxTotal = -Infinity;
     let count = 0;
     for (let i = 0; i < inputArray.length; i++) {
-        const total = inputArray[i].total as number;
-        if (inputArray[i].status === status) {
-            currentTotal += total;
-            count++;
-            if (minTotal > total) {
-                minTotal = total;
-            }
-            if (maxTotal < total) {
-                maxTotal = total;
-            }
-        } 
+      const total = inputArray[i].total;
+      if (inputArray[i].status === status) {
+        currentTotal += total;
+        count++;
+        if (minTotal > total) {
+          minTotal = total;
+        }
+        if (maxTotal < total) {
+          maxTotal = total;
+        }
+      }
     }
     const meanTotal = count > 0 ? currentTotal / count : 0;
     return {
-        meanTotal,
-        minTotal,
-        maxTotal
+      meanTotal,
+      minTotal,
+      maxTotal,
     };
-  }
+  };
 
-  const chartArray = createChartArray(data as Estimates[]);
+  const chartArray = createChartArray(data);
 
   return (
-    <div className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative">
-        <EstimatePriceChart chartArray={chartArray}/>
-    </div>
+    <Card
+      sx={{ backgroundColor: "surfaceContainerLow" }}
+      className="rounded-lg p-2 max-desktop:aspect-square relative"
+    >
+      <EstimatePriceChart chartArray={chartArray} />
+    </Card>
   );
-}
+};
+
+export default EstimatePriceChartContainer;

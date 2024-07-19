@@ -1,13 +1,19 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { Estimates } from "@/types/estimates"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../ui/dropdown-menu"
-import { Button } from "../../../ui/button"
-import { Checkbox } from "../../../ui/checkbox"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import Link from "next/link"
-import { useRouter } from 'next/navigation'
+import { ColumnDef } from "@tanstack/react-table";
+import { Estimates } from "@/types/estimates";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../../ui/dropdown-menu";
+import { Button } from "../../../ui/button";
+import { Checkbox } from "../../../ui/checkbox";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 
 export const columns: ColumnDef<Estimates>[] = [
   {
@@ -40,7 +46,7 @@ export const columns: ColumnDef<Estimates>[] = [
           Estimate Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -58,32 +64,42 @@ export const columns: ColumnDef<Estimates>[] = [
   {
     id: "actions",
     cell: function Cell({ row }) {
-      const estimate = row.original
-      const router = useRouter()
+      const estimate = row.original;
+      // const router = useRouter()
+
+      const USER_ID = estimate.contractor_user_id;
+      const CUSTOMER_ID = estimate.customer_user_id;
+      const ESTIMATE_ID = estimate.id;
 
       const acceptEstimate = async () => {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
-          method: 'PUT',
-          headers: {
-              "Content-Type": "application/json"
+        await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              status: "Accepted",
+            }),
           },
-          body: JSON.stringify({
-              status: 'Accepted'
-          })
-        })
-      }
+        );
+      };
 
       const rejectEstimate = async () => {
-        const res = await fetch(`${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"]}/${estimate.id}`, {
-          method: 'PUT',
-          headers: {
-              "Content-Type": "application/json"
+        await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              status: "Rejected",
+            }),
           },
-          body: JSON.stringify({
-              status: 'Rejected'
-          })
-        })
-      }
+        );
+      };
 
       return (
         <DropdownMenu>
@@ -97,20 +113,24 @@ export const columns: ColumnDef<Estimates>[] = [
             <DropdownMenuLabel>Estimate Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMER_ESTIMATES"]}/${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_ESTIMATES"] as string}/${estimate.id}`}
             >
               <DropdownMenuItem>View Estimate</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem onClick={() => acceptEstimate()}>Accept Estimate</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => acceptEstimate()}>
+              Accept Estimate
+            </DropdownMenuItem>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"]}/new-change-order?estimateId=${estimate.id}`}
+              href={`${process.env["NEXT_PUBLIC_CUSTOMER_CHANGE_ORDERS"] as string}/new-change-order?estimateId=${estimate.id}`}
             >
               <DropdownMenuItem>Request a Change Order</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem onClick={() => rejectEstimate()}>Reject Estimate</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => rejectEstimate()}>
+              Reject Estimate
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

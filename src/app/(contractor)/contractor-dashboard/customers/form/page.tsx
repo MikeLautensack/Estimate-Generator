@@ -1,18 +1,31 @@
-import CustomerForm from "@/components/forms/CustomerForm";
+import CustomerForm from "@/components/forms/customer-form/CustomerForm";
 import { Customers } from "@/types/customers";
+import { Box, Typography } from "@mui/material";
+import { auth } from "../../../../../../auth";
 
-export default async function Page() {
+const Page = async () => {
+  const customer = {} as Customers;
+  const session = await auth();
 
-    const customer = {} as Customers;
+  console.log("session log", session?.user.id);
 
-    return (
-      <main className="bg-neutral400 p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1">
-        <h1 className="text-2xl desktop:text-[42px] font-bold text-black">Customer Form</h1>
-        <div
-          className="flex justify-center items-center flex-1 w-full"
-        >
-          <CustomerForm data={customer}/>
-        </div>
-      </main>
-    );
-  }
+  return (
+    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1">
+      <Typography variant="h4" color="primary">
+        New Customer Form
+      </Typography>
+      <Box
+        component="div"
+        className="flex justify-center items-center w-full h-full"
+      >
+        <CustomerForm
+          data={customer}
+          mode="new-customer"
+          user_id={session?.user.id}
+        />
+      </Box>
+    </main>
+  );
+};
+
+export default Page;

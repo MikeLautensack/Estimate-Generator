@@ -1,16 +1,16 @@
 import "../globals.css";
-import Menu from "../../components/misc/Menu";
+import React from "react";
+import SideBar from "../../components/misc/SideBar";
+import { Box } from "@mui/material";
 
 export default function ContractorLayout({
-  children, 
+  children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <div
-      className="flex flex-col w-full desktop:flex-row min-h-screen bg-neutral100"
-    >
-      <Menu />
+    <div className="flex flex-col desktop:flex-row">
+      <SideBar />
       {children}
     </div>
   );
