@@ -31,14 +31,6 @@ const MVLNumber = ({ name, label, size, readonly }: MVLNumberProps) => {
       valueIsNumericString
       thousandSeparator
       size={size}
-      label={label}
-      sx={{ backgroundColor: "surfaceContainerHighest" }}
-      fullWidth
-      slotProps={{
-        input: {
-          readOnly: readonly,
-        },
-      }}
       {...field}
     />
   );

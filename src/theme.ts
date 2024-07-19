@@ -1,4 +1,4 @@
-import { extendTheme } from "@mui/material/styles";
+import {extendTheme} from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
   interface PaletteOptions {
