@@ -28,8 +28,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const data = (await getData(parseInt(params.id))) as Estimates;
 
   return (
-    <main className="bg-gradient-to-br from-primary200 to-secondary200 flex-1 p-8 min-h-screen">
-      <Estimate data={data} />
+    <main className="flex-1 p-8 min-h-screen">
+      <Estimate estimate={data} />
     </main>
   );
 };

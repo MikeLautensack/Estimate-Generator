@@ -1,13 +1,13 @@
-import CustomersTable from "@/components/tables/contractorTables/customersTable/CustomersTable";
-import { columns } from "@/components/tables/contractorTables/customersTable/columns";
 import { customers } from "../../../../db/schemas/customers";
 import { db } from "../../../../db";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Session, getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
+import { Session } from "next-auth";
 import { Customers } from "@/types/customers";
+import { auth } from "../../../../../auth";
+import { redirect } from "next/navigation";
+import { Button, Typography } from "@mui/material";
+import ContractorsCustomersTable from "@/components/tables/contractorTables/customersTable/ContractorsCustomersTable";
 
 async function getData(session: Session) {
   const res = await db
@@ -18,24 +18,23 @@ async function getData(session: Session) {
 }
 
 const Page = async () => {
-  const session = (await getServerSession(authOptions)) as Session;
-  const data = (await getData(session)) as Customers[];
+  const session = await auth();
+  if (!session) return redirect("/signin");
+  const data = (await getData(session!)) as Customers[];
 
   return (
-    <main className="flex-grow p-4 flex flex-col gap-4 bg-neutral400">
-      <h1 className="text-2xl desktop:text-[42px] font-bold text-black">
+    <main className="flex-grow p-4 flex flex-col gap-4">
+      <Typography variant="h4" color="primary" className="">
         Customers
-      </h1>
-      <Link href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"] as string}`}>
-        <Button
-          id="new-change-order-button"
-          className="flex-1 bg-blue-500 text-secondary500"
-          variant={"outline"}
-        >
+      </Typography>
+      <Link
+        href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/customers/form`}
+      >
+        <Button id="new-change-order-button" variant="contained">
           New Customer
         </Button>
       </Link>
-      <CustomersTable columns={columns} data={data} />
+      <ContractorsCustomersTable customers={data} />
     </main>
   );
 };

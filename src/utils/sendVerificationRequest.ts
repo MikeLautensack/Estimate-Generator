@@ -1,14 +1,8 @@
-import NewCustomerEmail from "@/emails/NewCustomerEmail";
-import NewEstimateEmail from "@/emails/NewEstimateEmail";
-import UpdatedEstimateEmail from "@/emails/UpdatedEstimateEmail";
-import { SendVerificationRequestParams } from "next-auth/providers/email";
-import { Resend } from "resend";
-import { formatName } from "./formatingFunctions";
+import { sendEmail } from "@/actions/emailActions";
 
-const sendVerificationRequest = async (
-  params: SendVerificationRequestParams,
-) => {
+const sendVerificationRequest = async (params: any) => {
   const { identifier, url } = params;
+
   const urlObj = new URL(url);
   const host = urlObj.host;
   const searchParams = new URLSearchParams(urlObj.search);
@@ -18,50 +12,45 @@ const sendVerificationRequest = async (
   const emailType = callbackUrlSearchParams.get("email-type");
   const customerName = callbackUrlSearchParams.get("customer-name");
   const contractorName = callbackUrlSearchParams.get("contractor-name");
-  const fotmatedCustomerName = formatName(customerName as string);
-  const fotmatedContractorName = formatName(contractorName as string);
-  const resend = new Resend(process.env["EMAIL_KEY"]);
+
+
+  
 
   try {
-    if (emailType == "new-customer") {
-      await resend.emails.send({
-        from: "Testing new customer email ..... <onboarding@resend.dev>",
-        to: [identifier],
-        subject: `Log in to ${host}`,
-        react: NewCustomerEmail({
-          url,
-          host,
-          customerName: fotmatedCustomerName,
-          contractorName: fotmatedContractorName,
-        }),
-      });
-    } else if (emailType == "new-estimate") {
-      await resend.emails.send({
-        from: "Testing new estimate email ..... <onboarding@resend.dev>",
-        to: [identifier],
-        subject: `Log in to ${host}`,
-        react: NewEstimateEmail({
-          url,
-          host,
-          customerName: fotmatedCustomerName,
-          contractorName: fotmatedContractorName,
-        }),
-      });
-    } else if (emailType == "updated-estimate") {
-      await resend.emails.send({
-        from: "Testing updated estimate email ..... <onboarding@resend.dev>",
-        to: [identifier],
-        subject: `Log in to ${host}`,
-        react: UpdatedEstimateEmail({
-          url,
-          host,
-          customerName: fotmatedCustomerName,
-          contractorName: fotmatedContractorName,
-        }),
-      });
-    }
-  } catch (error) {
-    throw new Error("Failed to send the verification email.");
+    // sendEmail(identifier, `... <onboarding@resend.dev>`, emailType === "new-customer"
+    //   ? `${contractorName} has added you as a new customer`
+    //   : emailType === "new-estimate"
+    //     ? `${contractorName} has created a new estimate for you`
+    //     : emailType === "updated-estimate"
+    //       ? `${contractorName} has updated one of your estimates`
+    //       : `New email from ${contractorName}`, host, url, customerName!, contractorName!, emailType!)
+          await fetch(
+            `${process.env.NEXT_PUBLIC_HOST}/api/emails`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                identifier: identifier,
+                from: `... <onboarding@resend.dev>`,
+                subject: emailType === "new-customer"
+                ? `${contractorName} has added you as a new customer`
+                : emailType === "new-estimate"
+                  ? `${contractorName} has created a new estimate for you`
+                  : emailType === "updated-estimate"
+                    ? `${contractorName} has updated one of your estimates`
+                    : `New email from ${contractorName}`,
+                host: host,
+                url: url,
+                customerName: customerName,
+                contractorName: contractorName,
+                emailType: emailType
+              }),
+            },
+          );
+  } catch (error: any) {
+    throw new Error("Failed to send the verification email.", error);
   }
 };
 

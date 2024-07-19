@@ -5,12 +5,16 @@ import { redirect } from "next/navigation";
 
 const submitChangeOrder =
   (data: ChangeOrderForm) => async (formData: ChangeOrderFormProps) => {
+    const USER_ID = data.data.contractor_user_id;
+    const CUSTOMER_ID = data.data.customer_user_id;
+    const ESTIMATE_ID = data.data.estimate_id;
+    const CHANGE_ORDER_ID = data.data.change_order_id;
     try {
       if (data.data?.mode == "put") {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_EDIT"] ?? ""}/${data.data.change_order_id ?? ""}}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDER_ID}`,
           {
-            method: "PUT",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
@@ -21,9 +25,9 @@ const submitChangeOrder =
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] ?? ""}/${data.data.estimate_id ?? ""}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
-            method: "PUT",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
@@ -34,7 +38,7 @@ const submitChangeOrder =
         );
       } else if (data.data?.mode == "post") {
         await fetch(
-          `${process.env["NEXT_PUBLIC_CHANGE_ORDERS_CREATE"] ?? ""}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}/change-orders/${CHANGE_ORDER_ID}`,
           {
             method: "POST",
             headers: {
@@ -53,9 +57,9 @@ const submitChangeOrder =
           },
         );
         await fetch(
-          `${process.env["NEXT_PUBLIC_ESTIMATES_UPDATE_STATUS"] ?? ""}/${data.data.estimate_id ?? ""}`,
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
-            method: "PUT",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
@@ -80,10 +84,10 @@ const previewEstimate = (data: Estimates) => () => {
     // const queryString = new URLSearchParams(data).toString()
     // console.log('q string', queryString)
     // redirect to /contractor-dashboard/estimates/xxxxxxx
-    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"] ?? ""}/`);
+    redirect(`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates`);
   } else {
     // redirect to /contractor-dashboard/estimates/xxxxxxx
-    redirect(`${process.env["NEXT_PUBLIC_ESTIMATE_URL"] ?? ""}/`);
+    redirect(`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates`);
   }
 };
 

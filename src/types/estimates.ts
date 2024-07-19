@@ -8,6 +8,7 @@ import {
   UseFormReturn,
 } from "react-hook-form";
 import React from "react";
+import { LineItemsValues } from "@/components/forms/estimate-form/EstimateForm";
 
 export type Estimates = {
   id: number;
@@ -18,18 +19,19 @@ export type Estimates = {
   contractorName: string;
   contractorAddress: string;
   contractorPhone: string;
-  lineItems: LineItems[];
+  lineItems?: LineItems[];
   message: string;
   subtotal: number;
   taxRate: number;
   tax: number;
   total: number;
   status: string;
-  dateCreated?: Date;
-  dateUpdated?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
   customer_id: number;
-  customer_user_id: number;
-  contractor_user_id: number;
+  customer_user_id: string;
+  contractor_user_id: string;
 };
 
 export type LineItems = {
@@ -40,16 +42,9 @@ export type LineItems = {
   rateType: string;
   price: number;
   amount: number;
-  dateCreated?: Date;
-  dateUpdated?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   estimate_id?: number;
-};
-
-export type EstimateFormProps = {
-  estimate: Estimates;
-  customers: Customers[];
-  profile: Profile;
-  changeOrders?: ChangeOrder[];
 };
 
 export type EstimateFormValues = {
@@ -73,44 +68,16 @@ export type EstimateFormPartOneProps = {
   customers: Customers[];
 };
 
-export type EstimateFormPartTwoProps = {
-  customers: Customers[];
-  profile: Profile;
-  fields: LineItems[];
-  prepend: (obj: LineItems | LineItems[]) => void;
-  remove: (index?: number | number[]) => void;
-  changeOrders: ChangeOrder[];
-  estimate: Estimates;
-  methods: UseFormReturn<EstimateFormValues>;
-  preview: SubmitHandler<EstimateFormValues>;
-  save: SubmitHandler<EstimateFormValues>;
-  saveAndSend: SubmitHandler<EstimateFormValues>;
-};
-
 export type EstimateFormTableProps = {
-  fields: LineItems[];
-  applyTotal: (
-    setSubtotal: React.Dispatch<React.SetStateAction<number>>,
-    setValue: (name: string, value: unknown, config?: object) => void,
-    getValues: (payload?: string | string[]) => string,
-    fields: LineItems[],
-  ) => void;
+  fields: LineItemsValues[];
   remove: (index?: number | number[]) => void;
-  setSubtotal: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export type LineItemFormFieldProps = {
-  field: LineItems;
-  fields: LineItems[];
+  field: LineItemsValues;
+  fields: LineItemsValues[];
   index: number;
-  applyTotal: (
-    setSubtotal: React.Dispatch<React.SetStateAction<number>>,
-    setValue: (name: string, value: unknown, config?: object) => void,
-    getValues: (payload?: string | string[]) => string,
-    fields: LineItems[],
-  ) => void;
   remove: (index?: number | number[]) => void;
-  setSubtotal: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export type TaxSelectorProps = {

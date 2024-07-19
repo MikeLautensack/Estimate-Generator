@@ -1,9 +1,16 @@
 import ChangeOrders from "@/components/pageComponents/contractor-dashboard/ChangeOrders";
+import { auth } from "../../../../../auth";
+import { redirect } from "next/navigation";
+import { Typography } from "@mui/material";
 
-export default function page() {
+export default async function page() {
+  const session = await auth();
+  if (!session) return redirect("/signin");
   return (
-    <main className="bg-neutral400 p-4">
-      <h1 className="text-3xl font-semibold">Change Orders</h1>
+    <main className="flex flex-col gap-4 justify-start items-start p-8 w-full">
+      <Typography variant="h4" color="primary" className="">
+        Change Orders
+      </Typography>
       <ChangeOrders />
     </main>
   );

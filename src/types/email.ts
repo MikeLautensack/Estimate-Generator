@@ -23,3 +23,17 @@ export type UpdatedEstimateEmailProps = {
   customerName: string;
   contractorName: string;
 };
+
+export type EmailDipatchBody<Body> = {
+  email: string;
+  callbackUrl: string;
+  emailType: string;
+  subject: string;
+  body: Body;
+};
+
+export type EmailEndpointBody = {
+  email: string;
+  magicLink: string;
+  host: string;
+};

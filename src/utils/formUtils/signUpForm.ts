@@ -1,11 +1,13 @@
 import { RegisterFormValues } from "@/types/types";
 import { signIn } from "next-auth/react";
 import { SubmitHandler } from "react-hook-form";
+import { generateNumericId } from "../generateRandom";
 
 const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
+  const id = generateNumericId();
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_USER_CREATE as string}`,
+      `${process.env.NEXT_PUBLIC_HOST}api/users/${id}`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -21,7 +23,7 @@ const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
       email: data.email,
       password: data.password,
       redirect: true,
-      callbackUrl: `${process.env["NEXT_PUBLIC_SIGN_IN_CALLBACK_URL"] as string}?newUser=true`,
+      callbackUrl: `${process.env.NEXT_PUBLIC_HOST}/api/redirect?newUser=true`,
     });
 
     return response;

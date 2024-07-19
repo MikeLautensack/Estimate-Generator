@@ -1,0 +1,1 @@
+ALTER TABLE "estimates" ADD COLUMN "contractor_user_id" text;

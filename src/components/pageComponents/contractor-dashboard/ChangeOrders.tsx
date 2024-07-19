@@ -1,11 +1,9 @@
 import { db } from "@/db";
-import ChangeOrdersTable from "../../tables/contractorTables/changeOrderTable/ChangeOrdersTable";
-import { columns } from "../../tables/contractorTables/changeOrderTable/columns";
 import { ChangeOrder } from "@/types/changeOrders";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { eq } from "drizzle-orm";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
+import { auth } from "../../../../auth";
+import ContractorChangeOrderTable from "@/components/tables/contractorTables/changeOrderTable/ContractorChangeOrderTable";
 
 async function getChangeOrders(session: any) {
   try {
@@ -20,12 +18,12 @@ async function getChangeOrders(session: any) {
 }
 
 const ChangeOrders = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const data = (await getChangeOrders(session)) as ChangeOrder[];
 
   return (
-    <div className="">
-      <ChangeOrdersTable columns={columns} data={data} />
+    <div className="flex w-full">
+      <ContractorChangeOrderTable changeOrders={data} />
     </div>
   );
 };

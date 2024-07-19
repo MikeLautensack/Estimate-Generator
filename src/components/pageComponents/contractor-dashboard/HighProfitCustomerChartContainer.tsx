@@ -1,13 +1,12 @@
 // import EstimateStatusChart from "../../charts/EstimateStatusChart";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { Session, getServerSession } from "next-auth";
-import { authOptions } from "@/utils/authOptions";
 import { customers } from "@/db/schemas/customers";
 import { Customers } from "@/types/customers";
 import HighProfitCustomersChart from "@/components/charts/HighProfitCustomersChart";
 import { estimates } from "@/db/schemas/estimates";
-import { Estimates } from "@/types/estimates";
+import { auth } from "../../../../auth";
+import { Card } from "@mui/material";
 
 async function getCustomers(id: number) {
   try {
@@ -26,7 +25,7 @@ async function getEstimates(id: number) {
     const data = await db
       .select()
       .from(estimates)
-      .where(eq(estimates.customer_user_id, id));
+      .where(eq(estimates.customer_user_id, id.toString()));
     return data;
   } catch (error) {
     console.log(error);
@@ -34,8 +33,8 @@ async function getEstimates(id: number) {
 }
 
 export default async function EstimateStatusChartContainer() {
-  const session = (await getServerSession(authOptions)) as Session;
-  const data = (await getCustomers(parseInt(session.user.id))) as Customers[];
+  const session = await auth();
+  const data = (await getCustomers(parseInt(session?.user.id))) as Customers[];
 
   const createChartArray = async (
     inputArray: Customers[],
@@ -97,9 +96,12 @@ export default async function EstimateStatusChartContainer() {
   const chartArray = await createChartArray(data);
 
   return (
-    <div className="bg-neutral100 rounded-lg p-2 max-desktop:aspect-square relative">
+    <Card
+      sx={{ backgroundColor: "surfaceContainerLow" }}
+      className="rounded-lg p-2 max-desktop:aspect-square relative"
+    >
       {/* <h1>Estimate Staus Chart</h1> */}
       <HighProfitCustomersChart chartArray={chartArray} />
-    </div>
+    </Card>
   );
 }
