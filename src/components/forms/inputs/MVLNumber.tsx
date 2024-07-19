@@ -35,7 +35,6 @@ const MVLNumber = ({ name, label, size, readonly }: MVLNumberProps) => {
       slotProps={{
         input: {
           readOnly: readonly,
-          startAdornment: <InputAdornment position="start">$</InputAdornment>,
         },
       }}
       size={size}
