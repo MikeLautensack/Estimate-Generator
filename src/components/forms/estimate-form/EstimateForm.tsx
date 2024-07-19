@@ -152,7 +152,7 @@ const EstimateForm = ({
       if (mode === "new-estimate") {
         setSaveStatus("saving");
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "POST",
             headers: {
@@ -172,7 +172,7 @@ const EstimateForm = ({
       } else if (mode === "update-estimate") {
         setSaveStatus("saving");
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "PATCH",
             headers: {
@@ -236,7 +236,7 @@ const EstimateForm = ({
       } else if (mode === "update-estimate") {
         setSaveAndSaveStatus("saving");
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+          `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
           {
             method: "PATCH",
             headers: {
