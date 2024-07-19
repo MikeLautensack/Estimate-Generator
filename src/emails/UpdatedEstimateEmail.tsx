@@ -5,6 +5,7 @@ import {
   Html,
   Section,
   Text,
+  Tailwind,
   Button,
 } from "@react-email/components";
 import * as React from "react";
@@ -16,6 +17,7 @@ const UpdatedEstimateEmail = ({
 }: UpdatedEstimateEmailProps) => {
   return (
     <Html>
+      <Tailwind>
       <Body className="bg-blue-200 rounded-lg flex flex-col gap-32 justify-center items-center p-8">
         <Container className="">
           <Section className="">
@@ -34,6 +36,8 @@ const UpdatedEstimateEmail = ({
           </Section>
         </Container>
       </Body>
+      </Tailwind>
+      
     </Html>
   );
 };
