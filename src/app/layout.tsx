@@ -6,7 +6,7 @@ import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ThemeProviderWrapper from "@/contexts/ThemeProviderWrapper";
 import { Paper } from "@mui/material";
-import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+// import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 
 export const metadata: Metadata = {
   title: "Estimate Generator",
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.className}>
       <body className="min-h-screen">
-        <InitColorSchemeScript />
+        {/* <InitColorSchemeScript /> */}
         <AppRouterCacheProvider>
           <ThemeProviderWrapper>
             <Paper square sx={{ backgroundColor: "surface" }}>
