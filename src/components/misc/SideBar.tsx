@@ -1,6 +1,5 @@
 "use client";
 
-import { useMediaQuery } from "react-responsive";
 import { signOut } from "next-auth/react";
 import SideBarNav from "./SideBarNav";
 import { Box, Button, Typography } from "@mui/material";

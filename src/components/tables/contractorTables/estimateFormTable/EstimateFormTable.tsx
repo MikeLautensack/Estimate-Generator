@@ -8,38 +8,35 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { EstimateFormTableProps, LineItems } from "../../../../types/estimates";
+import { EstimateFormTableProps } from "../../../../types/estimates";
 import LineItemFormField from "@/components/forms/estimate-form/LineItemFormField";
+import { LineItemsValues } from "@/components/forms/estimate-form/EstimateForm";
 
-const EstimateFormTable = ({
-  fields,
-  applyTotal,
-  remove,
-  setSubtotal,
-}: EstimateFormTableProps) => {
+const EstimateFormTable = ({ fields, remove }: EstimateFormTableProps) => {
   return (
     <div>
       <Table className="flex-1 w-full">
         <TableHeader>
           <TableRow>
-            <TableHead className="">Item Name</TableHead>
-            <TableHead className="">Item Description</TableHead>
-            <TableHead>Quantity</TableHead>
-            <TableHead>Rate</TableHead>
-            <TableHead className="">Amount</TableHead>
-            <TableHead className=""></TableHead>
+            <TableHead className="pr-2">Item Name</TableHead>
+            <TableHead className="px-2">Item Description</TableHead>
+            <TableHead className="px-2">Quantity</TableHead>
+            <TableHead className="px-2">Rate</TableHead>
+            <TableHead className="px-2">Amount</TableHead>
+            <TableHead className="pr-0 pl-2"></TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="overflow-x-scroll">
-          {fields.map((field: LineItems, index: number) => (
+        <TableBody
+          id="tabel-body"
+          className="overflow-x-scroll scrollbar-eform"
+        >
+          {fields.map((field: LineItemsValues, index: number) => (
             <LineItemFormField
               key={field.id}
               field={field}
               fields={fields}
               index={index}
-              applyTotal={applyTotal}
               remove={remove}
-              setSubtotal={setSubtotal}
             />
           ))}
         </TableBody>

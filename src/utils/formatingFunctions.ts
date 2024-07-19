@@ -5,9 +5,10 @@ export const formatTaxString = (num: number): string => {
   return taxString;
 };
 
-export const formatPriceString = (num: number): string => {
+export const formatPriceString = (numStr: string): string => {
+  const num = parseFloat(numStr);
   const roundedNumber = num.toFixed(2);
-  const priceString = `$${roundedNumber}`;
+  const priceString = `$ ${roundedNumber}`;
   return priceString;
 };
 
@@ -41,5 +42,26 @@ export const formatCapitalize = (input: string): string => {
       .join(" "); // Join the array of words back into a single string
   } else {
     return "";
+  }
+};
+
+export const formatRate = (
+  rateType: string,
+  price: string,
+  itemName: string,
+) => {
+  const formatedPrice = formatPriceString(price);
+  if (rateType === "Unit Rate") {
+    return `${formatedPrice} per ${itemName}`;
+  } else if (rateType === "SQFT") {
+    return `${formatedPrice} per SQFT`;
+  } else if (rateType === "LNFT") {
+    return `${formatedPrice} per LNFT`;
+  } else if (rateType === "Hourly") {
+    return `${formatedPrice} per hour`;
+  } else if (rateType === "Daily") {
+    return `${formatedPrice} per day`;
+  } else if (rateType === "Flat Rate") {
+    return `${formatedPrice}`;
   }
 };

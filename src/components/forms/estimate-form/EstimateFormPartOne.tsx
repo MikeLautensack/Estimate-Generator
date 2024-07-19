@@ -1,40 +1,95 @@
 "use client";
 
 import { EstimateFormPartOneProps } from "@/types/estimates";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import TextInput from "../inputs/TextInput";
 import MVLAutocomplete from "../inputs/MVLAutocomplete";
 import { Customers } from "@/types/customers";
+import { useCallback, useEffect, useState } from "react";
 
-const getCustomerStrings = (customers: Customers[]) => {
-  return customers.map((customer: Customers) => customer.name);
+const getCustomerOptions = (customers: Customers[]) => {
+  return customers.map((customer: Customers) => {
+    return { label: customer.name, id: customer.customer_user_id };
+  });
 };
 
 const EstimateFormPartOne = ({ customers }: EstimateFormPartOneProps) => {
-  const { register, getValues, control } = useFormContext();
-  const customerStrings = getCustomerStrings(customers);
+  // Hooks
+  const { control, setValue } = useFormContext();
+
+  // State
+  const [readonly, setReadonly] = useState<boolean>(false);
+  const [customer, setCustomer] = useState({
+    customerName: "",
+    customerEmail: "",
+    projectAddress: "",
+    customer_id: "",
+  });
+
+  // Values
+  const customerOptions = getCustomerOptions(customers);
+
+  // Watched input
+  const customerUserId = useWatch({ control, name: "customer_user_id" });
+
+  // Callbacks
+  const getCustomer = useCallback((customers: Customers[], name: string) => {
+    for (let i = 0; i < customers.length; i++) {
+      if (customers[i].customer_user_id === name) {
+        return customers[i];
+      }
+    }
+  }, []);
+
+  // Effects
+  useEffect(() => {
+    if (customerUserId !== 0) {
+      setReadonly(true);
+      const customer = getCustomer(customers, customerUserId);
+      if (customer) {
+        setCustomer({
+          customerName: customer.name,
+          customerEmail: customer.email,
+          projectAddress: customer.address,
+          customer_id: customer.id.toString(),
+        });
+      }
+    }
+  }, [customerUserId, customers, getCustomer]);
+
+  useEffect(() => {
+    setValue("customerName", customer.customerName);
+    setValue("customerEmail", customer.customerEmail);
+    setValue("projectAddress", customer.projectAddress);
+    setValue("customer_id", customer.customer_id);
+  }, [customer, setValue]);
+
   return (
     <div className="">
       <div className="">
-        {/* <FormField
-          control={control}
-          name={"customer_id"}
-          render={({ field }) => (
-            <EstimateFormOneSelect customers={customers} field={field} />
-          )}
-        /> */}
         <MVLAutocomplete
-          name="customer_id"
+          name="customer_user_id"
           label="Customers"
-          options={customerStrings}
+          options={customerOptions}
+          idAsValue
         />
       </div>
-      <div
-        className={`${getValues("customer_id") ? "hidden" : "flex"} flex-col gap-2 my-2 text-black`}
-      >
-        <TextInput name="customerName" label="Customer Name" />
-        <TextInput name="customerEmail" label="Customer Email" />
-        <TextInput name="projectAddress" label="Project Address" />
+      <div className="flex flex-col gap-2 my-2 text-black">
+        <TextInput
+          name="customerName"
+          label="Customer Name"
+          readonly={readonly}
+        />
+        <TextInput
+          name="customerEmail"
+          label="Customer Email"
+          readonly={readonly}
+        />
+        <TextInput
+          name="projectAddress"
+          label="Project Address"
+          readonly={readonly}
+        />
       </div>
     </div>
   );

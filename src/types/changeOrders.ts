@@ -9,6 +9,7 @@ export type ChangeOrder = {
   projectAddress: string;
   status: string;
   estimate_id: number;
+  customer_id: number;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;

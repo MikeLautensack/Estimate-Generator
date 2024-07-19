@@ -11,10 +11,6 @@ export type Customers = {
   customer_user_id: string;
 };
 
-export type CustomerForm = {
-  data: Customers;
-};
-
 export type createUserAccountAction = {
   id: string;
   name: string;

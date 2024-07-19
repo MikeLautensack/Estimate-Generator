@@ -51,7 +51,7 @@ export async function POST(
   try {
     await db.insert(customers).values(customer);
     const createCustomerUserRes = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/users/${bodyData.customer_user_id}`,
+      `${process.env.NEXT_PUBLIC_HOST}api/users/${bodyData.customer_user_id}`,
       createCustomerUserReqOptions,
     );
     const customerUser = await createCustomerUserRes.json();

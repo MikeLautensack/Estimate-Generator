@@ -96,3 +96,54 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: #ffffff !important;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+/* Light scrollbar */
+.scrollbar-default::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-default::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.scrollbar-default::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.scrollbar-default::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Dark scrollbar */
+.scrollbar-dark::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-track {
+  background: #333;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* Estimate form horizontal scrollbar */
+.scrollbar-eform::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar-eform::-webkit-scrollbar-track {
+  background: #38adbd;
+}
+
+.scrollbar-eform::-webkit-scrollbar-thumb {
+  background: #00796b;
+}
+
+.scrollbar-eform::-webkit-scrollbar-thumb:hover {
+  background: #004d40;
+}

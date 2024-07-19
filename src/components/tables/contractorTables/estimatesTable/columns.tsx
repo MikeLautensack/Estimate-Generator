@@ -100,12 +100,12 @@ export const columns: ColumnDef<Estimates>[] = [
             <Link
               href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/${estimate.id}`}
             >
-              <DropdownMenuItem>View Estimates</DropdownMenuItem>
+              <DropdownMenuItem>View Estimate</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/${estimate.id}`}
+              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/form/${estimate.id}`}
             >
-              <DropdownMenuItem>Edit Estimates</DropdownMenuItem>
+              <DropdownMenuItem>Edit Estimate</DropdownMenuItem>
             </Link>
             <Link
               href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/${estimate.id}`}

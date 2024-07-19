@@ -8,12 +8,12 @@ import {
   text,
 } from "drizzle-orm/pg-core";
 import { users } from "./auth";
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import { customers } from "./customers";
 
 export const estimates = pgTable("estimates", {
   id: bigint("id", { mode: "number" }).notNull().primaryKey(),
-  contractor_user_id: text("customer_user_id"),
+  contractor_user_id: text("contractor_user_id"),
   customer_id: bigint("customer_id", { mode: "number" }),
   customer_user_id: text("customer_user_id"),
   contractorAddress: varchar("contractor_address", { length: 255 }),
