@@ -30,6 +30,14 @@ const MVLNumber = ({ name, label, size, readonly }: MVLNumberProps) => {
       decimalScale={0}
       valueIsNumericString
       thousandSeparator
+      sx={{ backgroundColor: "surfaceContainerHighest" }}
+      fullWidth
+      slotProps={{
+        input: {
+          readOnly: readonly,
+          startAdornment: <InputAdornment position="start">$</InputAdornment>,
+        },
+      }}
       size={size}
       {...field}
     />
