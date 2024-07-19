@@ -3,19 +3,16 @@ import {
   ChevronRightIcon,
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
-} from "@radix-ui/react-icons"
-
-import { Button } from "../../../ui/button"
-
+} from "@radix-ui/react-icons";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../ui/select"
-
-import { DataTablePaginationProps } from '../../../../types/types'
+} from "../../../ui/select";
+import { DataTablePaginationProps } from "../../../../types/types";
+import { Button } from "@mui/material";
 
 export default function CustomerPagination<TData>({
   table,
@@ -32,7 +29,7 @@ export default function CustomerPagination<TData>({
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value: any) => {
-              table.setPageSize(Number(value))
+              table.setPageSize(Number(value));
             }}
           >
             <SelectTrigger className="h-8 w-[70px]">
@@ -53,7 +50,7 @@ export default function CustomerPagination<TData>({
         </div>
         <div className="flex items-center space-x-2">
           <Button
-            variant="outline"
+            variant="contained"
             className="hidden h-8 w-8 p-0 lg:flex"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
@@ -62,7 +59,7 @@ export default function CustomerPagination<TData>({
             <DoubleArrowLeftIcon className="h-4 w-4" />
           </Button>
           <Button
-            variant="outline"
+            variant="contained"
             className="h-8 w-8 p-0"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -71,7 +68,7 @@ export default function CustomerPagination<TData>({
             <ChevronLeftIcon className="h-4 w-4" />
           </Button>
           <Button
-            variant="outline"
+            variant="contained"
             className="h-8 w-8 p-0"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
@@ -80,7 +77,7 @@ export default function CustomerPagination<TData>({
             <ChevronRightIcon className="h-4 w-4" />
           </Button>
           <Button
-            variant="outline"
+            variant="contained"
             className="hidden h-8 w-8 p-0 lg:flex"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
@@ -91,6 +88,5 @@ export default function CustomerPagination<TData>({
         </div>
       </div>
     </div>
-  )
+  );
 }
-  

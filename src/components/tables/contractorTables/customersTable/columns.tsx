@@ -1,13 +1,20 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { Customers } from "@/types/customers"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../../ui/dropdown-menu"
-import { Button } from "../../../ui/button"
-import { Checkbox } from "../../../ui/checkbox"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import Link from 'next/link';
-import { useRouter } from 'next/navigation'
+import { ColumnDef } from "@tanstack/react-table";
+import { Customers } from "@/types/customers";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../../ui/dropdown-menu";
+import { Button } from "../../../ui/button";
+import { Checkbox } from "../../../ui/checkbox";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const columns: ColumnDef<Customers>[] = [
   {
@@ -40,7 +47,7 @@ export const columns: ColumnDef<Customers>[] = [
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -58,23 +65,32 @@ export const columns: ColumnDef<Customers>[] = [
   {
     id: "actions",
     cell: function Cell({ row }) {
-      const customer = row.original
-      const router = useRouter()
+      const customer = row.original;
+      const USER_ID = customer.contractor_user_id;
+      const CUSTOMER_ID = customer.id;
+      const CUSTOMER_USER_ID = customer.customer_user_id;
+      const router = useRouter();
       const delCustomer = async (id: number) => {
-        const deleteCustomer = await fetch(`${process.env["NEXT_PUBLIC_CUSTOMERS_DELETE_URL"]}/${id}`, {
-          method: 'DELETE',
-          headers: {
-              "Content-Type": "application/json"
-          }
-        })
-        const deleteUser = await fetch(`${process.env["NEXT_PUBLIC_USER_DELETE_URL"]}/${customer.customer_user_id}`, {
-          method: 'DELETE',
-          headers: {
-              "Content-Type": "application/json"
-          }
-        })
-        router.refresh()
-      }
+        await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        await fetch(
+          `${process.env.NEXT_PUBLIC_HOST}/api/users/${CUSTOMER_USER_ID}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        );
+        router.refresh();
+      };
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -87,23 +103,21 @@ export const columns: ColumnDef<Customers>[] = [
             <DropdownMenuLabel>Customer Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_URL"]}/${customer.id}`}
+              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/customers/${CUSTOMER_ID}`}
             >
               <DropdownMenuItem>View Customer</DropdownMenuItem>
             </Link>
             <Link
-              href={`${process.env["NEXT_PUBLIC_CUSTOMERS_FORM_URL"]}/${customer.id}`}
+              href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/customers/form/${CUSTOMER_ID}`}
             >
               <DropdownMenuItem>Edit Customer</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem
-              onClick={() => delCustomer(customer.id as number)}
-            >
+            <DropdownMenuItem onClick={() => delCustomer(CUSTOMER_ID)}>
               Delete Customer
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
+      );
     },
   },
-]
+];

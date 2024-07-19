@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "d53be15c-3515-4c73-81e9-ebb77cfb7451",
+  "id": "ad41d0c2-ede7-4506-82d7-0ac15b7fd3b1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "accounts": {
@@ -156,6 +156,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "new_user": {
+          "name": "new_user",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
         "emailVerified": {
           "name": "emailVerified",
           "type": "timestamp",
@@ -226,14 +232,32 @@
           "primaryKey": true,
           "notNull": true
         },
-        "estimate_name": {
-          "name": "estimate_name",
-          "type": "varchar(255)",
+        "contractor_user_id": {
+          "name": "contractor_user_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customer_user_id": {
+          "name": "customer_user_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "estimate_id": {
+          "name": "estimate_id",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false
         },
         "change_order_name": {
           "name": "change_order_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customer_name": {
+          "name": "customer_name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
@@ -244,8 +268,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "customer_name": {
-          "name": "customer_name",
+        "estimate_name": {
+          "name": "estimate_name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
@@ -262,33 +286,23 @@
           "primaryKey": false,
           "notNull": false
         },
-        "date_created": {
-          "name": "date_created",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
-        "date_updated": {
-          "name": "date_updated",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
-        "estimate_id": {
-          "name": "estimate_id",
-          "type": "bigint",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "contractor_user_id": {
-          "name": "contractor_user_id",
-          "type": "bigint",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "customer_user_id": {
-          "name": "customer_user_id",
-          "type": "bigint",
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": false
         }
@@ -308,51 +322,59 @@
           "primaryKey": true,
           "notNull": true
         },
-        "name": {
-          "name": "name",
+        "contractor_user_id": {
+          "name": "contractor_user_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_user_id": {
+          "name": "customer_user_id",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "address": {
           "name": "address",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "email": {
           "name": "email",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
         },
         "phone": {
           "name": "phone",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
-        },
-        "date_created": {
-          "name": "date_created",
-          "type": "timestamp",
-          "primaryKey": false,
           "notNull": true
         },
-        "date_updated": {
-          "name": "date_updated",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
-        "contractor_user_id": {
-          "name": "contractor_user_id",
-          "type": "bigint",
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         },
-        "customer_user_id": {
-          "name": "customer_user_id",
-          "type": "varchar(255)",
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": false
         }
@@ -372,95 +394,11 @@
           "primaryKey": true,
           "notNull": true
         },
-        "estimate_name": {
-          "name": "estimate_name",
-          "type": "varchar(255)",
+        "contractor_user_id": {
+          "name": "contractor_user_id",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false
-        },
-        "customer_name": {
-          "name": "customer_name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "customer_email": {
-          "name": "customer_email",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "project_address": {
-          "name": "project_address",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "contractor_name": {
-          "name": "contractor_name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "contractor_address": {
-          "name": "contractor_address",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "contractor_phone": {
-          "name": "contractor_phone",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "message": {
-          "name": "message",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "subtotal": {
-          "name": "subtotal",
-          "type": "numeric(14, 2)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "tax_rate": {
-          "name": "tax_rate",
-          "type": "numeric(2, 2)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "tax": {
-          "name": "tax",
-          "type": "numeric(14, 2)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "total": {
-          "name": "total",
-          "type": "numeric(14, 2)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "status": {
-          "name": "status",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "date_created": {
-          "name": "date_created",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "date_updated": {
-          "name": "date_updated",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
         },
         "customer_id": {
           "name": "customer_id",
@@ -474,9 +412,105 @@
           "primaryKey": false,
           "notNull": false
         },
-        "contractor_user_id": {
-          "name": "contractor_user_id",
-          "type": "bigint",
+        "contractor_address": {
+          "name": "contractor_address",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contractor_name": {
+          "name": "contractor_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "contractor_phone": {
+          "name": "contractor_phone",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customer_email": {
+          "name": "customer_email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customer_name": {
+          "name": "customer_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "estimate_name": {
+          "name": "estimate_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "message": {
+          "name": "message",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "project_address": {
+          "name": "project_address",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "subtotal": {
+          "name": "subtotal",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 10.1
+        },
+        "tax": {
+          "name": "tax",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 10.1
+        },
+        "tax_rate": {
+          "name": "tax_rate",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 10.1
+        },
+        "total": {
+          "name": "total",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 10.1
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": false
         }
@@ -496,17 +530,37 @@
           "primaryKey": true,
           "notNull": true
         },
-        "item": {
-          "name": "item",
-          "type": "varchar(255)",
+        "estimate_id": {
+          "name": "estimate_id",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": false
+        },
+        "amount": {
+          "name": "amount",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 10.1
         },
         "description": {
           "name": "description",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
+        },
+        "item": {
+          "name": "item",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "price": {
+          "name": "price",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 10.1
         },
         "quantity": {
           "name": "quantity",
@@ -520,35 +574,71 @@
           "primaryKey": false,
           "notNull": false
         },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "invoices": {
+      "name": "invoices",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
         "price": {
           "name": "price",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "amount": {
-          "name": "amount",
-          "type": "numeric(14, 2)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "date_created": {
-          "name": "date_created",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "date_updated": {
-          "name": "date_updated",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "estimate_id": {
-          "name": "estimate_id",
           "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": false
         }
@@ -568,45 +658,113 @@
           "primaryKey": true,
           "notNull": true
         },
-        "business_name": {
-          "name": "business_name",
-          "type": "varchar(255)",
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "business_address": {
           "name": "business_address",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "business_email": {
           "name": "business_email",
           "type": "varchar(255)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
+        },
+        "business_name": {
+          "name": "business_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
         },
         "business_phone": {
           "name": "business_phone",
           "type": "varchar(255)",
           "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "primaryKey": false,
           "notNull": false
-        },
-        "date_created": {
-          "name": "date_created",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "date_updated": {
-          "name": "date_updated",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "workOrders": {
+      "name": "workOrders",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
           "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "contractor_user_id": {
+          "name": "contractor_user_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_user_id": {
+          "name": "customer_user_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order_name": {
+          "name": "order_name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "work_address": {
+          "name": "work_address",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": false
         }

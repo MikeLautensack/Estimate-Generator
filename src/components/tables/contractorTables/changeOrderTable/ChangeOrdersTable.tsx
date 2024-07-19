@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   flexRender,
@@ -10,8 +10,7 @@ import {
   getFilteredRowModel,
   useReactTable,
   getPaginationRowModel,
-} from "@tanstack/react-table"
-
+} from "@tanstack/react-table";
 import {
   Table,
   TableBody,
@@ -19,21 +18,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-
-import { TableProps } from "@/types/types"
-import { useState } from "react"
-import { Input } from "../../../ui/input"
-import ChangeOrdersPagination from "./ChangeOrdersPagination"
+} from "@/components/ui/table";
+import { TableProps } from "@/types/types";
+import { useState } from "react";
+import { Input } from "../../../ui/input";
+import ChangeOrdersPagination from "./ChangeOrdersPagination";
 
 export default function ChangeOrdersTable<TData, TValue>({
   columns,
   data,
 }: TableProps<TData, TValue>) {
-
-  const [ sorting, setSorting ] = useState<SortingState>([])
-  const [ columnFilters, setColumnFilters ] = useState<ColumnFiltersState>([])
-  const [ rowSelection, setRowSelection ] = useState<RowSelectionState>({})
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const table = useReactTable({
     data,
     columns,
@@ -48,22 +45,27 @@ export default function ChangeOrdersTable<TData, TValue>({
     onRowSelectionChange: setRowSelection,
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getFilteredRowModel: getFilteredRowModel()
-  })
+    getFilteredRowModel: getFilteredRowModel(),
+  });
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter customer..."
-          value={(table.getColumn("changeOrderName")?.getFilterValue() as string) ?? ""}
+          value={
+            (table.getColumn("changeOrderName")?.getFilterValue() as string) ??
+            ""
+          }
           onChange={(event) =>
-            table.getColumn("changeOrderName")?.setFilterValue(event.target.value)
+            table
+              .getColumn("changeOrderName")
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border bg-neutral100">
+      <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headersGroup) => (
@@ -71,11 +73,11 @@ export default function ChangeOrdersTable<TData, TValue>({
                 {headersGroup.headers.map((header) => (
                   <TableHead key={header.id}>
                     {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
@@ -90,14 +92,20 @@ export default function ChangeOrdersTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -105,9 +113,7 @@ export default function ChangeOrdersTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <ChangeOrdersPagination
-        table={table}
-      />
+      <ChangeOrdersPagination table={table} />
     </div>
-  )
+  );
 }

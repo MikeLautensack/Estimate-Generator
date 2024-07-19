@@ -1,14 +1,15 @@
+import CustomerSideBar from "@/components/misc/CustomerSideBar";
 import "../globals.css";
+import React from "react";
 
 export default function CustomerLayout({
-  children, 
+  children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <div
-      className="desktop:flex flex-1 bg-primary600 min-h-screen"
-    >
+    <div className="flex flex-col desktop:flex-row">
+      <CustomerSideBar />
       {children}
     </div>
   );
