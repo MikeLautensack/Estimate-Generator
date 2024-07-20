@@ -12,7 +12,7 @@ const sendVerificationRequest = async (params: any) => {
   const contractorName = callbackUrlSearchParams.get("contractor-name");
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/emails`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}api/emails`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,9 @@ const sendVerificationRequest = async (params: any) => {
         emailType: emailType,
       }),
     });
-    console.log("Response from /api/emails", res);
+    if (res.status !== 200) {
+      throw new Error(`Failed to send the verification email.  Res: ${res}`);
+    }
   } catch (error: any) {
     throw new Error(
       `Failed to send the verification email.  Error: ${error.message}`,
