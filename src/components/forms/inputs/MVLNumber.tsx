@@ -8,9 +8,16 @@ type MVLNumberProps = {
   label: string;
   size?: any;
   readonly?: boolean;
+  disabled?: boolean;
 };
 
-const MVLNumber = ({ name, label, size, readonly }: MVLNumberProps) => {
+const MVLNumber = ({
+  name,
+  label,
+  size,
+  readonly,
+  disabled,
+}: MVLNumberProps) => {
   // Hooks
   const {
     control,
@@ -32,6 +39,7 @@ const MVLNumber = ({ name, label, size, readonly }: MVLNumberProps) => {
       thousandSeparator
       sx={{ backgroundColor: "surfaceContainerHighest" }}
       fullWidth
+      disabled={disabled}
       slotProps={{
         input: {
           readOnly: readonly,

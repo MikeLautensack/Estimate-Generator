@@ -5,9 +5,10 @@ import { useController, useFormContext } from "react-hook-form";
 type TextInputProps = {
   name: string;
   label?: string;
+  disabled?: boolean;
 };
 
-const TextAreaInput = ({ name, label }: TextInputProps) => {
+const TextAreaInput = ({ name, label, disabled }: TextInputProps) => {
   // Hooks
   const {
     control,
@@ -29,6 +30,7 @@ const TextAreaInput = ({ name, label }: TextInputProps) => {
       rows={7.61}
       defaultValue=""
       fullWidth
+      disabled={disabled}
       {...field}
     />
   );

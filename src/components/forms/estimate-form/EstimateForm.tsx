@@ -138,6 +138,22 @@ const EstimateForm = ({
     methods.setValue("customer_user_id", customerUserId!);
   }, [customerUserId, methods]);
 
+  useEffect(() => {
+    if (saveStatus === "saved") {
+      setTimeout(() => {
+        setSaveStatus("not-saved");
+      }, 5000);
+    }
+  }, [saveStatus]);
+
+  useEffect(() => {
+    if (saveAndSaveStatus === "saved") {
+      setTimeout(() => {
+        setSaveAndSaveStatus("not-saved");
+      }, 5000);
+    }
+  }, [saveAndSaveStatus]);
+
   // Callbacks
   const save: SubmitHandler<EstimateFormValues> = useCallback(
     async (data) => {
@@ -287,7 +303,11 @@ const EstimateForm = ({
             )}
           </Tabs>
           <CustomTabPanel value={tab} index={0}>
-            <EstimateFormPartOne customers={customers} />
+            <EstimateFormPartOne
+              customers={customers}
+              saveStatus={saveStatus}
+              saveAndSaveStatus={saveAndSaveStatus}
+            />
           </CustomTabPanel>
           <CustomTabPanel value={tab} index={1}>
             <EstimateFormPartTwo
@@ -303,6 +323,8 @@ const EstimateForm = ({
               save={save}
               saveAndSend={saveAndSend}
               mode={mode}
+              saveStatus={saveStatus}
+              saveAndSaveStatus={saveAndSaveStatus}
             />
           </CustomTabPanel>
           {changeOrders && changeOrders?.length !== 0 && (

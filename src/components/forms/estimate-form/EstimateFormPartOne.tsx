@@ -13,7 +13,11 @@ const getCustomerOptions = (customers: Customers[]) => {
   });
 };
 
-const EstimateFormPartOne = ({ customers }: EstimateFormPartOneProps) => {
+const EstimateFormPartOne = ({
+  customers,
+  saveStatus,
+  saveAndSaveStatus,
+}: EstimateFormPartOneProps) => {
   // Hooks
   const { control, setValue } = useFormContext();
 
@@ -72,6 +76,11 @@ const EstimateFormPartOne = ({ customers }: EstimateFormPartOneProps) => {
           label="Customers"
           options={customerOptions}
           idAsValue
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         />
       </div>
       <div className="flex flex-col gap-2 my-2 text-black">
@@ -79,16 +88,31 @@ const EstimateFormPartOne = ({ customers }: EstimateFormPartOneProps) => {
           name="customerName"
           label="Customer Name"
           readonly={readonly}
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         />
         <TextInput
           name="customerEmail"
           label="Customer Email"
           readonly={readonly}
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         />
         <TextInput
           name="projectAddress"
           label="Project Address"
           readonly={readonly}
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         />
       </div>
     </div>
