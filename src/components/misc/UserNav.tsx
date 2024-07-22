@@ -1,7 +1,8 @@
 import React from "react";
 import AccountMenu from "./AccountMenu";
-import NotificationsMenu from "./NotificationsMenu";
 import DarkModeSwitch from "./DarkModeSwitch";
+import { Box } from "@mui/system";
+import MobileMenu from "./MobileMenu";
 
 const UserNav = () => {
   return (
@@ -9,9 +10,32 @@ const UserNav = () => {
       id="contractor-dashboard-nav"
       className="flex justify-center items-center gap-2"
     >
-      {/* <NotificationsMenu /> */}
-      <AccountMenu />
-      <DarkModeSwitch />
+      <Box
+        component="div"
+        className="flex justify-center items-center gap-2"
+        sx={{
+          display: {
+            xs: "none",
+            lg: "flex",
+          },
+        }}
+      >
+        {/* <NotificationsMenu /> */}
+        <AccountMenu />
+        <DarkModeSwitch />
+      </Box>
+      <Box
+        component="div"
+        className=""
+        sx={{
+          display: {
+            xs: "flex",
+            lg: "none",
+          },
+        }}
+      >
+        <MobileMenu />
+      </Box>
     </div>
   );
 };
