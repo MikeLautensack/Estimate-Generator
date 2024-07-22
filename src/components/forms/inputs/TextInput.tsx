@@ -7,6 +7,7 @@ type TextInputProps = {
   label?: string;
   size?: any;
   readonly?: boolean;
+  disabled?: boolean;
 };
 
 const TextInput = ({
@@ -14,6 +15,7 @@ const TextInput = ({
   label,
   size = "normal",
   readonly,
+  disabled,
 }: TextInputProps) => {
   // Hooks
   const {
@@ -33,6 +35,7 @@ const TextInput = ({
       label={label}
       fullWidth
       size={size}
+      disabled={disabled}
       slotProps={{
         input: {
           readOnly: readonly,

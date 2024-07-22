@@ -8,6 +8,7 @@ type MVLMoneyInputProps = {
   label: string;
   size?: any;
   readonly?: boolean;
+  disabled?: boolean;
 };
 
 // This is a branch level component
@@ -16,6 +17,7 @@ const MVLMoneyInput = ({
   label,
   size = "normal",
   readonly,
+  disabled,
 }: MVLMoneyInputProps) => {
   // Hooks
   const {
@@ -45,6 +47,7 @@ const MVLMoneyInput = ({
           startAdornment: <InputAdornment position="start">$</InputAdornment>,
         },
       }}
+      disabled={disabled}
       {...field}
     />
   );

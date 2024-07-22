@@ -27,7 +27,7 @@ const ContractorsCustomersTableMenu = ({
     const USER_ID = customer.contractor_user_id;
     const CUSTOMER_ID = customer.id;
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
+      `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
       {
         method: "DELETE",
       },
@@ -57,10 +57,14 @@ const ContractorsCustomersTableMenu = ({
           "aria-labelledby": "basic-button",
         }}
       >
-        <Link href={`contractor-dashboard/customers/${customer.id}`}>
+        <Link
+          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/customers/${customer.id}`}
+        >
           <MenuItem onClick={handleClose}>View Customer</MenuItem>
         </Link>
-        <Link href={`contractor-dashboard/customers/form/${customer.id}`}>
+        <Link
+          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/customers/form/${customer.id}`}
+        >
           <MenuItem onClick={handleClose}>Edit Customer</MenuItem>
         </Link>
         <MenuItem

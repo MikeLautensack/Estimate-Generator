@@ -127,10 +127,26 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
           className="flex flex-col gap-4"
           onSubmit={methods.handleSubmit(submit)}
         >
-          <TextInput name="name" label="Name" />
-          <TextInput name="address" label="Address" />
-          <TextInput name="email" label="Email" />
-          <TextInput name="phone" label="Phone" />
+          <TextInput
+            name="name"
+            label="Name"
+            disabled={loadingState === "loading"}
+          />
+          <TextInput
+            name="address"
+            label="Address"
+            disabled={loadingState === "loading"}
+          />
+          <TextInput
+            name="email"
+            label="Email"
+            disabled={loadingState === "loading"}
+          />
+          <TextInput
+            name="phone"
+            label="Phone"
+            disabled={loadingState === "loading"}
+          />
           <Button
             variant="contained"
             type="submit"
@@ -143,6 +159,7 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
                     ? "error"
                     : "success"
             }
+            disabled={loadingState === "loading"}
           >
             {mode === "new-customer" && loadingState === "" ? (
               <Typography>Create Customer</Typography>
