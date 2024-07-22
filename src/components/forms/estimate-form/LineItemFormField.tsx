@@ -19,6 +19,8 @@ const LineItemFormField = ({
   fields,
   index,
   remove,
+  saveStatus,
+  saveAndSaveStatus,
 }: LineItemFormFieldProps) => {
   // Hooks
   const { control, setValue, getValues } = useFormContext();
@@ -56,6 +58,11 @@ const LineItemFormField = ({
           name={`lineItems.${index}.item` as const}
           label="Item Name"
           size="small"
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         />
       </TableCell>
       <TableCell className="align-top w-full px-2">
@@ -63,6 +70,11 @@ const LineItemFormField = ({
           name={`lineItems.${index}.description` as const}
           label="Item Description"
           size="small"
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         />
       </TableCell>
       <TableCell className="align-top w-32 px-2">
@@ -73,6 +85,11 @@ const LineItemFormField = ({
             name={`lineItems.${index}.quantity` as const}
             label="Quantity"
             size="small"
+            disabled={
+              saveStatus === "saving" ||
+              saveAndSaveStatus === "saving" ||
+              saveAndSaveStatus === "sending"
+            }
           />
         </div>
       </TableCell>
@@ -91,6 +108,11 @@ const LineItemFormField = ({
                 { label: "Flat Rate" },
               ]}
               size="small"
+              disabled={
+                saveStatus === "saving" ||
+                saveAndSaveStatus === "saving" ||
+                saveAndSaveStatus === "sending"
+              }
             />
           </div>
           <div className="flex flex-col gap-1 w-32">
@@ -98,6 +120,11 @@ const LineItemFormField = ({
               name={`lineItems.${index}.price` as const}
               label="Price"
               size="small"
+              disabled={
+                saveStatus === "saving" ||
+                saveAndSaveStatus === "saving" ||
+                saveAndSaveStatus === "sending"
+              }
             />
           </div>
         </div>
@@ -107,14 +134,19 @@ const LineItemFormField = ({
           {formatPriceString(amount)}
         </Typography>
       </TableCell>
-      <TableCell className="align-top pl-2 pr-0">
-        <div className="">
+      <TableCell className="align-center pl-2 pr-0">
+        <div className="flex justify-center items-center">
           <Button
             onClick={() => {
               remove(index);
             }}
             className=""
             variant="text"
+            disabled={
+              saveStatus === "saving" ||
+              saveAndSaveStatus === "saving" ||
+              saveAndSaveStatus === "sending"
+            }
           >
             <FaTrashAlt className="text-error500" />
           </Button>
