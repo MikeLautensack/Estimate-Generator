@@ -8,6 +8,7 @@ type MVLReadOnlyInputProps = {
   prefix?: string;
   value?: string;
   size?: any;
+  disabled?: boolean;
 };
 
 const MVLReadOnlyInput = ({
@@ -16,6 +17,7 @@ const MVLReadOnlyInput = ({
   prefix,
   value,
   size,
+  disabled,
 }: MVLReadOnlyInputProps) => {
   // State
   const [val, setVal] = useState<string>("");
@@ -63,6 +65,7 @@ const MVLReadOnlyInput = ({
       fullWidth
       value={name ? val : value}
       size={size}
+      disabled={disabled}
     />
   );
 };

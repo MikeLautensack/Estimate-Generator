@@ -45,12 +45,26 @@ const EstimateFormButtons = ({
           variant="contained"
           className="w-full"
           onClick={() => setTab(tab - 1)}
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         >
           <ChevronLeftIcon />
           Previous
         </Button>
       )}
-      <Button type="submit" variant="contained" className="w-full">
+      <Button
+        type="submit"
+        variant="contained"
+        className="w-full"
+        disabled={
+          saveStatus === "saving" ||
+          saveAndSaveStatus === "saving" ||
+          saveAndSaveStatus === "sending"
+        }
+      >
         Preview Estimate
       </Button>
       <Button
@@ -64,6 +78,11 @@ const EstimateFormButtons = ({
             : saveStatus === "saved"
               ? "success"
               : "primary"
+        }
+        disabled={
+          saveStatus === "saving" ||
+          saveAndSaveStatus === "saving" ||
+          saveAndSaveStatus === "sending"
         }
       >
         {mode === "new-estimate" && saveStatus === "not-saved" ? (
@@ -95,6 +114,11 @@ const EstimateFormButtons = ({
               ? "success"
               : "primary"
         }
+        disabled={
+          saveStatus === "saving" ||
+          saveAndSaveStatus === "saving" ||
+          saveAndSaveStatus === "sending"
+        }
       >
         {mode === "new-estimate" && saveAndSaveStatus === "not-saved" ? (
           <Typography variant="button">Save & Send New Estimate</Typography>
@@ -120,6 +144,11 @@ const EstimateFormButtons = ({
           variant="contained"
           className="w-full"
           onClick={() => setTab(tab + 1)}
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         >
           Next
           <ChevronRightIcon />

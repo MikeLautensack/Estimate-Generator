@@ -3,7 +3,7 @@ import React from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 
-type MVLNumberProps = {
+type MVLTaxRateProps = {
   name: string;
   label: string;
   size?: any;
@@ -11,13 +11,13 @@ type MVLNumberProps = {
   disabled?: boolean;
 };
 
-const MVLNumber = ({
+const MVLTaxRate = ({
   name,
   label,
   size,
   readonly,
   disabled,
-}: MVLNumberProps) => {
+}: MVLTaxRateProps) => {
   // Hooks
   const {
     control,
@@ -33,22 +33,30 @@ const MVLNumber = ({
   return (
     <NumericFormat
       customInput={TextField}
+      decimalScale={2}
       fixedDecimalScale={true}
-      decimalScale={0}
       valueIsNumericString
-      thousandSeparator
+      allowNegative={false}
+      isAllowed={(values) => {
+        const { floatValue } = values;
+        return (
+          floatValue === undefined || (floatValue >= 0 && floatValue <= 100)
+        );
+      }}
+      size={size}
+      label={label}
       sx={{ backgroundColor: "surfaceContainerHighest" }}
       fullWidth
-      disabled={disabled}
       slotProps={{
         input: {
           readOnly: readonly,
+          startAdornment: <InputAdornment position="start">%</InputAdornment>,
         },
       }}
-      size={size}
+      disabled={disabled}
       {...field}
     />
   );
 };
 
-export default MVLNumber;
+export default MVLTaxRate;

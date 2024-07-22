@@ -12,7 +12,12 @@ import { EstimateFormTableProps } from "../../../../types/estimates";
 import LineItemFormField from "@/components/forms/estimate-form/LineItemFormField";
 import { LineItemsValues } from "@/components/forms/estimate-form/EstimateForm";
 
-const EstimateFormTable = ({ fields, remove }: EstimateFormTableProps) => {
+const EstimateFormTable = ({
+  fields,
+  remove,
+  saveStatus,
+  saveAndSaveStatus,
+}: EstimateFormTableProps) => {
   return (
     <div>
       <Table className="flex-1 w-full">
@@ -37,6 +42,8 @@ const EstimateFormTable = ({ fields, remove }: EstimateFormTableProps) => {
               fields={fields}
               index={index}
               remove={remove}
+              saveStatus={saveStatus}
+              saveAndSaveStatus={saveAndSaveStatus}
             />
           ))}
         </TableBody>
