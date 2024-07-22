@@ -107,8 +107,8 @@ const LineItemFormField = ({
           {formatPriceString(amount)}
         </Typography>
       </TableCell>
-      <TableCell className="align-top pl-2 pr-0">
-        <div className="">
+      <TableCell className="align-center pl-2 pr-0">
+        <div className="flex justify-center items-center">
           <Button
             onClick={() => {
               remove(index);
