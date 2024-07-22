@@ -221,15 +221,14 @@ const EstimateForm = ({
         );
         if (res.status === 200) {
           setSaveAndSaveStatus("sending");
-          const emailRes = sendAuthEmail(
+          const emailRes = await sendAuthEmail(
             data.customerEmail,
             `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${data.customerName}&contractor-name=${data.contractorName}&redirect-flag=new-estimate&estimate-id=${data.id}`,
             false,
           );
-          console.log(
-            "testing emailRes in saveAndSend callback (new estimate)",
-            emailRes,
-          );
+          if (emailRes?.status === 200) {
+            setSaveAndSaveStatus("saved");
+          }
         } else {
           setSaveAndSaveStatus("error");
         }
@@ -251,15 +250,14 @@ const EstimateForm = ({
         );
         if (res.status === 200) {
           setSaveAndSaveStatus("sending");
-          const emailRes = sendAuthEmail(
+          const emailRes = await sendAuthEmail(
             data.customerEmail,
             `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=updated-estimate&customer-name=${data.customerName}&contractor-name=${data.contractorName}&redirect-flag=updated-estimate&estimate-id=${data.id}`,
             false,
           );
-          console.log(
-            "testing emailRes in saveAndSend callback (updated estimate)",
-            emailRes,
-          );
+          if (emailRes?.status === 200) {
+            setSaveAndSaveStatus("saved");
+          }
         } else {
           setSaveAndSaveStatus("error");
         }
