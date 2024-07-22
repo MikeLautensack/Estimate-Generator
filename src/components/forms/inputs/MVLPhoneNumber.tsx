@@ -8,6 +8,7 @@ type MVLPhoneNumberProps = {
   label: string;
   size?: any;
   readonly?: boolean;
+  disabled?: boolean;
 };
 
 const MVLPhoneNumber = ({
@@ -15,6 +16,7 @@ const MVLPhoneNumber = ({
   label,
   size,
   readonly,
+  disabled,
 }: MVLPhoneNumberProps) => {
   // Hooks
   const {
@@ -41,6 +43,7 @@ const MVLPhoneNumber = ({
         },
       }}
       size={size}
+      disabled={disabled}
       {...field}
     />
   );
