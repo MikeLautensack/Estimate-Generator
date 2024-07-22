@@ -14,10 +14,6 @@ const TaxAndTotal = () => {
   // Watched fields
   const taxRateVal = useWatch({ control, name: "taxRate" });
   const subtotal = useWatch({ control, name: "subtotal" });
-  console.log(
-    "This log is testing the value of `subtotal` returned from useWatch in the tax and total compl",
-    subtotal,
-  );
 
   // Custom hooks
   const tax = useCalcTax(subtotal, taxRateVal);
@@ -25,10 +21,6 @@ const TaxAndTotal = () => {
   // Effects
   useEffect(() => {
     setValue("tax", tax);
-    console.log(
-      "This log is testing the value of tax from useCalcTax inside the useEffect that sets the tax field",
-      tax,
-    );
   }, [setValue, tax]);
 
   return (
