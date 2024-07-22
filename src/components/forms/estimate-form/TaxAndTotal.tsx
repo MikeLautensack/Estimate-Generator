@@ -1,13 +1,17 @@
 import { Box } from "@mui/material";
 import React, { useEffect } from "react";
-import MVLReadOnlyInput from "../inputs/MVLReadOnlyInput";
 import { useFormContext, useWatch } from "react-hook-form";
 import useCalcTax from "./hooks/useCalcTax";
 import MVLMoneyInput from "../inputs/MVLMoneyInput";
-import MVLPercent from "../inputs/MVLPercent";
 import MVLTaxRate from "../inputs/MVLTaxRate";
+import { SaveAndSentStatus, SaveStatus } from "./EstimateForm";
 
-const TaxAndTotal = () => {
+type TaxAndTotalProps = {
+  saveStatus?: SaveStatus;
+  saveAndSaveStatus?: SaveAndSentStatus;
+};
+
+const TaxAndTotal = ({ saveStatus, saveAndSaveStatus }: TaxAndTotalProps) => {
   // Hooks
   const { control, setValue } = useFormContext();
 
@@ -31,13 +35,37 @@ const TaxAndTotal = () => {
           size="small"
           name="subtotal"
           readonly={true}
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         />
       </div>
       <div className="w-44">
-        <MVLTaxRate label="Tax Rate" size="small" name="taxRate" />
+        <MVLTaxRate
+          label="Tax Rate"
+          size="small"
+          name="taxRate"
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
+        />
       </div>
       <div className="w-44">
-        <MVLMoneyInput label="Tax" size="small" name="tax" readonly={true} />
+        <MVLMoneyInput
+          label="Tax"
+          size="small"
+          name="tax"
+          readonly={true}
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
+        />
       </div>
       <div className="w-44">
         <MVLMoneyInput
@@ -45,6 +73,11 @@ const TaxAndTotal = () => {
           size="small"
           name="total"
           readonly={true}
+          disabled={
+            saveStatus === "saving" ||
+            saveAndSaveStatus === "saving" ||
+            saveAndSaveStatus === "sending"
+          }
         />
       </div>
     </Box>

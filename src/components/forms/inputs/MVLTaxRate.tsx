@@ -8,9 +8,16 @@ type MVLTaxRateProps = {
   label: string;
   size?: any;
   readonly?: boolean;
+  disabled?: boolean;
 };
 
-const MVLTaxRate = ({ name, label, size, readonly }: MVLTaxRateProps) => {
+const MVLTaxRate = ({
+  name,
+  label,
+  size,
+  readonly,
+  disabled,
+}: MVLTaxRateProps) => {
   // Hooks
   const {
     control,
@@ -46,6 +53,7 @@ const MVLTaxRate = ({ name, label, size, readonly }: MVLTaxRateProps) => {
           startAdornment: <InputAdornment position="start">%</InputAdornment>,
         },
       }}
+      disabled={disabled}
       {...field}
     />
   );

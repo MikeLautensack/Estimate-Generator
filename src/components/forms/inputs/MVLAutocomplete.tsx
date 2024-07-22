@@ -10,6 +10,7 @@ type MVLAutocompleteProps = {
   options: any[];
   size?: any;
   idAsValue?: boolean;
+  disabled?: boolean;
 };
 
 type Option = {
@@ -23,6 +24,7 @@ const MVLAutocomplete = ({
   options,
   size,
   idAsValue = false,
+  disabled,
 }: MVLAutocompleteProps) => {
   // Hooks
   const {
@@ -75,6 +77,7 @@ const MVLAutocomplete = ({
       value={val}
       fullWidth
       size={size}
+      disabled={disabled}
     />
   );
 };
