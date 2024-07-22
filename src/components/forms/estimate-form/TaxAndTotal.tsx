@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import useCalcTax from "./hooks/useCalcTax";
 import MVLMoneyInput from "../inputs/MVLMoneyInput";
 import MVLPercent from "../inputs/MVLPercent";
+import MVLTaxRate from "../inputs/MVLTaxRate";
 
 const TaxAndTotal = () => {
   // Hooks
@@ -41,7 +42,7 @@ const TaxAndTotal = () => {
         />
       </div>
       <div className="w-44">
-        <MVLPercent label="Tax Rate" size="small" name="taxRate" />
+        <MVLTaxRate label="Tax Rate" size="small" name="taxRate" />
       </div>
       <div className="w-44">
         <MVLMoneyInput label="Tax" size="small" name="tax" readonly={true} />

@@ -1,16 +1,21 @@
 import { TextField } from "@mui/material";
 import React from "react";
 import { useController, useFormContext } from "react-hook-form";
-import { NumericFormat, PatternFormat } from "react-number-format";
+import { PatternFormat } from "react-number-format";
 
-type MVLNumberProps = {
+type MVLPhoneNumberProps = {
   name: string;
   label: string;
   size?: any;
   readonly?: boolean;
 };
 
-const MVLPhoneNumber = ({ name, label, size, readonly }: MVLNumberProps) => {
+const MVLPhoneNumber = ({
+  name,
+  label,
+  size,
+  readonly,
+}: MVLPhoneNumberProps) => {
   // Hooks
   const {
     control,
