@@ -1,22 +1,23 @@
 import { TextField } from "@mui/material";
 import React from "react";
 import { useController, useFormContext } from "react-hook-form";
+import { PatternFormat } from "react-number-format";
 
-type TextInputProps = {
+type MVLPhoneNumberProps = {
   name: string;
-  label?: string;
+  label: string;
   size?: any;
   readonly?: boolean;
   disabled?: boolean;
 };
 
-const TextInput = ({
+const MVLPhoneNumber = ({
   name,
   label,
-  size = "normal",
+  size,
   readonly,
   disabled,
-}: TextInputProps) => {
+}: MVLPhoneNumberProps) => {
   // Hooks
   const {
     control,
@@ -30,20 +31,22 @@ const TextInput = ({
   });
 
   return (
-    <TextField
+    <PatternFormat
+      customInput={TextField}
+      format="(###) ###-####"
+      valueIsNumericString
       sx={{ backgroundColor: "surfaceContainerHighest" }}
-      label={label}
       fullWidth
-      size={size}
-      disabled={disabled}
       slotProps={{
         input: {
           readOnly: readonly,
         },
       }}
+      size={size}
+      disabled={disabled}
       {...field}
     />
   );
 };
 
-export default TextInput;
+export default MVLPhoneNumber;
