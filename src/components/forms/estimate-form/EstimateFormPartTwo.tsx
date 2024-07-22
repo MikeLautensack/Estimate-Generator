@@ -13,6 +13,7 @@ import { ChangeOrder } from "@/types/changeOrders";
 import { EstimateFormValues, LineItemsValues } from "./EstimateForm";
 import { useEffect } from "react";
 import { generateNumericId } from "@/utils/generateRandom";
+import MVLPhoneNumber from "../inputs/MVLPhoneNumber";
 
 export type EstimateFormPartTwoProps = {
   customers: Customers[];
@@ -100,10 +101,11 @@ const EstimateFormPartTwo = ({
               name="contractorAddress"
               size="small"
             />
-            <MVLReadOnlyInput
+            <MVLPhoneNumber
               label="Contractor Phone"
               name="contractorPhone"
               size="small"
+              readonly
             />
           </Box>
         </div>
