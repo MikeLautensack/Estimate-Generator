@@ -138,6 +138,22 @@ const EstimateForm = ({
     methods.setValue("customer_user_id", customerUserId!);
   }, [customerUserId, methods]);
 
+  useEffect(() => {
+    if (saveStatus === "saved") {
+      setTimeout(() => {
+        setSaveStatus("not-saved");
+      }, 5000);
+    }
+  }, [saveStatus]);
+
+  useEffect(() => {
+    if (saveAndSaveStatus === "saved") {
+      setTimeout(() => {
+        setSaveAndSaveStatus("not-saved");
+      }, 5000);
+    }
+  }, [saveAndSaveStatus]);
+
   // Callbacks
   const save: SubmitHandler<EstimateFormValues> = useCallback(
     async (data) => {
@@ -221,15 +237,14 @@ const EstimateForm = ({
         );
         if (res.status === 200) {
           setSaveAndSaveStatus("sending");
-          const emailRes = sendAuthEmail(
+          const emailRes = await sendAuthEmail(
             data.customerEmail,
             `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${data.customerName}&contractor-name=${data.contractorName}&redirect-flag=new-estimate&estimate-id=${data.id}`,
             false,
           );
-          console.log(
-            "testing emailRes in saveAndSend callback (new estimate)",
-            emailRes,
-          );
+          if (emailRes?.status === 200) {
+            setSaveAndSaveStatus("saved");
+          }
         } else {
           setSaveAndSaveStatus("error");
         }
@@ -251,15 +266,14 @@ const EstimateForm = ({
         );
         if (res.status === 200) {
           setSaveAndSaveStatus("sending");
-          const emailRes = sendAuthEmail(
+          const emailRes = await sendAuthEmail(
             data.customerEmail,
             `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=updated-estimate&customer-name=${data.customerName}&contractor-name=${data.contractorName}&redirect-flag=updated-estimate&estimate-id=${data.id}`,
             false,
           );
-          console.log(
-            "testing emailRes in saveAndSend callback (updated estimate)",
-            emailRes,
-          );
+          if (emailRes?.status === 200) {
+            setSaveAndSaveStatus("saved");
+          }
         } else {
           setSaveAndSaveStatus("error");
         }
@@ -289,7 +303,11 @@ const EstimateForm = ({
             )}
           </Tabs>
           <CustomTabPanel value={tab} index={0}>
-            <EstimateFormPartOne customers={customers} />
+            <EstimateFormPartOne
+              customers={customers}
+              saveStatus={saveStatus}
+              saveAndSaveStatus={saveAndSaveStatus}
+            />
           </CustomTabPanel>
           <CustomTabPanel value={tab} index={1}>
             <EstimateFormPartTwo
@@ -305,6 +323,8 @@ const EstimateForm = ({
               save={save}
               saveAndSend={saveAndSend}
               mode={mode}
+              saveStatus={saveStatus}
+              saveAndSaveStatus={saveAndSaveStatus}
             />
           </CustomTabPanel>
           {changeOrders && changeOrders?.length !== 0 && (
