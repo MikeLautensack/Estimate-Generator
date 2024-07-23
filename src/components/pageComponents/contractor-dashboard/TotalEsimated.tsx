@@ -1,6 +1,8 @@
 import { db } from "@/db";
 import { estimates } from "@/db/schemas/estimates";
+import { formatPriceString } from "@/utils/formatingFunctions";
 import { Card, Typography } from "@mui/material";
+import React from "react";
 
 async function getData() {
   try {
@@ -11,9 +13,17 @@ async function getData() {
   }
 }
 
-export default async function TotalEstimates() {
-  const data = await getData();
+const getTotal = (data: any) => {
+  let total = 0;
+  for (let i = 0; i < data.length; i++) {
+    total += parseFloat(data[i].total);
+  }
+  return total;
+};
 
+const TotalEsimated = async () => {
+  const data = await getData();
+  const total = getTotal(data);
   return (
     <Card
       sx={{ backgroundColor: "surfaceContainerLow" }}
@@ -22,9 +32,11 @@ export default async function TotalEstimates() {
       <Typography variant="body1" color="primary">
         Total Estimated
       </Typography>
-      <Typography variant="body1" color="primary">
-        {data?.length}
+      <Typography variant="body1" color="cash">
+        {formatPriceString(total.toString())}
       </Typography>
     </Card>
   );
-}
+};
+
+export default TotalEsimated;
