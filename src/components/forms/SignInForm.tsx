@@ -109,6 +109,7 @@ const SignInForm = () => {
               name="password"
               label="Password"
               disabled={loading === "loading"}
+              type="password"
             />
             {serverError === "Invalid Credentials" && (
               <Typography variant="body1" color="error">
