@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { onSubmit } from "@/utils/formUtils/signInForm";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Stack, Typography } from "@mui/material";
+import { Button, CircularProgress, Stack, Typography } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 import TextInput from "./inputs/TextInput";
 import { z } from "zod";
 import Divider from "@mui/material/Divider";
+import { SubmitHandler } from "react-hook-form";
+import { LoginFormValues } from "@/types/types";
+import { signIn } from "next-auth/react";
 
 const SignInFormSchema = z.object({
   email: z.string(),
@@ -18,6 +20,7 @@ const SignInFormSchema = z.object({
 type SignInFormValues = z.infer<typeof SignInFormSchema>;
 
 const SignInForm = () => {
+  // Hooks
   const methods = useForm<SignInFormValues>({
     resolver: zodResolver(SignInFormSchema),
     defaultValues: {
@@ -30,32 +33,56 @@ const SignInForm = () => {
   const searchParams = useSearchParams();
 
   // State
-  const [serverEmailErrorText, setServerEmailErrorText] = useState<string>("");
-  const [serverPasswordErrorText, setServerPasswordErrorText] =
-    useState<string>("");
-  const [emailInputServerError, setEmailInputServerError] =
-    useState<boolean>(false);
-  const [passwordInputServerError, setPasswordInputServerError] =
-    useState<boolean>(false);
+  // const [serverEmailErrorText, setServerEmailErrorText] = useState<string>("");
+  // const [serverPasswordErrorText, setServerPasswordErrorText] =
+  //   useState<string>("");
+  // const [emailInputServerError, setEmailInputServerError] =
+  //   useState<boolean>(false);
+  // const [passwordInputServerError, setPasswordInputServerError] =
+  //   useState<boolean>(false);
+  const [serverError, setServerError] = useState("");
+  const [loading, setLoading] = useState("");
 
   // Effects
   useEffect(() => {}, []);
 
   useEffect(() => {
-    let authError: string | null = null;
+    // let authError: string | null = null;
+    // console.log("authError", authError);
+    // if (searchParams) {
+    //   authError = searchParams.get("error");
+    //   if (authError) {
+    //     if (authError === "Email not found") {
+    //       setEmailInputServerError(true);
+    //       setServerEmailErrorText(authError);
+    //     } else if (authError === "Invalid password") {
+    //       setPasswordInputServerError(true);
+    //       setServerPasswordErrorText(authError);
+    //     }
+    //   }
+    // }
+
     if (searchParams) {
-      authError = searchParams.get("error");
+      const authError = searchParams.get("error");
       if (authError) {
-        if (authError === "Email not found") {
-          setEmailInputServerError(true);
-          setServerEmailErrorText(authError);
-        } else if (authError === "Invalid password") {
-          setPasswordInputServerError(true);
-          setServerPasswordErrorText(authError);
+        if (authError === "Configuration") {
+          setServerError("Invalid Credentials");
         }
       }
     }
   }, [searchParams]);
+
+  // Callbacks
+  const onSubmit: SubmitHandler<LoginFormValues> = useCallback(async (data) => {
+    setLoading("loading");
+    const res = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: true,
+      callbackUrl: `${process.env.NEXT_PUBLIC_HOST}api/redirect`,
+    });
+    setLoading("");
+  }, []);
 
   return (
     <FormProvider {...methods}>
@@ -73,10 +100,24 @@ const SignInForm = () => {
             </Typography>
           </div>
           <div className="flex flex-col gap-4">
-            <TextInput name="email" label="Email Address" />
-            <TextInput name="password" label="Password" />
+            <TextInput
+              name="email"
+              label="Email Address"
+              disabled={loading === "loading"}
+            />
+            <TextInput
+              name="password"
+              label="Password"
+              disabled={loading === "loading"}
+              type="password"
+            />
+            {serverError === "Invalid Credentials" && (
+              <Typography variant="body1" color="error">
+                Invalid Credentials
+              </Typography>
+            )}
           </div>
-          <div className="flex justify-between my-2 items-center gap-16">
+          {/* <div className="flex justify-between my-2 items-center gap-16">
             <div className="flex gap-2 justify-center items-center">
               <input className="" type="checkbox"></input>
               <Typography variant="body1" color="onSurface">
@@ -84,10 +125,20 @@ const SignInForm = () => {
               </Typography>
             </div>
             <Button className="text-black">Forgot Password?</Button>
-          </div>
+          </div> */}
           <div className="w-full flex justify-center items-center">
-            <Button type="submit" variant="contained">
-              Sign In
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={loading === "loading"}
+            >
+              {loading !== "loading" ? (
+                "Sign In"
+              ) : loading === "loading" ? (
+                <CircularProgress sx={{ color: "#001824" }} />
+              ) : (
+                "error"
+              )}
             </Button>
           </div>
           <Divider
@@ -98,7 +149,9 @@ const SignInForm = () => {
             <Typography variant="body1" color="onSurface">
               No account yet?
             </Typography>
-            <Button variant="text">Sign Up</Button>
+            <Button variant="text" disabled={loading === "loading"}>
+              Sign Up
+            </Button>
           </div>
         </Stack>
       </form>

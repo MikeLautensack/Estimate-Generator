@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { customers } from "@/db/schemas/customers";
-import { Card } from "@mui/material";
+import { Card, Typography } from "@mui/material";
 
 async function getData() {
   try {
@@ -19,8 +19,12 @@ export default async function TotalCustomers() {
       sx={{ backgroundColor: "surfaceContainerLow" }}
       className="flex justify-between items-center p-4 rounded-lg"
     >
-      <h1>Total Customers</h1>
-      <h2>{data?.length}</h2>
+      <Typography variant="body1" color="primary">
+        Total Customers
+      </Typography>
+      <Typography variant="body1" color="primary">
+        {data?.length}
+      </Typography>
     </Card>
   );
 }
