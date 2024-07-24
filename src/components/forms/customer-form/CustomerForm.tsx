@@ -8,12 +8,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Card, CircularProgress, Typography } from "@mui/material";
 import TextInput from "../inputs/TextInput";
 import { generateNumericId } from "@/utils/generateRandom";
+import { SubmitHandler } from "react-hook-form";
 
 const CustomerFormSchema = z.object({
-  name: z.string(),
-  address: z.string(),
-  email: z.string(),
-  phone: z.string(),
+  name: z.string().min(1, { message: "Name is required" }),
+  address: z.string().min(1, { message: "Address is required" }),
+  email: z.string().min(1, { message: "Email is required" }),
+  phone: z.string().min(1, { message: "Phone is required" }),
 });
 
 type CustomerFormValues = z.infer<typeof CustomerFormSchema>;
@@ -35,84 +36,83 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
   // Hooks
   const methods = useForm<CustomerFormValues>({
     resolver: zodResolver(CustomerFormSchema),
-    defaultValues: { name: "", address: "", email: "", phone: "" },
+    defaultValues: {
+      name: data.name,
+      address: data.address,
+      email: data.email,
+      phone: data.phone,
+    },
   });
+
+  console.log("debugging customer form validation", methods.formState.errors);
 
   // State
   const [loadingState, setLoadingState] = useState<LoadingState>("");
 
   // Callbacks
-  const submit = useCallback(async (formData: CustomerFormValues) => {
-    const USER_ID = data.contractor_user_id;
-    const CUSTOMER_ID = data.id;
+  const submit: SubmitHandler<CustomerFormValues> = useCallback(
+    async (formData) => {
+      const USER_ID = data.contractor_user_id;
+      const CUSTOMER_ID = data.id;
 
-    if (mode === "new-customer") {
-      try {
-        setLoadingState("loading");
-        const id = generateNumericId();
-        const CUSTOMER_USER_ID = generateNumericId();
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}/api/users/${user_id}/customers/${id}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
+      if (mode === "new-customer") {
+        try {
+          setLoadingState("loading");
+          const id = generateNumericId();
+          const CUSTOMER_USER_ID = generateNumericId();
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_HOST}api/users/${user_id}/customers/${id}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name: formData.name,
+                address: formData.address,
+                phone: formData.phone,
+                email: formData.email,
+                customer_user_id: CUSTOMER_USER_ID,
+              }),
             },
-            body: JSON.stringify({
-              name: formData.name,
-              address: formData.address,
-              phone: formData.phone,
-              email: formData.email,
-              customer_user_id: CUSTOMER_USER_ID,
-            }),
-          },
-        );
-        if (res.status === 200) {
-          setLoadingState("customer-created");
+          );
+          if (res.status === 200) {
+            setLoadingState("customer-created");
+          }
+        } catch (error) {
+          console.log("new customer form error", error);
+          setLoadingState("error");
         }
-      } catch (error) {
-        console.log("new customer form error", error);
-        setLoadingState("error");
-      }
-    } else {
-      try {
-        setLoadingState("loading");
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
+      } else {
+        try {
+          setLoadingState("loading");
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name: formData.name,
+                address: formData.address,
+                email: formData.email,
+                phone: formData.phone,
+              }),
             },
-            body: JSON.stringify({
-              name: formData.name,
-              address: formData.address,
-              email: formData.email,
-              phone: formData.phone,
-            }),
-          },
-        );
-        if (res.status === 200) {
-          setLoadingState("customer-updated");
+          );
+          if (res.status === 200) {
+            setLoadingState("customer-updated");
+          }
+        } catch (error) {
+          console.log("edit customer form error", error);
+          setLoadingState("error");
         }
-      } catch (error) {
-        console.log("edit customer form error", error);
-        setLoadingState("error");
       }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Effects
-  useEffect(() => {
-    if (data !== null) {
-      methods.setValue("name", data.name);
-      methods.setValue("address", data.address);
-      methods.setValue("email", data.email);
-      methods.setValue("phone", data.phone);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [data.contractor_user_id, data.id, mode, user_id],
+  );
 
   return (
     <Card

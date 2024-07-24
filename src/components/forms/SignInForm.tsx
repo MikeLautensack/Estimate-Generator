@@ -13,8 +13,8 @@ import { LoginFormValues } from "@/types/types";
 import { signIn } from "next-auth/react";
 
 const SignInFormSchema = z.object({
-  email: z.string(),
-  password: z.string(),
+  email: z.string().min(1, { message: "Email is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 
 type SignInFormValues = z.infer<typeof SignInFormSchema>;
@@ -29,39 +29,17 @@ const SignInForm = () => {
     },
   });
 
+  console.log("debugging customer form validation", methods.formState.errors);
+
   // Search params
   const searchParams = useSearchParams();
 
   // State
-  // const [serverEmailErrorText, setServerEmailErrorText] = useState<string>("");
-  // const [serverPasswordErrorText, setServerPasswordErrorText] =
-  //   useState<string>("");
-  // const [emailInputServerError, setEmailInputServerError] =
-  //   useState<boolean>(false);
-  // const [passwordInputServerError, setPasswordInputServerError] =
-  //   useState<boolean>(false);
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState("");
 
   // Effects
-  useEffect(() => {}, []);
-
   useEffect(() => {
-    // let authError: string | null = null;
-    // console.log("authError", authError);
-    // if (searchParams) {
-    //   authError = searchParams.get("error");
-    //   if (authError) {
-    //     if (authError === "Email not found") {
-    //       setEmailInputServerError(true);
-    //       setServerEmailErrorText(authError);
-    //     } else if (authError === "Invalid password") {
-    //       setPasswordInputServerError(true);
-    //       setServerPasswordErrorText(authError);
-    //     }
-    //   }
-    // }
-
     if (searchParams) {
       const authError = searchParams.get("error");
       if (authError) {
@@ -117,15 +95,6 @@ const SignInForm = () => {
               </Typography>
             )}
           </div>
-          {/* <div className="flex justify-between my-2 items-center gap-16">
-            <div className="flex gap-2 justify-center items-center">
-              <input className="" type="checkbox"></input>
-              <Typography variant="body1" color="onSurface">
-                Remember me
-              </Typography>
-            </div>
-            <Button className="text-black">Forgot Password?</Button>
-          </div> */}
           <div className="w-full flex justify-center items-center">
             <Button
               type="submit"
