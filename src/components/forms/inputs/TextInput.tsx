@@ -32,7 +32,11 @@ const TextInput = ({
 
   return (
     <TextField
-      sx={{ backgroundColor: "surfaceContainerHighest" }}
+      sx={{
+        "& .MuiInputBase-input": {
+          backgroundColor: "surfaceContainerHighest",
+        },
+      }}
       label={label}
       fullWidth
       size={size}
@@ -43,6 +47,8 @@ const TextInput = ({
         },
       }}
       type={type}
+      error={!!errors[name]}
+      helperText={errors[name]?.message as React.ReactNode}
       {...field}
     />
   );

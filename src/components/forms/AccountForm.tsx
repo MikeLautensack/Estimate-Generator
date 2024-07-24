@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 type LoadingState = "" | "loading" | "account-updated" | "error";
 
 const AccountFormSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1, { message: "Name is required" }),
 });
 
 type AccountFormValues = z.infer<typeof AccountFormSchema>;

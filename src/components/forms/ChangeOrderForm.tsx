@@ -15,8 +15,10 @@ type ChangeOrderFormProps = {
 };
 
 const ChangeOrderFormSchema = z.object({
-  changeOrderName: z.string(),
-  description: z.string(),
+  changeOrderName: z
+    .string()
+    .min(1, { message: "Change order name is required" }),
+  description: z.string().min(1, { message: "Description is required" }),
 });
 
 type Loading = "default" | "loading" | "success" | "error";

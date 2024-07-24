@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import ContractorsCustomersTableMenu from "./ContractorsCustomersTableMenu";
+import { formatPhoneNumber } from "@/utils/formatingFunctions";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -65,7 +66,9 @@ const ContractorsCustomersTable = ({
               </StyledTableCell>
               <StyledTableCell>{customer.email}</StyledTableCell>
               <StyledTableCell>{customer.address}</StyledTableCell>
-              <StyledTableCell>{customer.phone}</StyledTableCell>
+              <StyledTableCell>
+                {formatPhoneNumber(customer.phone)}
+              </StyledTableCell>
               <StyledTableCell>
                 <ContractorsCustomersTableMenu customer={customer} />
               </StyledTableCell>

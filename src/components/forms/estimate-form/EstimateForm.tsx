@@ -23,6 +23,8 @@ import useCalcTotal from "./hooks/useCalcTotal";
 import EstimateFormButtons from "./EstimateFormButtons";
 import useGetCustomerUserId from "./hooks/useGetCustomerUserId";
 import { sendAuthEmail } from "@/utils/sendAuthEmail";
+import { DevTool } from "@hookform/devtools";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export type EstimateFormProps = {
   estimate: EstimateFormValues;
@@ -34,8 +36,8 @@ export type EstimateFormProps = {
 
 const LineItemsSchema = z.object({
   id: z.string(),
-  item: z.string(),
-  description: z.string(),
+  item: z.string().min(1, { message: "Item is required" }),
+  description: z.string().min(1, { message: "Description is required" }),
   quantity: z.string(),
   rateType: z.string(),
   price: z.string(),
@@ -46,22 +48,22 @@ const LineItemsArraySchema = z.array(LineItemsSchema);
 
 const EstimateFormSchema = z.object({
   id: z.string(),
-  estimateName: z.string(),
-  customerName: z.string(),
-  customerEmail: z.string(),
-  projectAddress: z.string(),
+  estimateName: z.string().min(1, { message: "Estimate Name is required" }),
+  customerName: z.string().min(1, { message: "Customer Name is required" }),
+  customerEmail: z.string().min(1, { message: "Customer Email is required" }),
+  projectAddress: z.string().min(1, { message: "Project Address is required" }),
   contractorName: z.string(),
   contractorAddress: z.string(),
   contractorPhone: z.string(),
   lineItems: LineItemsArraySchema,
-  message: z.string(),
+  message: z.string().min(1, { message: "Message is required" }),
   subtotal: z.string(),
   taxRate: z.string(),
   tax: z.string(),
   total: z.string(),
   status: z.string(),
   customer_id: z.string(),
-  customer_user_id: z.string(),
+  customer_user_id: z.string().min(1, { message: "Customer is required" }),
   contractor_user_id: z.string(),
 });
 
@@ -89,31 +91,33 @@ const EstimateForm = ({
     useState<SaveAndSentStatus>("not-saved");
 
   // Hooks
-  const methods: UseFormReturn<EstimateFormValues> =
-    useForm<EstimateFormValues>({
-      defaultValues: {
-        id: estimate.id,
-        estimateName: estimate.estimateName,
-        customerName: estimate.customerName,
-        customerEmail: estimate.customerEmail,
-        projectAddress: estimate.projectAddress,
-        contractorName: estimate.contractorName,
-        contractorAddress: estimate.contractorAddress,
-        contractorPhone: estimate.contractorPhone,
-        lineItems: estimate.lineItems,
-        message: estimate.message,
-        subtotal: estimate.subtotal,
-        taxRate: estimate.taxRate,
-        tax: estimate.tax,
-        total: estimate.total,
-        status: estimate.status,
-        customer_id: estimate.customer_id,
-        customer_user_id: estimate.customer_user_id,
-        contractor_user_id: estimate.contractor_user_id,
-      },
-    });
+  const methods = useForm<EstimateFormValues>({
+    resolver: zodResolver(EstimateFormSchema),
+    defaultValues: {
+      id: estimate.id,
+      estimateName: estimate.estimateName,
+      customerName: estimate.customerName,
+      customerEmail: estimate.customerEmail,
+      projectAddress: estimate.projectAddress,
+      contractorName: estimate.contractorName,
+      contractorAddress: estimate.contractorAddress,
+      contractorPhone: estimate.contractorPhone,
+      lineItems: estimate.lineItems,
+      message: estimate.message,
+      subtotal: estimate.subtotal,
+      taxRate: estimate.taxRate,
+      tax: estimate.tax,
+      total: estimate.total,
+      status: estimate.status,
+      customer_id: estimate.customer_id,
+      customer_user_id: estimate.customer_user_id,
+      contractor_user_id: estimate.contractor_user_id,
+    },
+  });
 
   const control = methods.control;
+
+  console.log("debugging estimate form validation", methods.formState.errors);
 
   const { fields, prepend, remove } = useFieldArray({
     control,
@@ -218,6 +222,7 @@ const EstimateForm = ({
     },
     [estimate.contractor_user_id, estimate.id, mode],
   );
+
   const saveAndSend: SubmitHandler<EstimateFormValues> = useCallback(
     async (data) => {
       console.log("save callback data log", data);
@@ -289,7 +294,6 @@ const EstimateForm = ({
     },
     [estimate.contractor_user_id, estimate.id, mode],
   );
-  const preview = useCallback(() => {}, []);
 
   return (
     <Card
@@ -327,7 +331,6 @@ const EstimateForm = ({
               changeOrders={changeOrders!}
               estimate={estimate}
               methods={methods}
-              preview={preview}
               save={save}
               saveAndSend={saveAndSend}
               mode={mode}
@@ -350,6 +353,7 @@ const EstimateForm = ({
             saveAndSaveStatus={saveAndSaveStatus}
             mode={mode}
           />
+          {/* <DevTool control={control} /> */}
         </form>
       </FormProvider>
     </Card>
