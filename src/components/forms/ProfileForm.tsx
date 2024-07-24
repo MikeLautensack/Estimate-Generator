@@ -23,10 +23,12 @@ type LoadingState =
   | "error";
 
 const ProfileFormSchema = z.object({
-  businessAddress: z.string(),
-  businessEmail: z.string(),
-  businessName: z.string(),
-  businessPhone: z.string(),
+  businessAddress: z
+    .string()
+    .min(1, { message: "Business Address is required" }),
+  businessEmail: z.string().min(1, { message: "Business Email is required" }),
+  businessName: z.string().min(1, { message: "Business Name is required" }),
+  businessPhone: z.string().min(1, { message: "Business Phone is required" }),
 });
 
 type ProfileFormValues = z.infer<typeof ProfileFormSchema>;

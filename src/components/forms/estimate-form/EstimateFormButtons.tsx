@@ -57,18 +57,6 @@ const EstimateFormButtons = ({
       )}
       <Button
         type="submit"
-        variant="contained"
-        className="w-full"
-        disabled={
-          saveStatus === "saving" ||
-          saveAndSaveStatus === "saving" ||
-          saveAndSaveStatus === "sending"
-        }
-      >
-        Preview Estimate
-      </Button>
-      <Button
-        type="submit"
         onClick={handleSubmit(save)}
         variant="contained"
         className="w-full"

@@ -29,7 +29,6 @@ export type EstimateFormPartTwoProps = {
   changeOrders: ChangeOrder[];
   estimate: EstimateFormValues;
   methods: any;
-  preview: SubmitHandler<EstimateFormValues>;
   save: SubmitHandler<EstimateFormValues>;
   saveAndSend: SubmitHandler<EstimateFormValues>;
   mode: "new-estimate" | "update-estimate";
@@ -44,7 +43,6 @@ const EstimateFormPartTwo = ({
   prepend,
   remove,
   methods,
-  preview,
   save,
   saveAndSend,
   changeOrders,
