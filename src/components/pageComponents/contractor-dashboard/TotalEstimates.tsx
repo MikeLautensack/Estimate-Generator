@@ -20,7 +20,7 @@ export default async function TotalEstimates() {
       className="flex justify-between items-center rounded-lg p-4"
     >
       <Typography variant="body1" color="primary">
-        Total Estimated
+        Total Estimates
       </Typography>
       <Typography variant="body1" color="primary">
         {data?.length}
