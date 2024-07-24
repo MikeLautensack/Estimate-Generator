@@ -63,8 +63,27 @@ const MVLAutocomplete = ({
     <Autocomplete
       disablePortal
       options={options}
-      sx={{ backgroundColor: "surfaceContainerHighest" }}
-      renderInput={(params) => <TextField {...params} label={label} />}
+      sx={{
+        "& .MuiAutocomplete-inputRoot": {
+          backgroundColor: "surfaceContainerHighest",
+          padding: 0, // Remove padding from the input
+        },
+        "& .MuiOutlinedInput-root": {
+          backgroundColor: "surfaceContainerHighest",
+          padding: "0.5rem", // Adjust padding as needed
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: "transparent", // Adjust if border color needs change
+        },
+      }}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          error={!!errors[name]}
+          helperText={errors[name]?.message as React.ReactNode}
+        />
+      )}
       onChange={(_, newValue: any) => {
         if (idAsValue) {
           setValue(name, newValue.id);

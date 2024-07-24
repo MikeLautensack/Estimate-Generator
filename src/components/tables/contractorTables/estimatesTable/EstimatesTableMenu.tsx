@@ -56,11 +56,15 @@ const EstimatesTableMenu = ({ estimate }: EstimatesTableMenuProps) => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <Link href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/estimates/${estimate.id}`}>
+        <Link
+          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/estimates/${estimate.id}`}
+        >
           <MenuItem onClick={handleClose}>View Estimate</MenuItem>
         </Link>
-        <Link href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/estimates/form/${estimate.id}`}>
-          <MenuItem onClick={handleClose}>Edit Estimate</MenuItem>
+        <Link
+          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/estimates/form/${estimate.id}`}
+        >
+          <MenuItem onClick={handleClose}>Update Estimate</MenuItem>
         </Link>
         <MenuItem
           onClick={() => {
