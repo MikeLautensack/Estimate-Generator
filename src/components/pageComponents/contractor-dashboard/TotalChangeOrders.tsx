@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { changeOrders } from "@/db/schemas/changeOrders";
-import { Card } from "@mui/material";
+import { Card, Typography } from "@mui/material";
 
 async function getData() {
   try {
@@ -19,8 +19,12 @@ export default async function TotalChangeOrders() {
       sx={{ backgroundColor: "surfaceContainerLow" }}
       className="flex justify-between items-center rounded-lg p-4"
     >
-      <h1>Total Change Orders</h1>
-      <h2>{data?.length}</h2>
+      <Typography variant="body1" color="primary">
+        Total Change Orders
+      </Typography>
+      <Typography variant="body1" color="primary">
+        {data?.length}
+      </Typography>
     </Card>
   );
 }
