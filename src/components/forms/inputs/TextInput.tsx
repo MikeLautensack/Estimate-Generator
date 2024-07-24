@@ -8,6 +8,7 @@ type TextInputProps = {
   size?: any;
   readonly?: boolean;
   disabled?: boolean;
+  type?: string;
 };
 
 const TextInput = ({
@@ -16,6 +17,7 @@ const TextInput = ({
   size = "normal",
   readonly,
   disabled,
+  type,
 }: TextInputProps) => {
   // Hooks
   const {
@@ -26,7 +28,6 @@ const TextInput = ({
   const { field } = useController({
     control,
     name,
-    defaultValue: {},
   });
 
   return (
@@ -41,6 +42,7 @@ const TextInput = ({
           readOnly: readonly,
         },
       }}
+      type={type}
       {...field}
     />
   );

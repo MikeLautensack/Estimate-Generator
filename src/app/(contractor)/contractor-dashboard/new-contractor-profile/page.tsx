@@ -12,7 +12,7 @@ const Page = async () => {
       <Typography variant="h4" color="primary" className="">
         Create your contractor profile!
       </Typography>
-      <ProfileForm session={session} />
+      <ProfileForm session={session} mode="new" />
     </main>
   );
 };
