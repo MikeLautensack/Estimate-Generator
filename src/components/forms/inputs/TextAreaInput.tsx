@@ -23,7 +23,20 @@ const TextAreaInput = ({ name, label, disabled }: TextInputProps) => {
 
   return (
     <TextField
-      sx={{ backgroundColor: "surfaceContainerHighest" }}
+      // sx={{ backgroundColor: "surfaceContainerHighest" }}
+      sx={{
+        "& .MuiInputBase-input": {
+          backgroundColor: "surfaceContainerHighest",
+          padding: 0, // Remove padding from the input
+        },
+        "& .MuiOutlinedInput-root": {
+          padding: "1rem", // Add padding to the root to compensate
+          backgroundColor: "surfaceContainerHighest", // Ensure root has background
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: "transparent", // Adjust if border color needs change
+        },
+      }}
       id="outlined-multiline-static"
       label={label}
       multiline
@@ -31,6 +44,8 @@ const TextAreaInput = ({ name, label, disabled }: TextInputProps) => {
       defaultValue=""
       fullWidth
       disabled={disabled}
+      error={!!errors[name]}
+      helperText={errors[name]?.message as React.ReactNode}
       {...field}
     />
   );
