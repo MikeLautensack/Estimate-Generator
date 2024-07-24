@@ -65,7 +65,7 @@ const ContractorsCustomersTableMenu = ({
         <Link
           href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/customers/form/${customer.id}`}
         >
-          <MenuItem onClick={handleClose}>Edit Customer</MenuItem>
+          <MenuItem onClick={handleClose}>Update Customer</MenuItem>
         </Link>
         <MenuItem
           onClick={() => {

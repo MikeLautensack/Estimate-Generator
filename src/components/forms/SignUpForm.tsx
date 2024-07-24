@@ -8,15 +8,13 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "./inputs/TextInput";
 import Divider from "@mui/material/Divider";
-import { RegisterFormValues } from "@/types/types";
 import { generateNumericId } from "@/utils/generateRandom";
 import { signIn } from "next-auth/react";
 
 const SignUpFormSchema = z.object({
-  name: z.string(),
-  email: z.string(),
-  password: z.string(),
-  confirmPassword: z.string(),
+  name: z.string().min(1, { message: "Name is required" }),
+  email: z.string().min(1, { message: "Email is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 
 type SignUpFormValues = z.infer<typeof SignUpFormSchema>;
@@ -25,14 +23,14 @@ const SignUpForm = () => {
   // Hooks
   const methods = useForm<SignUpFormValues>({
     resolver: zodResolver(SignUpFormSchema),
-    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
+    defaultValues: { name: "", email: "", password: "" },
   });
 
   // State
   const [loading, setLoading] = useState("");
 
   // Callbacks
-  const onSubmit: SubmitHandler<RegisterFormValues> = useCallback(
+  const onSubmit: SubmitHandler<SignUpFormValues> = useCallback(
     async (data) => {
       const id = generateNumericId();
       try {
