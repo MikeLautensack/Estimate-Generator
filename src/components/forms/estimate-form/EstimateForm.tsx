@@ -140,17 +140,25 @@ const EstimateForm = ({
 
   useEffect(() => {
     if (saveStatus === "saved") {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setSaveStatus("not-saved");
       }, 5000);
+      // Cleanup function
+      return () => {
+        clearTimeout(timeout);
+      };
     }
   }, [saveStatus]);
 
   useEffect(() => {
     if (saveAndSaveStatus === "saved") {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setSaveAndSaveStatus("not-saved");
       }, 5000);
+      // Cleanup function
+      return () => {
+        clearTimeout(timeout);
+      };
     }
   }, [saveAndSaveStatus]);
 
