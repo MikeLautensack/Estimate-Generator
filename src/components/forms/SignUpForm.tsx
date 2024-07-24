@@ -90,6 +90,7 @@ const SignUpForm = () => {
             name="password"
             label="Password"
             disabled={loading === "loading"}
+            type="password"
           />
           {/* <TextInput
             name="confirmPassword"

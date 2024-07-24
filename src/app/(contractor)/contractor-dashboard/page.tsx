@@ -9,6 +9,7 @@ import EstimatePriceChartContainer from "@/components/pageComponents/contractor-
 import { auth } from "../../../../auth";
 import { redirect } from "next/navigation";
 import { Box, Card, Typography } from "@mui/material";
+import TotalEsimated from "@/components/pageComponents/contractor-dashboard/TotalEsimated";
 
 const Page = async () => {
   const session = await auth();
@@ -20,16 +21,14 @@ const Page = async () => {
       </Typography>
       <div className="flex flex-col gap-4 flex-1">
         <div className="grid gap-4 desktop:grid-cols-4">
+          <TotalEsimated />
           <TotalCustomers />
           <TotalEstimates />
           <TotalChangeOrders />
-          <TotalEstimateEmails />
         </div>
         <div className="grid gap-4 tablet:grid-cols-2 flex-1">
-          {/* <EstimateStatusChartContainer /> */}
           <EstimatePriceChartContainer />
           <HighProfitCustomersChartContainer />
-          <EstimateStatsGraph />
         </div>
       </div>
     </main>
