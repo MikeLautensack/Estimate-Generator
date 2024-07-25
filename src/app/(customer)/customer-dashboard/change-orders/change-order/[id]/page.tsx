@@ -1,7 +1,7 @@
-import { db } from "@/db";
-import { changeOrders } from "@/db/schemas/changeOrders";
-import { Box, Divider, Typography } from "@mui/material";
 import { eq } from "drizzle-orm";
+import { changeOrders } from "@/db/schemas/changeOrders";
+import { db } from "@/db";
+import { Box, Divider, Typography } from "@mui/material";
 
 async function getData(id: number) {
   try {
@@ -16,9 +16,10 @@ async function getData(id: number) {
 }
 
 const Page = async ({ params }: { params: { id: string } }) => {
-  const data = await getData(parseInt(params.id));
+  const data = await getData(parseInt(params.id as string));
+
   return (
-    <main className="flex flex-col flex-1 gap-4 p-4">
+    <main className="flex flex-col flex-grow gap-4 p-4">
       <Box component="div" className="flex justify-between items-center w-full">
         <Typography variant="h6" color="primary" className="">
           {`Change Order #: ${data![0].id}`}

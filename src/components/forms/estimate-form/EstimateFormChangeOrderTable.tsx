@@ -39,6 +39,7 @@ type EstimateFormChangeOrderTableProps = {
 const EstimateFormChangeOrderTable = ({
   changeOrders,
 }: EstimateFormChangeOrderTableProps) => {
+  console.log("testing change orders", changeOrders);
   return (
     <TableContainer
       component="div"

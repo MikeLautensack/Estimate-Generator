@@ -27,7 +27,7 @@ const HeaderNavContainer = ({ session }: HeaderNavContainerProps) => {
     ) {
       setNav(<HomeHeaderNav />);
     } else {
-      setNav(<UserNav />);
+      setNav(<UserNav session={session} />);
     }
   }, [session, pathname]);
 

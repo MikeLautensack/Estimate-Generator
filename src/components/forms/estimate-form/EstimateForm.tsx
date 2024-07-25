@@ -25,6 +25,7 @@ import useGetCustomerUserId from "./hooks/useGetCustomerUserId";
 import { sendAuthEmail } from "@/utils/sendAuthEmail";
 import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Session } from "next-auth";
 
 export type EstimateFormProps = {
   estimate: EstimateFormValues;
@@ -32,6 +33,7 @@ export type EstimateFormProps = {
   profile: Profile;
   changeOrders?: ChangeOrder[];
   mode: "new-estimate" | "update-estimate";
+  session: Session;
 };
 
 const LineItemsSchema = z.object({
@@ -83,6 +85,7 @@ const EstimateForm = ({
   profile,
   changeOrders,
   mode,
+  session,
 }: EstimateFormProps) => {
   // State
   const [tab, setTab] = useState<number>(0);
@@ -252,7 +255,7 @@ const EstimateForm = ({
           setSaveAndSaveStatus("sending");
           const emailRes = await sendAuthEmail(
             data.customerEmail,
-            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${data.customerName}&contractor-name=${data.contractorName}&redirect-flag=new-estimate&estimate-id=${data.id}`,
+            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${data.customerName}&contractor-name=${session.user.name}&redirect-flag=new-estimate&estimate-id=${data.id}`,
             false,
           );
           if (emailRes?.status === 200) {
@@ -281,7 +284,7 @@ const EstimateForm = ({
           setSaveAndSaveStatus("sending");
           const emailRes = await sendAuthEmail(
             data.customerEmail,
-            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=updated-estimate&customer-name=${data.customerName}&contractor-name=${data.contractorName}&redirect-flag=updated-estimate&estimate-id=${data.id}`,
+            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=updated-estimate&customer-name=${data.customerName}&contractor-name=${session.user.name}&redirect-flag=updated-estimate&estimate-id=${data.id}`,
             false,
           );
           if (emailRes?.status === 200) {
@@ -292,7 +295,7 @@ const EstimateForm = ({
         }
       }
     },
-    [estimate.contractor_user_id, estimate.id, mode],
+    [estimate.contractor_user_id, estimate.id, mode, session.user.name],
   );
 
   return (
