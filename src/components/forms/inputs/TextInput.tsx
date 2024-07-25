@@ -28,6 +28,7 @@ const TextInput = ({
   const { field } = useController({
     control,
     name,
+    defaultValue: "",
   });
 
   return (
