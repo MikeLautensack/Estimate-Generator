@@ -1,7 +1,7 @@
 "use client";
 
 import { LineItems } from "@/types/estimates";
-import { formatRate } from "@/utils/formatingFunctions";
+import { formatPriceString, formatRate } from "@/utils/formatingFunctions";
 import {
   Box,
   styled,
@@ -67,7 +67,9 @@ const EstimateTable = ({ lineItems }: EstimateTableProps) => {
               <StyledTableCell>
                 {formatRate(item.rateType, item.price.toString(), item.item)}
               </StyledTableCell>
-              <StyledTableCell>{item.amount}</StyledTableCell>
+              <StyledTableCell>
+                {formatPriceString(item.amount.toString())}
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

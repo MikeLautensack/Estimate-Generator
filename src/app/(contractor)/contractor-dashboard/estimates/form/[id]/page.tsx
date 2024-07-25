@@ -112,6 +112,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         profile={profile[0]}
         changeOrders={changeOrders}
         mode="update-estimate"
+        session={session!}
       />
     </main>
   );
