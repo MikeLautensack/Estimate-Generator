@@ -18,10 +18,14 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { Session } from "next-auth";
 
-type AccountMenuProps = {};
+type AccountMenuProps = {
+  session: Session;
+};
 
-const AccountMenu = ({}: AccountMenuProps) => {
+const AccountMenu = ({ session }: AccountMenuProps) => {
+  console.log("testing session 2", session);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -77,7 +81,9 @@ const AccountMenu = ({}: AccountMenuProps) => {
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
               variant="dot"
             >
-              <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+              <Avatar sx={{ width: 32, height: 32 }}>
+                {session ? session.user.name[0] : ""}
+              </Avatar>
             </StyledBadge>
           </IconButton>
         </Tooltip>

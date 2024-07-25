@@ -118,7 +118,7 @@ const theme = extendTheme({
         tertiaryContainer: "#FDD7FA",
         onTertiaryContainer: "#2A132C",
         error: {
-          main: "#B00020",
+          main: "##E6002A",
         },
         onError: "#FFFFFF",
         errorContainer: "#FFDAD6",
@@ -175,7 +175,7 @@ const theme = extendTheme({
         tertiaryContainer: "#593D5A",
         onTertiaryContainer: "#FDD7FA",
         error: {
-          main: "#B00020",
+          main: "#E6002A",
         },
         onError: "#690005",
         errorContainer: "#93000A",

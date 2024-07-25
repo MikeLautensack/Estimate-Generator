@@ -19,7 +19,7 @@ const sendVerificationRequest = async (params: any) => {
       },
       body: JSON.stringify({
         identifier: identifier,
-        from: `... <onboarding@resend.dev>`,
+        from: `${contractorName}<onboarding@resend.dev>`,
         subject:
           emailType === "new-customer"
             ? `${contractorName} has added you as a new customer`

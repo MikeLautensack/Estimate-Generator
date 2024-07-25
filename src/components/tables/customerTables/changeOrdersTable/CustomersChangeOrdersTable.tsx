@@ -74,17 +74,17 @@ const EstimateFormChangeOrdersTable = ({
                     {
                       id: 0,
                       name: "View Change Order",
-                      link: `customer-dashboard/change-orders/change-order/${order.id}`,
+                      link: `${process.env.NEXT_PUBLIC_HOST}customer-dashboard/change-orders/change-order/${order.id}`,
                     },
                     {
                       id: 1,
-                      name: "Edit Change Order",
-                      link: `change-orders/edit-change-order/${order.id}`,
+                      name: "Update Change Order",
+                      link: `${process.env.NEXT_PUBLIC_HOST}customer-dashboard/change-orders/edit-change-order/${order.id}`,
                     },
                     {
-                      id: 2,
+                      id: 3,
                       name: "View Estimate",
-                      link: `customer-dashboard/estimates/${order.estimate_id}`,
+                      link: `${process.env.NEXT_PUBLIC_HOST}customer-dashboard/estimates/${order.estimate_id}`,
                     },
                   ]}
                 />
