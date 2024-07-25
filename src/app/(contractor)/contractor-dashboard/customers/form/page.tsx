@@ -22,6 +22,7 @@ const Page = async () => {
           data={customer}
           mode="new-customer"
           user_id={session?.user.id}
+          session={session!}
         />
       </Box>
     </main>
