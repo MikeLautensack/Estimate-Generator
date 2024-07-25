@@ -22,20 +22,27 @@ const MVLPhoneNumber = ({
   const {
     control,
     formState: { errors },
+    setValue,
   } = useFormContext();
 
   const { field } = useController({
     control,
     name,
-    defaultValue: {},
+    defaultValue: "",
   });
 
   return (
     <PatternFormat
+      type="tel"
       customInput={TextField}
       format="(###) ###-####"
-      valueIsNumericString
-      sx={{ backgroundColor: "surfaceContainerHighest" }}
+      mask="_"
+      sx={{
+        "& .MuiInputBase-input": {
+          backgroundColor: "surfaceContainerHighest",
+        },
+      }}
+      label={label}
       fullWidth
       slotProps={{
         input: {
@@ -44,6 +51,8 @@ const MVLPhoneNumber = ({
       }}
       size={size}
       disabled={disabled}
+      error={!!errors[name]}
+      helperText={errors[name]?.message as React.ReactNode}
       {...field}
     />
   );

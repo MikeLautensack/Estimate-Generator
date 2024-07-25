@@ -9,11 +9,14 @@ import { Button, Card, CircularProgress, Typography } from "@mui/material";
 import TextInput from "../inputs/TextInput";
 import { generateNumericId } from "@/utils/generateRandom";
 import { SubmitHandler } from "react-hook-form";
+import MVLPhoneNumber from "../inputs/MVLPhoneNumber";
+import { sendAuthEmail } from "@/utils/sendAuthEmail";
+import { Session } from "next-auth";
 
 const CustomerFormSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   address: z.string().min(1, { message: "Address is required" }),
-  email: z.string().min(1, { message: "Email is required" }),
+  email: z.string().min(1, { message: "Email is required" }).email(),
   phone: z.string().min(1, { message: "Phone is required" }),
 });
 
@@ -30,9 +33,10 @@ export type CustomerFormProps = {
   data: Customers;
   mode: "new-customer" | "edit-customer";
   user_id?: string;
+  session: Session;
 };
 
-const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
+const CustomerForm = ({ data, mode, user_id, session }: CustomerFormProps) => {
   // Hooks
   const methods = useForm<CustomerFormValues>({
     resolver: zodResolver(CustomerFormSchema),
@@ -43,8 +47,6 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
       phone: data.phone,
     },
   });
-
-  console.log("debugging customer form validation", methods.formState.errors);
 
   // State
   const [loadingState, setLoadingState] = useState<LoadingState>("");
@@ -78,6 +80,11 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
           );
           if (res.status === 200) {
             setLoadingState("customer-created");
+            // const emailRes = await sendAuthEmail(
+            //   data.email,
+            //   `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-customer&customer-name=${formData.name}&contractor-name=${session.user.name}&redirect-flag=new-customer&estimate-id=null`,
+            //   false,
+            // );
           }
         } catch (error) {
           console.log("new customer form error", error);
@@ -111,7 +118,15 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-    [data.contractor_user_id, data.id, mode, user_id],
+    [
+      data.contractor_user_id,
+      data.email,
+      data.id,
+      data.name,
+      mode,
+      session.user.name,
+      user_id,
+    ],
   );
 
   return (
@@ -142,7 +157,7 @@ const CustomerForm = ({ data, mode, user_id }: CustomerFormProps) => {
             label="Email"
             disabled={loadingState === "loading"}
           />
-          <TextInput
+          <MVLPhoneNumber
             name="phone"
             label="Phone"
             disabled={loadingState === "loading"}

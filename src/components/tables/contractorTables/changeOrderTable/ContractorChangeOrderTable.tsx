@@ -76,12 +76,12 @@ const ContractorChangeOrderTable = ({
                     {
                       id: 0,
                       name: "View Change Order",
-                      link: `contractor-dashboard/change-orders/change-order/${order.id}`,
+                      link: `${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/change-orders/change-order/${order.id}`,
                     },
                     {
                       id: 2,
                       name: "View Estimate",
-                      link: `contractor-dashboard/estimates/${order.estimate_id}`,
+                      link: `${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/estimates/${order.estimate_id}`,
                     },
                   ]}
                 />
