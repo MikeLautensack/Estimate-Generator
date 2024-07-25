@@ -2,14 +2,20 @@
 
 import { Button, Drawer, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import SideBar from "./SideBar";
 import SideBarNav from "./SideBarNav";
 import { signOut } from "next-auth/react";
+import { Session } from "next-auth";
+import CustomerSideBarNav from "./CustomerSideBarNav";
 
-const MobileMenu = () => {
-  const [open, setOpen] = React.useState(false);
+type MobileMenuProps = {
+  session: Session;
+};
+
+const MobileMenu = ({ session }: MobileMenuProps) => {
+  const [open, setOpen] = useState(false);
 
   return (
     <Box component="div">
@@ -35,7 +41,11 @@ const MobileMenu = () => {
             <Typography color="primary" className="">
               Estimate Generator
             </Typography>
-            <SideBarNav className="" />
+            {session.user.role === "contractor" ? (
+              <SideBarNav className="" />
+            ) : (
+              session.user.role === "customer" && <CustomerSideBarNav />
+            )}
           </div>
           <Button
             onClick={() =>
