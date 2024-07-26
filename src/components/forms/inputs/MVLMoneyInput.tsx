@@ -38,6 +38,7 @@ const MVLMoneyInput = ({
       fixedDecimalScale={true}
       thousandSeparator
       valueIsNumericString
+      label={label}
       size={size}
       sx={{ backgroundColor: "surfaceContainerHighest" }}
       fullWidth

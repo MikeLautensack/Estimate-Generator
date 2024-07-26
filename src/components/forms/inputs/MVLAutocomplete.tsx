@@ -72,9 +72,6 @@ const MVLAutocomplete = ({
           backgroundColor: "surfaceContainerHighest",
           padding: "0.5rem", // Adjust padding as needed
         },
-        "& .MuiOutlinedInput-notchedOutline": {
-          borderColor: "transparent", // Adjust if border color needs change
-        },
       }}
       renderInput={(params) => (
         <TextField
@@ -82,6 +79,7 @@ const MVLAutocomplete = ({
           label={label}
           error={!!errors[name]}
           helperText={errors[name]?.message as React.ReactNode}
+          // sx={{ backgroundColor: "surfaceContainerHighest" }}
         />
       )}
       onChange={(_, newValue: any) => {
