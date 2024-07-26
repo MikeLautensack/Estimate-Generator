@@ -26,7 +26,10 @@ const ProfileFormSchema = z.object({
   businessAddress: z
     .string()
     .min(1, { message: "Business Address is required" }),
-  businessEmail: z.string().min(1, { message: "Business Email is required" }),
+  businessEmail: z
+    .string()
+    .min(1, { message: "Business Email is required" })
+    .email(),
   businessName: z.string().min(1, { message: "Business Name is required" }),
   businessPhone: z.string().min(1, { message: "Business Phone is required" }),
 });
@@ -80,7 +83,7 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_HOST}api/users/${session?.user?.id}/profile`,
           {
-            method: "POST",
+            method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
