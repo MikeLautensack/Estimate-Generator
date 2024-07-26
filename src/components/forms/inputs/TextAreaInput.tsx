@@ -23,7 +23,6 @@ const TextAreaInput = ({ name, label, disabled }: TextInputProps) => {
 
   return (
     <TextField
-      // sx={{ backgroundColor: "surfaceContainerHighest" }}
       sx={{
         "& .MuiInputBase-input": {
           backgroundColor: "surfaceContainerHighest",
@@ -32,9 +31,6 @@ const TextAreaInput = ({ name, label, disabled }: TextInputProps) => {
         "& .MuiOutlinedInput-root": {
           padding: "1rem", // Add padding to the root to compensate
           backgroundColor: "surfaceContainerHighest", // Ensure root has background
-        },
-        "& .MuiOutlinedInput-notchedOutline": {
-          borderColor: "transparent", // Adjust if border color needs change
         },
       }}
       id="outlined-multiline-static"

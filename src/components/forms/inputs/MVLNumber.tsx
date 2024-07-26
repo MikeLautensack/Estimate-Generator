@@ -37,6 +37,7 @@ const MVLNumber = ({
       decimalScale={0}
       valueIsNumericString
       thousandSeparator
+      label={label}
       sx={{ backgroundColor: "surfaceContainerHighest" }}
       fullWidth
       disabled={disabled}
