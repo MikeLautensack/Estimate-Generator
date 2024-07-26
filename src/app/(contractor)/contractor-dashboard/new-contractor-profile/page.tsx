@@ -12,7 +12,18 @@ const Page = async () => {
       <Typography variant="h4" color="primary" className="">
         Create your contractor profile!
       </Typography>
-      <ProfileForm session={session} mode="new" />
+      <ProfileForm
+        session={session}
+        mode="new"
+        profileData={[
+          {
+            businessAddress: "",
+            businessEmail: "",
+            businessName: "",
+            businessPhone: "",
+          },
+        ]}
+      />
     </main>
   );
 };
