@@ -8,7 +8,7 @@ export const formatTaxString = (num: number): string => {
 export const formatPriceString = (numStr: string): string => {
   const num = parseFloat(numStr);
   const roundedNumber = num.toFixed(2);
-  const priceString = `$ ${roundedNumber}`;
+  const priceString = `$${roundedNumber}`;
   return priceString;
 };
 
