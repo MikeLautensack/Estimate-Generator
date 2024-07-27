@@ -34,9 +34,14 @@ const LineItemFormField = ({
     control,
     name: `lineItems.${index}.price` as const,
   });
+  const rateType = useWatch({
+    control,
+    name: `lineItems.${index}.rateType` as const,
+  });
 
   // Field names
   const amountName = `lineItems.${index}.amount`;
+  const quantity = `lineItems.${index}.quantity`;
 
   // Custom hooks
   const amount = useCalcAmount(quantityVal, priceVal);
@@ -50,6 +55,12 @@ const LineItemFormField = ({
   useEffect(() => {
     setValue("subtotal", subtotal);
   }, [setValue, subtotal, fields]);
+
+  useEffect(() => {
+    if (rateType === "Flat Rate") {
+      setValue(quantity, "1");
+    }
+  }, [quantity, rateType, setValue]);
 
   return (
     <TableRow>
@@ -88,7 +99,8 @@ const LineItemFormField = ({
             disabled={
               saveStatus === "saving" ||
               saveAndSaveStatus === "saving" ||
-              saveAndSaveStatus === "sending"
+              saveAndSaveStatus === "sending" ||
+              rateType === "Flat Rate"
             }
           />
         </div>
