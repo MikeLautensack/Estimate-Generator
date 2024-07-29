@@ -43,7 +43,10 @@ export async function POST(
     status: bodyData.status,
     subtotal: bodyData.subtotal,
     tax: bodyData.tax,
+    taxMode: bodyData.taxMode,
     taxRate: bodyData.taxRate,
+    discountMode: bodyData.discountMode,
+    discount: bodyData.discount,
     total: bodyData.total,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -97,7 +100,7 @@ export async function PATCH(
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Estimates;
+  const bodyData = await request.json();
 
   // Get session
   const session = await auth();
@@ -120,6 +123,9 @@ export async function PATCH(
     status: bodyData.status,
     subtotal: bodyData.subtotal,
     tax: bodyData.tax,
+    taxMode: bodyData.taxMode,
+    discountMode: bodyData.discountMode,
+    discount: bodyData.discount,
     taxRate: bodyData.taxRate,
     total: bodyData.total,
     updatedAt: new Date(),

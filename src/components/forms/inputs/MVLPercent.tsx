@@ -8,9 +8,16 @@ type MVLPercentProps = {
   label: string;
   size?: any;
   readonly?: boolean;
+  disabled: boolean;
 };
 
-const MVLPercent = ({ name, label, size, readonly }: MVLPercentProps) => {
+const MVLPercent = ({
+  name,
+  label,
+  size,
+  readonly,
+  disabled,
+}: MVLPercentProps) => {
   // Hooks
   const {
     control,
@@ -33,6 +40,7 @@ const MVLPercent = ({ name, label, size, readonly }: MVLPercentProps) => {
       label={label}
       sx={{ backgroundColor: "surfaceContainerHighest" }}
       fullWidth
+      disabled={disabled}
       slotProps={{
         input: {
           readOnly: readonly,
