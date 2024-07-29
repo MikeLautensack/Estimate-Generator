@@ -94,8 +94,16 @@ const Page = async ({ params }: { params: { id: string } }) => {
             : [],
           message: estimate.message ? estimate.message : "",
           subtotal: estimate.subtotal ? estimate.subtotal.toString() : "0",
+          taxMode: estimate.taxMode ? estimate.taxMode.toString() : "0",
           taxRate: estimate.taxRate ? estimate.taxRate.toString() : "0",
           tax: estimate.tax ? estimate.tax.toString() : "0",
+          discountMode: estimate.discountMode
+            ? estimate.discountMode.toString()
+            : "0",
+          discountPercentage: estimate.discountPercentage
+            ? estimate.discountPercentage.toString()
+            : "0",
+          discount: estimate.discount ? estimate.discount.toString() : "0",
           total: estimate.total ? estimate.total.toString() : "0",
           status: estimate.status ? estimate.status : "",
           customer_id: estimate.customer_id
