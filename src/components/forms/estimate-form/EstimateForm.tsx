@@ -6,7 +6,6 @@ import EstimateFormPartTwo from "./EstimateFormPartTwo";
 import {
   FormProvider,
   SubmitHandler,
-  UseFormReturn,
   useFieldArray,
   useForm,
   useWatch,
@@ -60,8 +59,12 @@ const EstimateFormSchema = z.object({
   lineItems: LineItemsArraySchema,
   message: z.string().min(1, { message: "Message is required" }),
   subtotal: z.string(),
+  taxMode: z.string(),
   taxRate: z.string(),
   tax: z.string(),
+  discountMode: z.string(),
+  discountPercentage: z.string(),
+  discount: z.string(),
   total: z.string(),
   status: z.string(),
   customer_id: z.string(),
@@ -108,8 +111,12 @@ const EstimateForm = ({
       lineItems: estimate.lineItems,
       message: estimate.message,
       subtotal: estimate.subtotal,
+      taxMode: estimate.taxMode,
       taxRate: estimate.taxRate,
       tax: estimate.tax,
+      discountMode: estimate.discountMode,
+      discountPercentage: estimate.discountPercentage,
+      discount: estimate.discount,
       total: estimate.total,
       status: estimate.status,
       customer_id: estimate.customer_id,
@@ -131,9 +138,10 @@ const EstimateForm = ({
   const subtotal = useWatch({ control, name: "subtotal" });
   const tax = useWatch({ control, name: "tax" });
   const customerName = useWatch({ control, name: "customerName" });
+  const discount = useWatch({ control, name: "discount" });
 
   // Custom hooks
-  const total = useCalcTotal(subtotal, tax);
+  const total = useCalcTotal(subtotal, tax, discount);
   const customerUserId = useGetCustomerUserId(customers, customerName);
 
   // Effects
