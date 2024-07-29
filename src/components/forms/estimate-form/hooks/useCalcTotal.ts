@@ -1,7 +1,8 @@
-const useCalcTotal = (subtotal: string, tax: string) => {
+const useCalcTotal = (subtotal: string, tax: string, discount: string) => {
   const subFloat = parseFloat(subtotal);
   const taxFloat = parseFloat(tax);
-  const total = subFloat + taxFloat;
+  const discountFloat = parseFloat(discount);
+  const total = subFloat + taxFloat - discountFloat;
   return total.toString();
 };
 

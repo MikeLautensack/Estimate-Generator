@@ -19,6 +19,7 @@ import {
 import { useEffect } from "react";
 import { generateNumericId } from "@/utils/generateRandom";
 import MVLPhoneNumber from "../inputs/MVLPhoneNumber";
+import EstimateFormModes from "./EstimateFormModes";
 
 export type EstimateFormPartTwoProps = {
   customers: Customers[];
@@ -81,7 +82,7 @@ const EstimateFormPartTwo = ({
         }
       />
       <div className="flex flex-col w-full">
-        <div className="flex flex-col gap-2 desktop:gap-4 md:flex-row items-start pt-2 pb-4 w-full">
+        <div className="flex flex-col gap-4 desktop:gap-4 md:flex-row items-start pt-2 pb-4 w-full">
           <Box
             component="div"
             className="flex flex-col gap-4 items-start w-full"
@@ -195,6 +196,12 @@ const EstimateFormPartTwo = ({
                 saveAndSaveStatus === "saving" ||
                 saveAndSaveStatus === "sending"
               }
+            />
+          </div>
+          <div className="flex justify-end">
+            <EstimateFormModes
+              saveStatus={saveStatus}
+              saveAndSaveStatus={saveAndSaveStatus}
             />
           </div>
           <div className="flex justify-end">
