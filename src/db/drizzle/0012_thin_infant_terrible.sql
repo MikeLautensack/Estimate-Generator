@@ -1,0 +1,1 @@
+ALTER TABLE "estimates" ADD COLUMN "discount_percentage" real DEFAULT 10.1;
