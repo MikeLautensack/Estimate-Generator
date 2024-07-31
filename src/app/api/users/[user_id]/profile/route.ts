@@ -10,7 +10,7 @@ export async function POST(
   { params }: { params: { user_id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Profile;
+  const bodyData = await request.json();
   console.log("testing profile 1", bodyData);
 
   // Get session
@@ -32,6 +32,8 @@ export async function POST(
     const profile = {
       id: Math.floor(Math.random() * 100000000),
       user_id: params.user_id,
+      profileImgKey: bodyData.profileImgKey,
+      profileImgUrl: bodyData.profileImgUrl,
       businessAddress: bodyData.businessAddress,
       businessEmail: bodyData.businessEmail,
       businessName: bodyData.businessName,
@@ -54,7 +56,7 @@ export async function PATCH(
   { params }: { params: { id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Profile;
+  const bodyData = await request.json();
 
   // Get session
   const session = await auth();
@@ -72,6 +74,8 @@ export async function PATCH(
   // Update profile resource
   try {
     const profile = {
+      profileImgKey: bodyData.profileImgKey,
+      profileImgUrl: bodyData.profileImgUrl,
       businessAddress: bodyData.businessAddress,
       businessEmail: bodyData.businessEmail,
       businessName: bodyData.businessName,

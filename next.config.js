@@ -7,4 +7,7 @@ module.exports = {
       fullUrl: true,
     },
   },
+  images: {
+    domains: ["utfs.io"], // Add the domain of the image source here
+  },
 };
