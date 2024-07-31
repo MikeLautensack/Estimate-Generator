@@ -88,7 +88,7 @@ const AccountMenu = ({ session, profile }: AccountMenuProps) => {
                 sx={{ width: 32, height: 32 }}
                 src={profile[0] ? profile[0].profileImgUrl : ""}
               >
-                {session ? session.user.name[0] : ""}
+                {session ? session.user?.name[0] : ""}
               </Avatar>
             </StyledBadge>
           </IconButton>
