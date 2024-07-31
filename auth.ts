@@ -11,12 +11,7 @@ import {
 } from "@/db/schemas/auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: DrizzleAdapter(db, {
-    usersTable: users,
-    accountsTable: accounts,
-    sessionsTable: sessions,
-    verificationTokensTable: verificationTokens,
-  }),
+  adapter: DrizzleAdapter(db),
   // Configure one or more authentication providers
   session: {
     strategy: "jwt",
