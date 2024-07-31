@@ -4,10 +4,18 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { effect, z } from "zod";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Divider,
+  Typography,
+} from "@mui/material";
 import TextInput from "./inputs/TextInput";
 import { Session } from "next-auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import { UploadButton } from "../../utils/uploadthing";
 
 type ProfileFormProps = {
   session: Session;
@@ -32,6 +40,8 @@ const ProfileFormSchema = z.object({
     .email(),
   businessName: z.string().min(1, { message: "Business Name is required" }),
   businessPhone: z.string().min(1, { message: "Business Phone is required" }),
+  profileImgKey: z.string(),
+  profileImgUrl: z.string(),
 });
 
 type ProfileFormValues = z.infer<typeof ProfileFormSchema>;
@@ -45,6 +55,8 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
       businessEmail: profileData[0].businessEmail,
       businessName: profileData[0].businessName,
       businessPhone: profileData[0].businessPhone,
+      profileImgKey: profileData[0].profileImgKey,
+      profileImgUrl: profileData[0].profileImgUrl,
     },
   });
 
@@ -52,11 +64,14 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
 
   // State
   const [loadingState, setLoadingState] = useState<LoadingState>("");
+  const [profileImg, setProfileImg] = useState<string>("/images/Profile.png");
 
   // Callbacks
   const onSubmit: SubmitHandler<ProfileFormValues> = useCallback(
     async (data) => {
+      console.log("testing mode__**__**__**__**__", mode);
       if (mode === "new") {
+        console.log("testing new profile submit_000__00___000__00__00_");
         setLoadingState("loading");
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_HOST}api/users/${session?.user?.id}/profile`,
@@ -100,13 +115,41 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
     [mode, router, session?.user?.id],
   );
 
+  console.log("testing forms________ methods.formState", methods.formState);
+
   return (
     <FormProvider {...methods}>
-      <Box component="div" className="w-full">
+      <Box component="div" className="w-full flex flex-col">
+        <div className="flex flex-col justify-center items-center gap-4 p-4">
+          <div className="">
+            <Image
+              src={profileImg}
+              width={100}
+              height={100}
+              alt="Profile Picture"
+              className="rounded-full"
+            />
+          </div>
+          <UploadButton
+            endpoint="imageUploader"
+            onClientUploadComplete={(res: any) => {
+              // Do something with the response
+              setProfileImg(`${res[0].url}`);
+              methods.setValue("profileImgKey", res[0].key);
+              methods.setValue("profileImgUrl", res[0].url);
+              console.log("Files: ", res);
+            }}
+            onUploadError={(error: Error) => {
+              // Do something with the error.
+              console.log(`ERROR! ${error.message}`);
+            }}
+          />
+        </div>
         <form
           className="p-4 rounded flex flex-col gap-4 w-full"
           onSubmit={methods.handleSubmit(onSubmit)}
         >
+          <Divider />
           <TextInput
             name="businessAddress"
             label="Business Address"
@@ -140,6 +183,7 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
                     : "success"
             }
             disabled={loadingState === "loading"}
+            onClick={() => console.log("submitting profile form")}
           >
             {loadingState === "" && mode === "new" ? (
               <Typography>Create Profile</Typography>

@@ -7,8 +7,11 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ThemeProviderWrapper from "@/contexts/ThemeProviderWrapper";
 import { Paper } from "@mui/material";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { ourFileRouter } from "./api/uploadthing/core";
+import { extractRouterConfig } from "uploadthing/server";
 
 export const metadata: Metadata = {
   title: "Estimate Generator",
@@ -30,7 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.className}>
       <body className="min-h-screen">
-        <InitColorSchemeScript />
+        <InitColorSchemeScript attribute="class" />
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <AppRouterCacheProvider>
           <ThemeProviderWrapper>
             <Paper square sx={{ backgroundColor: "surface" }}>
