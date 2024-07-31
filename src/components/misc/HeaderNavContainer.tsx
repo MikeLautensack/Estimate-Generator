@@ -8,9 +8,10 @@ import { usePathname } from "next/navigation";
 
 type HeaderNavContainerProps = {
   session: Session;
+  profile: any;
 };
 
-const HeaderNavContainer = ({ session }: HeaderNavContainerProps) => {
+const HeaderNavContainer = ({ session, profile }: HeaderNavContainerProps) => {
   // Hooks
   const pathname = usePathname();
 
@@ -27,9 +28,9 @@ const HeaderNavContainer = ({ session }: HeaderNavContainerProps) => {
     ) {
       setNav(<HomeHeaderNav />);
     } else {
-      setNav(<UserNav session={session} />);
+      setNav(<UserNav session={session} profile={profile} />);
     }
-  }, [session, pathname]);
+  }, [session, pathname, profile]);
 
   return <div>{nav}</div>;
 };

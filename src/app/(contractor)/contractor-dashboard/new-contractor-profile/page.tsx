@@ -8,7 +8,9 @@ const Page = async () => {
   const session = await auth();
   if (!session) return redirect("/signin");
   return (
-    <main className={`p-4 flex flex-col flex-grow gap-2 h-[calc(100vh-56px)]`}>
+    <main
+      className={`p-4 flex flex-col flex-grow gap-2 min-h-[calc(100vh-56px)]`}
+    >
       <Typography variant="h4" color="primary" className="">
         Create your contractor profile!
       </Typography>
@@ -21,6 +23,8 @@ const Page = async () => {
             businessEmail: "",
             businessName: "",
             businessPhone: "",
+            profileImgKey: "",
+            profileImgUrl: "",
           },
         ]}
       />

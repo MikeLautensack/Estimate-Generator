@@ -22,9 +22,10 @@ import { Session } from "next-auth";
 
 type AccountMenuProps = {
   session: Session;
+  profile: any;
 };
 
-const AccountMenu = ({ session }: AccountMenuProps) => {
+const AccountMenu = ({ session, profile }: AccountMenuProps) => {
   console.log("testing session 2", session);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -64,6 +65,8 @@ const AccountMenu = ({ session }: AccountMenuProps) => {
     },
   }));
 
+  console.log("testing menu >>>>>>>>>>>>>>>>>>", profile);
+
   return (
     <>
       <div className="flex items-center">
@@ -81,8 +84,11 @@ const AccountMenu = ({ session }: AccountMenuProps) => {
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
               variant="dot"
             >
-              <Avatar sx={{ width: 32, height: 32 }}>
-                {session ? session.user.name[0] : ""}
+              <Avatar
+                sx={{ width: 32, height: 32 }}
+                src={profile[0] ? profile[0].profileImgUrl : ""}
+              >
+                {session ? session.user?.name[0] : ""}
               </Avatar>
             </StyledBadge>
           </IconButton>
@@ -125,12 +131,13 @@ const AccountMenu = ({ session }: AccountMenuProps) => {
       >
         <Link href="/contractor-dashboard/profile">
           <MenuItem onClick={handleClose}>
-            <Avatar /> Profile
+            <Avatar src={profile[0] ? profile[0].profileImgUrl : ""} /> Profile
           </MenuItem>
         </Link>
         <Link href="/contractor-dashboard/account">
           <MenuItem onClick={handleClose}>
-            <Avatar /> My account
+            <Avatar src={profile[0] ? profile[0].profileImgUrl : ""} /> My
+            account
           </MenuItem>
         </Link>
         <Divider />
