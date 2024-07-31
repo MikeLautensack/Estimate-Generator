@@ -26,7 +26,6 @@ type AccountMenuProps = {
 };
 
 const AccountMenu = ({ session, profile }: AccountMenuProps) => {
-  console.log("testing session 2", session);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
