@@ -7,10 +7,10 @@ import { Session } from "next-auth";
 
 type UserNavProps = {
   session: Session;
+  profile: any;
 };
 
-const UserNav = ({ session }: UserNavProps) => {
-  console.log("testing session 1", session);
+const UserNav = ({ session, profile }: UserNavProps) => {
   return (
     <div
       id="contractor-dashboard-nav"
@@ -28,7 +28,7 @@ const UserNav = ({ session }: UserNavProps) => {
       >
         {/* <NotificationsMenu /> */}
         {session.user.role === "contractor" && session && (
-          <AccountMenu session={session} />
+          <AccountMenu session={session} profile={profile} />
         )}
         <DarkModeSwitch />
       </Box>
