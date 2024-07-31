@@ -12,7 +12,7 @@ const getProfile = async (session: Session) => {
   const res = await db
     .select()
     .from(profiles)
-    .where(eq(profiles.user_id, session.user?.id));
+    .where(eq(profiles.user_id, session?.user?.id));
   return res;
 };
 
