@@ -27,7 +27,7 @@ const UserNav = ({ session, profile }: UserNavProps) => {
         }}
       >
         {/* <NotificationsMenu /> */}
-        {session.user.role === "contractor" && session && (
+        {session.user?.role === "contractor" && session && (
           <AccountMenu session={session} profile={profile} />
         )}
         <DarkModeSwitch />
