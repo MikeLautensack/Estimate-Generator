@@ -65,8 +65,6 @@ const AccountMenu = ({ session, profile }: AccountMenuProps) => {
     },
   }));
 
-  console.log("testing menu >>>>>>>>>>>>>>>>>>", profile);
-
   return (
     <>
       <div className="flex items-center">
