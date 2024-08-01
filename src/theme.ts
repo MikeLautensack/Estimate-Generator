@@ -214,5 +214,6 @@ const theme = extendTheme({
     },
   },
   colorSchemeSelector: "class",
+  // disableCssColorScheme: true,
 });
 export default theme;
