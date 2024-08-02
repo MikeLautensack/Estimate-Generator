@@ -69,9 +69,7 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
   // Callbacks
   const onSubmit: SubmitHandler<ProfileFormValues> = useCallback(
     async (data) => {
-      console.log("testing mode__**__**__**__**__", mode);
       if (mode === "new") {
-        console.log("testing new profile submit_000__00___000__00__00_");
         setLoadingState("loading");
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_HOST}api/users/${session?.user?.id}/profile`,
@@ -114,8 +112,6 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
     },
     [mode, router, session?.user?.id],
   );
-
-  console.log("testing forms________ methods.formState", methods.formState);
 
   return (
     <FormProvider {...methods}>
