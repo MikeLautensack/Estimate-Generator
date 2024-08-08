@@ -1,17 +1,13 @@
 import { db } from "@/db";
 import { estimates } from "@/db/schemas/estimates";
+import { Estimates } from "@/types/estimates";
 import { formatPriceString } from "@/utils/formatingFunctions";
 import { Card, Typography } from "@mui/material";
 import React from "react";
 
-async function getData() {
-  try {
-    const res = await db.select().from(estimates);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-}
+type TotalEsimatedProps = {
+  estimates: any[];
+};
 
 const getTotal = (data: any) => {
   let total = 0;
@@ -21,9 +17,8 @@ const getTotal = (data: any) => {
   return total;
 };
 
-const TotalEsimated = async () => {
-  const data = await getData();
-  const total = getTotal(data);
+const TotalEsimated = async ({ estimates }: TotalEsimatedProps) => {
+  const total = getTotal(estimates);
   return (
     <Card
       sx={{ backgroundColor: "surfaceContainerLow" }}

@@ -11,8 +11,12 @@ import {
 } from "@/db/schemas/auth";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: DrizzleAdapter(db),
-  // Configure one or more authentication providers
+  adapter: DrizzleAdapter(db, {
+    usersTable: users,
+    accountsTable: accounts,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
+  }),
   session: {
     strategy: "jwt",
   },
@@ -21,4 +25,4 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     error: "/signin",
   },
   ...authConfig,
-} satisfies NextAuthConfig);
+});
