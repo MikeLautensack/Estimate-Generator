@@ -1,19 +1,15 @@
 import { db } from "@/db";
 import { estimates } from "@/db/schemas/estimates";
+import { Estimates } from "@/types/estimates";
 import { Card, Typography } from "@mui/material";
 
-async function getData() {
-  try {
-    const res = await db.select().from(estimates);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-}
+type TotalEstimatesProps = {
+  estimates: any[];
+};
 
-export default async function TotalEstimates() {
-  const data = await getData();
-
+export default async function TotalEstimates({
+  estimates,
+}: TotalEstimatesProps) {
   return (
     <Card
       sx={{ backgroundColor: "surfaceContainerLow" }}
@@ -23,7 +19,7 @@ export default async function TotalEstimates() {
         Total Estimates
       </Typography>
       <Typography variant="body1" color="primary">
-        {data?.length}
+        {estimates?.length}
       </Typography>
     </Card>
   );

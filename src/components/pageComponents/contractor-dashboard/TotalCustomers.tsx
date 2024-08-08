@@ -1,19 +1,15 @@
 import { db } from "@/db";
 import { customers } from "@/db/schemas/customers";
+import { Customers } from "@/types/customers";
 import { Card, Typography } from "@mui/material";
 
-async function getData() {
-  try {
-    const res = await db.select().from(customers);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-}
+type TotalCustomersProps = {
+  customers: Customers[];
+};
 
-export default async function TotalCustomers() {
-  const data = await getData();
-
+export default async function TotalCustomers({
+  customers,
+}: TotalCustomersProps) {
   return (
     <Card
       sx={{ backgroundColor: "surfaceContainerLow" }}
@@ -23,7 +19,7 @@ export default async function TotalCustomers() {
         Total Customers
       </Typography>
       <Typography variant="body1" color="primary">
-        {data?.length}
+        {customers?.length}
       </Typography>
     </Card>
   );
