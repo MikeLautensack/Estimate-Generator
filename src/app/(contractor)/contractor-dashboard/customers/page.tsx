@@ -8,6 +8,7 @@ import { auth } from "../../../../../auth";
 import { redirect } from "next/navigation";
 import { Button, Typography } from "@mui/material";
 import ContractorsCustomersTable from "@/components/tables/contractorTables/customersTable/ContractorsCustomersTable";
+import TestNewTable from "@/components/misc/TestNewTable";
 
 async function getData(session: Session) {
   const res = await db
@@ -34,7 +35,8 @@ const Page = async () => {
           New Customer
         </Button>
       </Link>
-      <ContractorsCustomersTable customers={data} />
+      {/* <ContractorsCustomersTable customers={data} /> */}
+      <TestNewTable />
     </main>
   );
 };
