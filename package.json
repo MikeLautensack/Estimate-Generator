@@ -14,7 +14,7 @@
     "migrations:drop": "drizzle-kit drop"
   },
   "dependencies": {
-    "@auth/drizzle-adapter": "^1.2.0",
+    "@auth/drizzle-adapter": "^1.4.1",
     "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.12.0",
     "@emotion/styled": "^11.12.0",
@@ -51,6 +51,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.28.6",
     "eslint-config-next": "^14.0.4",
@@ -60,7 +61,7 @@
     "imask": "^7.6.1",
     "lucide-react": "^0.274.0",
     "next": "^14.0.4",
-    "next-auth": "^5.0.0-beta.19",
+    "next-auth": "^5.0.0-beta.20",
     "next-themes": "^0.2.1",
     "nodemailer": "^6.9.7",
     "postcss": "8.4.27",
