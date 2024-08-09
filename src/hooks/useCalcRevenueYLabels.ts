@@ -19,7 +19,7 @@ const useCalcRevenueYLabels = (estimates: any[]) => {
     return formatAsPrice(amount);
   });
 
-  return amountArr;
+  return formatedPriceArr;
 };
 
 export default useCalcRevenueYLabels;
