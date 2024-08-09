@@ -14,6 +14,7 @@ import useCalcAmount from "./hooks/useCalcAmount";
 import useCalcSubtotal from "./hooks/useCalcSubtotal";
 import MVLMoneyInput from "../inputs/MVLMoneyInput";
 import MVLNumber from "../inputs/MVLNumber";
+import FieldArrayTextInput from "../inputs/FieldArrayTextInput";
 
 const LineItemFormField = ({
   fields,
@@ -65,7 +66,7 @@ const LineItemFormField = ({
   return (
     <TableRow>
       <TableCell className="align-top w-36 pr-2">
-        <TextInput
+        <FieldArrayTextInput
           name={`lineItems.${index}.item` as const}
           label="Item Name"
           size="small"
@@ -74,10 +75,12 @@ const LineItemFormField = ({
             saveAndSaveStatus === "saving" ||
             saveAndSaveStatus === "sending"
           }
+          index={index}
+          inputName="item"
         />
       </TableCell>
       <TableCell className="align-top w-full px-2">
-        <TextInput
+        <FieldArrayTextInput
           name={`lineItems.${index}.description` as const}
           label="Item Description"
           size="small"
@@ -86,6 +89,8 @@ const LineItemFormField = ({
             saveAndSaveStatus === "saving" ||
             saveAndSaveStatus === "sending"
           }
+          index={index}
+          inputName="description"
         />
       </TableCell>
       <TableCell className="align-top w-32 px-2">
