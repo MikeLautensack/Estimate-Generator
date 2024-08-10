@@ -1,21 +1,37 @@
-import { isBefore } from "date-fns";
+import { isBefore, isEqual } from "date-fns";
+import { DateObject } from "./useCalcRevenueXLabels";
+import { useEffect, useState } from "react";
 
-const useCalcGrossRevenueArr = (estimates: any[], xLabels: string[]) => {
-  let grossRevenueArr: string[] = [];
-  for (let i = 0; i < xLabels.length; i++) {
-    let revenue = 0;
-    const dateOfTotalRevenue = new Date(xLabels[i]);
-    for (let j = 0; j < estimates.length; j++) {
-      const lastUpdated = new Date(estimates[j].updatedAt);
-      const isBilled: boolean = estimates[j].status && "billed";
-      if (isBefore(lastUpdated, dateOfTotalRevenue) && isBilled) {
-        revenue += estimates[j].total;
+const useCalcGrossRevenueArr = (
+  estimates: any[],
+  xLabels: DateObject[],
+  xunit: string,
+) => {
+  // State
+  const [revenueArr, setRevenueArr] = useState<number[]>();
+
+  // Effects
+  useEffect(() => {
+    let arr = [];
+    for (let i = 0; i < xLabels.length; i++) {
+      let revenue = 0;
+      const dateOfTotalRevenue = new Date(xLabels[i].date);
+      for (let j = 0; j < estimates.length; j++) {
+        const lastUpdated = new Date(estimates[j].updatedAt);
+        const isBilled: boolean = estimates[j].status && "billed";
+        if (
+          (isBefore(lastUpdated, dateOfTotalRevenue) && isBilled) ||
+          (isEqual(lastUpdated, dateOfTotalRevenue) && isBilled)
+        ) {
+          revenue += estimates[j].total;
+        }
       }
+      arr.push(revenue);
     }
-    grossRevenueArr.push(revenue.toString());
-  }
-  return grossRevenueArr.map((rev) => parseFloat(rev));
-  // .map((rev) => formatAsPrice(rev));
+    setRevenueArr(arr);
+  }, [estimates, xLabels, xunit]);
+
+  return revenueArr;
 };
 
 export default useCalcGrossRevenueArr;
