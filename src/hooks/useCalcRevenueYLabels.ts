@@ -1,25 +1,30 @@
+import { useEffect, useState } from "react";
+
 const useCalcRevenueYLabels = (estimates: any[]) => {
-  let high = 0;
-  for (let i = 0; i < estimates.length; i++) {
-    if (estimates[i].total > high) {
-      high = estimates[i].total;
+  // State
+  const [priceArray, setPriceArray] = useState<number[]>([]);
+
+  //Effects
+  useEffect(() => {
+    let high = 0;
+    for (let i = 0; i < estimates.length; i++) {
+      if (estimates[i].total > high) {
+        high = estimates[i].total;
+      }
     }
-  }
-  const increment = high / 5;
-  const roundedIncrement = roundUpToNiceNumber(increment);
+    const increment = high / 5;
+    const roundedIncrement = roundUpToNiceNumber(increment);
 
-  let amountArr = [0];
-  let total = 0;
-  for (let i = 0; i < 4; i++) {
-    amountArr.unshift(total + roundedIncrement);
-    total += roundedIncrement;
-  }
+    let amountArr = [0];
+    let total = 0;
+    for (let i = 0; i < 4; i++) {
+      amountArr.unshift(total + roundedIncrement);
+      total += roundedIncrement;
+    }
+    setPriceArray(amountArr);
+  }, [estimates]);
 
-  const formatedPriceArr = amountArr.map((amount) => {
-    return formatAsPrice(amount);
-  });
-
-  return formatedPriceArr;
+  return priceArray;
 };
 
 export default useCalcRevenueYLabels;

@@ -26,10 +26,10 @@ const RevenueChart = ({ estimates }: RevenueChartProps) => {
   const [xunit, setXUnit] = useState<Unit>("weekly");
 
   // Hooks
-  const xLabels = useCalcRevenueXLabels(xunit, new Date());
+  const xLabels = useCalcRevenueXLabels(xunit);
   const yLabels = useCalcRevenueYLabels(estimates);
-  const grossRevenue = useCalcGrossRevenueArr(estimates, xLabels);
-  const totalEstimated = useCalcTotalEstimatedArr(estimates, xLabels);
+  const grossRevenue = useCalcGrossRevenueArr(estimates, xLabels, xunit);
+  const totalEstimated = useCalcTotalEstimatedArr(estimates, xLabels, xunit);
 
   console.log("testing xLabels", xLabels);
   console.log("testing yLabels", yLabels);
@@ -78,13 +78,13 @@ const RevenueChart = ({ estimates }: RevenueChartProps) => {
           xAxis={[
             {
               scaleType: "point",
-              data: xLabels,
+              data: xLabels.map((label) => label.label),
               id: "x-axis-id",
             },
           ]}
           yAxis={[
             {
-              // scaleType: "linear",
+              scaleType: "linear",
               data: yLabels,
               id: "y-axis-id",
             },
