@@ -1,11 +1,46 @@
 import { format, subDays, subMonths } from "date-fns";
+import { useEffect, useState } from "react";
+
+export type DateObject = {
+  label: string;
+  date: Date;
+};
+
+const useCalcRevenueXLabels = (xunit: string) => {
+  const [xLabels, setXLabels] = useState<DateObject[]>([]);
+
+  useEffect(() => {
+    const today = new Date();
+    switch (xunit) {
+      case "daily":
+        setXLabels(createDateArr(xunit, today));
+        break;
+      case "weekly":
+        setXLabels(createDateArr(xunit, today));
+        break;
+      case "bi-weekly":
+        setXLabels(createDateArr(xunit, today));
+        break;
+      case "monthly":
+        setXLabels(createDateArr(xunit, today));
+        break;
+      case "anually":
+        setXLabels(createDateArr(xunit, today));
+        break;
+    }
+  }, [xunit]);
+
+  return xLabels;
+};
+
+export default useCalcRevenueXLabels;
 
 const createDateArr = (xunit: string, now: Date) => {
   // Create Array
-  let dateArr: Date[] = [now];
+  let dateArr: DateObject[] = [];
 
-  // Create var to store how many x-units to create
-  let xUnits = 7;
+  // Create let to store how many x-units to create
+  let xUnits = 0;
 
   switch (xunit) {
     case "daily":
@@ -20,12 +55,12 @@ const createDateArr = (xunit: string, now: Date) => {
     case "monthly":
       xUnits = 12;
       break;
-    case "anually":
+    case "annually":
       xUnits = 5;
       break;
   }
 
-  let daysIncrement = 1;
+  let daysIncrement = 0;
 
   switch (xunit) {
     case "daily":
@@ -37,7 +72,7 @@ const createDateArr = (xunit: string, now: Date) => {
     case "bi-weekly":
       daysIncrement = 14;
       break;
-    case "anually":
+    case "annually":
       daysIncrement = 365;
       break;
   }
@@ -46,70 +81,43 @@ const createDateArr = (xunit: string, now: Date) => {
   if (xunit !== "monthly") {
     let lastDateAdded = now;
     for (let i = 0; i < xUnits; i++) {
-      dateArr.unshift(subDays(lastDateAdded, daysIncrement));
-      lastDateAdded = subDays(lastDateAdded, daysIncrement);
+      const date = subDays(lastDateAdded, daysIncrement);
+      const dateLabel = formatDate(date, xunit);
+      dateArr.unshift({ label: dateLabel!, date: date });
+      lastDateAdded = date;
     }
   }
 
   if (xunit === "monthly") {
     let lastDateAdded = now;
     for (let i = 0; i < xUnits; i++) {
-      dateArr.unshift(subMonths(lastDateAdded, 1));
-      lastDateAdded = subMonths(lastDateAdded, 1);
+      const date = subMonths(lastDateAdded, 1);
+      const dateLabel = formatDate(date, xunit);
+      dateArr.unshift({ label: dateLabel!, date: date });
+      lastDateAdded = date;
     }
   }
-
-  // Format array
-  const formatedDateArr = formatDateArr(dateArr, xunit);
 
   // Return array
-  return formatedDateArr;
+  return dateArr;
 };
 
-const formatDateArr = (dateArr: Date[], xunit: string) => {
-  let formatedDateArr = [];
-  for (let i = 0; i < dateArr.length; i++) {
-    switch (xunit) {
-      case "daily":
-        formatedDateArr.push(format(dateArr[i], "E"));
-        break;
-      case "weekly":
-        formatedDateArr.push(format(dateArr[i], "MM/dd/yyyy"));
-        break;
-      case "bi-weekly":
-        formatedDateArr.push(format(dateArr[i], "MM/dd/yyyy"));
-        break;
-      case "monthly":
-        formatedDateArr.push(format(dateArr[i], "MMM"));
-        break;
-      case "anually":
-        formatedDateArr.push(format(dateArr[i], "yyyy"));
-        break;
-    }
-  }
-  return formatedDateArr;
-};
-
-const useCalcRevenueXLabels = (xunit: string, today: Date) => {
-  let xlabels: string[] = [];
+const formatDate = (date: Date, xunit: string) => {
   switch (xunit) {
     case "daily":
-      xlabels = createDateArr(xunit, today);
-      break;
+      const formatedDaily = format(date, "E");
+      return formatedDaily;
     case "weekly":
-      xlabels = createDateArr(xunit, today);
-      break;
+      const formatedWeekly = format(date, "MM/dd/yyyy");
+      return formatedWeekly;
     case "bi-weekly":
-      xlabels = createDateArr(xunit, today);
-      break;
+      const formatedBiWeekly = format(date, "MM/dd/yyyy");
+      return formatedBiWeekly;
     case "monthly":
-      xlabels = createDateArr(xunit, today);
-      break;
-    case "anually":
-      xlabels = createDateArr(xunit, today);
-      break;
+      const formatedMonthly = format(date, "MMM");
+      return formatedMonthly;
+    case "annually":
+      const formatedAnnually = format(date, "yyyy");
+      return formatedAnnually;
   }
-  return xlabels;
 };
-
-export default useCalcRevenueXLabels;
