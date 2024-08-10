@@ -67,7 +67,7 @@ export default async function EstimateStatusChartContainer() {
       className="rounded-lg p-2 relative"
     >
       {/* <h1>Estimate Staus Chart</h1> */}
-      <EstimateStatusChart chartArray={chartArray} />
+      <EstimateStatusChart estimates={chartArray} />
     </Card>
   );
 }

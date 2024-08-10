@@ -118,15 +118,7 @@ const CustomerForm = ({ data, mode, user_id, session }: CustomerFormProps) => {
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-    [
-      data.contractor_user_id,
-      data.email,
-      data.id,
-      data.name,
-      mode,
-      session.user.name,
-      user_id,
-    ],
+    [data.contractor_user_id, data.id, mode, user_id],
   );
 
   return (

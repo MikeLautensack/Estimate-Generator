@@ -2,18 +2,13 @@ import { db } from "@/db";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { Card, Typography } from "@mui/material";
 
-async function getData() {
-  try {
-    const res = await db.select().from(changeOrders);
-    return res;
-  } catch (error) {
-    console.log(error);
-  }
-}
+type TotalChangeOrdersProps = {
+  changeOrders: any[];
+};
 
-export default async function TotalChangeOrders() {
-  const data = await getData();
-
+export default async function TotalChangeOrders({
+  changeOrders,
+}: TotalChangeOrdersProps) {
   return (
     <Card
       sx={{ backgroundColor: "surfaceContainerLow" }}
@@ -23,7 +18,7 @@ export default async function TotalChangeOrders() {
         Total Change Orders
       </Typography>
       <Typography variant="body1" color="primary">
-        {data?.length}
+        {changeOrders?.length}
       </Typography>
     </Card>
   );
