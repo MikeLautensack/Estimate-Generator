@@ -10,10 +10,59 @@ import { auth } from "../../../../auth";
 import { redirect } from "next/navigation";
 import { Box, Card, Typography } from "@mui/material";
 import TotalEsimated from "@/components/pageComponents/contractor-dashboard/TotalEsimated";
+import RevenueChart from "@/components/charts/RevenueChart";
+import { db } from "@/db";
+import { estimates } from "@/db/schemas/estimates";
+import { Session } from "next-auth";
+import { eq } from "drizzle-orm";
+import { customers } from "@/db/schemas/customers";
+import { changeOrders } from "@/db/schemas/changeOrders";
+import EstimateStatusChart from "@/components/charts/EstimateStatusChart";
+
+async function getEstimates(session: Session) {
+  try {
+    const res = await db
+      .select()
+      .from(estimates)
+      .where(eq(estimates.contractor_user_id, session.user.id));
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getCustomers(session: Session) {
+  try {
+    const res = await db
+      .select()
+      .from(customers)
+      .where(eq(customers.contractor_user_id, session.user.id));
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getChangeOrders(session: Session) {
+  try {
+    const res = await db
+      .select()
+      .from(changeOrders)
+      .where(eq(changeOrders.contractor_user_id, session.user.id));
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const Page = async () => {
   const session = await auth();
   if (!session) return redirect("/signin");
+
+  const estimates = await getEstimates(session);
+  const customers = await getCustomers(session);
+  const changeOrders = await getChangeOrders(session);
+
   return (
     <main className={`p-4 flex flex-col flex-grow gap-2 h-[calc(100vh-56px)]`}>
       <Typography variant="h4" color="primary" className="">
@@ -21,14 +70,14 @@ const Page = async () => {
       </Typography>
       <div className="flex flex-col gap-4 flex-1">
         <div className="grid gap-4 desktop:grid-cols-4">
-          <TotalEsimated />
-          <TotalCustomers />
-          <TotalEstimates />
-          <TotalChangeOrders />
+          <TotalEsimated estimates={estimates!} />
+          <TotalCustomers customers={customers!} />
+          <TotalEstimates estimates={estimates!} />
+          <TotalChangeOrders changeOrders={changeOrders!} />
         </div>
         <div className="grid gap-4 tablet:grid-cols-2 flex-1">
-          <EstimatePriceChartContainer />
-          <HighProfitCustomersChartContainer />
+          <RevenueChart estimates={estimates!} />
+          <EstimateStatusChart estimates={estimates!} />
         </div>
       </div>
     </main>

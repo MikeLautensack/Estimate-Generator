@@ -13,20 +13,8 @@ import {
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
-// export const use = pgTable("user", {
-//   id: varchar("id", { length: 255 }).notNull().primaryKey(),
-//   name: varchar("name", { length: 255 }),
-//   email: varchar("email", { length: 255 }).notNull(),
-//   password: varchar("password", { length: 255 }),
-//   role: varchar("role", { length: 255 }),
-//   newUser: boolean("new_user").notNull(),
-//   emailVerified: timestamp("emailVerified", { mode: "date" }),
-//   createdAt: timestamp("created_at"),
-//   updatedAt: timestamp("updated_at"),
-// });
-
-export const users = pgTable("users", {
-  id: text("id").primaryKey(),
+export const users = pgTable("user", {
+  id: text("id").notNull().primaryKey(),
   name: text("name"),
   email: text("email").notNull(),
   password: text("password").notNull(),

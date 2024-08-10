@@ -6,6 +6,7 @@ import { Estimates } from "@/types/estimates";
 import EstimatePriceChart from "../../charts/EstimatePriceChart";
 import { auth } from "../../../../auth";
 import { Card } from "@mui/material";
+import TestChart from "@/components/misc/TestChart";
 
 async function getDataTestOne(id: number) {
   try {
@@ -83,7 +84,8 @@ const EstimatePriceChartContainer = async () => {
       sx={{ backgroundColor: "surfaceContainerLow" }}
       className="rounded-lg p-2 max-desktop:aspect-square relative"
     >
-      <EstimatePriceChart chartArray={chartArray} />
+      <TestChart />
+      {/* <EstimatePriceChart chartArray={chartArray} /> */}
     </Card>
   );
 };

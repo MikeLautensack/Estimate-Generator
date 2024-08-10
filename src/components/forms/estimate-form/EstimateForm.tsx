@@ -37,8 +37,8 @@ export type EstimateFormProps = {
 
 const LineItemsSchema = z.object({
   id: z.string(),
-  item: z.string().min(1, { message: "Item is required" }),
-  description: z.string().min(1, { message: "Description is required" }),
+  item: z.string(),
+  description: z.string(),
   quantity: z.string(),
   rateType: z.string(),
   price: z.string(),
