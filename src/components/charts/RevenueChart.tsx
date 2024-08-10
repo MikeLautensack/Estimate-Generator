@@ -11,10 +11,11 @@ import {
   ResponsiveChartContainer,
   ChartsYAxis,
   ChartsLegend,
+  ChartsClipPath,
 } from "@mui/x-charts";
 import useCalcRevenueYLabels from "@/hooks/useCalcRevenueYLabels";
 
-type Unit = "daily" | "weekly" | "bi-weekly" | "monthly" | "anually";
+type Unit = "daily" | "weekly" | "bi-weekly" | "monthly" | "annually";
 
 type RevenueChartProps = {
   estimates: any[];
@@ -25,10 +26,10 @@ const RevenueChart = ({ estimates }: RevenueChartProps) => {
   const [xunit, setXUnit] = useState<Unit>("weekly");
 
   // Hooks
-  const xLabels = useCalcRevenueXLabels(xunit, new Date());
+  const xLabels = useCalcRevenueXLabels(xunit);
   const yLabels = useCalcRevenueYLabels(estimates);
-  const grossRevenue = useCalcGrossRevenueArr(estimates, xLabels);
-  const totalEstimated = useCalcTotalEstimatedArr(estimates, xLabels);
+  const grossRevenue = useCalcGrossRevenueArr(estimates, xLabels, xunit);
+  const totalEstimated = useCalcTotalEstimatedArr(estimates, xLabels, xunit);
 
   console.log("testing xLabels", xLabels);
   console.log("testing yLabels", yLabels);
@@ -50,8 +51,9 @@ const RevenueChart = ({ estimates }: RevenueChartProps) => {
           { label: "Weekly", value: "weekly" },
           { label: "Bi Weekly", value: "bi-weekly" },
           { label: "Monthly", value: "monthly" },
-          { label: "Anually", value: "anually" },
+          { label: "Annually", value: "annually" },
         ]}
+        isOptionEqualToValue={(option, value) => option.value === value.value}
         onChange={(_, newValue: any) => {
           setXUnit(newValue.value);
         }}
@@ -62,17 +64,37 @@ const RevenueChart = ({ estimates }: RevenueChartProps) => {
       <div className="w-full h-full">
         <ResponsiveChartContainer
           series={[
-            { type: "line", data: grossRevenue, label: "Gross Revenue" },
-            { type: "line", data: totalEstimated, label: "Total Estimated" },
+            {
+              type: "line",
+              data: grossRevenue,
+              label: "Gross Revenue",
+            },
+            {
+              type: "line",
+              data: totalEstimated,
+              label: "Total Estimated",
+            },
           ]}
-          xAxis={[{ scaleType: "point", data: xLabels, id: "x-axis-id" }]}
-          yAxis={[{ scaleType: "point", data: yLabels, id: "y-axis-id" }]}
-          margin={{ left: 80 }}
+          xAxis={[
+            {
+              scaleType: "point",
+              data: xLabels.map((label) => label.label),
+              id: "x-axis-id",
+            },
+          ]}
+          yAxis={[
+            {
+              scaleType: "linear",
+              data: yLabels,
+              id: "y-axis-id",
+            },
+          ]}
+          // margin={{ left: 80 }}
         >
           <ChartsLegend />
-          <LinePlot />
-          <ChartsYAxis axisId="y-axis-id" />
+          <ChartsYAxis position="left" axisId="y-axis-id" />
           <ChartsXAxis position="bottom" axisId="x-axis-id" />
+          <LinePlot />
         </ResponsiveChartContainer>
       </div>
     </Card>
