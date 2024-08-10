@@ -1,16 +1,13 @@
 "use client";
 
-import { estimatesChartArrayProps } from "@/types/types";
-import {
-  Cell,
-  Legend,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
+import { Card } from "@mui/material";
+import { ChartsLegend, ResponsiveChartContainer } from "@mui/x-charts";
 
-const EstimateStatusChart = ({ chartArray }: estimatesChartArrayProps) => {
+type EstimateStatusChartProps = {
+  estimates: any[];
+};
+
+const EstimateStatusChart = ({ estimates }: EstimateStatusChartProps) => {
   const generateColor = (name: string): string => {
     if (name === "accepted") {
       return "#0275d8";
@@ -31,31 +28,22 @@ const EstimateStatusChart = ({ chartArray }: estimatesChartArrayProps) => {
   };
 
   return (
-    <div className="w-full h-full">
-      {/* <h1 className="h-[1.5rem]">Estimates Status Graph</h1> */}
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
-          <Legend verticalAlign="top" height={36} />
-          <Pie
-            data={chartArray}
-            dataKey="value"
-            nameKey="name"
-            cx="50%"
-            cy="50%"
-            fill="#8884d8"
-            label
-          >
-            {chartArray.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={generateColor(chartArray[index].status.toLowerCase())}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-        </PieChart>
-      </ResponsiveContainer>
-    </div>
+    <Card
+      className="w-full h-full"
+      sx={{ backgroundColor: "surfaceContainerLow" }}
+    >
+      <ResponsiveChartContainer
+        series={[
+          { type: "line", data: [], label: "Gross Revenue" },
+          { type: "line", data: [], label: "Total Estimated" },
+        ]}
+        xAxis={[{ scaleType: "point", data: [], id: "x-axis-id" }]}
+        yAxis={[{ scaleType: "point", data: [], id: "y-axis-id" }]}
+        margin={{ left: 80 }}
+      >
+        <ChartsLegend />
+      </ResponsiveChartContainer>
+    </Card>
   );
 };
 
