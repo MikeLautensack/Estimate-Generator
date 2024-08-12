@@ -1,6 +1,6 @@
 "use client";
 
-import { Autocomplete, Card, TextField } from "@mui/material";
+import { Autocomplete, Card, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { LineChart, LinePlot } from "@mui/x-charts/LineChart";
 import useCalcRevenueXLabels from "@/hooks/useCalcRevenueXLabels";
@@ -41,26 +41,31 @@ const RevenueChart = ({ estimates }: RevenueChartProps) => {
       sx={{ backgroundColor: "surfaceContainerLow" }}
       className="flex flex-col gap-4 justify-start items-end rounded-lg p-4"
     >
-      <Autocomplete
-        value={{
-          label: xunit[0].toUpperCase() + xunit.substring(1),
-          value: xunit,
-        }}
-        options={[
-          { label: "Daily", value: "daily" },
-          { label: "Weekly", value: "weekly" },
-          { label: "Bi Weekly", value: "bi-weekly" },
-          { label: "Monthly", value: "monthly" },
-          { label: "Annually", value: "annually" },
-        ]}
-        isOptionEqualToValue={(option, value) => option.value === value.value}
-        onChange={(_, newValue: any) => {
-          setXUnit(newValue.value);
-        }}
-        renderInput={(params) => (
-          <TextField {...params} label="Unit" sx={{ width: "10rem" }} />
-        )}
-      />
+      <div className="flex justify-between items-center w-full">
+        <Typography variant="h6" color="primary" className="h-max">
+          Revenue Chart
+        </Typography>
+        <Autocomplete
+          value={{
+            label: xunit[0].toUpperCase() + xunit.substring(1),
+            value: xunit,
+          }}
+          options={[
+            { label: "Daily", value: "daily" },
+            { label: "Weekly", value: "weekly" },
+            { label: "Bi Weekly", value: "bi-weekly" },
+            { label: "Monthly", value: "monthly" },
+            { label: "Annually", value: "annually" },
+          ]}
+          isOptionEqualToValue={(option, value) => option.value === value.value}
+          onChange={(_, newValue: any) => {
+            setXUnit(newValue.value);
+          }}
+          renderInput={(params) => (
+            <TextField {...params} label="Unit" sx={{ width: "10rem" }} />
+          )}
+        />
+      </div>
       <div className="w-full h-full">
         <ResponsiveChartContainer
           series={[

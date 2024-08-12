@@ -45,6 +45,16 @@ export const formatCapitalize = (input: string): string => {
   }
 };
 
+export const formatCapitalizeAll = (input: string): string => {
+  return input
+    .toLowerCase() // Convert the entire string to lowercase
+    .trim() // Remove leading and trailing spaces
+    .replace(/-/g, " ") // Replace all hyphens with spaces
+    .split(/\s+/) // Split the string into an array of words using any whitespace as the delimiter
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+    .join(" "); // Join the words back into a single string with spaces in between
+};
+
 export const formatRate = (
   rateType: string,
   price: string,
