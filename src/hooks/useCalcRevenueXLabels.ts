@@ -24,7 +24,7 @@ const useCalcRevenueXLabels = (xunit: string) => {
       case "monthly":
         setXLabels(createDateArr(xunit, today));
         break;
-      case "anually":
+      case "annually":
         setXLabels(createDateArr(xunit, today));
         break;
     }

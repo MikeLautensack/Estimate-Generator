@@ -95,7 +95,7 @@ const SideBarNav = ({ ...props }) => {
         </Link>
         <Link
           id="customers-button"
-          href="/contractor-dashboard/customers"
+          href="/contractor-dashboard/customers?page=1&pageSize=10"
           onClick={() => setSelected("customers")}
         >
           <Button

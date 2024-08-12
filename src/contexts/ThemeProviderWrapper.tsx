@@ -12,7 +12,7 @@ const ThemeProviderWrapper = ({ children }: ThemeProviderWrapperProps) => {
   return (
     <CssVarsProvider theme={theme}>
       <CssBaseline />
-      {children}
+      <Box sx={{ backgroundColor: "bg" }}>{children}</Box>
     </CssVarsProvider>
   );
 };

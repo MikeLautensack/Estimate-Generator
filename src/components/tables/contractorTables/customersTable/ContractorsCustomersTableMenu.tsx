@@ -1,11 +1,11 @@
 "use client";
 
-import { Box, Button, Menu, MenuItem } from "@mui/material";
+import { Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
 import React, { useCallback } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
 import { Customers } from "@/types/customers";
 import { useRouter } from "next/navigation";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 type ContractorsCustomersTableMenuProps = {
   customer: Customers;
@@ -39,15 +39,15 @@ const ContractorsCustomersTableMenu = ({
   }, [customer.contractor_user_id, customer.id, router]);
   return (
     <Box component="div" className="">
-      <Button
+      <IconButton
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <MenuIcon />
-      </Button>
+        <MoreVertIcon />
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
