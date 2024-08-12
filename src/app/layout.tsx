@@ -5,7 +5,6 @@ import { Roboto } from "next/font/google";
 import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ThemeProviderWrapper from "@/contexts/ThemeProviderWrapper";
-import { Paper } from "@mui/material";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -37,10 +36,8 @@ export default function RootLayout({
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <AppRouterCacheProvider>
           <ThemeProviderWrapper>
-            <Paper square sx={{ backgroundColor: "surface" }}>
-              <Header />
-              {children}
-            </Paper>
+            <Header />
+            {children}
           </ThemeProviderWrapper>
         </AppRouterCacheProvider>
         <Analytics />

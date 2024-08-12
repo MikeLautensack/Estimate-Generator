@@ -15,26 +15,6 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
-
 type EstimateTableProps = {
   lineItems: LineItems[];
 };
@@ -43,34 +23,32 @@ const EstimateTable = ({ lineItems }: EstimateTableProps) => {
   return (
     <TableContainer
       component="div"
-      className="flex rounded-lg"
-      sx={{ border: "solid 1px", borderColor: "outlineVariant" }}
+      className="flex"
+      // sx={{ border: "solid 1px", borderColor: "outlineVariant" }}
     >
       <Table sx={{ minWidth: 700 }} size="small" aria-label="customized table">
-        <TableHead>
+        <TableHead sx={{ backgroundColor: "surfaceContainerHigh" }}>
           <TableRow>
-            <StyledTableCell>Item Name</StyledTableCell>
-            <StyledTableCell>Item Description</StyledTableCell>
-            <StyledTableCell>Quantity</StyledTableCell>
-            <StyledTableCell>Rate</StyledTableCell>
-            <StyledTableCell>Amount</StyledTableCell>
+            <TableCell>Item Name</TableCell>
+            <TableCell>Item Description</TableCell>
+            <TableCell>Quantity</TableCell>
+            <TableCell>Rate</TableCell>
+            <TableCell>Amount</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {lineItems.map((item) => (
-            <StyledTableRow key={item.item}>
-              <StyledTableCell component="th" scope="row">
+            <TableRow key={item.item}>
+              <TableCell component="th" scope="row">
                 {item.item}
-              </StyledTableCell>
-              <StyledTableCell>{item.description}</StyledTableCell>
-              <StyledTableCell>{item.quantity}</StyledTableCell>
-              <StyledTableCell>
+              </TableCell>
+              <TableCell>{item.description}</TableCell>
+              <TableCell>{item.quantity}</TableCell>
+              <TableCell>
                 {formatRate(item.rateType, item.price.toString(), item.item)}
-              </StyledTableCell>
-              <StyledTableCell>
-                {formatPriceString(item.amount.toString())}
-              </StyledTableCell>
-            </StyledTableRow>
+              </TableCell>
+              <TableCell>{formatPriceString(item.amount.toString())}</TableCell>
+            </TableRow>
           ))}
         </TableBody>
       </Table>
