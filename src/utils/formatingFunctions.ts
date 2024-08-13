@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const formatTaxString = (num: number): string => {
   const number = num * 100;
   const roundedNumber = number.toFixed(2);
@@ -74,4 +76,33 @@ export const formatRate = (
   } else if (rateType === "Flat Rate") {
     return `${formatedPrice}`;
   }
+};
+
+export const formatDate = (date: Date, xunit: string) => {
+  switch (xunit) {
+    case "daily":
+      const formatedDaily = format(date, "E");
+      return formatedDaily;
+    case "weekly":
+      const formatedWeekly = format(date, "MM/dd/yyyy");
+      return formatedWeekly;
+    case "bi-weekly":
+      const formatedBiWeekly = format(date, "MM/dd/yyyy");
+      return formatedBiWeekly;
+    case "monthly":
+      const formatedMonthly = format(date, "MMM");
+      return formatedMonthly;
+    case "annually":
+      const formatedAnnually = format(date, "yyyy");
+      return formatedAnnually;
+  }
+};
+
+export const formatAsPrice = (value: number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
 };

@@ -10,7 +10,6 @@ import { auth } from "../../../../auth";
 import { redirect } from "next/navigation";
 import { Box, Card, Typography } from "@mui/material";
 import TotalEsimated from "@/components/pageComponents/contractor-dashboard/TotalEsimated";
-import RevenueChart from "@/components/charts/RevenueChart";
 import { db } from "@/db";
 import { estimates } from "@/db/schemas/estimates";
 import { Session } from "next-auth";
@@ -18,6 +17,7 @@ import { eq } from "drizzle-orm";
 import { customers } from "@/db/schemas/customers";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import EstimateStatusChart from "@/components/charts/EstimateStatusChart";
+import RevenueChart from "@/components/charts/revenue-chart/RevenueChart";
 
 async function getEstimates(session: Session) {
   try {
