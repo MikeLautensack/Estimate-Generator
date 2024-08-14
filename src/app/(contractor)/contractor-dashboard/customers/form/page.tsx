@@ -7,8 +7,6 @@ const Page = async () => {
   const customer = {} as Customers;
   const session = await auth();
 
-  console.log("session log", session?.user.id);
-
   return (
     <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1">
       <Typography variant="h4" color="primary">
