@@ -54,9 +54,6 @@ const ContractorsCustomersTable = ({
   });
   const [loading, setLoading] = useState<boolean>(false);
 
-  console.log("testing page params", page);
-  console.log("testing page params", pageSize);
-
   // Create rows
   const rows: GridRowsProp = customers.map((customer) => {
     return {
@@ -69,7 +66,6 @@ const ContractorsCustomersTable = ({
   });
 
   useEffect(() => {
-    console.log("testing paginationModel", paginationModel);
     router.push(
       `/contractor-dashboard/customers?page=${paginationModel.page + 1}&pageSize=${paginationModel.pageSize}`,
     );
