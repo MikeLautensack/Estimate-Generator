@@ -11,17 +11,20 @@ export default function Estimate({ estimate }: { estimate: Estimates }) {
         <Typography variant="body2">{`status: ${estimate.status}`}</Typography>
       </Box>
       <Divider />
-      <Typography variant="h5">{`Estimate Name: ${estimate.estimateName}`}</Typography>
+      <Typography
+        variant="h4"
+        sx={{ marginBottom: "1rem" }}
+      >{`Estimate Name: ${estimate.estimateName}`}</Typography>
       <Box
         component="div"
         className="flex flex-col desktop:flex-row gap-4 w-full"
       >
-        <Box component="div" className="flex flex-col gap-4 w-full">
+        <Box component="div" className="flex flex-col gap-2 w-full">
           <Typography variant="body1">{`Customer Name: ${estimate.customerName}`}</Typography>
           <Typography variant="body1">{`Customer Email: ${estimate.customerEmail}`}</Typography>
           <Typography variant="body1">{`Project Address: ${estimate.projectAddress}`}</Typography>
         </Box>
-        <Box component="div" className="flex flex-col gap-4 w-full">
+        <Box component="div" className="flex flex-col gap-2 w-full">
           <Typography variant="body1">{`Contractor Name: ${estimate.contractorName}`}</Typography>
           <Typography variant="body1">{`Contractor Phone: ${estimate.contractorPhone}`}</Typography>
           <Typography variant="body1">{`Contractor Address: ${estimate.contractorAddress}`}</Typography>
@@ -32,25 +35,22 @@ export default function Estimate({ estimate }: { estimate: Estimates }) {
         component="div"
         className="flex flex-col gap-4 justify-start items-start"
       >
-        <Typography variant="h6">Message</Typography>
-        <Typography variant="body2">{estimate.message}</Typography>
-      </Box>
-      <Divider />
-      <Box
-        component="div"
-        className="flex flex-col gap-4 justify-start items-start"
-      >
-        <Typography variant="h6">Line Items</Typography>
         <EstimateTable lineItems={estimate.lineItems!} />
       </Box>
       <Divider />
       <Box
         component="div"
-        className="flex flex-col gap-4 justify-start items-end w-full"
+        className="flex gap-4 justify-start items-start w-full"
       >
-        <Typography variant="body1">{`Subtotal: ${formatPriceString(estimate.subtotal.toString())}`}</Typography>
-        <Typography variant="body1">{`Tax: ${formatPriceString(estimate.tax.toString())}`}</Typography>
-        <Typography variant="body1">{`Total: ${formatPriceString(estimate.total.toString())}`}</Typography>
+        <div className="flex flex-col gap-4 justify-start items-start w-full">
+          <Typography variant="h6">Message</Typography>
+          <Typography variant="body1">{estimate.message}</Typography>
+        </div>
+        <div className="flex flex-col gap-2 justify-start items-end w-full">
+          <Typography variant="body1">{`Subtotal: ${formatPriceString(estimate.subtotal.toString())}`}</Typography>
+          <Typography variant="body1">{`Tax: ${formatPriceString(estimate.tax.toString())}`}</Typography>
+          <Typography variant="body1">{`Total: ${formatPriceString(estimate.total.toString())}`}</Typography>
+        </div>
       </Box>
     </Box>
   );
