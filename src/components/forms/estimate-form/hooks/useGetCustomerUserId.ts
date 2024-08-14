@@ -8,7 +8,9 @@ const useGetCustomerUserId = (customers: Customers[], customerName: string) => {
   // Effects
   useEffect(() => {
     for (let i = 0; i < customers.length; i++) {
-      if (customerName === customers[i].name) {
+      if (
+        customerName === `${customers[i].firstName} ${customers[i].lastName}`
+      ) {
         setId(customers[i].customer_user_id);
       }
     }

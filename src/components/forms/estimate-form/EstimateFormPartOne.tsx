@@ -9,7 +9,10 @@ import { useCallback, useEffect, useState } from "react";
 
 const getCustomerOptions = (customers: Customers[]) => {
   return customers.map((customer: Customers) => {
-    return { label: customer.name, id: customer.customer_user_id };
+    return {
+      label: `${customer.firstName} ${customer.lastName}`,
+      id: customer.customer_user_id,
+    };
   });
 };
 
@@ -52,7 +55,7 @@ const EstimateFormPartOne = ({
       const customer = getCustomer(customers, customerUserId);
       if (customer) {
         setCustomer({
-          customerName: customer.name,
+          customerName: `${customer.firstName} ${customer.lastName}`,
           customerEmail: customer.email,
           projectAddress: customer.address,
           customer_id: customer.id.toString(),
