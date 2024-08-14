@@ -1,83 +1,125 @@
 "use client";
 
 import { Customers } from "@/types/customers";
+import { Box, Button, TablePaginationProps } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import {
-  styled,
-  Table,
-  TableBody,
-  TableCell,
-  tableCellClasses,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import React from "react";
+  DataGrid,
+  GridRowsProp,
+  GridColDef,
+  useGridApiContext,
+  useGridSelector,
+  GridPagination,
+  gridPageCountSelector,
+} from "@mui/x-data-grid";
+import MuiPagination from "@mui/material/Pagination";
+import { useRouter } from "next/navigation";
 import ContractorsCustomersTableMenu from "./ContractorsCustomersTableMenu";
-import { formatPhoneNumber } from "@/utils/formatingFunctions";
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
 
 type ContractorsCustomersTableProps = {
   customers: Customers[];
+  page: string;
+  pageSize: string;
+  totalRows: number;
 };
+
+const columns: GridColDef[] = [
+  { field: "name", headerName: "Customer Name", minWidth: 150, flex: 1 },
+  { field: "email", headerName: "Customer Email", minWidth: 150, flex: 1 },
+  { field: "address", headerName: "Address", minWidth: 150, flex: 1 },
+  { field: "phone", headerName: "Phone", minWidth: 150, flex: 1 },
+  {
+    field: "actions",
+    headerName: "",
+    width: 48,
+    renderCell: (params) => (
+      <ContractorsCustomersTableMenu customer={params.row} />
+    ),
+  },
+];
 
 const ContractorsCustomersTable = ({
   customers,
+  page,
+  pageSize,
+  totalRows,
 }: ContractorsCustomersTableProps) => {
+  // Hooks
+  const router = useRouter();
+
+  // State
+  const [paginationModel, setPaginationModel] = useState({
+    page: parseInt(page) - 1,
+    pageSize: parseInt(pageSize),
+  });
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // Create rows
+  const rows: GridRowsProp = customers.map((customer) => {
+    return {
+      id: customer.id,
+      name: customer.name,
+      email: customer.email,
+      address: customer.address,
+      phone: customer.phone,
+    };
+  });
+
+  useEffect(() => {
+    router.push(
+      `/contractor-dashboard/customers?page=${paginationModel.page + 1}&pageSize=${paginationModel.pageSize}`,
+    );
+  }, [paginationModel, router]);
+
   return (
-    <TableContainer
-      component="div"
-      sx={{ border: "solid 1px", borderColor: "outlineVariant" }}
-      className="rounded-md"
-    >
-      <Table stickyHeader sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Customer Name</StyledTableCell>
-            <StyledTableCell>Customer Email</StyledTableCell>
-            <StyledTableCell>Address</StyledTableCell>
-            <StyledTableCell>Phone</StyledTableCell>
-            <StyledTableCell></StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {customers.map((customer) => (
-            <StyledTableRow key={customer.id}>
-              <StyledTableCell component="th" scope="row">
-                {customer.name}
-              </StyledTableCell>
-              <StyledTableCell>{customer.email}</StyledTableCell>
-              <StyledTableCell>{customer.address}</StyledTableCell>
-              <StyledTableCell>
-                {formatPhoneNumber(customer.phone)}
-              </StyledTableCell>
-              <StyledTableCell>
-                <ContractorsCustomersTableMenu customer={customer} />
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box component="div" className="">
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        paginationMode="server"
+        paginationModel={paginationModel}
+        rowCount={totalRows}
+        loading={loading}
+        onPaginationModelChange={setPaginationModel}
+        slots={{
+          pagination: CustomPagination,
+        }}
+        pageSizeOptions={[5, 10, 20, 30, 40, 50]}
+        initialState={{
+          pagination: {
+            paginationModel: paginationModel,
+          },
+        }}
+        autoHeight
+        // checkboxSelection
+      />
+    </Box>
   );
 };
 
 export default ContractorsCustomersTable;
+
+function Pagination({
+  page,
+  onPageChange,
+  className,
+}: Pick<TablePaginationProps, "page" | "onPageChange" | "className">) {
+  const apiRef = useGridApiContext();
+  const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+
+  return (
+    <MuiPagination
+      color="primary"
+      className={className}
+      count={pageCount}
+      page={page + 1}
+      onChange={(event, newPage) => {
+        onPageChange(event as any, newPage - 1);
+      }}
+    />
+  );
+}
+
+function CustomPagination(props: any) {
+  return <GridPagination ActionsComponent={Pagination} {...props} />;
+}

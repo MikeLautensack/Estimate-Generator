@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const formatTaxString = (num: number): string => {
   const number = num * 100;
   const roundedNumber = number.toFixed(2);
@@ -45,6 +47,16 @@ export const formatCapitalize = (input: string): string => {
   }
 };
 
+export const formatCapitalizeAll = (input: string): string => {
+  return input
+    .toLowerCase() // Convert the entire string to lowercase
+    .trim() // Remove leading and trailing spaces
+    .replace(/-/g, " ") // Replace all hyphens with spaces
+    .split(/\s+/) // Split the string into an array of words using any whitespace as the delimiter
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
+    .join(" "); // Join the words back into a single string with spaces in between
+};
+
 export const formatRate = (
   rateType: string,
   price: string,
@@ -64,4 +76,33 @@ export const formatRate = (
   } else if (rateType === "Flat Rate") {
     return `${formatedPrice}`;
   }
+};
+
+export const formatDate = (date: Date, xunit: string) => {
+  switch (xunit) {
+    case "daily":
+      const formatedDaily = format(date, "E");
+      return formatedDaily;
+    case "weekly":
+      const formatedWeekly = format(date, "MM/dd/yyyy");
+      return formatedWeekly;
+    case "bi-weekly":
+      const formatedBiWeekly = format(date, "MM/dd/yyyy");
+      return formatedBiWeekly;
+    case "monthly":
+      const formatedMonthly = format(date, "MMM");
+      return formatedMonthly;
+    case "annually":
+      const formatedAnnually = format(date, "yyyy");
+      return formatedAnnually;
+  }
+};
+
+export const formatAsPrice = (value: number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
 };
