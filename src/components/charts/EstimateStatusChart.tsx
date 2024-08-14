@@ -1,48 +1,34 @@
 "use client";
 
-import { Card } from "@mui/material";
-import { ChartsLegend, ResponsiveChartContainer } from "@mui/x-charts";
+import useCalcPieData from "@/hooks/useCalcPieData";
+import { Card, Typography } from "@mui/material";
+import { PieChart } from "@mui/x-charts";
 
 type EstimateStatusChartProps = {
   estimates: any[];
 };
 
 const EstimateStatusChart = ({ estimates }: EstimateStatusChartProps) => {
-  const generateColor = (name: string): string => {
-    if (name === "accepted") {
-      return "#0275d8";
-    } else if (name === "rejected") {
-      return "#FF0000";
-    } else if (name === "change order requested") {
-      return "#f0ad4e";
-    } else if (name === "pending approval") {
-      return "9d9d9d";
-    } else if (name === "work completed") {
-      return "#039487";
-    } else if (name === "work in progress (edited)") {
-      return "#30D5C8";
-    } else if (name === "work in progress") {
-      return "#add8e6";
-    }
-    return "";
-  };
-
+  // Hooks
+  const data = useCalcPieData(estimates);
   return (
     <Card
-      className="w-full h-full"
+      className="w-full h-full p-8 flex flex-col gap-4"
       sx={{ backgroundColor: "surfaceContainerLow" }}
     >
-      <ResponsiveChartContainer
-        series={[
-          { type: "line", data: [], label: "Gross Revenue" },
-          { type: "line", data: [], label: "Total Estimated" },
-        ]}
-        xAxis={[{ scaleType: "point", data: [], id: "x-axis-id" }]}
-        yAxis={[{ scaleType: "point", data: [], id: "y-axis-id" }]}
-        margin={{ left: 80 }}
-      >
-        <ChartsLegend />
-      </ResponsiveChartContainer>
+      <Typography variant="h6" color="primary" className="h-max">
+        Estimate Status Chart
+      </Typography>
+      <div className="w-full h-full">
+        <PieChart
+          series={[
+            {
+              data: data,
+            },
+          ]}
+          margin={{ right: 256 }}
+        />
+      </div>
     </Card>
   );
 };

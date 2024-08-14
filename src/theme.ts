@@ -46,6 +46,7 @@ declare module "@mui/material/styles" {
     surfaceContainerHigh: string;
     surfaceContainerHighest: string;
     cash: string;
+    bg: string;
   }
   interface Palette {
     onPrimary: string;
@@ -92,6 +93,7 @@ declare module "@mui/material/styles" {
     surfaceContainerHigh: string;
     surfaceContainerHighest: string;
     cash: string;
+    bg: string;
   }
 }
 
@@ -153,6 +155,7 @@ const theme = extendTheme({
         surfaceContainerHigh: "#E8E7EF",
         surfaceContainerHighest: "#E2E2E9",
         cash: "#3e9c35",
+        bg: "#FAF8FF",
       },
     },
     dark: {
@@ -210,6 +213,7 @@ const theme = extendTheme({
         surfaceContainerHigh: "#282A2F",
         surfaceContainerHighest: "#33353A",
         cash: "#3e9c35",
+        bg: "#121318",
       },
     },
   },
