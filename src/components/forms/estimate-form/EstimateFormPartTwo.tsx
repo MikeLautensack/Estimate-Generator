@@ -154,6 +154,44 @@ const EstimateFormPartTwo = ({
               }
             />
           </Box>
+          <Box
+            component="div"
+            className="flex flex-col gap-4 items-start w-full"
+          >
+            <MVLReadOnlyInput
+              label="Date Created"
+              name="createdAt"
+              size="small"
+              type="date"
+              disabled={
+                saveStatus === "saving" ||
+                saveAndSaveStatus === "saving" ||
+                saveAndSaveStatus === "sending"
+              }
+            />
+            <MVLReadOnlyInput
+              label="Date Updated"
+              name="updatedAt"
+              size="small"
+              type="date"
+              disabled={
+                saveStatus === "saving" ||
+                saveAndSaveStatus === "saving" ||
+                saveAndSaveStatus === "sending"
+              }
+            />
+            <TextInput
+              label="Expiration Date"
+              name="expirationDate"
+              size="small"
+              type="date"
+              disabled={
+                saveStatus === "saving" ||
+                saveAndSaveStatus === "saving" ||
+                saveAndSaveStatus === "sending"
+              }
+            />
+          </Box>
         </div>
         <div className="flex flex-col gap-2 desktop:gap-4">
           <Button
