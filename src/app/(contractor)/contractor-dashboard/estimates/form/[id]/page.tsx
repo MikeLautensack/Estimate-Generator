@@ -79,6 +79,9 @@ const Page = async ({ params }: { params: { id: string } }) => {
           contractorPhone: estimate.contractorPhone
             ? estimate.contractorPhone
             : "",
+          createdAt: estimate.createdAt.toISOString().slice(0, 10),
+          updatedAt: estimate.updatedAt.toISOString().slice(0, 10),
+          expirationDate: estimate.expirationDate.toISOString().slice(0, 10),
           lineItems: estimate.lineItems
             ? estimate.lineItems.map((item) => {
                 return {

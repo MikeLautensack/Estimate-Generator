@@ -48,6 +48,7 @@ export async function POST(
     discountMode: bodyData.discountMode,
     discount: bodyData.discount,
     total: bodyData.total,
+    expirationDate: new Date(bodyData.expirationDate),
     createdAt: new Date(),
     updatedAt: new Date(),
   };
@@ -128,6 +129,7 @@ export async function PATCH(
     discount: bodyData.discount,
     taxRate: bodyData.taxRate,
     total: bodyData.total,
+    expirationDate: new Date(bodyData.expirationDate),
     updatedAt: new Date(),
   };
 

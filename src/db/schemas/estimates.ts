@@ -22,6 +22,7 @@ export const estimates = pgTable("estimates", {
   customerEmail: varchar("customer_email", { length: 255 }),
   customerName: varchar("customer_name", { length: 255 }),
   estimateName: varchar("estimate_name", { length: 255 }),
+  expirationDate: timestamp("expiration_date").notNull(),
   message: varchar("message", { length: 255 }),
   projectAddress: varchar("project_address", { length: 255 }),
   status: varchar("status", { length: 255 }),

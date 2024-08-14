@@ -1,4 +1,5 @@
 import { extendTheme } from "@mui/material/styles";
+import { Poppins, Lato, Source_Sans_3 } from "next/font/google";
 
 declare module "@mui/material/styles" {
   interface PaletteOptions {
@@ -97,8 +98,35 @@ declare module "@mui/material/styles" {
   }
 }
 
+const poppins = Poppins({
+  weight: "400",
+  style: "normal",
+  subsets: ["latin"],
+});
+
+const lato = Lato({
+  weight: "400",
+  style: "normal",
+  subsets: ["latin"],
+});
+
+const source_sans_3 = Source_Sans_3({
+  weight: "400",
+  style: "normal",
+  subsets: ["latin"],
+});
+
 // `extendTheme` is a new API
 const theme = extendTheme({
+  typography: {
+    fontFamily: poppins.style.fontFamily,
+    body1: {
+      lineHeight: 1.65, // Set your desired line height here
+    },
+    body2: {
+      lineHeight: 1.35, // Set your desired line height here
+    },
+  },
   colorSchemes: {
     light: {
       palette: {
