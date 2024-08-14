@@ -1,18 +1,18 @@
 "use client";
 
-import { Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
 import React, { useCallback } from "react";
-import { Customers } from "@/types/customers";
 import { useRouter } from "next/navigation";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { ChangeOrder } from "@/types/changeOrders";
 
 type ContractorsCustomersTableMenuProps = {
-  customer: Customers;
+  changeOrder: ChangeOrder;
 };
 
-const ContractorsCustomersTableMenu = ({
-  customer,
+const ContractorChangeOrderTableMenu = ({
+  changeOrder,
 }: ContractorsCustomersTableMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -24,8 +24,8 @@ const ContractorsCustomersTableMenu = ({
   };
   const router = useRouter();
   const deleteCustomer = useCallback(async () => {
-    const USER_ID = customer.contractor_user_id;
-    const CUSTOMER_ID = customer.id;
+    const USER_ID = changeOrder.contractor_user_id;
+    const CUSTOMER_ID = changeOrder.id;
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
       {
@@ -36,7 +36,7 @@ const ContractorsCustomersTableMenu = ({
     if (res.ok) {
       router.refresh();
     }
-  }, [customer.contractor_user_id, customer.id, router]);
+  }, [changeOrder.contractor_user_id, changeOrder.id, router]);
   return (
     <Box component="div" className="">
       <IconButton
@@ -58,14 +58,14 @@ const ContractorsCustomersTableMenu = ({
         }}
       >
         <Link
-          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/customers/${customer.id}`}
+          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/chnage-orders/${changeOrder.id}`}
         >
-          <MenuItem onClick={handleClose}>View Customer</MenuItem>
+          <MenuItem onClick={handleClose}>View Change Order</MenuItem>
         </Link>
         <Link
-          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/customers/form/${customer.id}`}
+          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/chnage-orders/form/${changeOrder.id}`}
         >
-          <MenuItem onClick={handleClose}>Update Customer</MenuItem>
+          <MenuItem onClick={handleClose}>Update Change Order</MenuItem>
         </Link>
         <MenuItem
           onClick={() => {
@@ -73,11 +73,11 @@ const ContractorsCustomersTableMenu = ({
             handleClose();
           }}
         >
-          Delete Customer
+          Delete Change Order
         </MenuItem>
       </Menu>
     </Box>
   );
 };
 
-export default ContractorsCustomersTableMenu;
+export default ContractorChangeOrderTableMenu;
