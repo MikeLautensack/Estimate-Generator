@@ -8,6 +8,7 @@ import { auth } from "../../../../../auth";
 import { redirect } from "next/navigation";
 import { Button, Typography } from "@mui/material";
 import ContractorsCustomersTable from "@/components/tables/contractorTables/customersTable/ContractorsCustomersTable";
+import TestNewTable from "@/components/misc/TestNewTable";
 
 async function getCustomers(session: Session, page: string, pageSize: string) {
   const size = parseInt(pageSize);
