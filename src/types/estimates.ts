@@ -23,6 +23,7 @@ export type Estimates = {
   contractorName: string;
   contractorAddress: string;
   contractorPhone: string;
+  expirationDate: Date;
   lineItems?: LineItems[];
   message: string;
   subtotal: number;
