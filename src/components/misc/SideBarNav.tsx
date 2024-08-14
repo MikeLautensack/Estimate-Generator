@@ -109,7 +109,7 @@ const SideBarNav = ({ ...props }) => {
         </Link>
         <Link
           id="estimates-button"
-          href="/contractor-dashboard/estimates"
+          href="/contractor-dashboard/estimates?page=1&pageSize=5"
           onClick={() => setSelected("estimates")}
         >
           <Button
@@ -123,7 +123,7 @@ const SideBarNav = ({ ...props }) => {
         </Link>
         <Link
           id="estimates-button"
-          href="/contractor-dashboard/change-orders"
+          href="/contractor-dashboard/change-orders?page=1&pageSize=5"
           onClick={() => setSelected("change-orders")}
         >
           <Button

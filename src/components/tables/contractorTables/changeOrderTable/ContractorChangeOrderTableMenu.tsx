@@ -1,17 +1,19 @@
 "use client";
 
-import { Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
-import React, { useCallback } from "react";
+import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
-import { Estimates } from "@/types/estimates";
+import React, { useCallback } from "react";
 import { useRouter } from "next/navigation";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { ChangeOrder } from "@/types/changeOrders";
 
-type EstimatesTableMenuProps = {
-  estimate: Estimates;
+type ContractorsCustomersTableMenuProps = {
+  changeOrder: ChangeOrder;
 };
 
-const EstimatesTableMenu = ({ estimate }: EstimatesTableMenuProps) => {
+const ContractorChangeOrderTableMenu = ({
+  changeOrder,
+}: ContractorsCustomersTableMenuProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -21,12 +23,11 @@ const EstimatesTableMenu = ({ estimate }: EstimatesTableMenuProps) => {
     setAnchorEl(null);
   };
   const router = useRouter();
-  const deleteEstimate = useCallback(async () => {
-    const USER_ID = estimate.contractor_user_id;
-    const CUSTOMER_ID = estimate.customer_id;
-    const ESTIMATE_ID = estimate.id;
+  const deleteCustomer = useCallback(async () => {
+    const USER_ID = changeOrder.contractor_user_id;
+    const CUSTOMER_ID = changeOrder.id;
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+      `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}`,
       {
         method: "DELETE",
       },
@@ -35,7 +36,7 @@ const EstimatesTableMenu = ({ estimate }: EstimatesTableMenuProps) => {
     if (res.ok) {
       router.refresh();
     }
-  }, [estimate.contractor_user_id, estimate.customer_id, estimate.id, router]);
+  }, [changeOrder.contractor_user_id, changeOrder.id, router]);
   return (
     <Box component="div" className="">
       <IconButton
@@ -57,26 +58,26 @@ const EstimatesTableMenu = ({ estimate }: EstimatesTableMenuProps) => {
         }}
       >
         <Link
-          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/estimates/${estimate.id}`}
+          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/chnage-orders/${changeOrder.id}`}
         >
-          <MenuItem onClick={handleClose}>View Estimate</MenuItem>
+          <MenuItem onClick={handleClose}>View Change Order</MenuItem>
         </Link>
         <Link
-          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/estimates/form/${estimate.id}`}
+          href={`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard/chnage-orders/form/${changeOrder.id}`}
         >
-          <MenuItem onClick={handleClose}>Update Estimate</MenuItem>
+          <MenuItem onClick={handleClose}>Update Change Order</MenuItem>
         </Link>
         <MenuItem
           onClick={() => {
-            deleteEstimate();
+            deleteCustomer();
             handleClose();
           }}
         >
-          Delete Estimate
+          Delete Change Order
         </MenuItem>
       </Menu>
     </Box>
   );
 };
 
-export default EstimatesTableMenu;
+export default ContractorChangeOrderTableMenu;
