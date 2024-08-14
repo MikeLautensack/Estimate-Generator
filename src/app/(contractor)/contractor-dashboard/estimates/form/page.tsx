@@ -49,6 +49,9 @@ const Page = async () => {
             contractorName: "",
             contractorAddress: "",
             contractorPhone: "",
+            createdAt: new Date().toISOString().slice(0, 10),
+            updatedAt: new Date().toISOString().slice(0, 10),
+            expirationDate: new Date().toISOString().slice(0, 10),
             lineItems: [
               {
                 id: newLineItemId.toString(),
