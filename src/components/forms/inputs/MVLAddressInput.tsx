@@ -17,6 +17,9 @@ type MVLAddressProps = {
   addressInputNames: Address;
   watchedInput?: string;
   watchedInputAssociatedAddressData?: any[];
+  size?: string;
+  readonly?: boolean;
+  disabled?: boolean;
 };
 
 type AddressAction =
@@ -47,6 +50,9 @@ const MVLAddressInput = ({
   addressInputNames,
   watchedInput = "",
   watchedInputAssociatedAddressData = [],
+  size,
+  readonly = false,
+  disabled = false,
 }: MVLAddressProps) => {
   // State
   const [address, dispatch] = useReducer(reducer, {
@@ -60,15 +66,33 @@ const MVLAddressInput = ({
   return (
     <div className="flex flex-col gap-4 justify-start items-start w-full">
       {/* Address line 1 */}
-      <TextInput label={"Address"} name={addressInputNames?.address} />
+      <TextInput
+        label={"Address"}
+        name={addressInputNames?.address}
+        size={size}
+        readonly={readonly}
+        disabled={disabled}
+      />
 
       {/* Address line 2 */}
-      <TextInput label={"Address Line 2"} name={addressInputNames?.address2} />
+      <TextInput
+        label={"Address Line 2"}
+        name={addressInputNames?.address2}
+        size={size}
+        readonly={readonly}
+        disabled={disabled}
+      />
 
       <div className="flex gap-4 justify-center items-center w-full">
         {/* City */}
         <div className="w-1/3">
-          <TextInput label={"City"} name={addressInputNames?.city} />
+          <TextInput
+            label={"City"}
+            name={addressInputNames?.city}
+            size={size}
+            readonly={readonly}
+            disabled={disabled}
+          />
         </div>
 
         {/* State */}
@@ -77,12 +101,21 @@ const MVLAddressInput = ({
             label={"State"}
             name={addressInputNames?.state}
             options={states}
+            size={size}
+            readonly={readonly}
+            disabled={disabled}
           />
         </div>
 
         {/* Zip */}
         <div className="w-1/3">
-          <TextInput label={"Zip"} name={addressInputNames?.zip} />
+          <TextInput
+            label={"Zip"}
+            name={addressInputNames?.zip}
+            size={size}
+            readonly={readonly}
+            disabled={disabled}
+          />
         </div>
       </div>
     </div>

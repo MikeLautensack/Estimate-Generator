@@ -6,6 +6,8 @@ import TextInput from "../inputs/TextInput";
 import MVLAutocomplete from "../inputs/MVLAutocomplete";
 import { Customers } from "@/types/customers";
 import { useCallback, useEffect, useState } from "react";
+import { Divider, Typography } from "@mui/material";
+import MVLAddressInput from "../inputs/MVLAddressInput";
 
 const getCustomerOptions = (customers: Customers[]) => {
   return customers.map((customer: Customers) => {
@@ -27,9 +29,14 @@ const EstimateFormPartOne = ({
   // State
   const [readonly, setReadonly] = useState<boolean>(false);
   const [customer, setCustomer] = useState({
-    customerName: "",
+    customerFirstName: "",
+    customerLastName: "",
     customerEmail: "",
     projectAddress: "",
+    projectAddress2: "",
+    projectCity: "",
+    projectState: "",
+    projectZip: "",
     customer_id: "",
   });
 
@@ -55,9 +62,14 @@ const EstimateFormPartOne = ({
       const customer = getCustomer(customers, customerUserId);
       if (customer) {
         setCustomer({
-          customerName: `${customer.firstName} ${customer.lastName}`,
+          customerFirstName: customer.firstName,
+          customerLastName: customer.lastName,
           customerEmail: customer.email,
           projectAddress: customer.address,
+          projectAddress2: customer.address2,
+          projectCity: customer.city,
+          projectState: customer.state,
+          projectZip: customer.zip,
           customer_id: customer.id.toString(),
         });
       }
@@ -65,15 +77,21 @@ const EstimateFormPartOne = ({
   }, [customerUserId, customers, getCustomer]);
 
   useEffect(() => {
-    setValue("customerName", customer.customerName);
+    setValue("customerFirstName", customer.customerFirstName);
+    setValue("customerLastName", customer.customerLastName);
     setValue("customerEmail", customer.customerEmail);
     setValue("projectAddress", customer.projectAddress);
+    setValue("projectAddress2", customer.projectAddress2);
+    setValue("projectCity", customer.projectCity);
+    setValue("projectState", customer.projectState);
+    setValue("projectZip", customer.projectZip);
     setValue("customer_id", customer.customer_id);
   }, [customer, setValue]);
 
   return (
-    <div className="">
-      <div className="">
+    <div className="flex flex-col gap-4 justify-start items-start w-full">
+      <Typography variant="h6">Customer Info</Typography>
+      <div className="w-full">
         <MVLAutocomplete
           name="customer_user_id"
           label="Customers"
@@ -86,17 +104,29 @@ const EstimateFormPartOne = ({
           }
         />
       </div>
-      <div className="flex flex-col gap-2 my-2 text-black">
-        <TextInput
-          name="customerName"
-          label="Customer Name"
-          readonly={readonly}
-          disabled={
-            saveStatus === "saving" ||
-            saveAndSaveStatus === "saving" ||
-            saveAndSaveStatus === "sending"
-          }
-        />
+      <div className="flex flex-col gap-4 my-2 w-full">
+        <div className="flex justify-center items-center gap-4">
+          <TextInput
+            name="customerFirstName"
+            label="Customer First Name"
+            readonly={readonly}
+            disabled={
+              saveStatus === "saving" ||
+              saveAndSaveStatus === "saving" ||
+              saveAndSaveStatus === "sending"
+            }
+          />
+          <TextInput
+            name="customerLastName"
+            label="Customer Last Name"
+            readonly={readonly}
+            disabled={
+              saveStatus === "saving" ||
+              saveAndSaveStatus === "saving" ||
+              saveAndSaveStatus === "sending"
+            }
+          />
+        </div>
         <TextInput
           name="customerEmail"
           label="Customer Email"
@@ -107,15 +137,16 @@ const EstimateFormPartOne = ({
             saveAndSaveStatus === "sending"
           }
         />
-        <TextInput
-          name="projectAddress"
-          label="Project Address"
-          readonly={readonly}
-          disabled={
-            saveStatus === "saving" ||
-            saveAndSaveStatus === "saving" ||
-            saveAndSaveStatus === "sending"
-          }
+        <Divider />
+        <Typography variant="h6">Project Address</Typography>
+        <MVLAddressInput
+          addressInputNames={{
+            address: "projectAddress",
+            address2: "projectAddress2",
+            city: "projectCity",
+            state: "projectState",
+            zip: "projectZip",
+          }}
         />
       </div>
     </div>

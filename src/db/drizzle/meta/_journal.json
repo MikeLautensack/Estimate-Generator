@@ -127,6 +127,41 @@
       "when": 1723670201656,
       "tag": "0017_yielding_the_captain",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "5",
+      "when": 1723675168845,
+      "tag": "0018_young_stingray",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "5",
+      "when": 1723683929783,
+      "tag": "0019_yielding_swarm",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "5",
+      "when": 1723684497512,
+      "tag": "0020_remarkable_ken_ellis",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "5",
+      "when": 1723684736732,
+      "tag": "0021_whole_gamma_corps",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "5",
+      "when": 1723685498284,
+      "tag": "0022_charming_nightcrawler",
+      "breakpoints": true
     }
   ]
 }
