@@ -32,8 +32,13 @@ const Page = async ({
 
   const data = {
     estimateName: estimate?.estimateName,
-    customerName: estimate?.customerName,
+    customerFirstName: estimate?.customerFirstName,
+    customerLastName: estimate?.customerLastName,
     projectAddress: estimate?.projectAddress,
+    projectAddress2: estimate?.projectAddress2,
+    projectCity: estimate?.projectCity,
+    projectState: estimate?.projectState,
+    projectZip: estimate?.projectZip,
     contractor_user_id: estimate?.contractor_user_id,
     customer_user_id: estimate?.customer_user_id,
     customer_id: estimate?.customer_id,

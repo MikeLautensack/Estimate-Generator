@@ -16,7 +16,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const session = await auth();
 
   return (
-    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1">
+    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1 gap-4">
       <Typography variant="h4" color="primary">
         Edit Customer Form
       </Typography>

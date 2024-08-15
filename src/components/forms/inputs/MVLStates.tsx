@@ -11,6 +11,7 @@ type MVLAutocompleteProps = {
   size?: any;
   idAsValue?: boolean;
   disabled?: boolean;
+  readonly?: boolean;
 };
 
 type Option = {
@@ -25,6 +26,7 @@ const MVLStates = ({
   size,
   idAsValue = false,
   disabled,
+  readonly = false,
 }: MVLAutocompleteProps) => {
   // Hooks
   const {
@@ -71,7 +73,8 @@ const MVLStates = ({
         "& .MuiOutlinedInput-root": {
           backgroundColor: "surfaceContainerHighest",
           padding: "0.5rem", // Adjust padding as needed
-          height: "56px",
+          height:
+            size === "normal" ? "56px" : size === "small" ? "40px" : "56px",
         },
       }}
       renderInput={(params) => (
@@ -96,6 +99,7 @@ const MVLStates = ({
       fullWidth
       size={size}
       disabled={disabled}
+      readOnly={readonly}
     />
   );
 };
