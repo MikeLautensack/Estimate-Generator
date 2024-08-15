@@ -58,7 +58,7 @@ const ContractorsCustomersTable = ({
   const rows: GridRowsProp = customers.map((customer) => {
     return {
       id: customer.id,
-      name: customer.name,
+      name: `${customer.firstName} ${customer.lastName}`,
       email: customer.email,
       address: customer.address,
       phone: customer.phone,

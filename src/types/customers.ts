@@ -1,7 +1,12 @@
 export type Customers = {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   address: string;
+  address2: string;
+  city: string;
+  state: string;
+  zip: string;
   email: string;
   phone: string;
   password?: string;

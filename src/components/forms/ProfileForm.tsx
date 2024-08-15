@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { effect, z } from "zod";
+import { z } from "zod";
 import {
   Box,
   Button,
@@ -16,11 +16,13 @@ import { Session } from "next-auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { UploadButton } from "../../utils/uploadthing";
+import MVLAddressInput from "./inputs/MVLAddressInput";
 
 type ProfileFormProps = {
   session: Session;
   profileData?: any;
   mode: "new" | "update";
+  profile?: any;
 };
 
 type LoadingState =
@@ -34,6 +36,10 @@ const ProfileFormSchema = z.object({
   businessAddress: z
     .string()
     .min(1, { message: "Business Address is required" }),
+  businessAddress2: z.string(),
+  businessCity: z.string().min(1, { message: "Business City is required" }),
+  businessState: z.string().min(1, { message: "Business State is required" }),
+  businessZip: z.string().min(1, { message: "Business Zip is required" }),
   businessEmail: z
     .string()
     .min(1, { message: "Business Email is required" })
@@ -52,6 +58,10 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
     resolver: zodResolver(ProfileFormSchema),
     defaultValues: {
       businessAddress: profileData[0].businessAddress,
+      businessAddress2: profileData[0].businessAddress2,
+      businessCity: profileData[0].businessCity,
+      businessState: profileData[0].businessState,
+      businessZip: profileData[0].businessZip,
       businessEmail: profileData[0].businessEmail,
       businessName: profileData[0].businessName,
       businessPhone: profileData[0].businessPhone,
@@ -64,7 +74,9 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
 
   // State
   const [loadingState, setLoadingState] = useState<LoadingState>("");
-  const [profileImg, setProfileImg] = useState<string>("/images/Profile.png");
+  const [profileImg, setProfileImg] = useState<string>(
+    profileData ? profileData[0].profileImgUrl : "/images/Profile.png",
+  );
 
   // Callbacks
   const onSubmit: SubmitHandler<ProfileFormValues> = useCallback(
@@ -146,25 +158,34 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
           onSubmit={methods.handleSubmit(onSubmit)}
         >
           <Divider />
+          <Typography variant="h6">Business Profile Name</Typography>
           <TextInput
-            name="businessAddress"
-            label="Business Address"
+            name="businessName"
+            label="Business Name"
             disabled={loadingState === "loading"}
           />
+          <Divider />
+          <Typography variant="h6">Business Contact Info</Typography>
           <TextInput
             name="businessEmail"
             label="Business Email"
             disabled={loadingState === "loading"}
           />
           <TextInput
-            name="businessName"
-            label="Business Name"
-            disabled={loadingState === "loading"}
-          />
-          <TextInput
             name="businessPhone"
             label="Business Phone"
             disabled={loadingState === "loading"}
+          />
+          <Divider />
+          <Typography variant="h6">Business Address</Typography>
+          <MVLAddressInput
+            addressInputNames={{
+              address: "businessAddress",
+              address2: "businessAddress2",
+              city: "businessCity",
+              state: "businessState",
+              zip: "businessZip",
+            }}
           />
           <Button
             variant="contained"
