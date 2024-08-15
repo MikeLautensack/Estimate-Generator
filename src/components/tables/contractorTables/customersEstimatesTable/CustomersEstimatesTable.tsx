@@ -66,7 +66,7 @@ const CustomersEstimatesTable = ({
               <StyledTableCell component="th" scope="row">
                 {estimate.estimateName}
               </StyledTableCell>
-              <StyledTableCell>{estimate.customerName}</StyledTableCell>
+              <StyledTableCell>{`${estimate.customerFirstName} ${estimate.customerLastName}`}</StyledTableCell>
               <StyledTableCell>{estimate.projectAddress}</StyledTableCell>
               <StyledTableCell>
                 {formatPriceString(estimate.total.toString())}

@@ -18,7 +18,6 @@ async function getData(session: Session) {
 const page = async () => {
   const session = await auth();
   const profileData = await getData(session!);
-  console.log("profile data", profileData);
   return (
     <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start gap-4 flex-1">
       <Typography variant="h4" color="primary" className="">
