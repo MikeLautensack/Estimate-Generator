@@ -30,7 +30,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
     <main className="flex flex-col gap-8 flex-1 p-8">
       <div className="flex flex-col gap-2">
         <Typography variant="h3" color="primary">
-          {customer[0].name}
+          {`${customer[0].firstName} ${customer[0].lastName}`}
         </Typography>
         <Typography
           variant="body1"

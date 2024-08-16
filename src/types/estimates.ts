@@ -1,12 +1,5 @@
 import { Customers } from "./customers";
-import { Profile } from "./profile";
-import { ChangeOrder } from "./changeOrders";
-import {
-  ControllerRenderProps,
-  FieldValues,
-  SubmitHandler,
-  UseFormReturn,
-} from "react-hook-form";
+import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import React from "react";
 import {
   LineItemsValues,
@@ -17,11 +10,20 @@ import {
 export type Estimates = {
   id: number;
   estimateName: string;
-  customerName: string;
+  customerFirstName: string;
+  customerLastName: string;
   customerEmail: string;
   projectAddress: string;
+  projectAddress2: string;
+  projectCity: string;
+  projectState: string;
+  projectZip: string;
   contractorName: string;
   contractorAddress: string;
+  contractorAddress2: string;
+  contractorCity: string;
+  contractorState: string;
+  contractorZip: string;
   contractorPhone: string;
   expirationDate: Date;
   lineItems?: LineItems[];

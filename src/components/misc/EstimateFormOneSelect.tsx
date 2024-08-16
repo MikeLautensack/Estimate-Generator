@@ -38,7 +38,7 @@ const EstimateFormOneSelect = ({
             return (
               <div key={customer.id}>
                 <SelectItem value={`${customer.id}`}>
-                  {customer.name}
+                  {`${customer.firstName} ${customer.lastName}`}
                 </SelectItem>
               </div>
             );

@@ -16,6 +16,7 @@ import {
 import { useRouter } from "next/navigation";
 import EstimatesTableMenu from "./EstimatesTableMenu";
 import MuiPagination from "@mui/material/Pagination";
+import { formatAddress, formatPriceString } from "@/utils/formatingFunctions";
 
 type ContractorEstimatesTableProps = {
   estimates: Estimates[];
@@ -74,9 +75,15 @@ const ContractorEstimatesTable = ({
     return {
       id: estimate.id,
       estimateName: estimate.estimateName,
-      customerName: estimate.customerName,
-      projectAddress: estimate.projectAddress,
-      total: estimate.total,
+      customerName: `${estimate.customerFirstName} ${estimate.customerLastName}`,
+      projectAddress: formatAddress(
+        estimate.projectAddress,
+        estimate.projectAddress2,
+        estimate.projectCity,
+        estimate.projectState,
+        estimate.projectZip,
+      ),
+      total: formatPriceString(estimate.total.toString()),
       status: estimate.status,
     };
   });
