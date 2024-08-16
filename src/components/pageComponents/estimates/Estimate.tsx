@@ -52,7 +52,7 @@ export default function Estimate({ estimate, profile }: PageProps) {
       </div>
       <Box component="div" className="flex flex-col md:flex-row gap-4 w-full">
         <Box component="div" className="flex flex-col w-full">
-          <Typography variant="body1">{`Customer Name: ${estimate.customerName}`}</Typography>
+          <Typography variant="body1">{`Customer Name: ${estimate.customerFirstName} ${estimate.customerLastName}`}</Typography>
           <Typography variant="body1">{`Customer Email: ${estimate.customerEmail}`}</Typography>
           <Typography variant="body1">{`Project Address: ${estimate.projectAddress}`}</Typography>
         </Box>

@@ -5,17 +5,29 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Customers } from "@/types/customers";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Card, CircularProgress, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CircularProgress,
+  Divider,
+  Typography,
+} from "@mui/material";
 import TextInput from "../inputs/TextInput";
 import { generateNumericId } from "@/utils/generateRandom";
 import { SubmitHandler } from "react-hook-form";
 import MVLPhoneNumber from "../inputs/MVLPhoneNumber";
 import { sendAuthEmail } from "@/utils/sendAuthEmail";
 import { Session } from "next-auth";
+import MVLAddressInput from "../inputs/MVLAddressInput";
 
 const CustomerFormSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
+  firstName: z.string().min(1, { message: "First Name is required" }),
+  lastName: z.string().min(1, { message: "Last Name is required" }),
   address: z.string().min(1, { message: "Address is required" }),
+  address2: z.string(),
+  city: z.string().min(1, { message: "City is required" }),
+  state: z.string().min(1, { message: "State is required" }),
+  zip: z.string().min(1, { message: "Zip Code is required" }),
   email: z.string().min(1, { message: "Email is required" }).email(),
   phone: z.string().min(1, { message: "Phone is required" }),
 });
@@ -41,8 +53,13 @@ const CustomerForm = ({ data, mode, user_id, session }: CustomerFormProps) => {
   const methods = useForm<CustomerFormValues>({
     resolver: zodResolver(CustomerFormSchema),
     defaultValues: {
-      name: data.name,
+      firstName: data.firstName,
+      lastName: data.lastName,
       address: data.address,
+      address2: data.address2,
+      city: data.city,
+      state: data.state,
+      zip: data.zip,
       email: data.email,
       phone: data.phone,
     },
@@ -70,10 +87,15 @@ const CustomerForm = ({ data, mode, user_id, session }: CustomerFormProps) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                name: formData.name,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
                 address: formData.address,
-                phone: formData.phone,
+                address2: formData.address2,
+                city: formData.city,
+                state: formData.state,
+                zip: formData.zip,
                 email: formData.email,
+                phone: formData.phone,
                 customer_user_id: CUSTOMER_USER_ID,
               }),
             },
@@ -101,8 +123,13 @@ const CustomerForm = ({ data, mode, user_id, session }: CustomerFormProps) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                name: formData.name,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
                 address: formData.address,
+                address2: formData.address2,
+                city: formData.city,
+                state: formData.state,
+                zip: formData.zip,
                 email: formData.email,
                 phone: formData.phone,
               }),
@@ -126,24 +153,40 @@ const CustomerForm = ({ data, mode, user_id, session }: CustomerFormProps) => {
       sx={{
         backgroundColor: "surfaceContainerLow",
         padding: "1rem",
-        width: "20rem",
+        width: "30rem",
       }}
     >
       <FormProvider {...methods}>
         <form
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-4 w-full"
           onSubmit={methods.handleSubmit(submit)}
         >
-          <TextInput
-            name="name"
-            label="Name"
-            disabled={loadingState === "loading"}
+          <Typography variant="h6">Customers Name</Typography>
+          <div className="flex justify-center items-center gap-4">
+            <TextInput
+              name="firstName"
+              label="First Name"
+              disabled={loadingState === "loading"}
+            />
+            <TextInput
+              name="lastName"
+              label="Last Name"
+              disabled={loadingState === "loading"}
+            />
+          </div>
+          <Divider />
+          <Typography variant="h6">Customers Project Address</Typography>
+          <MVLAddressInput
+            addressInputNames={{
+              address: "address",
+              address2: "address2",
+              city: "city",
+              state: "state",
+              zip: "zip",
+            }}
           />
-          <TextInput
-            name="address"
-            label="Address"
-            disabled={loadingState === "loading"}
-          />
+          <Divider />
+          <Typography variant="h6">Customers Contact Information</Typography>
           <TextInput
             name="email"
             label="Email"

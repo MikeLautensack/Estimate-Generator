@@ -27,8 +27,13 @@ export async function POST(
     contractor_user_id: parseInt(params.user_id),
     customer_user_id: bodyData.customer_user_id,
     address: bodyData.address,
+    address2: bodyData.address2,
+    city: bodyData.city,
+    state: bodyData.state,
+    zip: bodyData.zip,
     email: bodyData.email,
-    name: bodyData.name,
+    firstName: bodyData.firstName,
+    lastName: bodyData.lastName,
     phone: bodyData.phone,
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -41,7 +46,7 @@ export async function POST(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: bodyData.name,
+      name: `${bodyData.firstName} ${bodyData.lastName}`,
       email: bodyData.email,
       password: `${params.customer_id}${params.user_id}`,
       role: "customer",
@@ -88,8 +93,13 @@ export async function PATCH(
       .update(customers)
       .set({
         address: bodyData.address,
+        address2: bodyData.address2,
+        city: bodyData.city,
+        state: bodyData.state,
+        zip: bodyData.zip,
         email: bodyData.email,
-        name: bodyData.name,
+        firstName: bodyData.firstName,
+        lastName: bodyData.lastName,
         phone: bodyData.phone,
         updatedAt: new Date(),
       })
@@ -98,7 +108,7 @@ export async function PATCH(
       .update(users)
       .set({
         email: bodyData.email,
-        name: bodyData.name,
+        name: `${bodyData.firstName} ${bodyData.lastName}`,
         updatedAt: new Date(),
       })
       .where(eq(users.id, bodyData.customer_user_id));

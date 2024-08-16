@@ -65,17 +65,38 @@ const Page = async ({ params }: { params: { id: string } }) => {
         estimate={{
           id: estimate.id.toString(),
           estimateName: estimate.estimateName ? estimate.estimateName : "",
-          customerName: estimate.customerName ? estimate.customerName : "",
+          customerFirstName: estimate.customerFirstName
+            ? estimate.customerFirstName
+            : "",
+          customerLastName: estimate.customerLastName
+            ? estimate.customerLastName
+            : "",
           customerEmail: estimate.customerEmail ? estimate.customerEmail : "",
           projectAddress: estimate.projectAddress
             ? estimate.projectAddress
             : "",
+          projectAddress2: estimate.projectAddress2
+            ? estimate.projectAddress2
+            : "",
+          projectCity: estimate.projectCity ? estimate.projectCity : "",
+          projectState: estimate.projectState ? estimate.projectState : "",
+          projectZip: estimate.projectZip ? estimate.projectZip : "",
           contractorName: estimate.contractorName
             ? estimate.contractorName
             : "",
           contractorAddress: estimate.contractorAddress
             ? estimate.contractorAddress
             : "",
+          contractorAddress2: estimate.contractorAddress2
+            ? estimate.contractorAddress2
+            : "",
+          contractorCity: estimate.contractorCity
+            ? estimate.contractorCity
+            : "",
+          contractorState: estimate.contractorState
+            ? estimate.contractorState
+            : "",
+          contractorZip: estimate.contractorZip ? estimate.contractorZip : "",
           contractorPhone: estimate.contractorPhone
             ? estimate.contractorPhone
             : "",
