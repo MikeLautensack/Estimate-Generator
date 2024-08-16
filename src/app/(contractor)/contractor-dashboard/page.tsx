@@ -1,6 +1,5 @@
 import TotalCustomers from "@/components/pageComponents/contractor-dashboard/TotalCustomers";
 import EstimateStatsGraph from "../../../components/pageComponents/contractor-dashboard/EstimateStatusGraph";
-import HighProfitCustomersChartContainer from "../../../components/pageComponents/contractor-dashboard/HighProfitCustomerChartContainer";
 import TotalEstimates from "@/components/pageComponents/contractor-dashboard/TotalEstimates";
 import TotalChangeOrders from "@/components/pageComponents/contractor-dashboard/TotalChangeOrders";
 import TotalEstimateEmails from "@/components/pageComponents/contractor-dashboard/TotalEstimateEmails";
