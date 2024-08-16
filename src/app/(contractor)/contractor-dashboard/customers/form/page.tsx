@@ -8,7 +8,7 @@ const Page = async () => {
   const session = await auth();
 
   return (
-    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col justify-start items-start flex-1">
+    <main className="p-4 min-h-[calc(100vh-56px)] flex flex-col gap-4 justify-start items-start flex-1">
       <Typography variant="h4" color="primary">
         New Customer Form
       </Typography>

@@ -106,3 +106,21 @@ export const formatAsPrice = (value: number) => {
     maximumFractionDigits: 2,
   }).format(value);
 };
+
+export const formatAddress = (
+  address: string,
+  address2: string,
+  city: string,
+  state: string,
+  zip: string,
+): string => {
+  let formattedAddress = `${address}`;
+
+  if (address2) {
+    formattedAddress += `, ${address2}`;
+  }
+
+  formattedAddress += `, ${city}, ${state} ${zip}`;
+
+  return formattedAddress;
+};
