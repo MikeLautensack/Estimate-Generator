@@ -22,9 +22,9 @@ import useCalcTotal from "./hooks/useCalcTotal";
 import EstimateFormButtons from "./EstimateFormButtons";
 import useGetCustomerUserId from "./hooks/useGetCustomerUserId";
 import { sendAuthEmail } from "@/utils/sendAuthEmail";
-import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Session } from "next-auth";
+import { handlePdfDownload } from "@/utils/downloadPDF";
 
 export type EstimateFormProps = {
   estimate: EstimateFormValues;
@@ -102,6 +102,12 @@ export type SaveAndSentStatus =
   | "sending"
   | "error";
 
+export type SavingPDFStatus =
+  | "generating-pdf"
+  | "generated-pdf"
+  | "error"
+  | "not-generated";
+
 const EstimateForm = ({
   estimate,
   customers,
@@ -115,6 +121,8 @@ const EstimateForm = ({
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("not-saved");
   const [saveAndSaveStatus, setSaveAndSaveStatus] =
     useState<SaveAndSentStatus>("not-saved");
+  const [isSavingPDF, setIsSavingPDF] =
+    useState<SavingPDFStatus>("not-generated");
 
   // Hooks
   const methods = useForm<EstimateFormValues>({
@@ -343,6 +351,32 @@ const EstimateForm = ({
     [estimate.contractor_user_id, estimate.id, mode, session.user.name],
   );
 
+  const generatePDF: SubmitHandler<EstimateFormValues> = useCallback(
+    async (data) => {
+      try {
+        const response = await fetch("/api/generate-pdf", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            data,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        handlePdfDownload(response);
+      } catch (err) {
+      } finally {
+        setIsSavingPDF("not-generated");
+      }
+    },
+    [],
+  );
+
   return (
     <Card
       sx={{ padding: "1rem", backgroundColor: "surfaceContainerLow" }}
@@ -399,9 +433,10 @@ const EstimateForm = ({
             saveAndSend={saveAndSend}
             saveStatus={saveStatus}
             saveAndSaveStatus={saveAndSaveStatus}
+            generatePDF={generatePDF}
+            isSavingPDF={isSavingPDF}
             mode={mode}
           />
-          {/* <DevTool control={control} /> */}
         </form>
       </FormProvider>
     </Card>
