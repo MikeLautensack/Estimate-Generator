@@ -5,7 +5,7 @@ import fs from "fs";
 import path from "path";
 
 // Read the template file
-const templatePath = path.join(process.cwd(), "src", "pdf", "test.hbs");
+const templatePath = path.join(process.cwd(), "src", "pdf", "estimate.hbs");
 const templateSource = fs.readFileSync(templatePath, "utf8");
 
 export async function POST(request: NextRequest) {
@@ -19,43 +19,46 @@ export async function POST(request: NextRequest) {
 
     // Parse the JSON body
     const body = await request.json();
-    const { title, heading, content } = body;
+    const { data } = body;
 
     // Compile the template
     const template = Handlebars.compile(templateSource);
 
     // Generate HTML using the template and data
-    const html = template({ title, heading, content });
+    const html = template({
+      estimateName: data.estimateName,
+      status: data.status,
+    });
 
     // Call the HTML-to-PDF microservice
-    const pdfResponse = await fetch("http://localhost:5000/generate-pdf", {
+    const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ html }),
+      body: JSON.stringify({
+        HtmlContent: html,
+        fileName: data.estimateName,
+      }),
     });
 
     if (!pdfResponse.ok) {
       throw new Error(`HTTP error! status: ${pdfResponse.status}`);
+    } else {
+      console.log("pdf gen is successful", pdfResponse.status);
     }
-
-    console.log(pdfResponse);
 
     // Get the PDF data as an ArrayBuffer
     const pdfData = await pdfResponse.arrayBuffer();
 
     // Create a new response with the PDF data
-    const response = new NextResponse(pdfData);
-
-    // Set response headers
-    response.headers.set("Content-Type", "application/pdf");
-    response.headers.set(
-      "Content-Disposition",
-      "attachment; filename=generated.pdf",
-    );
-
-    return response;
+    return new NextResponse(pdfData, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename="${data.estimateName}"`,
+      },
+    });
   } catch (error) {
     console.error("Error generating PDF:", error);
     return NextResponse.json(
