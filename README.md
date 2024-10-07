@@ -2,11 +2,33 @@
 
 Estimate Generator is a web app for contractors and small business's to create, manage, and send work estimates, work orders, and invoices to customers.
 
-![Home Page Screen Shot](/public/images/estimate-generator-img.png)
+## [👉 Check out the Live Demo here! 👈](https://your-live-demo-url.com)
+
+[![Live Project Screenshot](/public/images/estimate-generator-img.png)](https://estimategeneratorapp.com/)
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://estimategeneratorapp.com/)
+
+## Table of Contents
+
+- [Why did I build Estimate Generator?](#why-did-i-build-estimate-generator)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Usage](#usage)
 
 ## Why did I build Estimate Generator?
 
 Before I became a web developer I owened a small residential home painting business. The most tedious and time consuming activities required of contractors and small business owners off the job site is constantly writing work estimates, work orders, and invoices for customers. When you are a contractor or small business owner, time is money and you need a fast and easy to use software to manage these tasks for the user. Estimate Generator is built to solve that problem by providing a steamlined way to create, manage, and send all your work estimates, work orders, and invoices to save the user time and money.
+
+## Features
+
+- 🌟 Create, manage, and send work estimates and invoices
+- 🔒 Role-based authentication for contractors and customers
+- 📧 Email notifications with "magic link" for customer access
+- 📊 Dynamic and customizable estimate creation interface
+- 💾 Save drafts and send estimates as PDF attachments
 
 ## Quick Start
 
@@ -48,3 +70,13 @@ Estimte Generator has a role based authentication system built with NextAuth. Wh
 From your contractors you can navigate to the customers page and click the new customer button to create a new customer. When a contractor uses the customer form to add a customer to their account Estimate Generator will automatically create a new user with a role of "customer" and a email is sent to the customer containing "magic link" which the customer can click and be redirected to their customer dashboard. From their customer dashboard they can see all the documents contractors will send then when completing work.
 
 Later contractors can naviage to the estimate page and click the new estimate button to start creating a new estimate with Estimate Generators beautiful custom built dynamic ui for creating estimates. When a contractor is done working on an estimate they can click the save button to save an estimate and continue working on it later or they can click the "save and send" button to save the estimate and trigger Estimate Generator to send an email to the customer containing a PDF estimate and a magic link that will redirect them to a ui version of the estimate in their customer account and allow the customer to accept, reject, or request modifications to work estimates.
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/MikeLautensack/Estimate-Generator.svg?style=for-the-badge
+[contributors-url]: https://github.com/MikeLautensack/Estimate-Generator/graphs/contributors
+[stars-shield]: https://img.shields.io/github/stars/MikeLautensack/Estimate-Generator.svg?style=for-the-badge
+[stars-url]: https://github.com/MikeLautensack/Estimate-Generator/stargazers
+[issues-shield]: https://img.shields.io/github/issues/MikeLautensack/Estimate-Generator.svg?style=for-the-badge
+[issues-url]: https://github.com/MikeLautensack/Estimate-Generator/issues
