@@ -8,6 +8,13 @@ import { Estimates, LineItems } from "@/types/estimates";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { eq } from "drizzle-orm";
 import { auth } from "../../../../../../../../../auth";
+import fs from "fs";
+import path from "path";
+import Handlebars from "handlebars";
+
+// Read the template file
+const templatePath = path.join(process.cwd(), "src", "pdf", "estimate.hbs");
+const templateSource = fs.readFileSync(templatePath, "utf8");
 
 export async function POST(
   request: NextRequest,
@@ -91,15 +98,68 @@ export async function POST(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Respond 200 after all DB operations
-  return NextResponse.json(
-    {
-      message: "Estimate successfully created",
-      estimateData: estimateData,
-      lineItems: lineItemsArr,
+  // Generate PDF
+  // Compile the template
+  const template = Handlebars.compile(templateSource);
+
+  // Generate HTML using the template and data
+  const html = template({
+    estimateName: bodyData.estimateName,
+    status: bodyData.status,
+    contractorName: bodyData.contractorName,
+    contractorAddrss: bodyData.contractorAddress,
+    contractorAddress2: bodyData.contractorAddress2,
+    contractorCity: bodyData.contractorCity,
+    contractorState: bodyData.contractorState,
+    contractorZip: bodyData.contractorZip,
+    contractorPhone: bodyData.contractorPhone,
+    customerFirstName: bodyData.contractorFirstName,
+    contractorLastName: bodyData.contractorLastName,
+    customerEmail: bodyData.customerEmail,
+    projectAddress: bodyData.projectAddress,
+    projectAddress2: bodyData.projectAddress2,
+    projectCity: bodyData.projectCity,
+    projectState: bodyData.projectState,
+    projectZip: bodyData.projectZip,
+    lineItems: bodyData.lineItems,
+    subtotal: bodyData.subtotal,
+    taxRate: bodyData.taxRate,
+    tax: bodyData.tax,
+    discount: bodyData.discount,
+    total: bodyData.total,
+    expirationDate: bodyData.expirationDate,
+    message: bodyData.message,
+  });
+
+  // Call the HTML-to-PDF microservice
+  const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    { status: 200 },
-  );
+    body: JSON.stringify({
+      HtmlContent: html,
+      fileName: bodyData.estimateName,
+    }),
+  });
+
+  if (!pdfResponse.ok) {
+    throw new Error(`HTTP error! status: ${pdfResponse.status}`);
+  } else {
+    console.log("pdf gen is successful", pdfResponse.status);
+  }
+
+  // Get the PDF data as an ArrayBuffer
+  const pdfData = await pdfResponse.arrayBuffer();
+
+  // Create a new response with the PDF data
+  return new NextResponse(pdfData, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename="${bodyData.estimateName}"`,
+    },
+  });
 }
 
 export async function PATCH(
@@ -190,16 +250,68 @@ export async function PATCH(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Respond with 200 after all DB operations
-  // Respond 200 after all DB operations
-  return NextResponse.json(
-    {
-      message: "Estimate successfully updated",
-      updatedEstimateData: updatedEstimateData,
-      lineItems: lineItemsArr,
+  // Generate PDF
+  // Compile the template
+  const template = Handlebars.compile(templateSource);
+
+  // Generate HTML using the template and data
+  const html = template({
+    estimateName: bodyData.estimateName,
+    status: bodyData.status,
+    contractorName: bodyData.contractorName,
+    contractorAddrss: bodyData.contractorAddress,
+    contractorAddress2: bodyData.contractorAddress2,
+    contractorCity: bodyData.contractorCity,
+    contractorState: bodyData.contractorState,
+    contractorZip: bodyData.contractorZip,
+    contractorPhone: bodyData.contractorPhone,
+    customerFirstName: bodyData.contractorFirstName,
+    contractorLastName: bodyData.contractorLastName,
+    customerEmail: bodyData.customerEmail,
+    projectAddress: bodyData.projectAddress,
+    projectAddress2: bodyData.projectAddress2,
+    projectCity: bodyData.projectCity,
+    projectState: bodyData.projectState,
+    projectZip: bodyData.projectZip,
+    lineItems: bodyData.lineItems,
+    subtotal: bodyData.subtotal,
+    taxRate: bodyData.taxRate,
+    tax: bodyData.tax,
+    discount: bodyData.discount,
+    total: bodyData.total,
+    expirationDate: bodyData.expirationDate,
+    message: bodyData.message,
+  });
+
+  // Call the HTML-to-PDF microservice
+  const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    { status: 200 },
-  );
+    body: JSON.stringify({
+      HtmlContent: html,
+      fileName: bodyData.estimateName,
+    }),
+  });
+
+  if (!pdfResponse.ok) {
+    throw new Error(`HTTP error! status: ${pdfResponse.status}`);
+  } else {
+    console.log("pdf gen is successful", pdfResponse.status);
+  }
+
+  // Get the PDF data as an ArrayBuffer
+  const pdfData = await pdfResponse.arrayBuffer();
+
+  // Create a new response with the PDF data
+  return new NextResponse(pdfData, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename="${bodyData.estimateName}"`,
+    },
+  });
 }
 
 export async function DELETE(

@@ -5,7 +5,6 @@ import {
   EstimateFormValues,
   SaveAndSentStatus,
   SaveStatus,
-  SavingPDFStatus,
 } from "./EstimateForm";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -19,8 +18,6 @@ type EstimateFormButtonsProps = {
   saveAndSend: SubmitHandler<EstimateFormValues>;
   saveStatus: SaveStatus;
   saveAndSaveStatus: SaveAndSentStatus;
-  generatePDF: SubmitHandler<EstimateFormValues>;
-  isSavingPDF: SavingPDFStatus;
   mode: "new-estimate" | "update-estimate";
 };
 
@@ -32,8 +29,6 @@ const EstimateFormButtons = ({
   saveAndSend,
   saveStatus,
   saveAndSaveStatus,
-  generatePDF,
-  isSavingPDF,
   mode,
 }: EstimateFormButtonsProps) => {
   // Hooks
@@ -92,39 +87,6 @@ const EstimateFormButtons = ({
           mode === "update-estimate" &&
           saveStatus === "saved" && (
             <Typography variant="button">Estimate Updated!</Typography>
-          )
-        )}
-      </Button>
-      <Button
-        type="submit"
-        onClick={handleSubmit(generatePDF)}
-        variant="contained"
-        className="w-full"
-        color={
-          isSavingPDF === "error"
-            ? "error"
-            : isSavingPDF === "generated-pdf"
-              ? "success"
-              : "primary"
-        }
-        disabled={
-          isSavingPDF === "generating-pdf" ||
-          saveAndSaveStatus === "saving" ||
-          saveAndSaveStatus === "sending"
-        }
-      >
-        {mode === "new-estimate" && isSavingPDF === "not-generated" ? (
-          <Typography variant="button">Generate PDF</Typography>
-        ) : isSavingPDF === "generating-pdf" ? (
-          <CircularProgress sx={{ color: "#001824" }} />
-        ) : isSavingPDF === "error" ? (
-          <Typography variant="button">Error</Typography>
-        ) : mode === "new-estimate" && isSavingPDF === "generated-pdf" ? (
-          <Typography variant="button">New PDF Generated</Typography>
-        ) : (
-          mode === "update-estimate" &&
-          isSavingPDF === "generated-pdf" && (
-            <Typography variant="button">New PDF Generated</Typography>
           )
         )}
       </Button>
