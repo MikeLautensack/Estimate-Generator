@@ -102,12 +102,6 @@ export type SaveAndSentStatus =
   | "sending"
   | "error";
 
-export type SavingPDFStatus =
-  | "generating-pdf"
-  | "generated-pdf"
-  | "error"
-  | "not-generated";
-
 const EstimateForm = ({
   estimate,
   customers,
@@ -121,8 +115,6 @@ const EstimateForm = ({
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("not-saved");
   const [saveAndSaveStatus, setSaveAndSaveStatus] =
     useState<SaveAndSentStatus>("not-saved");
-  const [isSavingPDF, setIsSavingPDF] =
-    useState<SavingPDFStatus>("not-generated");
 
   // Hooks
   const methods = useForm<EstimateFormValues>({
@@ -305,6 +297,7 @@ const EstimateForm = ({
           },
         );
         if (res.status === 200) {
+          const pdf = handlePdfDownload(res);
           setSaveAndSaveStatus("sending");
           const emailRes = await sendAuthEmail(
             data.customerEmail,
@@ -334,6 +327,7 @@ const EstimateForm = ({
           },
         );
         if (res.status === 200) {
+          const pdf = handlePdfDownload(res);
           setSaveAndSaveStatus("sending");
           const emailRes = await sendAuthEmail(
             data.customerEmail,
@@ -349,32 +343,6 @@ const EstimateForm = ({
       }
     },
     [estimate.contractor_user_id, estimate.id, mode, session.user.name],
-  );
-
-  const generatePDF: SubmitHandler<EstimateFormValues> = useCallback(
-    async (data) => {
-      try {
-        const response = await fetch("/api/generate-pdf", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            data,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        handlePdfDownload(response);
-      } catch (err) {
-      } finally {
-        setIsSavingPDF("not-generated");
-      }
-    },
-    [],
   );
 
   return (
@@ -433,8 +401,6 @@ const EstimateForm = ({
             saveAndSend={saveAndSend}
             saveStatus={saveStatus}
             saveAndSaveStatus={saveAndSaveStatus}
-            generatePDF={generatePDF}
-            isSavingPDF={isSavingPDF}
             mode={mode}
           />
         </form>
