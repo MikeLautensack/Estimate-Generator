@@ -2,7 +2,7 @@
 
 Estimate Generator is a web app for contractors and small business's to create, manage, and send work estimates, work orders, and invoices to customers.
 
-[![Product Name Screen Shot][product-screenshot]](estimate-generator-img.png)
+![Home Page Screen Shot](estimate-generator-img.png)
 
 ## Why did I build Estimate Generator?
 
