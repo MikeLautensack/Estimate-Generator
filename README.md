@@ -1,132 +1,82 @@
 # Estimate Generator
 
-Estimate Generator is a fullstack web application designed for contractors to streamline their workflow. It allows for creating work estimates, sending them to customers, obtaining approvals, managing change orders, and generating invoices. The application also provides PDF generation capabilities for all document types.
+Estimate Generator is a web app for contractors and small business's to create, manage, and send work estimates, work orders, and invoices to customers.
+
+## [👉 Check out the Live Demo here! 👈](https://your-live-demo-url.com)
+
+[![Live Project Screenshot](/public/images/estimate-generator-img.png)](https://estimategeneratorapp.com/)
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://estimategeneratorapp.com/)
+
+## Table of Contents
+
+- [Why did I build Estimate Generator?](#why-did-i-build-estimate-generator)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Usage](#usage)
+
+## Why did I build Estimate Generator?
+
+Before I became a web developer I owened a small residential home painting business. The most tedious and time consuming activities required of contractors and small business owners off the job site is constantly writing work estimates, work orders, and invoices for customers. When you are a contractor or small business owner, time is money and you need a fast and easy to use software to manage these tasks for the user. Estimate Generator is built to solve that problem by providing a steamlined way to create, manage, and send all your work estimates, work orders, and invoices to save the user time and money.
 
 ## Features
 
-- Create and manage work estimates
-- Send estimates to customers for approval
-- Handle change orders
-- Create and manage invoices
-- Generate PDF documents for all document types
-- Role-based authentication for contractors, admins, and customers
-- Responsive design with 3D elements and animations
+- 🌟 Create, manage, and send work estimates and invoices
+- 🔒 Role-based authentication for contractors and customers
+- 📧 Email notifications with "magic link" for customer access
+- 📊 Dynamic and customizable estimate creation interface
+- 💾 Save drafts and send estimates as PDF attachments
 
-## Tech Stack
+## Quick Start
 
-- **Framework**: Next.js 14 (with App Router)
-- **Authentication**: Next-auth/Auth.js (Role-based auth with Credentials login, OAuth, and Magic Link)
-- **ORM**: Drizzle ORM
-- **Database**: Neon Serverless Postgres
-- **Component Library**: MUI v6
-- **CSS**: Tailwind and MUI sx props
-- **Backend API**: 
-  - Next.js Route Handlers for CRUD operations
-  - Node/Express microservices
-  - ASP.NET Core C# microservices
-- **Testing**: Jest unit tests
-- **Infrastructure**: 
-  - Next.js app deployed on Vercel
-  - Express and .NET microservices deployed on Azure (separate repo)
-- **Theming**: Material Design
-- **Email Service**: Resend
-- **3D Rendering**: React Three Fiber
-- **2D UI Animation**: Framer Motion
-- **Forms**: React-Hook-Form, Zod
-- **File Upload**: Upload Thing
+To start a production build locally run...
 
-## Prerequisites
+```
+npm run build
+npm run startt
+```
 
-- Node.js (version specified in `.nvmrc` or `.node-version`)
-- npm (comes with Node.js)
-- PostgreSQL database (Neon Serverless Postgres)
+To start the dev server run...
 
-## Getting Started
+```
+npm run dev
+```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/estimate-generator.git
-   cd estimate-generator
-   ```
+To run the test suit run...
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```
+npm run test
 
-3. Set up environment variables:
-   Create a `.env.local` file in the root directory and add the necessary environment variables (refer to `.env.example` if available).
+or
 
-4. Run database migrations:
-   ```bash
-   npm run migrations:push
-   ```
+npm run test:watch
+```
 
-5. Start the development server:
-   ```bash
-   npm run dev
-   ```
+To use the linter run...
 
-The application will be available at `http://localhost:3000`.
+```
+npm run lint
+```
 
-## Available Scripts
+## Usage
 
-- `npm run dev`: Start the development server
-- `npm run build`: Build the application for production
-- `npm run start`: Start the production server
-- `npm run lint`: Run ESLint
-- `npm test`: Run Jest tests
-- `npm run test:watch`: Run Jest tests in watch mode
-- `npm run migrations:generate`: Generate new Drizzle ORM migrations
-- `npm run migrations:push`: Push Drizzle ORM migrations to the database
-- `npm run migrations:drop`: Drop all tables in the database
+To use Estimate Generator navigate from the home page to the sign up page and create an account using traditional credentials login. Upon creating an account you will be redirected to a contractor profile form where you will need to complete a form with info about your business. When are finished creating your contractor profile and submit the form you will then be redirected to your contractor dashboard.
 
-## Project Structure
+Estimte Generator has a role based authentication system built with NextAuth. When a new user signs up via the sign up form on the sign up page, Estimate Generator will create a new user with a role of "contractor".
 
-(Briefly describe the main directories and their purposes)
+From your contractors you can navigate to the customers page and click the new customer button to create a new customer. When a contractor uses the customer form to add a customer to their account Estimate Generator will automatically create a new user with a role of "customer" and a email is sent to the customer containing "magic link" which the customer can click and be redirected to their customer dashboard. From their customer dashboard they can see all the documents contractors will send then when completing work.
 
-## Authentication
+Later contractors can naviage to the estimate page and click the new estimate button to start creating a new estimate with Estimate Generators beautiful custom built dynamic ui for creating estimates. When a contractor is done working on an estimate they can click the save button to save an estimate and continue working on it later or they can click the "save and send" button to save the estimate and trigger Estimate Generator to send an email to the customer containing a PDF estimate and a magic link that will redirect them to a ui version of the estimate in their customer account and allow the customer to accept, reject, or request modifications to work estimates.
 
-The application uses Next-auth/Auth.js for authentication with the following methods:
-- Credentials login for contractor and admin roles
-- OAuth for contractor and admin roles
-- Email magic link for customer role
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-## API Structure
-
-- Next.js Route Handlers for CRUD operations
-- Separate Node/Express microservices (deployed on Azure)
-- Separate ASP.NET Core C# microservices (deployed on Azure)
-
-## Styling and UI
-
-- MUI v6 for component library
-- Tailwind CSS for utility classes
-- MUI sx props for custom styling
-- Framer Motion for 2D UI animations
-- React Three Fiber for 3D elements
-
-## Testing
-
-Jest is used for unit testing. Run tests with `npm test` or `npm run test:watch` for watch mode.
-
-## Deployment
-
-- The Next.js application is deployed on Vercel
-- Express and .NET microservices are deployed on Azure (in a separate repository)
-
-## Contributing
-
-(Add guidelines for contributing to the project)
-
-## License
-
-(Specify the license under which this project is released)
-
-## Support
-
-(Provide information on how to get support or contact the maintainers)
-
-## Acknowledgements
-
-(List any acknowledgements or third-party libraries that you want to give credit to)
+[contributors-shield]: https://img.shields.io/github/contributors/MikeLautensack/Estimate-Generator.svg?style=for-the-badge
+[contributors-url]: https://github.com/MikeLautensack/Estimate-Generator/graphs/contributors
+[stars-shield]: https://img.shields.io/github/stars/MikeLautensack/Estimate-Generator.svg?style=for-the-badge
+[stars-url]: https://github.com/MikeLautensack/Estimate-Generator/stargazers
+[issues-shield]: https://img.shields.io/github/issues/MikeLautensack/Estimate-Generator.svg?style=for-the-badge
+[issues-url]: https://github.com/MikeLautensack/Estimate-Generator/issues
