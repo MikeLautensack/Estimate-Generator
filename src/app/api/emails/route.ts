@@ -3,6 +3,9 @@ import NewEstimateEmail from "@/emails/NewEstimateEmail";
 import UpdatedEstimateEmail from "@/emails/UpdatedEstimateEmail";
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { db } from "../../../db";
+import { pdfs } from "@/db/schemas/pdf";
+import { eq } from "drizzle-orm";
 
 export async function POST(request: NextRequest) {
   // Get request body data
@@ -14,7 +17,8 @@ export async function POST(request: NextRequest) {
     !bodyData.emailType ||
     !bodyData.from ||
     !bodyData.identifier ||
-    !bodyData.subject
+    !bodyData.subject ||
+    !bodyData.estimateId
   ) {
     throw new Error("Missing required fields in the request body.");
   }
@@ -38,12 +42,25 @@ export async function POST(request: NextRequest) {
       throw new Error("Invalid email type.");
   }
 
+  // Get PDF
+  let pdf;
+  try {
+    pdf = await db
+      .select()
+      .from(pdfs)
+      .where(eq(pdfs.estimate_id, bodyData.estimateId));
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
   // Send email
+
   try {
     await resend.emails.send({
       from: bodyData.from,
       to: [bodyData.identifier],
       subject: bodyData.subject,
+      attachments: [{ path: pdf[0].fileUrl!, filename: pdf[0].fileName! }],
       react: react({
         url: bodyData.url,
         host: bodyData.host,

@@ -8,6 +8,15 @@ import { Estimates, LineItems } from "@/types/estimates";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { eq } from "drizzle-orm";
 import { auth } from "../../../../../../../../../auth";
+import fs from "fs";
+import path from "path";
+import Handlebars from "handlebars";
+import { UTApi } from "uploadthing/server";
+import { pdfs } from "@/db/schemas/pdf";
+
+// Read the template file
+const templatePath = path.join(process.cwd(), "src", "pdf", "estimate.hbs");
+const templateSource = fs.readFileSync(templatePath, "utf8");
 
 export async function POST(
   request: NextRequest,
@@ -40,7 +49,8 @@ export async function POST(
     contractorName: bodyData.contractorName,
     contractorPhone: bodyData.contractorPhone,
     customerEmail: bodyData.customerEmail,
-    customerName: bodyData.customerName,
+    customerFirstName: bodyData.customerFirstName,
+    customerLastName: bodyData.customerLastName,
     estimateName: bodyData.estimateName,
     message: bodyData.message,
     projectAddress: bodyData.projectAddress,
@@ -91,15 +101,98 @@ export async function POST(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Respond 200 after all DB operations
-  return NextResponse.json(
-    {
-      message: "Estimate successfully created",
-      estimateData: estimateData,
-      lineItems: lineItemsArr,
+  // Generate PDF
+  // Compile the template
+  const template = Handlebars.compile(templateSource);
+
+  // Generate HTML using the template and data
+  const html = template({
+    estimateName: bodyData.estimateName,
+    status: bodyData.status,
+    contractorName: bodyData.contractorName,
+    contractorAddrss: bodyData.contractorAddress,
+    contractorAddress2: bodyData.contractorAddress2,
+    contractorCity: bodyData.contractorCity,
+    contractorState: bodyData.contractorState,
+    contractorZip: bodyData.contractorZip,
+    contractorPhone: bodyData.contractorPhone,
+    customerFirstName: bodyData.contractorFirstName,
+    contractorLastName: bodyData.contractorLastName,
+    customerEmail: bodyData.customerEmail,
+    projectAddress: bodyData.projectAddress,
+    projectAddress2: bodyData.projectAddress2,
+    projectCity: bodyData.projectCity,
+    projectState: bodyData.projectState,
+    projectZip: bodyData.projectZip,
+    lineItems: bodyData.lineItems,
+    subtotal: bodyData.subtotal,
+    taxRate: bodyData.taxRate,
+    tax: bodyData.tax,
+    discount: bodyData.discount,
+    total: bodyData.total,
+    expirationDate: bodyData.expirationDate,
+    message: bodyData.message,
+  });
+
+  // Call the HTML-to-PDF microservice
+  const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    { status: 200 },
-  );
+    body: JSON.stringify({
+      HtmlContent: html,
+      fileName: bodyData.estimateName,
+    }),
+  });
+
+  if (!pdfResponse.ok) {
+    throw new Error(`HTTP error! status: ${pdfResponse.status}`);
+  } else {
+    console.log("pdf gen is successful", pdfResponse.status);
+  }
+
+  // Get the PDF data as an ArrayBuffer
+  const pdfData = await pdfResponse.arrayBuffer();
+
+  // Create a File object from the buffer
+  const file = new File([pdfData], `${bodyData.estimateName}.pdf`, {
+    type: "application/pdf",
+  });
+
+  // Upload the PDF using UTApi
+  const utapi = new UTApi() as any;
+  const uploadResponse = await utapi.uploadFiles(file);
+
+  if (!uploadResponse) {
+    throw new Error(`Upload PDF Error`);
+  }
+
+  // Insert pdf data
+  try {
+    await db.insert(pdfs).values({
+      contractor_id: params.user_id,
+      customer_id: params.customer_id,
+      estimate_id: parseInt(params.estimate_id),
+      fileKey: uploadResponse.data?.key,
+      fileUrl: uploadResponse.data?.url,
+      fileSize: uploadResponse.data?.size.toString(),
+      fileName: uploadResponse.data?.name,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Create a new response with the PDF data
+  return new NextResponse(pdfData, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename="${bodyData.estimateName}"`,
+    },
+  });
 }
 
 export async function PATCH(
@@ -129,7 +222,8 @@ export async function PATCH(
     contractorName: bodyData.contractorName,
     contractorPhone: bodyData.contractorPhone,
     customerEmail: bodyData.customerEmail,
-    customerName: bodyData.customerName,
+    customerFirstName: bodyData.customerFirstName,
+    customerLastName: bodyData.customerLastName,
     estimateName: bodyData.estimateName,
     message: bodyData.message,
     projectAddress: bodyData.projectAddress,
@@ -190,16 +284,97 @@ export async function PATCH(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Respond with 200 after all DB operations
-  // Respond 200 after all DB operations
-  return NextResponse.json(
-    {
-      message: "Estimate successfully updated",
-      updatedEstimateData: updatedEstimateData,
-      lineItems: lineItemsArr,
+  // Generate PDF
+  // Compile the template
+  const template = Handlebars.compile(templateSource);
+
+  // Generate HTML using the template and data
+  const html = template({
+    estimateName: bodyData.estimateName,
+    status: bodyData.status,
+    contractorName: bodyData.contractorName,
+    contractorAddrss: bodyData.contractorAddress,
+    contractorAddress2: bodyData.contractorAddress2,
+    contractorCity: bodyData.contractorCity,
+    contractorState: bodyData.contractorState,
+    contractorZip: bodyData.contractorZip,
+    contractorPhone: bodyData.contractorPhone,
+    customerFirstName: bodyData.contractorFirstName,
+    contractorLastName: bodyData.contractorLastName,
+    customerEmail: bodyData.customerEmail,
+    projectAddress: bodyData.projectAddress,
+    projectAddress2: bodyData.projectAddress2,
+    projectCity: bodyData.projectCity,
+    projectState: bodyData.projectState,
+    projectZip: bodyData.projectZip,
+    lineItems: bodyData.lineItems,
+    subtotal: bodyData.subtotal,
+    taxRate: bodyData.taxRate,
+    tax: bodyData.tax,
+    discount: bodyData.discount,
+    total: bodyData.total,
+    expirationDate: bodyData.expirationDate,
+    message: bodyData.message,
+  });
+
+  // Call the HTML-to-PDF microservice
+  const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    { status: 200 },
-  );
+    body: JSON.stringify({
+      HtmlContent: html,
+      fileName: bodyData.estimateName,
+    }),
+  });
+
+  if (!pdfResponse.ok) {
+    throw new Error(`HTTP error! status: ${pdfResponse.status}`);
+  } else {
+    console.log("pdf gen is successful", pdfResponse.status);
+  }
+
+  // Get the PDF data as an ArrayBuffer
+  const pdfData = await pdfResponse.arrayBuffer();
+
+  // Create a File object from the buffer
+  const file = new File([pdfData], `${bodyData.estimateName}.pdf`, {
+    type: "application/pdf",
+  });
+
+  // Upload the PDF using UTApi
+  const utapi = new UTApi() as any;
+  const uploadResponse = await utapi.uploadFiles(file);
+
+  if (!uploadResponse) {
+    throw new Error(`Upload PDF Error`);
+  }
+
+  // Insert pdf data
+  try {
+    await db
+      .update(pdfs)
+      .set({
+        fileKey: uploadResponse.data?.key,
+        fileUrl: uploadResponse.data?.url,
+        fileSize: uploadResponse.data?.size.toString(),
+        fileName: uploadResponse.data?.name,
+        updatedAt: new Date(),
+      })
+      .where(eq(pdfs.estimate_id, parseInt(params.estimate_id)));
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Create a new response with the PDF data
+  return new NextResponse(pdfData, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename="${bodyData.estimateName}"`,
+    },
+  });
 }
 
 export async function DELETE(
