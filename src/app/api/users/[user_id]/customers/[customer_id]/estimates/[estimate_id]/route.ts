@@ -13,11 +13,6 @@ import path from "path";
 import Handlebars from "handlebars";
 import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
-// import Handlebars from "../../../../../../../../../handlebars-helpers";
-
-// Read the template file
-// const templatePath = path.join(process.cwd(), "src", "pdf", "estimate.hbs");
-// const templateSource = fs.readFileSync(templatePath, "utf8");
 
 export async function POST(
   request: NextRequest,
