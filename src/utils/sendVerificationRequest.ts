@@ -10,6 +10,7 @@ const sendVerificationRequest = async (params: any) => {
   const emailType = callbackUrlSearchParams.get("email-type");
   const customerName = callbackUrlSearchParams.get("customer-name");
   const contractorName = callbackUrlSearchParams.get("contractor-name");
+  const estimateId = callbackUrlSearchParams.get("estimate-id");
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}api/emails`, {
@@ -33,6 +34,7 @@ const sendVerificationRequest = async (params: any) => {
         customerName: customerName,
         contractorName: contractorName,
         emailType: emailType,
+        estimateId: estimateId,
       }),
     });
     if (res.status !== 200) {
