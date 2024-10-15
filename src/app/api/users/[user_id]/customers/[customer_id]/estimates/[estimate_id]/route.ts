@@ -11,6 +11,8 @@ import { auth } from "../../../../../../../../../auth";
 import fs from "fs";
 import path from "path";
 import Handlebars from "handlebars";
+import { UTApi } from "uploadthing/server";
+import { pdfs } from "@/db/schemas/pdf";
 
 // Read the template file
 const templatePath = path.join(process.cwd(), "src", "pdf", "estimate.hbs");
@@ -151,6 +153,36 @@ export async function POST(
 
   // Get the PDF data as an ArrayBuffer
   const pdfData = await pdfResponse.arrayBuffer();
+
+  // Create a File object from the buffer
+  const file = new File([pdfData], `${bodyData.estimateName}.pdf`, {
+    type: "application/pdf",
+  });
+
+  // Upload the PDF using UTApi
+  const utapi = new UTApi() as any;
+  const uploadResponse = await utapi.uploadFiles(file);
+
+  if (!uploadResponse) {
+    throw new Error(`Upload PDF Error`);
+  }
+
+  // Insert pdf data
+  try {
+    await db.insert(pdfs).values({
+      contractor_id: params.user_id,
+      customer_id: params.customer_id,
+      estimate_id: parseInt(params.estimate_id),
+      fileKey: uploadResponse.data?.key,
+      fileUrl: uploadResponse.data?.url,
+      fileSize: uploadResponse.data?.size.toString(),
+      fileName: uploadResponse.data?.name,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
   // Create a new response with the PDF data
   return new NextResponse(pdfData, {
@@ -303,6 +335,35 @@ export async function PATCH(
 
   // Get the PDF data as an ArrayBuffer
   const pdfData = await pdfResponse.arrayBuffer();
+
+  // Create a File object from the buffer
+  const file = new File([pdfData], `${bodyData.estimateName}.pdf`, {
+    type: "application/pdf",
+  });
+
+  // Upload the PDF using UTApi
+  const utapi = new UTApi() as any;
+  const uploadResponse = await utapi.uploadFiles(file);
+
+  if (!uploadResponse) {
+    throw new Error(`Upload PDF Error`);
+  }
+
+  // Insert pdf data
+  try {
+    await db
+      .update(pdfs)
+      .set({
+        fileKey: uploadResponse.data?.key,
+        fileUrl: uploadResponse.data?.url,
+        fileSize: uploadResponse.data?.size.toString(),
+        fileName: uploadResponse.data?.name,
+        updatedAt: new Date(),
+      })
+      .where(eq(pdfs.estimate_id, parseInt(params.estimate_id)));
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
   // Create a new response with the PDF data
   return new NextResponse(pdfData, {
