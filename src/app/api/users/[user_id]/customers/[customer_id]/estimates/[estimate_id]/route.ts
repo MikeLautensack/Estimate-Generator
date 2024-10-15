@@ -14,16 +14,16 @@ import Handlebars from "handlebars";
 import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
 
-// Read the template file
-const templatePath = path.join(process.cwd(), "src", "pdf", "estimate.hbs");
-const templateSource = fs.readFileSync(templatePath, "utf8");
-
 export async function POST(
   request: NextRequest,
   {
     params,
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
+  // Load the template file from your templates folder
+  const templatePath = path.resolve("/templates/estimate.hbs");
+  const templateFile = fs.readFileSync(templatePath, "utf-8");
+
   // Get request body data
   const bodyData = await request.json();
 
@@ -103,7 +103,7 @@ export async function POST(
 
   // Generate PDF
   // Compile the template
-  const template = Handlebars.compile(templateSource);
+  const template = Handlebars.compile(templateFile);
 
   // Generate HTML using the template and data
   const html = template({
@@ -201,6 +201,10 @@ export async function PATCH(
     params,
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
+  // Load the template file from your templates folder
+  const templatePath = path.resolve("./public/templates/estimate.hbs");
+  const templateFile = fs.readFileSync(templatePath, "utf-8");
+
   // Get request body data
   const bodyData = await request.json();
 
@@ -286,7 +290,7 @@ export async function PATCH(
 
   // Generate PDF
   // Compile the template
-  const template = Handlebars.compile(templateSource);
+  const template = Handlebars.compile(templateFile);
 
   // Generate HTML using the template and data
   const html = template({
