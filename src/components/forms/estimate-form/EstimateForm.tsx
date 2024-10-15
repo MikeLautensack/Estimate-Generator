@@ -22,9 +22,9 @@ import useCalcTotal from "./hooks/useCalcTotal";
 import EstimateFormButtons from "./EstimateFormButtons";
 import useGetCustomerUserId from "./hooks/useGetCustomerUserId";
 import { sendAuthEmail } from "@/utils/sendAuthEmail";
-import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Session } from "next-auth";
+import { handlePdfDownload } from "@/utils/downloadPDF";
 
 export type EstimateFormProps = {
   estimate: EstimateFormValues;
@@ -297,6 +297,7 @@ const EstimateForm = ({
           },
         );
         if (res.status === 200) {
+          const pdf = handlePdfDownload(res);
           setSaveAndSaveStatus("sending");
           const emailRes = await sendAuthEmail(
             data.customerEmail,
@@ -326,6 +327,7 @@ const EstimateForm = ({
           },
         );
         if (res.status === 200) {
+          const pdf = handlePdfDownload(res);
           setSaveAndSaveStatus("sending");
           const emailRes = await sendAuthEmail(
             data.customerEmail,
@@ -401,7 +403,6 @@ const EstimateForm = ({
             saveAndSaveStatus={saveAndSaveStatus}
             mode={mode}
           />
-          {/* <DevTool control={control} /> */}
         </form>
       </FormProvider>
     </Card>

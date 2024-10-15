@@ -1,5 +1,3 @@
-import EstimatesTable from "@/components/tables/contractorTables/estimatesTable/EstimatesTable";
-import { columns } from "@/components/tables/contractorTables/estimatesTable/columns";
 import { estimates } from "../../../../db/schemas/estimates";
 import { db } from "../../../../db";
 import { Estimates } from "@/types/estimates";
@@ -45,6 +43,7 @@ export default async function Page({ params, searchParams }: PageProps) {
   const data = (await getEstimates(session, page, pageSize)) as Estimates[];
   const totolRows = await getTotalRows(session!);
 
+  console.log("testing data", data);
   return (
     <main className="flex flex-col flex-grow gap-4 p-4">
       <Typography variant="h4" color="primary" className="">
