@@ -409,6 +409,13 @@ export async function PATCH(
     });
   }
 
+  await db.insert(logs).values({
+    logMessage: `after template html test : ${html}`,
+    env: process.env.NODE_ENV,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
   // Call the HTML-to-PDF microservice
   const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
     method: "POST",
