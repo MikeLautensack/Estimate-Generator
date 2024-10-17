@@ -417,16 +417,27 @@ export async function PATCH(
   });
 
   // Call the HTML-to-PDF microservice
-  const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      HtmlContent: html,
-      fileName: bodyData.estimateName,
-    }),
-  });
+  let pdfResponse;
+  try {
+    pdfResponse = await fetch(process.env.PDF_GEN_API!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        HtmlContent: html,
+        fileName: bodyData.estimateName,
+      }),
+    });
+  } catch (error: any) {
+    await db.insert(logs).values({
+      logMessage: `pdf gen req catch block: ${pdfResponse}`,
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    return NextResponse.json({ error: error.message }, { status: 503 });
+  }
 
   if (!pdfResponse.ok) {
     await db.insert(logs).values({
