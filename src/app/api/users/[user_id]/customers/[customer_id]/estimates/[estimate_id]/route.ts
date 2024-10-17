@@ -53,6 +53,12 @@ export async function POST(
     params,
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
+  await db.insert(logs).values({
+    logMessage: "testing post endpoint",
+    env: process.env.NODE_ENV,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
   // Get request body data
   const bodyData = await request.json();
 
@@ -237,6 +243,12 @@ export async function PATCH(
     params,
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
+  await db.insert(logs).values({
+    logMessage: "testing patch endpoint",
+    env: process.env.NODE_ENV,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
   // Get request body data
   const bodyData = await request.json();
 
