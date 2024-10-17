@@ -326,6 +326,7 @@ const EstimateForm = ({
             }),
           },
         );
+        console.log("testing res", res);
         if (res.status === 200) {
           const pdf = handlePdfDownload(res);
           setSaveAndSaveStatus("sending");
