@@ -197,6 +197,27 @@
       "when": 1728952335727,
       "tag": "0027_milky_beast",
       "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "5",
+      "when": 1729194389928,
+      "tag": "0028_condemned_retro_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "5",
+      "when": 1729195000317,
+      "tag": "0029_quick_thunderbolt_ross",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "5",
+      "when": 1729195133996,
+      "tag": "0030_motionless_thor",
+      "breakpoints": true
     }
   ]
 }
