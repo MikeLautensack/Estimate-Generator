@@ -13,9 +13,17 @@ import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
 import path from "path";
 import { promises as fs } from "fs";
+import { logs } from "@/db/schemas/logs";
 
 // Mark as Node.js runtime
 export const runtime = "nodejs";
+
+await db.insert(logs).values({
+  logMessage: "testing top level of estimate endpoint file",
+  env: process.env.NODE_ENV,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+});
 
 // Helper function to load template
 async function loadTemplate() {
@@ -26,6 +34,13 @@ async function loadTemplate() {
     return template;
   } catch (error) {
     console.error("Error loading template:", error);
+    // Insert estimate data
+    await db.insert(logs).values({
+      logMessage: "Error loading template:",
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     throw new Error(
       `Failed to load template: ${error instanceof Error ? error.message : "Unknown error"}`,
     );
