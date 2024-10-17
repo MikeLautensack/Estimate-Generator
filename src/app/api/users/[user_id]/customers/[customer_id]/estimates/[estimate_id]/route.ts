@@ -437,6 +437,12 @@ export async function PATCH(
     });
     throw new Error(`HTTP error! status: ${pdfResponse.status}`);
   } else {
+    await db.insert(logs).values({
+      logMessage: `pdf gen is successful ${pdfResponse.status}`,
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     console.log("pdf gen is successful", pdfResponse.status);
   }
 
