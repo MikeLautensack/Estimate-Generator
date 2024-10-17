@@ -179,6 +179,12 @@ export async function POST(
       message: bodyData.message,
     });
   } catch (error: any) {
+    await db.insert(logs).values({
+      logMessage: "template catch block",
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
@@ -339,7 +345,7 @@ export async function PATCH(
   }
 
   // Generate PDF
-  let html: string;
+  let html: string = "";
 
   try {
     // Get template content
@@ -373,6 +379,12 @@ export async function PATCH(
       total: bodyData.total,
       expirationDate: bodyData.expirationDate,
       message: bodyData.message,
+    });
+    await db.insert(logs).values({
+      logMessage: "testing try block of create template",
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
   } catch (error: any) {
     await db.insert(logs).values({
