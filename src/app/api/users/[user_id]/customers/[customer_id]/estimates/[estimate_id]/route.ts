@@ -11,6 +11,8 @@ import { auth } from "../../../../../../../../../auth";
 import Handlebars from "handlebars";
 import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
+import path from "path";
+import { promises as fs } from "fs";
 
 // Mark as Node.js runtime
 export const runtime = "nodejs";
@@ -18,18 +20,15 @@ export const runtime = "nodejs";
 // Helper function to load template
 async function loadTemplate() {
   try {
-    // Option 1: If template is in public directory
-    const response = await fetch(
-      new URL("/templates/estimate.hbs", process.env.NEXT_PUBLIC_HOST),
-    );
-    return await response.text();
-
-    // Option 2: If using Node.js file system (requires runtime = nodejs)
-    // const templatePath = path.join(process.cwd(), 'templates', 'estimate.hbs');
-    // return await fs.promises.readFile(templatePath, 'utf-8');
+    // Read template from the project directory
+    const templatePath = path.join(process.cwd(), "src", "pdf", "estimate.hbs");
+    const template = await fs.readFile(templatePath, "utf-8");
+    return template;
   } catch (error) {
     console.error("Error loading template:", error);
-    throw new Error("Failed to load template");
+    throw new Error(
+      `Failed to load template: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
   }
 }
 
