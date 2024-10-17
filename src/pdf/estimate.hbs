@@ -1,0 +1,94 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Work Estimate</title>
+    <style>
+      body { font-family: Arial, sans-serif; } .container { max-width: 800px;
+      margin: 0 auto; padding: 20px; } .header, .footer { text-align: center; }
+      .estimate-info, .customer-info, .line-items, .summary { margin-bottom:
+      20px; } table { width: 100%; border-collapse: collapse; } table, th, td {
+      border: 1px solid #000; } th, td { padding: 10px; text-align: left; }
+      .totals { text-align: right; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Estimate: {{estimateName}}</h1>
+        <p>Status: {{status}}</p>
+      </div>
+
+      <div class="estimate-info">
+        <h2>Contractor Information</h2>
+        <p><strong>{{contractorName}}</strong></p>
+        <p>{{contractorAddress}} {{contractorAddress2}}</p>
+        <p>{{contractorCity}}, {{contractorState}} {{contractorZip}}</p>
+        <p>Phone: {{contractorPhone}}</p>
+      </div>
+
+      <div class="customer-info">
+        <h2>Customer Information</h2>
+        <p><strong>{{customerFirstName}} {{customerLastName}}</strong></p>
+        <p>Email: {{customerEmail}}</p>
+        <p>Project Address: {{projectAddress}} {{projectAddress2}}</p>
+        <p>{{projectCity}}, {{projectState}} {{projectZip}}</p>
+      </div>
+
+      <div class="line-items">
+        <h2>Line Items</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Item</th>
+              <th>Rate Type</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each lineItems}}
+              <tr>
+                <td>{{description}}</td>
+                <td>{{item}}</td>
+                <td>{{rateType}}</td>
+                <td>{{quantity}}</td>
+                <td>{{price}}</td>
+                <td>{{amount}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="summary">
+        <h2>Summary</h2>
+        <table>
+          <tr>
+            <td>Subtotal</td>
+            <td class="totals">${{subtotal}}</td>
+          </tr>
+          <tr>
+            <td>Tax ({{taxRate}}%)</td>
+            <td class="totals">${{tax}}</td>
+          </tr>
+          <tr>
+            <td>Discount</td>
+            <td class="totals">${{discount}}</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td class="totals"><strong>${{total}}</strong></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="footer">
+        <p>Expiration Date: {{expirationDate}}</p>
+        <p>{{message}}</p>
+      </div>
+    </div>
+  </body>
+</html>
