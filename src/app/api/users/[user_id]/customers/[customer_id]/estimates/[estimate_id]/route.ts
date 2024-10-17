@@ -401,6 +401,12 @@ export async function PATCH(
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+    await db.insert(logs).values({
+      logMessage: `html test: ${html}`,
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
   }
 
   // Call the HTML-to-PDF microservice
