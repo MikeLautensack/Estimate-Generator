@@ -18,13 +18,6 @@ import { logs } from "@/db/schemas/logs";
 // Mark as Node.js runtime
 export const runtime = "nodejs";
 
-await db.insert(logs).values({
-  logMessage: "testing top level of estimate endpoint file",
-  env: process.env.NODE_ENV,
-  createdAt: new Date(),
-  updatedAt: new Date(),
-});
-
 // Helper function to load template
 async function loadTemplate() {
   try {
