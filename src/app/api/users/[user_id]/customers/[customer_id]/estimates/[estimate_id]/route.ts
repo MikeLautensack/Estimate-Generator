@@ -8,11 +8,30 @@ import { Estimates, LineItems } from "@/types/estimates";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { eq } from "drizzle-orm";
 import { auth } from "../../../../../../../../../auth";
-import fs from "fs";
-import path from "path";
 import Handlebars from "handlebars";
 import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
+
+// Mark as Node.js runtime
+export const runtime = "nodejs";
+
+// Helper function to load template
+async function loadTemplate() {
+  try {
+    // Option 1: If template is in public directory
+    const response = await fetch(
+      new URL("/templates/estimate.hbs", process.env.NEXT_PUBLIC_HOST),
+    );
+    return await response.text();
+
+    // Option 2: If using Node.js file system (requires runtime = nodejs)
+    // const templatePath = path.join(process.cwd(), 'templates', 'estimate.hbs');
+    // return await fs.promises.readFile(templatePath, 'utf-8');
+  } catch (error) {
+    console.error("Error loading template:", error);
+    throw new Error("Failed to load template");
+  }
+}
 
 export async function POST(
   request: NextRequest,
@@ -20,10 +39,6 @@ export async function POST(
     params,
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
-  // Load the template file from your templates folder
-  const templatePath = path.resolve("/templates/estimate.hbs");
-  const templateFile = fs.readFileSync(templatePath, "utf-8");
-
   // Get request body data
   const bodyData = await request.json();
 
@@ -102,37 +117,44 @@ export async function POST(
   }
 
   // Generate PDF
-  // Compile the template
-  const template = Handlebars.compile(templateFile);
+  let html: string;
 
-  // Generate HTML using the template and data
-  const html = template({
-    estimateName: bodyData.estimateName,
-    status: bodyData.status,
-    contractorName: bodyData.contractorName,
-    contractorAddrss: bodyData.contractorAddress,
-    contractorAddress2: bodyData.contractorAddress2,
-    contractorCity: bodyData.contractorCity,
-    contractorState: bodyData.contractorState,
-    contractorZip: bodyData.contractorZip,
-    contractorPhone: bodyData.contractorPhone,
-    customerFirstName: bodyData.contractorFirstName,
-    contractorLastName: bodyData.contractorLastName,
-    customerEmail: bodyData.customerEmail,
-    projectAddress: bodyData.projectAddress,
-    projectAddress2: bodyData.projectAddress2,
-    projectCity: bodyData.projectCity,
-    projectState: bodyData.projectState,
-    projectZip: bodyData.projectZip,
-    lineItems: bodyData.lineItems,
-    subtotal: bodyData.subtotal,
-    taxRate: bodyData.taxRate,
-    tax: bodyData.tax,
-    discount: bodyData.discount,
-    total: bodyData.total,
-    expirationDate: bodyData.expirationDate,
-    message: bodyData.message,
-  });
+  try {
+    // Get template content
+    const templateFile = await loadTemplate();
+    // Compile the template
+    const template = Handlebars.compile(templateFile);
+    // Generate HTML using the template and data
+    html = template({
+      estimateName: bodyData.estimateName,
+      status: bodyData.status,
+      contractorName: bodyData.contractorName,
+      contractorAddrss: bodyData.contractorAddress,
+      contractorAddress2: bodyData.contractorAddress2,
+      contractorCity: bodyData.contractorCity,
+      contractorState: bodyData.contractorState,
+      contractorZip: bodyData.contractorZip,
+      contractorPhone: bodyData.contractorPhone,
+      customerFirstName: bodyData.contractorFirstName,
+      contractorLastName: bodyData.contractorLastName,
+      customerEmail: bodyData.customerEmail,
+      projectAddress: bodyData.projectAddress,
+      projectAddress2: bodyData.projectAddress2,
+      projectCity: bodyData.projectCity,
+      projectState: bodyData.projectState,
+      projectZip: bodyData.projectZip,
+      lineItems: bodyData.lineItems,
+      subtotal: bodyData.subtotal,
+      taxRate: bodyData.taxRate,
+      tax: bodyData.tax,
+      discount: bodyData.discount,
+      total: bodyData.total,
+      expirationDate: bodyData.expirationDate,
+      message: bodyData.message,
+    });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
   // Call the HTML-to-PDF microservice
   const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
@@ -201,10 +223,6 @@ export async function PATCH(
     params,
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
-  // Load the template file from your templates folder
-  const templatePath = path.resolve("./public/templates/estimate.hbs");
-  const templateFile = fs.readFileSync(templatePath, "utf-8");
-
   // Get request body data
   const bodyData = await request.json();
 
@@ -289,37 +307,44 @@ export async function PATCH(
   }
 
   // Generate PDF
-  // Compile the template
-  const template = Handlebars.compile(templateFile);
+  let html: string;
 
-  // Generate HTML using the template and data
-  const html = template({
-    estimateName: bodyData.estimateName,
-    status: bodyData.status,
-    contractorName: bodyData.contractorName,
-    contractorAddrss: bodyData.contractorAddress,
-    contractorAddress2: bodyData.contractorAddress2,
-    contractorCity: bodyData.contractorCity,
-    contractorState: bodyData.contractorState,
-    contractorZip: bodyData.contractorZip,
-    contractorPhone: bodyData.contractorPhone,
-    customerFirstName: bodyData.contractorFirstName,
-    contractorLastName: bodyData.contractorLastName,
-    customerEmail: bodyData.customerEmail,
-    projectAddress: bodyData.projectAddress,
-    projectAddress2: bodyData.projectAddress2,
-    projectCity: bodyData.projectCity,
-    projectState: bodyData.projectState,
-    projectZip: bodyData.projectZip,
-    lineItems: bodyData.lineItems,
-    subtotal: bodyData.subtotal,
-    taxRate: bodyData.taxRate,
-    tax: bodyData.tax,
-    discount: bodyData.discount,
-    total: bodyData.total,
-    expirationDate: bodyData.expirationDate,
-    message: bodyData.message,
-  });
+  try {
+    // Get template content
+    const templateFile = await loadTemplate();
+    // Compile the template
+    const template = Handlebars.compile(templateFile);
+    // Generate HTML using the template and data
+    html = template({
+      estimateName: bodyData.estimateName,
+      status: bodyData.status,
+      contractorName: bodyData.contractorName,
+      contractorAddrss: bodyData.contractorAddress,
+      contractorAddress2: bodyData.contractorAddress2,
+      contractorCity: bodyData.contractorCity,
+      contractorState: bodyData.contractorState,
+      contractorZip: bodyData.contractorZip,
+      contractorPhone: bodyData.contractorPhone,
+      customerFirstName: bodyData.contractorFirstName,
+      contractorLastName: bodyData.contractorLastName,
+      customerEmail: bodyData.customerEmail,
+      projectAddress: bodyData.projectAddress,
+      projectAddress2: bodyData.projectAddress2,
+      projectCity: bodyData.projectCity,
+      projectState: bodyData.projectState,
+      projectZip: bodyData.projectZip,
+      lineItems: bodyData.lineItems,
+      subtotal: bodyData.subtotal,
+      taxRate: bodyData.taxRate,
+      tax: bodyData.tax,
+      discount: bodyData.discount,
+      total: bodyData.total,
+      expirationDate: bodyData.expirationDate,
+      message: bodyData.message,
+    });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 
   // Call the HTML-to-PDF microservice
   const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
