@@ -440,6 +440,13 @@ export async function PATCH(
     console.log("pdf gen is successful", pdfResponse.status);
   }
 
+  await db.insert(logs).values({
+    logMessage: `after pdf res check ${pdfResponse}`,
+    env: process.env.NODE_ENV,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
   // Get the PDF data as an ArrayBuffer
   const pdfData = await pdfResponse.arrayBuffer();
 
@@ -462,6 +469,13 @@ export async function PATCH(
     throw new Error(`Upload PDF Error`);
   }
 
+  await db.insert(logs).values({
+    logMessage: `after upload res check ${uploadResponse}`,
+    env: process.env.NODE_ENV,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
   // Insert pdf data
   try {
     await db
@@ -481,7 +495,7 @@ export async function PATCH(
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message }, { status: 505 });
   }
 
   // Create a new response with the PDF data
