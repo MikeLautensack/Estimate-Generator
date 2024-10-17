@@ -393,7 +393,7 @@ export async function PATCH(
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message }, { status: 505 });
   } finally {
     await db.insert(logs).values({
       logMessage: "testing template finally block",
