@@ -384,6 +384,12 @@ export async function PATCH(
   });
 
   if (!pdfResponse.ok) {
+    await db.insert(logs).values({
+      logMessage: "pdf res not ok",
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     throw new Error(`HTTP error! status: ${pdfResponse.status}`);
   } else {
     console.log("pdf gen is successful", pdfResponse.status);
@@ -402,6 +408,12 @@ export async function PATCH(
   const uploadResponse = await utapi.uploadFiles(file);
 
   if (!uploadResponse) {
+    await db.insert(logs).values({
+      logMessage: "upload res not ok",
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     throw new Error(`Upload PDF Error`);
   }
 
@@ -418,6 +430,12 @@ export async function PATCH(
       })
       .where(eq(pdfs.estimate_id, parseInt(params.estimate_id)));
   } catch (error: any) {
+    await db.insert(logs).values({
+      logMessage: `Error: ${error.message}`,
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
