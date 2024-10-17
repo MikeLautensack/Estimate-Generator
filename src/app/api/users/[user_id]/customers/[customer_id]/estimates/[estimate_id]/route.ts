@@ -103,6 +103,12 @@ export async function POST(
   try {
     await db.insert(estimates).values(estimateData);
   } catch (error: any) {
+    await db.insert(logs).values({
+      logMessage: "testing estimate data insert opp",
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
@@ -128,6 +134,13 @@ export async function POST(
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  await db.insert(logs).values({
+    logMessage: "testing below the line items insert",
+    env: process.env.NODE_ENV,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
 
   // Generate PDF
   let html: string;
