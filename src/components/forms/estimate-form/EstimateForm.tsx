@@ -301,7 +301,7 @@ const EstimateForm = ({
           setSaveAndSaveStatus("sending");
           const emailRes = await sendAuthEmail(
             data.customerEmail,
-            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${`${data.customerFirstName} ${data.customerLastName}`}&contractor-name=${session.user.name}&redirect-flag=new-estimate&estimate-id=${data.id}`,
+            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${`${data.customerFirstName} ${data.customerLastName}`}&contractor-name=${session.user.name}&redirect-flag=new-estimate&estimate-id=${ESTIMATE_ID}`,
             false,
           );
           if (emailRes?.status === 200) {
