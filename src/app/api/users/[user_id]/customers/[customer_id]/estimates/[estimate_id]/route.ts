@@ -370,6 +370,12 @@ export async function PATCH(
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
+    await db.insert(logs).values({
+      logMessage: "testing template try catch",
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
   }
 
   // Call the HTML-to-PDF microservice
