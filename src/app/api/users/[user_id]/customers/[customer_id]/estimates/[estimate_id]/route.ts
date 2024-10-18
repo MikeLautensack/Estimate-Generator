@@ -18,6 +18,8 @@ import { logs } from "@/db/schemas/logs";
 // Mark as Node.js runtime
 export const runtime = "nodejs";
 
+export const maxDuration = 45;
+
 // Helper function to load template
 async function loadTemplate() {
   try {
