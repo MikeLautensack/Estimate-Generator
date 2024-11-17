@@ -1,3 +1,5 @@
+"use server";
+
 import { NextRequest, NextResponse } from "next/server";
 import {
   estimates,
@@ -15,30 +17,46 @@ import path from "path";
 import { promises as fs } from "fs";
 import { logs } from "@/db/schemas/logs";
 
-// Mark as Node.js runtime
-export const runtime = "nodejs";
-
-export const maxDuration = 45;
-
 // Helper function to load template
 async function loadTemplate() {
   try {
-    // Read template from the project directory
-    const templatePath = path.join(process.cwd(), "src", "pdf", "estimate.hbs");
-    const template = await fs.readFile(templatePath, "utf-8");
-    return template;
-  } catch (error) {
-    console.error("Error loading template:", error);
-    // Insert estimate data
+    // Use path.resolve instead of path.join and account for different environments
+    const templatePath = path.resolve(
+      process.cwd(),
+      "src",
+      "pdf",
+      "estimate.hbs",
+    );
+    // Add logging to debug the path in production
     await db.insert(logs).values({
-      logMessage: "Error loading template:",
+      logMessage: `Template path: ${templatePath}`,
       env: process.env.NODE_ENV,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    throw new Error(
-      `Failed to load template: ${error instanceof Error ? error.message : "Unknown error"}`,
-    );
+
+    const template = await fs.readFile(templatePath, "utf-8");
+
+    // Log success
+    await db.insert(logs).values({
+      logMessage: `Template loaded successfully, length: ${template.length}`,
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    return template;
+  } catch (error) {
+    // Enhanced error logging
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    await db.insert(logs).values({
+      logMessage: `Error loading template: ${errorMessage}\nStack: ${error instanceof Error ? error.stack : "No stack trace"}\nPath: ${path.resolve(process.cwd(), "src", "pdf", "estimate.hbs")}`,
+      env: process.env.NODE_ENV,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+    throw new Error(`Failed to load template: ${errorMessage}`);
   }
 }
 
