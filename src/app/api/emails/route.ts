@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
   }
 
   // Send email
-
   try {
+    console.log("testing: let pdf:: ", pdf);
     await resend.emails.send({
       from: bodyData.from,
       to: [bodyData.identifier],
