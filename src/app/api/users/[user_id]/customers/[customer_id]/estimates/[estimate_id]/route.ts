@@ -1,64 +1,17 @@
-"use server";
-
 import { NextRequest, NextResponse } from "next/server";
 import {
   estimates,
   lineItems,
 } from "../../../../../../../../db/schemas/estimates";
 import { db } from "../../../../../../../../db";
-import { Estimates, LineItems } from "@/types/estimates";
+import { LineItems } from "@/types/estimates";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { eq } from "drizzle-orm";
 import { auth } from "../../../../../../../../../auth";
-import Handlebars from "handlebars";
 import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
-import path from "path";
-import { promises as fs } from "fs";
 import { logs } from "@/db/schemas/logs";
-
-// Helper function to load template
-async function loadTemplate() {
-  try {
-    // Use path.resolve instead of path.join and account for different environments
-    const templatePath = path.resolve(
-      process.cwd(),
-      "src",
-      "pdf",
-      "estimate.hbs",
-    );
-    // Add logging to debug the path in production
-    await db.insert(logs).values({
-      logMessage: `Template path: ${templatePath}`,
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-
-    const template = await fs.readFile(templatePath, "utf-8");
-
-    // Log success
-    await db.insert(logs).values({
-      logMessage: `Template loaded successfully, length: ${template.length}`,
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-
-    return template;
-  } catch (error) {
-    // Enhanced error logging
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error";
-    await db.insert(logs).values({
-      logMessage: `Error loading template: ${errorMessage}\nStack: ${error instanceof Error ? error.stack : "No stack trace"}\nPath: ${path.resolve(process.cwd(), "src", "pdf", "estimate.hbs")}`,
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    throw new Error(`Failed to load template: ${errorMessage}`);
-  }
-}
+import LineItem from "@/components/misc/LineItem";
 
 export async function POST(
   request: NextRequest,
@@ -66,12 +19,6 @@ export async function POST(
     params,
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
-  await db.insert(logs).values({
-    logMessage: "testing post endpoint",
-    env: process.env.NODE_ENV,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
   // Get request body data
   const bodyData = await request.json();
 
@@ -123,12 +70,6 @@ export async function POST(
   try {
     await db.insert(estimates).values(estimateData);
   } catch (error: any) {
-    await db.insert(logs).values({
-      logMessage: "testing estimate data insert opp",
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
@@ -155,59 +96,6 @@ export async function POST(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  await db.insert(logs).values({
-    logMessage: "testing below the line items insert",
-    env: process.env.NODE_ENV,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-
-  // Generate PDF
-  let html: string;
-
-  try {
-    // Get template content
-    const templateFile = await loadTemplate();
-    // Compile the template
-    const template = Handlebars.compile(templateFile);
-    // Generate HTML using the template and data
-    html = template({
-      estimateName: bodyData.estimateName,
-      status: bodyData.status,
-      contractorName: bodyData.contractorName,
-      contractorAddrss: bodyData.contractorAddress,
-      contractorAddress2: bodyData.contractorAddress2,
-      contractorCity: bodyData.contractorCity,
-      contractorState: bodyData.contractorState,
-      contractorZip: bodyData.contractorZip,
-      contractorPhone: bodyData.contractorPhone,
-      customerFirstName: bodyData.contractorFirstName,
-      contractorLastName: bodyData.contractorLastName,
-      customerEmail: bodyData.customerEmail,
-      projectAddress: bodyData.projectAddress,
-      projectAddress2: bodyData.projectAddress2,
-      projectCity: bodyData.projectCity,
-      projectState: bodyData.projectState,
-      projectZip: bodyData.projectZip,
-      lineItems: bodyData.lineItems,
-      subtotal: bodyData.subtotal,
-      taxRate: bodyData.taxRate,
-      tax: bodyData.tax,
-      discount: bodyData.discount,
-      total: bodyData.total,
-      expirationDate: bodyData.expirationDate,
-      message: bodyData.message,
-    });
-  } catch (error: any) {
-    await db.insert(logs).values({
-      logMessage: "template catch block",
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
   // Call the HTML-to-PDF microservice
   const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
     method: "POST",
@@ -215,19 +103,37 @@ export async function POST(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      HtmlContent: html,
-      fileName: bodyData.estimateName,
+      estimateName: bodyData.estimateName,
+      contractorName: bodyData.contractorName,
+      contractorAddress: bodyData.contractorAddress,
+      contractorPhone: bodyData.contractorPhone,
+      projectAddress: bodyData.projectAddress,
+      customerFirstName: bodyData.customerFirstName,
+      customerLastName: bodyData.customerLastName,
+      lineItems: bodyData.lineItems.map((item: LineItems) => {
+        return {
+          amount: item.amount,
+          description: item.description,
+          item: item.item,
+          price: item.price,
+          quantity: item.quantity,
+          rateType: item.rateType,
+        };
+      }),
+      subtotal: bodyData.subtotal,
+      tax: bodyData.tax,
+      total: bodyData.total,
     }),
   });
+
+  // Get the PDF data as an ArrayBuffer
+  const pdfData = await pdfResponse.arrayBuffer();
 
   if (!pdfResponse.ok) {
     throw new Error(`HTTP error! status: ${pdfResponse.status}`);
   } else {
     console.log("pdf gen is successful", pdfResponse.status);
   }
-
-  // Get the PDF data as an ArrayBuffer
-  const pdfData = await pdfResponse.arrayBuffer();
 
   // Create a File object from the buffer
   const file = new File([pdfData], `${bodyData.estimateName}.pdf`, {
@@ -275,12 +181,6 @@ export async function PATCH(
     params,
   }: { params: { user_id: string; customer_id: string; estimate_id: string } },
 ) {
-  await db.insert(logs).values({
-    logMessage: "testing patch endpoint",
-    env: process.env.NODE_ENV,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
   // Get request body data
   const bodyData = await request.json();
 
@@ -364,124 +264,34 @@ export async function PATCH(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Generate PDF
-  let html: string = "";
-
-  try {
-    // Get template content
-    const templateFile = await loadTemplate();
-    // Compile the template
-    const template = Handlebars.compile(templateFile);
-    // Generate HTML using the template and data
-    html = template({
-      estimateName: bodyData.estimateName,
-      status: bodyData.status,
-      contractorName: bodyData.contractorName,
-      contractorAddrss: bodyData.contractorAddress,
-      contractorAddress2: bodyData.contractorAddress2,
-      contractorCity: bodyData.contractorCity,
-      contractorState: bodyData.contractorState,
-      contractorZip: bodyData.contractorZip,
-      contractorPhone: bodyData.contractorPhone,
-      customerFirstName: bodyData.contractorFirstName,
-      contractorLastName: bodyData.contractorLastName,
-      customerEmail: bodyData.customerEmail,
-      projectAddress: bodyData.projectAddress,
-      projectAddress2: bodyData.projectAddress2,
-      projectCity: bodyData.projectCity,
-      projectState: bodyData.projectState,
-      projectZip: bodyData.projectZip,
-      lineItems: bodyData.lineItems,
-      subtotal: bodyData.subtotal,
-      taxRate: bodyData.taxRate,
-      tax: bodyData.tax,
-      discount: bodyData.discount,
-      total: bodyData.total,
-      expirationDate: bodyData.expirationDate,
-      message: bodyData.message,
-    });
-    await db.insert(logs).values({
-      logMessage: "testing try block of create template",
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-  } catch (error: any) {
-    await db.insert(logs).values({
-      logMessage: "testing template try catch",
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    return NextResponse.json({ error: error.message }, { status: 505 });
-  } finally {
-    await db.insert(logs).values({
-      logMessage: "testing template finally block",
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    await db.insert(logs).values({
-      logMessage: `html test: ${html}`,
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-  }
-
-  await db.insert(logs).values({
-    logMessage: `after template html test : ${html}`,
-    env: process.env.NODE_ENV,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-
   // Call the HTML-to-PDF microservice
-  let pdfResponse;
-  try {
-    pdfResponse = await fetch(process.env.PDF_GEN_API!, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        HtmlContent: html,
-        fileName: bodyData.estimateName,
+  const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      estimateName: bodyData.estimateName,
+      contractorName: bodyData.contractorName,
+      contractorAddress: bodyData.contractorAddress,
+      contractorPhone: bodyData.contractorPhone,
+      projectAddress: bodyData.projectAddress,
+      customerFirstName: bodyData.customerFirstName,
+      customerLastName: bodyData.customerLastName,
+      lineItems: bodyData.lineItems.map((item: LineItems) => {
+        return {
+          amount: item.amount,
+          description: item.description,
+          item: item.item,
+          price: item.price,
+          quantity: item.quantity,
+          rateType: item.rateType,
+        };
       }),
-    });
-  } catch (error: any) {
-    await db.insert(logs).values({
-      logMessage: `pdf gen req catch block: ${pdfResponse}`,
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    return NextResponse.json({ error: error.message }, { status: 503 });
-  }
-
-  if (!pdfResponse.ok) {
-    await db.insert(logs).values({
-      logMessage: "pdf res not ok",
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    throw new Error(`HTTP error! status: ${pdfResponse.status}`);
-  } else {
-    await db.insert(logs).values({
-      logMessage: `pdf gen is successful ${pdfResponse.status}`,
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-    console.log("pdf gen is successful", pdfResponse.status);
-  }
-
-  await db.insert(logs).values({
-    logMessage: `after pdf res check ${pdfResponse}`,
-    env: process.env.NODE_ENV,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+      subtotal: bodyData.subtotal,
+      tax: bodyData.tax,
+      total: bodyData.total,
+    }),
   });
 
   // Get the PDF data as an ArrayBuffer
@@ -497,21 +307,8 @@ export async function PATCH(
   const uploadResponse = await utapi.uploadFiles(file);
 
   if (!uploadResponse) {
-    await db.insert(logs).values({
-      logMessage: "upload res not ok",
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
     throw new Error(`Upload PDF Error`);
   }
-
-  await db.insert(logs).values({
-    logMessage: `after upload res check ${uploadResponse}`,
-    env: process.env.NODE_ENV,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
 
   // Insert pdf data
   try {
@@ -526,12 +323,6 @@ export async function PATCH(
       })
       .where(eq(pdfs.estimate_id, parseInt(params.estimate_id)));
   } catch (error: any) {
-    await db.insert(logs).values({
-      logMessage: `Error: ${error.message}`,
-      env: process.env.NODE_ENV,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
     return NextResponse.json({ error: error.message }, { status: 505 });
   }
 
