@@ -11,6 +11,8 @@ import { auth } from "../../../../../../../../../auth";
 import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
 
+export const runtime = "nodejs";
+
 export async function POST(
   request: NextRequest,
   {
