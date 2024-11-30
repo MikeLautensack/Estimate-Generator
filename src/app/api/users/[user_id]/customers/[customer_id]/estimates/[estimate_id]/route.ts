@@ -11,7 +11,7 @@ import { auth } from "../../../../../../../../../auth";
 import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 export const maxDuration = 60;
 
 export async function POST(
