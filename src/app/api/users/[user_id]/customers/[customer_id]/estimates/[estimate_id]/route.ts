@@ -159,6 +159,8 @@ export async function POST(
     throw new Error(`Upload PDF Error`);
   }
 
+  console.log("loging upload res", uploadResponse);
+
   // Insert pdf data
   try {
     await db.insert(pdfs).values({
@@ -173,7 +175,7 @@ export async function POST(
       updatedAt: new Date(),
     });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message }, { status: 503 });
   }
 
   // Create a new response with the PDF data
