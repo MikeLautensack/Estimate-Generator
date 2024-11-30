@@ -118,32 +118,26 @@ export async function POST(
   };
 
   // Call the HTML-to-PDF microservice
-  const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(pdfObj),
-  });
-
-  console.log(pdfObj);
-
-  if (!pdfResponse.ok) {
-    console.log("pdf debug");
+  let pdfData;
+  try {
+    const pdfGenApi =
+      process.env.PDF_GEN_API ||
+      "https://html-to-pdf-brf6achxccgteehq.eastus-01.azurewebsites.net/generate-estimate-pdf";
+    const pdfResponse = await fetch(pdfGenApi, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pdfObj),
+    });
+    // Get the PDF data as an ArrayBuffer
+    pdfData = await pdfResponse.arrayBuffer();
+  } catch (error: any) {
     console.log("pdf gen not succsessful");
     return NextResponse.json(
       { error: "pdf gen not succsessful" },
-      { status: 500 },
+      { status: 504 },
     );
-  }
-
-  // Get the PDF data as an ArrayBuffer
-  const pdfData = await pdfResponse.arrayBuffer();
-
-  if (!pdfResponse.ok) {
-    throw new Error(`HTTP error! status: ${pdfResponse.status}`);
-  } else {
-    console.log("pdf gen is successful", pdfResponse.status);
   }
 
   // Create a File object from the buffer
