@@ -96,35 +96,48 @@ export async function POST(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  const pdfObj = {
+    estimateName: bodyData.estimateName,
+    contractorName: bodyData.contractorName,
+    contractorAddress: bodyData.contractorAddress,
+    contractorPhone: bodyData.contractorPhone,
+    projectAddress: bodyData.projectAddress,
+    customerFirstName: bodyData.customerFirstName,
+    customerLastName: bodyData.customerLastName,
+    lineItems: bodyData.lineItems.map((item: any) => {
+      return {
+        amount: parseFloat(item.amount),
+        description: item.description,
+        item: item.item,
+        price: parseFloat(item.price),
+        quantity: parseFloat(item.quantity),
+        rateType: item.rateType,
+      };
+    }),
+    subtotal: parseFloat(bodyData.subtotal),
+    tax: parseFloat(bodyData.tax),
+    total: parseFloat(bodyData.total),
+  };
+
   // Call the HTML-to-PDF microservice
   const pdfResponse = await fetch(process.env.PDF_GEN_API!, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      estimateName: bodyData.estimateName,
-      contractorName: bodyData.contractorName,
-      contractorAddress: bodyData.contractorAddress,
-      contractorPhone: bodyData.contractorPhone,
-      projectAddress: bodyData.projectAddress,
-      customerFirstName: bodyData.customerFirstName,
-      customerLastName: bodyData.customerLastName,
-      lineItems: bodyData.lineItems.map((item: LineItems) => {
-        return {
-          amount: item.amount,
-          description: item.description,
-          item: item.item,
-          price: item.price,
-          quantity: item.quantity,
-          rateType: item.rateType,
-        };
-      }),
-      subtotal: bodyData.subtotal,
-      tax: bodyData.tax,
-      total: bodyData.total,
-    }),
+    body: JSON.stringify(pdfObj),
   });
+
+  console.log(pdfObj);
+
+  if (!pdfResponse.ok) {
+    console.log("pdf debug");
+    console.log("pdf gen not succsessful");
+    return NextResponse.json(
+      { error: "pdf gen not succsessful" },
+      { status: 500 },
+    );
+  }
 
   // Get the PDF data as an ArrayBuffer
   const pdfData = await pdfResponse.arrayBuffer();
@@ -278,7 +291,7 @@ export async function PATCH(
       projectAddress: bodyData.projectAddress,
       customerFirstName: bodyData.customerFirstName,
       customerLastName: bodyData.customerLastName,
-      lineItems: bodyData.lineItems.map((item: LineItems) => {
+      lineItems: lineItemsArr.map((item: LineItems) => {
         return {
           amount: item.amount,
           description: item.description,
@@ -288,11 +301,20 @@ export async function PATCH(
           rateType: item.rateType,
         };
       }),
-      subtotal: bodyData.subtotal,
-      tax: bodyData.tax,
-      total: bodyData.total,
+      subtotal: parseFloat(bodyData.subtotal),
+      tax: parseFloat(bodyData.tax),
+      total: parseFloat(bodyData.total),
     }),
   });
+
+  console.log(pdfResponse);
+
+  if (!pdfResponse.ok) {
+    return NextResponse.json(
+      { error: "pdf gen not succsessful" },
+      { status: 500 },
+    );
+  }
 
   // Get the PDF data as an ArrayBuffer
   const pdfData = await pdfResponse.arrayBuffer();
