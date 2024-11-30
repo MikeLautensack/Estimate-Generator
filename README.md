@@ -32,11 +32,17 @@ Before I became a web developer I owened a small residential home painting busin
 
 ## Quick Start
 
+Install deps with npm
+
+```
+npm i
+```
+
 To start a production build locally run...
 
 ```
 npm run build
-npm run startt
+npm run start
 ```
 
 To start the dev server run...
