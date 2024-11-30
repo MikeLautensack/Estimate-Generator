@@ -10,8 +10,6 @@ import { eq } from "drizzle-orm";
 import { auth } from "../../../../../../../../../auth";
 import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
-import { logs } from "@/db/schemas/logs";
-import LineItem from "@/components/misc/LineItem";
 
 export async function POST(
   request: NextRequest,
@@ -35,7 +33,7 @@ export async function POST(
     id: parseInt(params.estimate_id),
     contractor_user_id: params.user_id,
     customer_id: parseInt(params.customer_id),
-    customer_user_id: bodyData.customer_user_id.toString(),
+    customer_user_id: bodyData.customer_user_id,
     contractorAddress: bodyData.contractorAddress,
     contractorAddress2: bodyData.contractorAddress2,
     contractorCity: bodyData.contractorCity,
@@ -169,7 +167,7 @@ export async function POST(
       estimate_id: parseInt(params.estimate_id),
       fileKey: uploadResponse.data?.key,
       fileUrl: uploadResponse.data?.url,
-      fileSize: uploadResponse.data?.size.toString(),
+      fileSize: uploadResponse.data?.size?.toString(),
       fileName: uploadResponse.data?.name,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -339,7 +337,7 @@ export async function PATCH(
       .set({
         fileKey: uploadResponse.data?.key,
         fileUrl: uploadResponse.data?.url,
-        fileSize: uploadResponse.data?.size.toString(),
+        fileSize: uploadResponse.data?.size?.toString(),
         fileName: uploadResponse.data?.name,
         updatedAt: new Date(),
       })
