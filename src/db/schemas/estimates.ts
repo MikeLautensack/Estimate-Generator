@@ -5,17 +5,18 @@ import {
   timestamp,
   real,
   integer,
-  text,
+  uuid,
 } from "drizzle-orm/pg-core";
 import { users } from "./auth";
 import { relations } from "drizzle-orm";
 import { customers } from "./customers";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const estimates = pgTable("estimates", {
-  id: bigint("id", { mode: "number" }).notNull().primaryKey(),
-  contractor_user_id: text("contractor_user_id"),
-  customer_id: bigint("customer_id", { mode: "number" }),
-  customer_user_id: text("customer_user_id"),
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  contractor_user_id: uuid("contractor_user_id"),
+  customer_id: uuid("customer_id"),
+  customer_user_id: uuid("customer_user_id"),
   contractorAddress: varchar("contractor_address", { length: 255 }),
   contractorAddress2: varchar("contractor_address2", { length: 255 }),
   contractorCity: varchar("contractor_city", { length: 255 }),
@@ -47,6 +48,14 @@ export const estimates = pgTable("estimates", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   deletedAt: timestamp("deleted_at"),
 });
+
+export type EstimatesInsert = typeof estimates.$inferInsert;
+export type EstimatesSelect = typeof estimates.$inferSelect;
+
+// Zod schema for inserting a estimate - can be used to validate API requests
+export const insertEstimateSchema = createInsertSchema(estimates);
+// Zod schema for selecting a estimate - can be used to validate API responses
+export const selectEstimateSchema = createSelectSchema(estimates);
 
 export const userEstimateRelationship = relations(estimates, ({ one }) => ({
   author: one(users, {
@@ -83,8 +92,8 @@ export const lineItemEstimateRelationship = relations(
 );
 
 export const lineItems = pgTable("lineItems", {
-  id: bigint("id", { mode: "number" }).notNull().primaryKey(),
-  estimate_id: bigint("estimate_id", { mode: "number" }),
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  estimate_id: uuid("estimate_id"),
   amount: real("amount").default(10.1),
   description: varchar("description", { length: 255 }),
   item: varchar("item", { length: 255 }),
@@ -95,6 +104,14 @@ export const lineItems = pgTable("lineItems", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   deletedAt: timestamp("deleted_at"),
 });
+
+export type LineItemsInsert = typeof lineItems.$inferInsert;
+export type LineItemsSelect = typeof lineItems.$inferSelect;
+
+// Zod schema for inserting a estimate - can be used to validate API requests
+export const insertLineItemsSchema = createInsertSchema(lineItems);
+// Zod schema for selecting a estimate - can be used to validate API responses
+export const selectLineItemsSchema = createSelectSchema(lineItems);
 
 export const estimateLineItemRelationship = relations(lineItems, ({ one }) => ({
   author: one(estimates, {

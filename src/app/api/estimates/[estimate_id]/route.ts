@@ -1,24 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  estimates,
-  lineItems,
-} from "../../../../../../../../db/schemas/estimates";
-import { db } from "../../../../../../../../db";
 import { LineItems } from "@/types/estimates";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { eq } from "drizzle-orm";
-import { auth } from "../../../../../../../../../auth";
 import { UTApi } from "uploadthing/server";
 import { pdfs } from "@/db/schemas/pdf";
+import { db } from "@/db";
+import { auth } from "../../../../../auth";
+import { estimates, lineItems } from "@/db/schemas/estimates";
 
 export const runtime = "edge";
 export const maxDuration = 60;
 
 export async function POST(
   request: NextRequest,
-  {
-    params,
-  }: { params: { user_id: string; customer_id: string; estimate_id: string } },
+  { params }: { params: { estimate_id: string } },
 ) {
   // Get request body data
   const bodyData = await request.json();

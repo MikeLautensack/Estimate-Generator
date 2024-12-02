@@ -1,4 +1,3 @@
-import { ColumnDef, Table } from "@tanstack/react-table";
 import { Dispatch } from "react";
 import { ChangeOrder } from "./changeOrders";
 import React from "react";
@@ -60,19 +59,10 @@ export type SmallStatCardProps = {
   data: string;
 };
 
-export type TableProps<TData, TValue> = {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-};
-
 export type ChangeOrderRequestsTableProps = {
   data: ChangeOrder[];
   setId: React.Dispatch<React.SetStateAction<number | null>>;
   id: number;
-};
-
-export type DataTablePaginationProps<TData> = {
-  table: Table<TData>;
 };
 
 export type lineItem = {
@@ -104,3 +94,5 @@ export type chartArray = {
 export type EstimatePriceChartProps = {
   chartArray: { name: string; meanTotal: number }[];
 };
+
+export type HTTPMethods = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";

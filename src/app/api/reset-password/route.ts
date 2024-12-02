@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../../db";
-import { profiles } from "../../../../../db/schemas/userProfile";
 import { Session } from "next-auth";
-import authConfig from "../../../../../../auth.config";
 import { Profile } from "@/types/profile";
 
 export async function POST(request: NextRequest) {

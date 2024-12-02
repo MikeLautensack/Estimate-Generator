@@ -1,8 +1,9 @@
-import { pgTable, varchar, bigint, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, varchar, timestamp, uuid } from "drizzle-orm/pg-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const profiles = pgTable("profiles", {
-  id: bigint("id", { mode: "number" }).notNull().primaryKey(),
-  user_id: varchar("user_id").notNull(),
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  user_id: uuid("user_id").notNull(),
   profileImgKey: varchar("profile_img_key", { length: 255 }),
   profileImgUrl: varchar("profile_img_url", { length: 255 }),
   businessAddress: varchar("business_address", { length: 255 }).notNull(),
@@ -17,3 +18,11 @@ export const profiles = pgTable("profiles", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   deletedAt: timestamp("deleted_at"),
 });
+
+export type ProfileInsert = typeof profiles.$inferInsert;
+export type ProfileSelect = typeof profiles.$inferSelect;
+
+// Zod schema for inserting a estimate - can be used to validate API requests
+export const insertProfilesSchema = createInsertSchema(profiles);
+// Zod schema for selecting a estimate - can be used to validate API responses
+export const selectProfilesSchema = createSelectSchema(profiles);

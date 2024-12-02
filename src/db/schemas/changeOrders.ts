@@ -1,13 +1,14 @@
 import { relations } from "drizzle-orm";
-import { pgTable, varchar, bigint, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, varchar, timestamp, uuid } from "drizzle-orm/pg-core";
 import { users } from "./auth";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const changeOrders = pgTable("changeOrders", {
-  id: bigint("id", { mode: "number" }).notNull().primaryKey(),
-  contractor_user_id: bigint("contractor_user_id", { mode: "number" }),
-  customer_user_id: bigint("customer_user_id", { mode: "number" }),
-  customer_id: bigint("customer_id", { mode: "number" }),
-  estimate_id: bigint("estimate_id", { mode: "number" }),
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  contractor_user_id: uuid("contractor_user_id"),
+  customer_user_id: uuid("customer_user_id"),
+  customer_id: uuid("customer_id"),
+  estimate_id: uuid("estimate_id"),
   changeOrderName: varchar("change_order_name", { length: 255 }),
   customerName: varchar("customer_name", { length: 255 }),
   description: varchar("description", { length: 255 }),
@@ -18,6 +19,14 @@ export const changeOrders = pgTable("changeOrders", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   deletedAt: timestamp("deleted_at"),
 });
+
+export type ChangeOrdersInsert = typeof changeOrders.$inferInsert;
+export type ChangeOrdersSelect = typeof changeOrders.$inferSelect;
+
+// Zod schema for inserting a estimate - can be used to validate API requests
+export const insertChangeOrdersSchema = createInsertSchema(changeOrders);
+// Zod schema for selecting a estimate - can be used to validate API responses
+export const selectChangeOrdersSchema = createSelectSchema(changeOrders);
 
 export const customerUserRelationship = relations(changeOrders, ({ one }) => ({
   author: one(users, {
