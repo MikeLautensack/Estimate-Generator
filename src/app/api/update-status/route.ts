@@ -3,13 +3,11 @@ import { estimates, lineItems } from "@/db/schemas/estimates";
 import { Estimates, LineItems } from "@/types/estimates";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "../../../../../../../../../../auth";
+import { auth } from "../../../../auth";
 
 export async function PATCH(
   request: NextRequest,
-  {
-    params,
-  }: { params: { user_id: string; customer_id: string; estimate_id: string } },
+  { params }: { params: { estimate_id: string } },
 ) {
   // Get request body data
   const bodyData = (await request.json()) as Estimates;

@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
-import { db } from "../../../../../../../../../../db";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { ChangeOrder } from "@/types/changeOrders";
-import { auth } from "../../../../../../../../../../../auth";
+import { auth } from "../../../../../auth";
+import { db } from "@/db";
 
 export async function POST(
   request: NextRequest,

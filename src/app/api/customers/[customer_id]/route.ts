@@ -1,18 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { customers } from "../../../../../../db/schemas/customers";
-import { db } from "../../../../../../db";
-import { Customers } from "@/types/customers";
 import { eq } from "drizzle-orm";
-import { auth } from "../../../../../../../auth";
 import { users } from "@/db/schemas/auth";
+import { auth } from "../../../../../auth";
+import { db } from "@/db";
+import { customers, CustomersInsert } from "@/db/schemas/customers";
+import CustomerService from "@/services/CustomerService";
+import { fetchData } from "@/utils/fetch";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { user_id: string; customer_id: string } },
+  { params }: { params: { customer_id: string } },
 ) {
-  // Get request body data
-  const bodyData = (await request.json()) as Customers;
-
   // Get session
   const session = await auth();
 
@@ -21,25 +19,9 @@ export async function POST(
     return NextResponse.json({ error: "No session" }, { status: 401 });
   }
 
-  // Create customer
-  const customer = {
-    id: parseInt(params.customer_id),
-    contractor_user_id: parseInt(params.user_id),
-    customer_user_id: bodyData.customer_user_id,
-    address: bodyData.address,
-    address2: bodyData.address2,
-    city: bodyData.city,
-    state: bodyData.state,
-    zip: bodyData.zip,
-    email: bodyData.email,
-    firstName: bodyData.firstName,
-    lastName: bodyData.lastName,
-    phone: bodyData.phone,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
+  // Validate Request Data
+  const customer = await CustomerService.validateInsertRequest(request);
 
-  // Create customer user request options object
   const createCustomerUserReqOptions = {
     method: "POST",
     headers: {
@@ -54,23 +36,33 @@ export async function POST(
   };
 
   try {
+    // Insert Customer Data
     await db.insert(customers).values(customer);
-    const createCustomerUserRes = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}api/users/${bodyData.customer_user_id}`,
-      createCustomerUserReqOptions,
-    );
-    const customerUser = await createCustomerUserRes.json();
-    return NextResponse.json(
-      {
-        message: "Customer successfully created",
-        customer: customer,
-        customerUser: customerUser.user,
-      },
-      { status: 200 },
-    );
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  let customerUser;
+  try {
+    // Call the create user endpoint to create a user with customer role for the new customer
+    const res = await fetchData(
+      `${process.env.NEXT_PUBLIC_HOST}api/users/${customer.customer_user_id}`,
+      "POST",
+    );
+    customerUser = await res.json();
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Send Response
+  return NextResponse.json(
+    {
+      message: "Customer successfully created",
+      customer: customer,
+      customerUser: customerUser.user,
+    },
+    { status: 200 },
+  );
 }
 
 export async function PATCH(

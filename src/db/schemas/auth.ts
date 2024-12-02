@@ -10,11 +10,13 @@ import {
   text,
   primaryKey,
   integer,
+  uuid,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const users = pgTable("user", {
-  id: text("id").notNull().primaryKey(),
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
   name: text("name"),
   email: text("email").notNull(),
   password: text("password").notNull(),
@@ -26,6 +28,14 @@ export const users = pgTable("user", {
   updatedAt: timestamp("updated_at", { mode: "date" }),
   deletedAt: timestamp("deleted_at", { mode: "date" }),
 });
+
+export type UsersInsert = typeof users.$inferInsert;
+export type UsersSelect = typeof users.$inferSelect;
+
+// Zod schema for inserting a estimate - can be used to validate API requests
+export const insertUserSchema = createInsertSchema(users);
+// Zod schema for selecting a estimate - can be used to validate API responses
+export const selectUserSchema = createSelectSchema(users);
 
 export const userProfileRelationship = relations(users, ({ one }) => ({
   profile: one(profiles, {

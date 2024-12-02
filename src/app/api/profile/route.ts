@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../../db";
 import { eq } from "drizzle-orm";
-import { profiles } from "../../../../../db/schemas/userProfile";
 import { Profile } from "@/types/profile";
-import { auth } from "../../../../../../auth";
+import { auth } from "../../../../auth";
+import { db } from "@/db";
+import { profiles } from "@/db/schemas/userProfile";
 
 export async function POST(
   request: NextRequest,

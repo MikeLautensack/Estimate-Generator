@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../../db";
 import { eq } from "drizzle-orm";
 import { users } from "@/db/schemas/auth";
 import { Users } from "@/types/users";
 import { generateValidationToken } from "@/utils/generateValidationToken";
 import { Resend } from "resend";
+import { db } from "@/db";
 
 export async function POST(request: NextRequest) {
   // Get email from request body
