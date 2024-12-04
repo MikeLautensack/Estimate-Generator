@@ -5,36 +5,20 @@ import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import { Users } from "@/types/users";
 import { auth } from "../../../../../auth";
+import UserService from "@/services/UserService";
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { user_id: string } },
 ) {
-  // Get request body data
-  const bodyData = (await request.json()) as Users;
-
-  // Check to make sure the bodyData has all the neccassary data
-  if (
-    !bodyData.name ||
-    !bodyData.email ||
-    !bodyData.password ||
-    !bodyData.role
-  ) {
-    return NextResponse.json(
-      {
-        error: "Body data is missing fields",
-        bodyData: bodyData,
-      },
-      { status: 400 },
-    );
-  }
+  const user = await UserService.validateInsertRequest(request);
 
   // Check to see if a user with the same email exists
   try {
     const existingUser = await db
       .select()
       .from(users)
-      .where(eq(users.email, bodyData.email))
+      .where(eq(users.email, user.email))
       .limit(1);
 
     if (existingUser.length > 0) {

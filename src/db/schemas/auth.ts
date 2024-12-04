@@ -19,7 +19,7 @@ export const users = pgTable("user", {
   id: uuid("id").defaultRandom().notNull().primaryKey(),
   name: text("name"),
   email: text("email").notNull(),
-  password: text("password").notNull(),
+  password: text("password"),
   role: text("role").notNull(),
   newUser: boolean("new_user").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),

@@ -22,19 +22,6 @@ export async function POST(
   // Validate Request Data
   const customer = await CustomerService.validateInsertRequest(request);
 
-  const createCustomerUserReqOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: `${bodyData.firstName} ${bodyData.lastName}`,
-      email: bodyData.email,
-      password: `${params.customer_id}${params.user_id}`,
-      role: "customer",
-    }),
-  };
-
   try {
     // Insert Customer Data
     await db.insert(customers).values(customer);
@@ -48,8 +35,13 @@ export async function POST(
     const res = await fetchData(
       `${process.env.NEXT_PUBLIC_HOST}api/users/${customer.customer_user_id}`,
       "POST",
+      {
+        email: customer.email,
+        role: "customer",
+        newUser: true,
+      },
     );
-    customerUser = await res.json();
+    customerUser = res;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
@@ -59,7 +51,7 @@ export async function POST(
     {
       message: "Customer successfully created",
       customer: customer,
-      customerUser: customerUser.user,
+      customerUser: customerUser,
     },
     { status: 200 },
   );
@@ -70,7 +62,7 @@ export async function PATCH(
   { params }: { params: { user_id: string; customer_id: string } },
 ) {
   // Get request body data
-  const bodyData = (await request.json()) as Customers;
+  const bodyData = await request.json();
 
   // Get session
   const session = await auth();
