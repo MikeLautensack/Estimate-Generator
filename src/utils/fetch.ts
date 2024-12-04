@@ -7,8 +7,8 @@ const defaultHeaders = {
 export const fetchData = async <T = Response>(
   route: string,
   method: HTTPMethods,
-  headers: any = defaultHeaders,
   body?: any,
+  headers: any = defaultHeaders,
 ): Promise<T> => {
   const res = await fetch(route, {
     method,
