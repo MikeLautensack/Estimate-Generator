@@ -29,8 +29,6 @@ const SignInForm = () => {
     },
   });
 
-  console.log("debugging customer form validation", methods.formState.errors);
-
   // Search params
   const searchParams = useSearchParams();
 
