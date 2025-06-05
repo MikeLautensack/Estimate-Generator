@@ -10,7 +10,7 @@ import { z } from "zod";
 import Divider from "@mui/material/Divider";
 import { SubmitHandler } from "react-hook-form";
 import { LoginFormValues } from "@/types/types";
-import { signIn } from "next-auth/react";
+import { signIn } from "../../../supabase/client";
 
 const SignInFormSchema = z.object({
   email: z.string().min(1, { message: "Email is required" }).email(),
@@ -51,12 +51,7 @@ const SignInForm = () => {
   // Callbacks
   const onSubmit: SubmitHandler<LoginFormValues> = useCallback(async (data) => {
     setLoading("loading");
-    const res = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: true,
-      callbackUrl: `${process.env.NEXT_PUBLIC_HOST}api/redirect`,
-    });
+    const res = await signIn(data.email, data.password);
     setLoading("");
   }, []);
 

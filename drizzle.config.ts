@@ -1,13 +1,14 @@
-import type { Config } from "drizzle-kit";
-import * as dotenv from "dotenv"
+import { config } from 'dotenv';
+import { defineConfig } from 'drizzle-kit';
 
-dotenv.config({ path: ".env.local"})
+config({ path: '.env.local' });
 
-export default {
+export default defineConfig({
   schema: "./src/db/schemas/*",
   out: "./src/db/drizzle",
-  driver: "pg",
+  dialect: 'postgresql',
+  schemaFilter: ["public"],
   dbCredentials: {
-    connectionString: process.env.NEON_DB!,
+    url: process.env.SUPABASE_CONNECTION_STRING!,
   },
-} satisfies Config;
+});

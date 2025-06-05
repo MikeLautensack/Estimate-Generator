@@ -1,9 +1,5 @@
-import { drizzle } from "drizzle-orm/neon-http";
-import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 
-// create the connection
-const sql = neon(process.env.NEON_DB!);
-const db = drizzle(sql);
-export type DbClient = typeof db;
-
-export { db };
+const client = postgres(process.env.SUPABASE_CONNECTION_STRING!);
+export const db = drizzle({ client });

@@ -8,7 +8,6 @@ import { db } from "@/db";
 import { auth } from "../../../../../auth";
 import { estimates, lineItems } from "@/db/schemas/estimates";
 
-export const runtime = "edge";
 export const maxDuration = 60;
 
 export async function POST(

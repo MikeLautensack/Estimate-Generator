@@ -1,14 +1,9 @@
-import { signIn } from "next-auth/react";
+import { signIn } from "../../supabase/client";
 
 export const sendAuthEmail = async (
   email: string,
   callbackUrl: string,
   redirect: boolean,
 ) => {
-  const res = await signIn("resend", {
-    email: email,
-    callbackUrl: callbackUrl,
-    redirect: redirect,
-  });
-  return res;
+  throw new Error("Not implemented");
 };

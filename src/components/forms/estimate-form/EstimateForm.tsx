@@ -23,7 +23,6 @@ import EstimateFormButtons from "./EstimateFormButtons";
 import useGetCustomerUserId from "./hooks/useGetCustomerUserId";
 import { sendAuthEmail } from "@/utils/sendAuthEmail";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Session } from "next-auth";
 import { handlePdfDownload } from "@/utils/downloadPDF";
 
 export type EstimateFormProps = {
@@ -32,7 +31,7 @@ export type EstimateFormProps = {
   profile: Profile;
   changeOrders?: ChangeOrder[];
   mode: "new-estimate" | "update-estimate";
-  session: Session;
+  session: any;
 };
 
 const LineItemsSchema = z.object({

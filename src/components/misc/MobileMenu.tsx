@@ -4,18 +4,20 @@ import { Button, Drawer, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import SideBar from "./SideBar";
 import SideBarNav from "./SideBarNav";
-import { signOut } from "next-auth/react";
-import { Session } from "next-auth";
 import CustomerSideBarNav from "./CustomerSideBarNav";
+import { signOut } from "../../../supabase/client";
 
 type MobileMenuProps = {
-  session: Session;
+  session: any;
 };
 
 const MobileMenu = ({ session }: MobileMenuProps) => {
   const [open, setOpen] = useState(false);
+
+  const handleLogout = () => {
+    signOut();
+  };
 
   return (
     <Box component="div">
@@ -47,13 +49,7 @@ const MobileMenu = ({ session }: MobileMenuProps) => {
               session.user.role === "customer" && <CustomerSideBarNav />
             )}
           </div>
-          <Button
-            onClick={() =>
-              signOut({ callbackUrl: process.env.NEXT_PUBLIC_HOST })
-            }
-            variant="contained"
-            className="w-full"
-          >
+          <Button onClick={handleLogout} variant="contained" className="w-full">
             Sign Out
           </Button>
         </Box>

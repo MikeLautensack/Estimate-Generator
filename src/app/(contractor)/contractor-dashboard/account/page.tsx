@@ -1,10 +1,8 @@
 import { db } from "@/db";
 import { users } from "@/db/schemas/auth";
 import { Card, Divider, Typography } from "@mui/material";
-import { Session } from "next-auth";
 import React from "react";
 import { eq } from "drizzle-orm";
-import { auth } from "../../../../../auth";
 import AccountForm from "@/components/forms/AccountForm";
 
 async function getData(session: Session) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut } from "next-auth/react";
+import { signOut } from "../../../supabase/client";
 import SideBarNav from "./SideBarNav";
 import { Box, Button, Typography } from "@mui/material";
 
@@ -25,10 +25,7 @@ const SideBar = () => {
         </Typography>
         <SideBarNav className="" />
       </div>
-      <Button
-        onClick={() => signOut({ callbackUrl: process.env.NEXT_PUBLIC_HOST })}
-        variant="contained"
-      >
+      <Button onClick={() => signOut()} variant="contained">
         Sign Out
       </Button>
     </Box>

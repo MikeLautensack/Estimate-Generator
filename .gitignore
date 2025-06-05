@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Build / Next.js caches
+.react-email/.next/
+.react-email/.next/cache/
+*.pack

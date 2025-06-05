@@ -5,7 +5,6 @@ import { Roboto } from "next/font/google";
 import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ThemeProviderWrapper from "@/contexts/ThemeProviderWrapper";
-import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
@@ -30,9 +29,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={roboto.className}>
+    <html
+      lang="en"
+      className={`${roboto.className} antialiased`}
+      suppressHydrationWarning
+    >
       <body className="min-h-screen">
-        <InitColorSchemeScript attribute="class" />
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <AppRouterCacheProvider>
           <ThemeProviderWrapper>

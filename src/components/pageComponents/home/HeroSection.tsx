@@ -1,12 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
-// import ThreeDLogo from "../../misc/ThreeDLogo";
 import Link from "next/link";
 import { FaAnglesDown } from "react-icons/fa6";
-import { Model } from "@/components/models/Worker";
 import { Button, Typography } from "@mui/material";
+import dynamic from "next/dynamic";
+
+const Scene3D = dynamic(() => import("./Scene3D"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-[300px] h-[300px] flex items-center justify-center">
+      Loading 3D Scene...
+    </div>
+  ),
+});
 
 export default function HeroSection() {
   return (
@@ -60,19 +67,15 @@ export default function HeroSection() {
         {/**
          * Scene
          */}
-        <motion.div
+        {/* <motion.div
           id="canvas-container"
           className="flex w-full h-1/2 mx-auto max-h-[calc(100vh-52px)] desktop:absolute"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ ease: "easeOut", delay: 1, duration: 2 }}
         >
-          <Canvas id="canvas" className="w-[300px] bg-transparent">
-            <ambientLight intensity={4.5} />
-            <directionalLight position={[-2, 5, 2]} intensity={1} />
-            <Model scale={1.8} />
-          </Canvas>
-        </motion.div>
+          <Scene3D />
+        </motion.div> */}
 
         {/**
          * Animated down arrow

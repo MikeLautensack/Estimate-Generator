@@ -1,25 +1,15 @@
 import React from "react";
 import Heading from "./Heading";
-import { auth } from "../../../auth";
 import Box from "@mui/material/Box";
 import HeaderNavContainer from "./HeaderNavContainer";
-import { Session } from "next-auth";
-import { db } from "@/db";
-import { profiles } from "@/db/schemas/userProfile";
-import { eq } from "drizzle-orm";
-
-const getProfile = async (session: Session) => {
-  const res = await db
-    .select()
-    .from(profiles)
-    .where(eq(profiles.user_id, session?.user?.id));
-  return res;
-};
+import DIContainer from "@/core/DIContainer";
+import { cookies } from "next/headers";
 
 const Header = async () => {
   // Get session
-  const session = await auth();
-  const profile = await getProfile(session!);
+  const cookie = await cookies();
+  const session = await DIContainer.authUseCases.getSession(cookie);
+  // const profile = await getProfile(session!);
 
   return (
     <Box
@@ -32,7 +22,7 @@ const Header = async () => {
       }}
     >
       <Heading session={session!} />
-      <HeaderNavContainer session={session!} profile={profile} />
+      <HeaderNavContainer session={session!} profile={[]} />
     </Box>
   );
 };
