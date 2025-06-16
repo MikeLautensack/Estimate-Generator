@@ -1,8 +1,10 @@
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { NextRequest, NextResponse } from "next/server";
 
 export interface IAuthUseCases {
-  getServerClient(cookies: ReadonlyRequestCookies): Promise<SupabaseClient>;
-  getSession(cookies: ReadonlyRequestCookies): Promise<any>;
-  getUser(cookies: ReadonlyRequestCookies): Promise<any>;
+  getServerClient(): Promise<SupabaseClient>;
+  getSession(): Promise<any>;
+  getUser(): Promise<any>;
+  updateSession(request: NextRequest): Promise<NextResponse>;
 }

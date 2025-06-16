@@ -1,34 +1,34 @@
 import { db } from "@/db";
-import { customers } from "@/db/schemas/customers";
+import { contractorsCustomers } from "@/db/schemas/customers";
 import { profiles } from "@/db/schemas/userProfile";
 import { eq } from "drizzle-orm";
-import { auth } from "../../../../../../auth";
 import { Typography } from "@mui/material";
 import EstimateForm from "@/components/forms/estimate-form/EstimateForm";
-import { Session } from "next-auth";
 import { generateNumericId } from "@/utils/generateRandom";
+import DIContainer from "@/core/DIContainer";
+import { redirect } from "next/navigation";
 
-async function getCustomers(session: Session) {
+async function getCustomers(data: any) {
   const res = await db
     .select()
-    .from(customers)
-    .where(eq(customers.contractor_user_id, session?.user.id));
+    .from(contractorsCustomers)
+    .where(eq(contractorsCustomers.contractor_user_id, data?.user.id));
   return res;
 }
 
-async function getProfile() {
-  const session = await auth();
+async function getProfile(data: any) {
   const res = await db
     .select()
     .from(profiles)
-    .where(eq(profiles.user_id, session?.user.id));
+    .where(eq(profiles.user_id, data?.user.id));
   return res;
 }
 
 const Page = async () => {
-  const session = await auth();
-  const customers = await getCustomers(session!);
-  const profile = await getProfile();
+  const { data, error } = await DIContainer.authUseCases.getUser();
+  if (error || !data) redirect("/signin");
+  const customers = await getCustomers(data!);
+  const profile = await getProfile(data);
 
   const newEstimateId = generateNumericId();
   const newLineItemId = generateNumericId();
@@ -84,12 +84,12 @@ const Page = async () => {
             status: "new-estimate",
             customer_id: "",
             customer_user_id: "",
-            contractor_user_id: session?.user.id,
+            contractor_user_id: data?.user.id,
           }}
           customers={customers}
           profile={profile[0]}
           mode="new-estimate"
-          session={session!}
+          data={data!}
         />
       </div>
     </main>

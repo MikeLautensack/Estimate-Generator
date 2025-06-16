@@ -1,7 +1,6 @@
 import "../globals.css";
 import React from "react";
 import SideBar from "../../components/misc/SideBar";
-import { Box } from "@mui/material";
 
 export default function ContractorLayout({
   children,

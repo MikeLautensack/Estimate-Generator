@@ -3,14 +3,13 @@ import AccountMenu from "./AccountMenu";
 import DarkModeSwitch from "./DarkModeSwitch";
 import { Box } from "@mui/system";
 import MobileMenu from "./MobileMenu";
-import { Session } from "next-auth";
 
 type UserNavProps = {
-  session: Session;
+  data: any;
   profile: any;
 };
 
-const UserNav = ({ session, profile }: UserNavProps) => {
+const UserNav = ({ data, profile }: UserNavProps) => {
   return (
     <div
       id="contractor-dashboard-nav"
@@ -27,8 +26,8 @@ const UserNav = ({ session, profile }: UserNavProps) => {
         }}
       >
         {/* <NotificationsMenu /> */}
-        {session.user?.role === "contractor" && session && (
-          <AccountMenu session={session} profile={profile} />
+        {data.user?.role === "contractor" && data && (
+          <AccountMenu session={data} profile={profile} />
         )}
         <DarkModeSwitch />
       </Box>
@@ -42,7 +41,7 @@ const UserNav = ({ session, profile }: UserNavProps) => {
           },
         }}
       >
-        <MobileMenu session={session} />
+        <MobileMenu data={data} />
       </Box>
     </div>
   );

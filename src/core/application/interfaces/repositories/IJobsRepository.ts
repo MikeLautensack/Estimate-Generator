@@ -1,17 +1,14 @@
 import { JobsInsert, JobsSelect } from "@/db/schemas/jobs";
 
 export interface IJobsRepository {
-  getAllJobsQuery(): Promise<JobsSelect[]>;
-  getJobByIdQuery(id: string): Promise<JobsSelect>;
-  getJobsByContractorUserIdQuery(
-    userId: string,
-    limit: number,
+  getJobs(
+    id: string,
+    page: string,
+    size: string,
+    filters?: Record<string, string>,
   ): Promise<JobsSelect[]>;
-  getJobsByCustomerUserIdQuery(
-    userId: string,
-    limit: number,
-  ): Promise<JobsSelect[]>;
-  createJobQuery(job: JobsInsert): Promise<void>;
-  updateJobQuery(id: string, job: JobsInsert): Promise<void>;
-  deleteJobQuery(id: string): Promise<void>;
+  getJobById(id: string): Promise<JobsSelect>;
+  createJob(job: JobsInsert): Promise<void>;
+  updateJob(id: string, job: JobsInsert): Promise<void>;
+  deleteJob(id: string): Promise<void>;
 }

@@ -1,12 +1,13 @@
 import { db } from "../../../../../db";
 import { customers } from "../../../../../db/schemas/customers";
 import { eq } from "drizzle-orm";
-import { columns } from "@/components/tables/contractorTables/estimatesTable/columns";
 import { estimates } from "@/db/schemas/estimates";
 import { formatPhoneNumber } from "../../../../../utils/formatingFunctions";
 import { Estimates } from "@/types/estimates";
 import { Typography } from "@mui/material";
 import CustomersEstimatesTable from "@/components/tables/contractorTables/customersEstimatesTable/CustomersEstimatesTable";
+import DIContainer from "@/core/DIContainer";
+import { redirect } from "next/navigation";
 
 async function getCustomer(id: number) {
   const res = await db.select().from(customers).where(eq(customers.id, id));
@@ -22,6 +23,8 @@ async function getEstimates(id: number) {
 }
 
 const Page = async ({ params }: { params: { id: string } }) => {
+  const { data, error } = await DIContainer.authUseCases.getUser();
+  if (error || !data) redirect("/signin");
   const customer = await getCustomer(parseInt(params.id));
   const estimates = (await getEstimates(parseInt(params.id))) as Estimates[];
 

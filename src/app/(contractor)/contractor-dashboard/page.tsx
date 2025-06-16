@@ -16,6 +16,7 @@ import EstimateStatusChart from "@/components/charts/EstimateStatusChart";
 import RevenueChart from "@/components/charts/revenue-chart/RevenueChart";
 import DIContainer from "@/core/DIContainer";
 import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
 
 // async function getEstimates(session: Session) {
 //   try {
@@ -54,11 +55,8 @@ import { cookies } from "next/headers";
 // }
 
 const Page = async () => {
-  const cookieStore = await cookies();
-  console.log("Cookie Store:", cookieStore);
-  const session = await DIContainer.authUseCases.getSession(cookieStore);
-  console.log("Session:", session);
-  // if (!session) return redirect("/signin");
+  const { data, error } = await DIContainer.authUseCases.getUser();
+  if (error || !data) redirect("/signin");
 
   // const estimates = await getEstimates(session);
   // const customers = await getCustomers(session);

@@ -21,10 +21,12 @@ import { generateNumericId } from "@/utils/generateRandom";
 import MVLPhoneNumber from "../inputs/MVLPhoneNumber";
 import EstimateFormModes from "./EstimateFormModes";
 import MVLAddressInput from "../inputs/MVLAddressInput";
+import { CustomersSelect } from "@/db/schemas/customers";
+import { ProfileSelect } from "@/db/schemas/userProfile";
 
 export type EstimateFormPartTwoProps = {
-  customers: Customers[];
-  profile: Profile;
+  customers: CustomersSelect[];
+  profile: ProfileSelect;
   fields: LineItemsValues[];
   prepend: (obj: LineItemsValues) => void;
   remove: (index?: number | number[]) => void;

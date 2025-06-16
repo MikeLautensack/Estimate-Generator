@@ -6,13 +6,12 @@ import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import SideBarNav from "./SideBarNav";
 import CustomerSideBarNav from "./CustomerSideBarNav";
-import { signOut } from "../../../supabase/client";
-
+import { signOut } from "@/utils/supabase/client";
 type MobileMenuProps = {
-  session: any;
+  data: any;
 };
 
-const MobileMenu = ({ session }: MobileMenuProps) => {
+const MobileMenu = ({ data }: MobileMenuProps) => {
   const [open, setOpen] = useState(false);
 
   const handleLogout = () => {
@@ -43,10 +42,10 @@ const MobileMenu = ({ session }: MobileMenuProps) => {
             <Typography color="primary" className="">
               Estimate Generator
             </Typography>
-            {session.user.role === "contractor" ? (
+            {data.user.role === "contractor" ? (
               <SideBarNav className="" />
             ) : (
-              session.user.role === "customer" && <CustomerSideBarNav />
+              data.user.role === "customer" && <CustomerSideBarNav />
             )}
           </div>
           <Button onClick={handleLogout} variant="contained" className="w-full">

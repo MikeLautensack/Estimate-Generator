@@ -1,17 +1,16 @@
 "use client";
 
-import { Session } from "next-auth";
 import React, { useEffect, useState } from "react";
 import UserNav from "./UserNav";
 import HomeHeaderNav from "./HomeHeaderNav";
 import { usePathname } from "next/navigation";
 
 type HeaderNavContainerProps = {
-  session: Session;
+  data: any;
   profile: any;
 };
 
-const HeaderNavContainer = ({ session, profile }: HeaderNavContainerProps) => {
+const HeaderNavContainer = ({ data, profile }: HeaderNavContainerProps) => {
   // Hooks
   const pathname = usePathname();
 
@@ -21,16 +20,16 @@ const HeaderNavContainer = ({ session, profile }: HeaderNavContainerProps) => {
   // Effects
   useEffect(() => {
     if (
-      !session ||
+      !data ||
       pathname === "/" ||
       pathname === "/signin" ||
       pathname === "/signup"
     ) {
       setNav(<HomeHeaderNav />);
     } else {
-      setNav(<UserNav session={session} profile={profile} />);
+      setNav(<UserNav data={data} profile={profile} />);
     }
-  }, [session, pathname, profile]);
+  }, [data, pathname, profile]);
 
   return <div>{nav}</div>;
 };

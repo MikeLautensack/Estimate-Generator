@@ -1,63 +1,63 @@
 import { JobsInsert, JobsSelect } from "@/db/schemas/jobs";
 import { IJobsRepository } from "../interfaces/repositories/IJobsRepository";
 import { IJobsUseCases } from "../interfaces/use-cases/IJobsUseCases";
-import { UserRole } from "@/db/schemas/auth";
 
 export class JobsUseCases implements IJobsUseCases {
   constructor(private readonly jobsRepository: IJobsRepository) {}
 
-  async getJobs(): Promise<JobsSelect[]> {
-    return await this.jobsRepository.getAllJobsQuery();
-  }
-
   async getJobById(id: string): Promise<JobsSelect> {
-    return await this.jobsRepository.getJobByIdQuery(id);
+    return await this.jobsRepository.getJobById(id);
   }
 
-  async getJobsByContractorId(
-    contractorId: string,
-    limit: number,
+  async getContractorsJobs(
+    id: string,
+    page: string,
+    size: string,
   ): Promise<JobsSelect[]> {
-    return await this.jobsRepository.getJobsByContractorUserIdQuery(
-      contractorId,
-      limit,
-    );
+    return await this.jobsRepository.getJobs(id, page, size);
   }
 
-  async getJobsByCustomerId(
-    customerId: string,
-    limit: number,
+  async getContractorsActiveJobs(
+    id: string,
+    page: string,
+    size: string,
   ): Promise<JobsSelect[]> {
-    return await this.jobsRepository.getJobsByCustomerUserIdQuery(
-      customerId,
-      limit,
-    );
+    const filters = {
+      role: "contractor",
+      status: "active",
+    };
+    return await this.jobsRepository.getJobs(id, page, size, filters);
   }
 
-  async getJobsByUserRole(
-    userId: string,
-    role: UserRole,
-    limit: number,
+  async getContractorsPendingJobs(
+    id: string,
+    page: string,
+    size: string,
   ): Promise<JobsSelect[]> {
-    switch (role) {
-      case "contractor":
-        return await this.getJobsByContractorId(userId, limit);
-      case "customer":
-        return await this.getJobsByCustomerId(userId, limit);
-      default:
-        throw new Error(`Invalid user role: ${role}`);
-    }
+    const filters = {
+      role: "contractor",
+      status: "pending",
+    };
+    return await this.jobsRepository.getJobs(id, page, size, filters);
+  }
+
+  async getCustomersJobs(
+    id: string,
+    page: string,
+    size: string,
+  ): Promise<JobsSelect[]> {
+    throw new Error("method not implemented");
   }
 
   async createJob(job: JobsInsert): Promise<void> {
-    return await this.jobsRepository.createJobQuery(job);
+    return await this.jobsRepository.createJob(job);
   }
 
   async updateJob(id: string, job: JobsInsert): Promise<void> {
-    return await this.jobsRepository.updateJobQuery(id, job);
+    return await this.jobsRepository.updateJob(id, job);
   }
 
   async deleteJob(id: string): Promise<void> {
-    return await this.jobsRepository.deleteJobQuery(id);
+    return await this.jobsRepository.deleteJob(id);
   }
 }

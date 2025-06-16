@@ -1,8 +1,8 @@
-import { Customers } from "@/types/customers";
+import { CustomersSelect } from "@/db/schemas/customers";
 import { useEffect, useState } from "react";
 
 const useGetCustomerUserId = (
-  customers: Customers[],
+  customers: CustomersSelect[],
   customerFirstName: string,
   customerLastName: string,
 ) => {

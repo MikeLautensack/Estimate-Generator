@@ -2,17 +2,26 @@ import { JobsInsert, JobsSelect } from "@/db/schemas/jobs";
 import { UserRole } from "@/db/schemas/auth";
 
 export interface IJobsUseCases {
-  getJobs(): Promise<JobsSelect[]>;
   getJobById(id: string): Promise<JobsSelect>;
-  getJobsByContractorId(
-    contractorId: string,
-    limit: number,
+  getContractorsJobs(
+    id: string,
+    page: string,
+    size: string,
   ): Promise<JobsSelect[]>;
-  getJobsByCustomerId(customerId: string, limit: number): Promise<JobsSelect[]>;
-  getJobsByUserRole(
-    userId: string,
-    role: UserRole,
-    limit: number,
+  getContractorsActiveJobs(
+    id: string,
+    page: string,
+    size: string,
+  ): Promise<JobsSelect[]>;
+  getContractorsPendingJobs(
+    id: string,
+    page: string,
+    size: string,
+  ): Promise<JobsSelect[]>;
+  getCustomersJobs(
+    id: string,
+    page: string,
+    size: string,
   ): Promise<JobsSelect[]>;
   createJob(job: JobsInsert): Promise<void>;
   updateJob(id: string, job: JobsInsert): Promise<void>;

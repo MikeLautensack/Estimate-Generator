@@ -18,6 +18,7 @@ const SideBarNav = ({ ...props }) => {
   // Effects
   useEffect(() => {
     const routeMap = [
+      { baseRoute: "/contractor-dashboard/jobs", state: "jobs" },
       { baseRoute: "/contractor-dashboard/customers", state: "customers" },
       { baseRoute: "/contractor-dashboard/estimates", state: "estimates" },
       {
@@ -91,6 +92,20 @@ const SideBarNav = ({ ...props }) => {
           >
             <LuLayoutDashboard className="text-secondary500" />
             Dashboard
+          </Button>
+        </Link>
+        <Link
+          id="jobs-button"
+          href="/contractor-dashboard/jobs"
+          onClick={() => setSelected("jobs")}
+        >
+          <Button
+            variant={selected === "jobs" ? "contained" : "text"}
+            fullWidth
+            sx={{ justifyContent: "left", gap: ".5rem" }}
+          >
+            <LuLayoutDashboard className="text-secondary500" />
+            Jobs
           </Button>
         </Link>
         <Link

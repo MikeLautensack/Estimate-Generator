@@ -36,14 +36,14 @@ export const signOut = async () => {
   if (error) throw error;
 };
 
-export const getSession = async () => {
-  const {
-    data: { session },
-    error,
-  } = await supabase.auth.getSession();
-  if (error) throw error;
-  return session;
-};
+// export const getSession = async () => {
+//   const {
+//     data: { session },
+//     error,
+//   } = await supabase.auth.getSession();
+//   if (error) throw error;
+//   return session;
+// };
 
 export const getUser = async () => {
   const {
@@ -55,12 +55,25 @@ export const getUser = async () => {
 };
 
 export const signInWithGoogle = async () => {
+  const redirectTo = `${window.location.origin}/api/auth/callback`;
+  console.log("Redirecting to:", redirectTo);
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${window.location.origin}/api/auth/callback`,
+      redirectTo,
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
     },
   });
-  if (error) throw error;
+
+  if (error) {
+    console.error("Google sign in error:", error);
+    throw error;
+  }
+
+  console.log("Sign in response:", data);
   return data;
 };

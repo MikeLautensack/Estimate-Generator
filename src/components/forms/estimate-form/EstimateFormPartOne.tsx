@@ -8,9 +8,10 @@ import { Customers } from "@/types/customers";
 import { useCallback, useEffect, useState } from "react";
 import { Divider, Typography } from "@mui/material";
 import MVLAddressInput from "../inputs/MVLAddressInput";
+import { CustomersSelect } from "@/db/schemas/customers";
 
-const getCustomerOptions = (customers: Customers[]) => {
-  return customers.map((customer: Customers) => {
+const getCustomerOptions = (customers: CustomersSelect[]) => {
+  return customers.map((customer: CustomersSelect) => {
     return {
       label: `${customer.firstName} ${customer.lastName}`,
       id: customer.customer_user_id,
@@ -47,13 +48,16 @@ const EstimateFormPartOne = ({
   const customerUserId = useWatch({ control, name: "customer_user_id" });
 
   // Callbacks
-  const getCustomer = useCallback((customers: Customers[], name: string) => {
-    for (let i = 0; i < customers.length; i++) {
-      if (customers[i].customer_user_id === name) {
-        return customers[i];
+  const getCustomer = useCallback(
+    (customers: CustomersSelect[], name: string) => {
+      for (let i = 0; i < customers.length; i++) {
+        if (customers[i].customer_user_id === name) {
+          return customers[i];
+        }
       }
-    }
-  }, []);
+    },
+    [],
+  );
 
   // Effects
   useEffect(() => {

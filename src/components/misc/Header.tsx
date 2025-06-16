@@ -4,11 +4,11 @@ import Box from "@mui/material/Box";
 import HeaderNavContainer from "./HeaderNavContainer";
 import DIContainer from "@/core/DIContainer";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const Header = async () => {
-  // Get session
-  const cookie = await cookies();
-  const session = await DIContainer.authUseCases.getSession(cookie);
+  const { data, error } = await DIContainer.authUseCases.getUser();
+  if (error || !data) redirect("/signin");
   // const profile = await getProfile(session!);
 
   return (
@@ -21,8 +21,8 @@ const Header = async () => {
         borderColor: "outlineVariant",
       }}
     >
-      <Heading session={session!} />
-      <HeaderNavContainer session={session!} profile={[]} />
+      <Heading data={data!} />
+      <HeaderNavContainer data={data!} profile={[]} />
     </Box>
   );
 };

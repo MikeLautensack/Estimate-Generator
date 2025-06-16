@@ -1,32 +1,39 @@
 import { ISupabaseService } from "@/core/application/interfaces/services/ISupabaseService";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import { createClient } from "@supabase/supabase-js";
 import { createServerClient } from "@supabase/ssr";
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { redirect, RedirectType } from "next/navigation";
 
 export class SupabaseService implements ISupabaseService {
-  private supabaseUrl: string;
-  private supabaseAnonKey: string;
-
-  constructor() {
-    this.supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    this.supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+  private getAdminClient(): SupabaseClient {
+    return createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+        },
+      },
+    );
   }
 
-  async getServerClient(
-    cookies: ReadonlyRequestCookies,
-  ): Promise<SupabaseClient> {
+  async getServerClient(): Promise<SupabaseClient> {
+    const cookieStore = await cookies();
     return createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
           getAll() {
-            return cookies.getAll();
+            return cookieStore.getAll();
           },
           setAll(cookiesToSet: any) {
             try {
               cookiesToSet.forEach(({ name, value, options }: any) =>
-                cookies.set(name, value, options),
+                cookieStore.set(name, value, options),
               );
             } catch {
               // The `setAll` method was called from a Server Component.
@@ -49,38 +56,113 @@ export class SupabaseService implements ISupabaseService {
   }
 
   async getUser(client: SupabaseClient) {
+    return client.auth.getUser();
+  }
+
+  async signInWithGoogle(): Promise<RedirectType> {
+    const supabase = await this.getServerClient();
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${process.env.NEXT_PUBLIC_HOST}/auth/callback`,
+      },
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return redirect(data.url);
+  }
+
+  async inviteUser(email: string): Promise<any> {
+    const supabase = this.getAdminClient();
+    const { data, error } = await supabase.auth.admin.inviteUserByEmail(email, {
+      redirectTo: `${process.env.NEXT_PUBLIC_HOST}/auth/callback`,
+      data: {
+        role: "customer",
+      },
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  }
+
+  async updateSession(request: NextRequest): Promise<NextResponse> {
+    let supabaseResponse = NextResponse.next({
+      request,
+    });
+
+    const hasEnvVars =
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    // If the env vars are not set, skip middleware check. You can remove this once you setup the project.
+    if (!hasEnvVars) {
+      return supabaseResponse;
+    }
+
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll();
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) =>
+              request.cookies.set(name, value),
+            );
+            supabaseResponse = NextResponse.next({
+              request,
+            });
+            cookiesToSet.forEach(({ name, value, options }) =>
+              supabaseResponse.cookies.set(name, value, options),
+            );
+          },
+        },
+      },
+    );
+
+    // Do not run code between createServerClient and
+    // supabase.auth.getUser(). A simple mistake could make it very hard to debug
+    // issues with users being randomly logged out.
+
+    // IMPORTANT: DO NOT REMOVE auth.getUser()
+
     const {
       data: { user },
-      error,
-    } = await client.auth.getUser();
-    if (error) throw error;
-    return user;
-  }
+    } = await supabase.auth.getUser();
 
-  async signOut(client: SupabaseClient) {
-    const { error } = await client.auth.signOut();
-    if (error) throw error;
-  }
+    if (
+      request.nextUrl.pathname !== "/" &&
+      !user &&
+      !request.nextUrl.pathname.startsWith("/login") &&
+      !request.nextUrl.pathname.startsWith("/auth")
+    ) {
+      // no user, potentially respond by redirecting the user to the login page
+      const url = request.nextUrl.clone();
+      url.pathname = "/auth/login";
+      return NextResponse.redirect(url);
+    }
 
-  async signInWithPassword(
-    client: SupabaseClient,
-    email: string,
-    password: string,
-  ) {
-    const { data, error } = await client.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) throw error;
-    return data;
-  }
+    // IMPORTANT: You *must* return the supabaseResponse object as it is.
+    // If you're creating a new response object with NextResponse.next() make sure to:
+    // 1. Pass the request in it, like so:
+    //    const myNewResponse = NextResponse.next({ request })
+    // 2. Copy over the cookies, like so:
+    //    myNewResponse.cookies.setAll(supabaseResponse.cookies.getAll())
+    // 3. Change the myNewResponse object to fit your needs, but avoid changing
+    //    the cookies!
+    // 4. Finally:
+    //    return myNewResponse
+    // If this is not done, you may be causing the browser and server to go out
+    // of sync and terminate the user's session prematurely!
 
-  async signUp(client: SupabaseClient, email: string, password: string) {
-    const { data, error } = await client.auth.signUp({
-      email,
-      password,
-    });
-    if (error) throw error;
-    return data;
+    return supabaseResponse;
   }
 }

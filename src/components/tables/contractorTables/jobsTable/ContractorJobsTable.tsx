@@ -77,11 +77,11 @@ const ContractorJobsTable = ({
     };
   });
 
-  useEffect(() => {
-    router.push(
-      `/contractor-dashboard/jobs?page=${paginationModel.page + 1}&pageSize=${paginationModel.pageSize}`,
-    );
-  }, [paginationModel, router]);
+  // useEffect(() => {
+  //   router.push(
+  //     `/contractor-dashboard/jobs?page=${paginationModel.page + 1}&pageSize=${paginationModel.pageSize}`,
+  //   );
+  // }, [paginationModel, router]);
 
   return (
     <Box component="div" className="">

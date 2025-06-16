@@ -6,6 +6,7 @@ import {
   SaveAndSentStatus,
   SaveStatus,
 } from "@/components/forms/estimate-form/EstimateForm";
+import { CustomersSelect } from "@/db/schemas/customers";
 
 export type Estimates = {
   id: number;
@@ -72,7 +73,7 @@ export type EstimateFormValues = {
 };
 
 export type EstimateFormPartOneProps = {
-  customers: Customers[];
+  customers: CustomersSelect[];
   saveStatus?: SaveStatus;
   saveAndSaveStatus?: SaveAndSentStatus;
 };

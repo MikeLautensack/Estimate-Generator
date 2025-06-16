@@ -33,8 +33,8 @@ export const subscriptionStatus = pgEnum("subscription_status", [
   "unpaid",
 ]);
 
-export const customers = pgTable(
-  "customers",
+export const stripeCustomers = pgTable(
+  "stripe_customers",
   {
     id: uuid().primaryKey().notNull(),
     stripeCustomerId: text("stripe_customer_id"),
@@ -166,9 +166,9 @@ export const subscriptions = pgTable(
   ],
 );
 
-export const customersRelations = relations(customers, ({ one }) => ({
+export const customersRelations = relations(stripeCustomers, ({ one }) => ({
   usersInAuth: one(usersInAuth, {
-    fields: [customers.id],
+    fields: [stripeCustomers.id],
     references: [usersInAuth.id],
   }),
 }));

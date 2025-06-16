@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut } from "../../../supabase/client";
+import { signOut } from "@/utils/supabase/client";
 import SideBarNav from "./SideBarNav";
 import { Box, Button, Typography } from "@mui/material";
 

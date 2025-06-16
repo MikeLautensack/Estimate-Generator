@@ -1,15 +1,12 @@
 import { SupabaseClient } from "@supabase/supabase-js";
-import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import { RedirectType } from "next/navigation";
+import { NextResponse, NextRequest } from "next/server";
 
 export interface ISupabaseService {
-  getServerClient(cookies: ReadonlyRequestCookies): Promise<SupabaseClient>;
+  getServerClient(): Promise<SupabaseClient>;
   getSession(client: SupabaseClient): Promise<any>;
   getUser(client: SupabaseClient): Promise<any>;
-  signOut(client: SupabaseClient): Promise<void>;
-  signInWithPassword(
-    client: SupabaseClient,
-    email: string,
-    password: string,
-  ): Promise<any>;
-  signUp(client: SupabaseClient, email: string, password: string): Promise<any>;
+  signInWithGoogle(): Promise<RedirectType>;
+  inviteUser(email: string): Promise<any>;
+  updateSession(request: NextRequest): Promise<NextResponse>;
 }

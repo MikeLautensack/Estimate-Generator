@@ -1,9 +1,13 @@
-import Link from "next/link";
-import { auth } from "../../../../../auth";
 import { redirect } from "next/navigation";
-import { Button, Typography } from "@mui/material";
-import ContractorJobsTable from "@/components/tables/contractorTables/jobsTable/ContractorJobsTable";
+import { Typography, Box, Paper } from "@mui/material";
 import DIContainer from "@/core/DIContainer";
+import { Suspense } from "react";
+import ActiveJobsData from "@/components/dataComponents/jobs/ActiveJobsData";
+import PendingJobsData from "@/components/dataComponents/jobs/PendingJobsData";
+import AllJobsData from "@/components/dataComponents/jobs/AllJobsData";
+import JobFormWrapper from "@/components/wrappers/JobFormWrapper";
+import { JobsFormProvider } from "@/contexts/JobsFormProvider";
+import NewJobButton from "@/components/misc/NewJobButton";
 
 type PageProps = {
   params: { slug: string };
@@ -11,34 +15,77 @@ type PageProps = {
 };
 
 export default async function Page({ params, searchParams }: PageProps) {
-  const session = await auth();
-  if (!session) return redirect("/signin");
-  const page = searchParams["page"] as string;
-  const pageSize = searchParams["pageSize"] as string;
-  const data = await DIContainer.jobsUseCases.getJobsByUserRole(
-    session.user.id,
-    session.user.role,
-    Number(pageSize),
-  );
+  // Auth
+  const { data, error } = await DIContainer.authUseCases.getUser();
+  if (error || !data) redirect("/signin");
+
+  // Search Params
+  const activeJobsPage = (await searchParams).activeJobsPage;
+  const activeJobsPageSize = (await searchParams).activeJobsPageSize;
+  const pendingJobsPage = (await searchParams).pendingJobsPage;
+  const pendingJobsPageSize = (await searchParams).pendingJobsPageSize;
+  const allJobsPage = (await searchParams).allJobsPage;
+  const allJobsPageSize = (await searchParams).allJobsPageSize;
+
+  // Values
+  const id = data.user.id;
 
   return (
-    <main className="flex flex-col flex-grow gap-4 p-4">
-      <Typography variant="h4" color="primary" className="">
-        Jobs
-      </Typography>
-      <Link
-        href={`${process.env.NEXT_PUBLIC_HOST}/contractor-dashboard/estimates/form`}
-      >
-        <Button id="new-change-order-button" variant="contained">
-          New Job
-        </Button>
-      </Link>
-      <ContractorJobsTable
-        jobs={data}
-        page={page}
-        pageSize={pageSize}
-        totalRows={data.length}
-      />
+    <main className="flex flex-col flex-grow gap-4 p-4 h-full">
+      <JobsFormProvider>
+        <JobFormWrapper>
+          <Box className="flex justify-between items-center mb-4">
+            <Typography variant="h4" color="primary">
+              Jobs Dashboard
+            </Typography>
+            <NewJobButton />
+          </Box>
+
+          <Box className="grid grid-cols-1 gap-6">
+            {/* Active Jobs Section */}
+            <Paper elevation={2} className="p-4">
+              <Typography variant="h6" color="primary" className="mb-4">
+                Active Jobs
+              </Typography>
+              <Suspense fallback={<div>loading...</div>}>
+                <ActiveJobsData
+                  id={id}
+                  activeJobsPage={activeJobsPage}
+                  activeJobsPageSize={activeJobsPageSize}
+                />
+              </Suspense>
+            </Paper>
+
+            {/* Pending Jobs Section */}
+            <Paper elevation={2} className="p-4">
+              <Typography variant="h6" color="primary" className="mb-4">
+                Pending Jobs
+              </Typography>
+              <Suspense fallback={<div>loading...</div>}>
+                <PendingJobsData
+                  id={id}
+                  pendingJobsPage={pendingJobsPage}
+                  pendingJobsPageSize={pendingJobsPageSize}
+                />
+              </Suspense>
+            </Paper>
+
+            {/* All Jobs Section */}
+            <Paper elevation={2} className="p-4">
+              <Typography variant="h6" color="primary" className="mb-4">
+                All Jobs
+              </Typography>
+              <Suspense fallback={<div>loading...</div>}>
+                <AllJobsData
+                  id={id}
+                  allJobsPage={allJobsPage}
+                  allJobsPageSize={allJobsPageSize}
+                />
+              </Suspense>
+            </Paper>
+          </Box>
+        </JobFormWrapper>
+      </JobsFormProvider>
     </main>
   );
 }

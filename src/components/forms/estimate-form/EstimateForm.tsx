@@ -14,7 +14,6 @@ import { Card, Tab, Tabs } from "@mui/material";
 import CustomTabPanel from "./CustomTabPanel";
 import { a11yProps } from "./utils";
 import EstimateFormChangeOrdersTab from "./EstimateFormChangeOrdersTab";
-import { Customers } from "@/types/customers";
 import { Profile } from "@/types/profile";
 import { ChangeOrder } from "@/types/changeOrders";
 import { z } from "zod";
@@ -24,14 +23,16 @@ import useGetCustomerUserId from "./hooks/useGetCustomerUserId";
 import { sendAuthEmail } from "@/utils/sendAuthEmail";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handlePdfDownload } from "@/utils/downloadPDF";
+import { CustomersSelect } from "@/db/schemas/customers";
+import { ProfileSelect } from "@/db/schemas/userProfile";
 
 export type EstimateFormProps = {
   estimate: EstimateFormValues;
-  customers: Customers[];
-  profile: Profile;
+  customers: CustomersSelect[];
+  profile: ProfileSelect;
   changeOrders?: ChangeOrder[];
   mode: "new-estimate" | "update-estimate";
-  session: any;
+  data: any;
 };
 
 const LineItemsSchema = z.object({
@@ -107,7 +108,7 @@ const EstimateForm = ({
   profile,
   changeOrders,
   mode,
-  session,
+  data,
 }: EstimateFormProps) => {
   // State
   const [tab, setTab] = useState<number>(0);
@@ -157,8 +158,6 @@ const EstimateForm = ({
   });
 
   const control = methods.control;
-
-  console.log("debugging estimate form validation", methods.formState.errors);
 
   const { fields, prepend, remove } = useFieldArray({
     control,
@@ -216,7 +215,6 @@ const EstimateForm = ({
   // Callbacks
   const save: SubmitHandler<EstimateFormValues> = useCallback(
     async (data) => {
-      console.log("save callback data log", data);
       // IDs
       const USER_ID = estimate.contractor_user_id;
       const ESTIMATE_ID = estimate.id;
@@ -272,7 +270,6 @@ const EstimateForm = ({
 
   const saveAndSend: SubmitHandler<EstimateFormValues> = useCallback(
     async (data) => {
-      console.log("save callback data log", data);
       // IDs
       const USER_ID = estimate.contractor_user_id;
       const ESTIMATE_ID = estimate.id;
@@ -303,9 +300,9 @@ const EstimateForm = ({
             `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${`${data.customerFirstName} ${data.customerLastName}`}&contractor-name=${session.user.name}&redirect-flag=new-estimate&estimate-id=${ESTIMATE_ID}`,
             false,
           );
-          if (emailRes?.status === 200) {
-            setSaveAndSaveStatus("saved");
-          }
+          // if (emailRes?.status === 200) {
+          //   setSaveAndSaveStatus("saved");
+          // }
         } else {
           setSaveAndSaveStatus("error");
         }
@@ -334,15 +331,15 @@ const EstimateForm = ({
             `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=updated-estimate&customer-name=${`${data.customerFirstName} ${data.customerLastName}`}&contractor-name=${session.user.name}&redirect-flag=updated-estimate&estimate-id=${ESTIMATE_ID}`,
             false,
           );
-          if (emailRes?.status === 200) {
-            setSaveAndSaveStatus("saved");
-          }
+          // if (emailRes?.status === 200) {
+          //   setSaveAndSaveStatus("saved");
+          // }
         } else {
           setSaveAndSaveStatus("error");
         }
       }
     },
-    [estimate.contractor_user_id, estimate.id, mode, session.user.name],
+    [estimate.contractor_user_id, estimate.id, mode, data.user.name],
   );
 
   return (

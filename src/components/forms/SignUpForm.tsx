@@ -3,8 +3,8 @@
 import React, { useCallback, useState } from "react";
 import { Button, CircularProgress, Stack, Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
-import { signInWithGoogle } from "../../../supabase/client";
 import GoogleIcon from "@mui/icons-material/Google";
+import { signInWithGoogle } from "@/actions/auth";
 
 const SignUpForm = () => {
   // State

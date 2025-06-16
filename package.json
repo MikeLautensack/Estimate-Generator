@@ -14,7 +14,18 @@
     "migrations:migrate": "drizzle-kit migrate",
     "migrations:push": "drizzle-kit push",
     "migrations:drop": "drizzle-kit drop",
-    "migrations:pull": "drizzle-kit pull"
+    "migrations:pull": "drizzle-kit pull",
+    "supabase:start": "npx supabase start",
+    "supabase:stop": "npx supabase stop",
+    "supabase:status": "npx supabase status",
+    "supabase:restart": "npm run supabase:stop && npm run supabase:start",
+    "supabase:reset": "npx supabase db reset",
+    "supabase:link": "npx supabase link",
+    "supabase:generate-types": "npx supabase gen types typescript --local --schema public > types_db.ts",
+    "supabase:generate-migration": "npx supabase db diff | npx supabase migration new",
+    "supabase:generate-seed": "npx supabase db dump --data-only -f supabase/seed.sql",
+    "supabase:push": "npx supabase db push",
+    "supabase:pull": "npx supabase db pull"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",

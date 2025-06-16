@@ -11,12 +11,16 @@ import { IDatabaseService } from "./application/interfaces/services/IDatabaseSer
 // Repositories
 import { JobsRepository } from "./infrastructure/repositories/JobsRepository";
 import { IJobsRepository } from "./application/interfaces/repositories/IJobsRepository";
+import { ICustomerRepository } from "./application/interfaces/repositories/ICustomersRepository";
+import { CustomersRepository } from "./infrastructure/repositories/CustomersRepository";
 
 // Use Cases
 import { JobsUseCases } from "./application/use-cases/JobsUseCases";
 import { IJobsUseCases } from "./application/interfaces/use-cases/IJobsUseCases";
 import { IAuthUseCases } from "./application/interfaces/use-cases/IAuthUseCases";
 import { AuthUseCases } from "./application/use-cases/AuthUseCases";
+import { ICustomersUseCases } from "./application/interfaces/use-cases/ICustomersUseCases";
+import { CustomersUseCases } from "./application/use-cases/CustomersUseCases";
 
 class DIContainer {
   // Services
@@ -26,10 +30,12 @@ class DIContainer {
 
   // Repositories
   jobsRepository: IJobsRepository;
+  customersRepository: ICustomerRepository;
 
   // Use Cases
   jobsUseCases: IJobsUseCases;
   authUseCases: IAuthUseCases;
+  customersUseCases: ICustomersUseCases;
 
   constructor() {
     // Services
@@ -39,10 +45,15 @@ class DIContainer {
 
     // Repositories
     this.jobsRepository = new JobsRepository(this.databaseService);
+    this.customersRepository = new CustomersRepository(this.databaseService);
 
     // Use Cases
     this.jobsUseCases = new JobsUseCases(this.jobsRepository);
     this.authUseCases = new AuthUseCases(this.supabaseService);
+    this.customersUseCases = new CustomersUseCases(
+      this.customersRepository,
+      this.supabaseService,
+    );
   }
 }
 

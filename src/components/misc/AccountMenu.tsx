@@ -17,7 +17,7 @@ import React, { useState } from "react";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Link from "next/link";
-import { signOut } from "../../../supabase/client";
+import { signOut } from "@/utils/supabase/client";
 
 type AccountMenuProps = {
   session: any;
