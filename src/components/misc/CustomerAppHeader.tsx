@@ -6,11 +6,7 @@ import DIContainer from "@/core/DIContainer";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const Header = async () => {
-  const { data, error } = await DIContainer.authUseCases.getUser();
-  if (error || !data) redirect("/signin");
-  // const profile = await getProfile(session!);
-
+const CustomerAppHeader = async () => {
   return (
     <Box
       className="flex px-4 justify-between items-center h-14 sticky w-full z-10 top-0"
@@ -21,10 +17,11 @@ const Header = async () => {
         borderColor: "outlineVariant",
       }}
     >
-      <Heading data={data!} />
-      <HeaderNavContainer data={data!} profile={[]} />
+      <h1>Customer App Header</h1>
+      {/* <Heading data={data!} />
+      <HeaderNavContainer data={data!} profile={[]} /> */}
     </Box>
   );
 };
 
-export default Header;
+export default CustomerAppHeader;

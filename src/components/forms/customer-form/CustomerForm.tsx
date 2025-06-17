@@ -116,7 +116,6 @@ const CustomerForm = () => {
       sx={{
         backgroundColor: "surfaceContainerLow",
         padding: "1rem",
-        width: "30rem",
       }}
     >
       <FormProvider {...methods}>
@@ -147,7 +146,7 @@ const CustomerForm = () => {
           <Button
             variant="contained"
             type="submit"
-            color={loading ? "primary" : ""}
+            color={loading ? "" : "primary"}
             disabled={loading}
           >
             {mode === "create" && !loading ? (

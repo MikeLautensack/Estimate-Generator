@@ -1,4 +1,3 @@
-import Header from "@/components/misc/Header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
@@ -37,10 +36,7 @@ export default function RootLayout({
       <body className="min-h-screen">
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <AppRouterCacheProvider>
-          <ThemeProviderWrapper>
-            <Header />
-            {children}
-          </ThemeProviderWrapper>
+          <ThemeProviderWrapper>{children}</ThemeProviderWrapper>
         </AppRouterCacheProvider>
         <Analytics />
         <SpeedInsights />

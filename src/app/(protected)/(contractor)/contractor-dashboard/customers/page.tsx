@@ -23,19 +23,21 @@ const Page = async ({ params, searchParams }: PageProps) => {
   );
 
   return (
-    <main className="flex-grow p-4 flex flex-col gap-4">
+    <main className="flex-grow p-4 flex flex-col gap-4 min-h-screen">
       <CustomersFormProvider>
         <CustomerFormWrapper>
-          <Typography variant="h4" color="primary" className="">
-            Customers
-          </Typography>
-          <NewCustomerButton />
-          <ContractorsCustomersTable
-            customers={customers}
-            page={page}
-            pageSize={pageSize}
-            totalRows={customers.length}
-          />
+          <div className="flex flex-col gap-4">
+            <Typography variant="h4" color="primary" className="">
+              Customers
+            </Typography>
+            <NewCustomerButton />
+            <ContractorsCustomersTable
+              customers={customers}
+              page={page}
+              pageSize={pageSize}
+              totalRows={customers.length}
+            />
+          </div>
         </CustomerFormWrapper>
       </CustomersFormProvider>
     </main>
