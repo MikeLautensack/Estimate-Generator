@@ -2,7 +2,6 @@ import {
   pgTable,
   varchar,
   timestamp,
-  foreignKey,
   uuid,
   pgPolicy,
   numeric,
@@ -10,7 +9,6 @@ import {
   date,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
-import { users } from "./auth";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 export const jobs = pgTable(
@@ -34,16 +32,6 @@ export const jobs = pgTable(
     deletedAt: timestamp("deleted_at"),
   },
   (table) => [
-    foreignKey({
-      columns: [table.contractor_user_id],
-      foreignColumns: [users.id],
-      name: "jobs_contractor_user_id_fkey",
-    }),
-    foreignKey({
-      columns: [table.customer_user_id],
-      foreignColumns: [users.id],
-      name: "jobs_customer_user_id_fkey",
-    }),
     pgPolicy("Enable RLS", {
       using: sql`true`,
     }),

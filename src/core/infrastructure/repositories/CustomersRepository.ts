@@ -19,7 +19,7 @@ export class CustomersRepository implements ICustomerRepository {
   }
 
   async getCustomers(
-    id: string,
+    userId: string,
     page: string,
     size: string,
     filters?: Record<string, string>,
@@ -29,9 +29,9 @@ export class CustomersRepository implements ICustomerRepository {
 
       if (filters) {
         if (filters.role === "contractor") {
-          conditions.push(eq(contractorsCustomers.contractor_user_id, id));
+          conditions.push(eq(contractorsCustomers.contractor_user_id, userId));
         } else if (filters.role === "customer") {
-          conditions.push(eq(contractorsCustomers.customer_user_id, id));
+          conditions.push(eq(contractorsCustomers.customer_user_id, userId));
         }
       }
 

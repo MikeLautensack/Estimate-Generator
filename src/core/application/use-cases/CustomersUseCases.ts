@@ -17,24 +17,29 @@ export class CustomersUseCases implements ICustomersUseCases {
   }
 
   async getCustomers(
-    id: string,
+    userId: string,
     page: string,
     size: string,
+    filters: Record<string, string>,
   ): Promise<CustomersSelect[]> {
-    const filters = {
-      role: "contractor",
-    };
-    return await this.customersRepository.getCustomers(id, page, size, filters);
+    return await this.customersRepository.getCustomers(
+      userId,
+      page,
+      size,
+      filters,
+    );
   }
 
   async createCustomer(customer: NewCustomer): Promise<void> {
     const newCustomerUser = await this.supabaseService.inviteUser(
       customer.email,
     );
+
     const newCustomer = {
       ...customer,
       customer_user_id: newCustomerUser.user.id,
     };
+
     await this.customersRepository.createCustomer(newCustomer);
   }
 

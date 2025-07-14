@@ -8,7 +8,7 @@ const SideBar = () => {
   return (
     <Box
       component="div"
-      className="flex flex-col justify-between w-64 p-4 h-[calc(100vh-56px)] sticky top-14"
+      className="flex flex-col justify-between w-64 p-4"
       sx={{
         backgroundColor: "surfaceContainer",
         borderRight: "solid 1px",

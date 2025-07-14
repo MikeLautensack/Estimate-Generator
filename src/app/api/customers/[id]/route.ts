@@ -2,6 +2,16 @@ import DIContainer from "@/core/DIContainer";
 import { NextRequest, NextResponse } from "next/server";
 import { CustomersInsert } from "@/db/schemas/customers";
 
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  const customer = await DIContainer.customersUseCases.getCustomerById(
+    params.id,
+  );
+  return NextResponse.json(customer);
+}
+
 export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } },

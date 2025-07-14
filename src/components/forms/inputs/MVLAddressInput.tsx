@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { Box, Divider } from "@mui/material";
 import TextInput from "./TextInput";
-import MVLAutocomplete from "./MVLAutocomplete";
+import MVLAutocomplete from "./AutocompleteInput";
 import { states } from "@/utils/states";
 import MVLStates from "./MVLStates";
 

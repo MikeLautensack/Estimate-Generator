@@ -5,7 +5,24 @@ import DIContainer from "@/core/DIContainer";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const jobData: JobsInsert = body;
+
+    // Get the current user
+    const user = await DIContainer.authUseCases.getUser();
+
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const jobData: JobsInsert = {
+      ...body,
+      contractor_user_id: user.id,
+      // Ensure optional fields are properly handled
+      start_date: body.start_date || null,
+      end_date: body.end_date || null,
+      address: body.address || null,
+    };
+
+    console.log("Creating job with data:", jobData);
 
     await DIContainer.jobsUseCases.createJob(jobData);
 

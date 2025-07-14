@@ -8,7 +8,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { formatPriceString } from "@/utils/formatingFunctions";
 import { FaTrashAlt } from "react-icons/fa";
 import TextInput from "../inputs/TextInput";
-import MVLAutocomplete from "../inputs/MVLAutocomplete";
+import MVLAutocomplete from "../inputs/AutocompleteInput";
 import { Button, Typography } from "@mui/material";
 import useCalcAmount from "./hooks/useCalcAmount";
 import useCalcSubtotal from "./hooks/useCalcSubtotal";

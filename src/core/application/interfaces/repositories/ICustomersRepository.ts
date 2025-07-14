@@ -2,7 +2,7 @@ import { CustomersInsert, CustomersSelect } from "@/db/schemas/customers";
 
 export interface ICustomerRepository {
   getCustomers(
-    id: string,
+    userId: string,
     page: string,
     size: string,
     filters?: Record<string, string>,

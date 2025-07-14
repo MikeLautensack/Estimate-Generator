@@ -31,22 +31,16 @@ export const subscriptionStatus = pgEnum("subscription_status", [
   "incomplete_expired",
   "past_due",
   "unpaid",
+  "paused",
 ]);
 
-export const stripeCustomers = pgTable(
-  "stripe_customers",
-  {
-    id: uuid().primaryKey().notNull(),
-    stripeCustomerId: text("stripe_customer_id"),
-  },
-  (table) => [
-    foreignKey({
-      columns: [table.id],
-      foreignColumns: [users.id],
-      name: "customers_id_fkey",
-    }),
-  ],
-);
+export const stripeCustomers = pgTable("stripe_customers", {
+  id: uuid().primaryKey().notNull(),
+  stripeCustomerId: text("stripe_customer_id"),
+});
+
+export type CustomersInsert = typeof stripeCustomers.$inferInsert;
+export type CustomersSelect = typeof stripeCustomers.$inferSelect;
 
 export const products = pgTable(
   "products",
@@ -67,6 +61,9 @@ export const products = pgTable(
     }),
   ],
 );
+
+export type ProductInsert = typeof products.$inferInsert;
+export type ProductSelect = typeof products.$inferSelect;
 
 export const prices = pgTable(
   "prices",
@@ -99,6 +96,9 @@ export const prices = pgTable(
     check("prices_currency_check", sql`char_length(currency) = 3`),
   ],
 );
+
+export type PriceInsert = typeof prices.$inferInsert;
+export type PriceSelect = typeof prices.$inferSelect;
 
 export const subscriptions = pgTable(
   "subscriptions",
@@ -152,11 +152,6 @@ export const subscriptions = pgTable(
       foreignColumns: [prices.id],
       name: "subscriptions_price_id_fkey",
     }),
-    foreignKey({
-      columns: [table.userId],
-      foreignColumns: [users.id],
-      name: "subscriptions_user_id_fkey",
-    }),
     pgPolicy("Can only view own subs data.", {
       as: "permissive",
       for: "select",
@@ -165,6 +160,25 @@ export const subscriptions = pgTable(
     }),
   ],
 );
+
+export type SubscriptionsInsert = typeof subscriptions.$inferInsert;
+export type SubscriptionsSelect = typeof subscriptions.$inferSelect;
+
+export const stripeEvents = pgTable("stripe_events", {
+  id: text().primaryKey().notNull(),
+  type: text("type"),
+  api_version: text(),
+  livemode: boolean(),
+  processedAt: timestamp("processed_at", {
+    withTimezone: true,
+    mode: "string",
+  })
+    .default(sql`timezone('utc'::text, now())`)
+    .notNull(),
+});
+
+export type StripeEventsInsert = typeof stripeEvents.$inferInsert;
+export type StripeEventsSelect = typeof stripeEvents.$inferSelect;
 
 export const customersRelations = relations(stripeCustomers, ({ one }) => ({
   usersInAuth: one(usersInAuth, {

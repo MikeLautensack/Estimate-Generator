@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 import { redirect, RedirectType } from "next/navigation";
 
 export class SupabaseService implements ISupabaseService {
-  private getAdminClient(): SupabaseClient {
+  getAdminClient(): SupabaseClient {
     return createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -56,7 +56,10 @@ export class SupabaseService implements ISupabaseService {
   }
 
   async getUser(client: SupabaseClient) {
-    return client.auth.getUser();
+    const {
+      data: { user },
+    } = await client.auth.getUser();
+    return user;
   }
 
   async signInWithGoogle(): Promise<RedirectType> {

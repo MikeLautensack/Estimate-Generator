@@ -3,6 +3,7 @@ import { RedirectType } from "next/navigation";
 import { NextResponse, NextRequest } from "next/server";
 
 export interface ISupabaseService {
+  getAdminClient(): SupabaseClient;
   getServerClient(): Promise<SupabaseClient>;
   getSession(client: SupabaseClient): Promise<any>;
   getUser(client: SupabaseClient): Promise<any>;

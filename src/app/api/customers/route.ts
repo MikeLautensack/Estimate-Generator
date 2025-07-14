@@ -1,14 +1,36 @@
 import DIContainer from "@/core/DIContainer";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET(request: NextRequest) {
+  // Get authenticated user
+  const user = await DIContainer.authUseCases.getUser();
+  if (!user)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  console.log(user);
+
+  const searchParams = request.nextUrl.searchParams;
+  const offset = searchParams.get("offset") || "0";
+  const limit = searchParams.get("limit") || "10";
+
+  const customers = await DIContainer.customersUseCases.getCustomers(
+    user.id,
+    "1",
+    "10",
+    { role: "contractor" },
+  );
+
+  console.log("customers", customers);
+
+  return NextResponse.json(customers);
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Get authenticated user
-    const { data: user, error: userError } =
-      await DIContainer.authUseCases.getUser();
-    if (userError || !user) {
+    const user = await DIContainer.authUseCases.getUser();
+    if (!user)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
 
     // Parse and validate request body
     const customerData = await request.json();
@@ -16,7 +38,7 @@ export async function POST(request: NextRequest) {
     // Create customer
     await DIContainer.customersUseCases.createCustomer({
       ...customerData,
-      contractor_user_id: user.user.id,
+      contractor_user_id: user.id,
     });
 
     return NextResponse.json(

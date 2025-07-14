@@ -55,8 +55,8 @@ import { createClient } from "@/utils/supabase/server";
 // }
 
 const Page = async () => {
-  const { data, error } = await DIContainer.authUseCases.getUser();
-  if (error || !data) redirect("/signin");
+  const user = await DIContainer.authUseCases.getUser();
+  if (!user) redirect("/signin");
 
   // const estimates = await getEstimates(session);
   // const customers = await getCustomers(session);

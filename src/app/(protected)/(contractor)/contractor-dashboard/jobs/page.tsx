@@ -16,8 +16,8 @@ type PageProps = {
 
 export default async function Page({ params, searchParams }: PageProps) {
   // Auth
-  const { data, error } = await DIContainer.authUseCases.getUser();
-  if (error || !data) redirect("/signin");
+  const user = await DIContainer.authUseCases.getUser();
+  if (!user) redirect("/signin");
 
   // Search Params
   const activeJobsPage = (await searchParams).activeJobsPage;
@@ -28,7 +28,7 @@ export default async function Page({ params, searchParams }: PageProps) {
   const allJobsPageSize = (await searchParams).allJobsPageSize;
 
   // Values
-  const id = data.user.id;
+  const id = user.id;
 
   return (
     <main className="flex flex-col flex-grow gap-4 p-4 h-full">
@@ -42,47 +42,38 @@ export default async function Page({ params, searchParams }: PageProps) {
           </Box>
 
           <Box className="grid grid-cols-1 gap-6">
-            {/* Active Jobs Section */}
-            <Paper elevation={2} className="p-4">
-              <Typography variant="h6" color="primary" className="mb-4">
-                Active Jobs
-              </Typography>
-              <Suspense fallback={<div>loading...</div>}>
-                <ActiveJobsData
-                  id={id}
-                  activeJobsPage={activeJobsPage}
-                  activeJobsPageSize={activeJobsPageSize}
-                />
-              </Suspense>
-            </Paper>
+            <Typography variant="h6" color="primary" className="mb-4">
+              Active Jobs
+            </Typography>
+            <Suspense fallback={<div>loading...</div>}>
+              <ActiveJobsData
+                id={id}
+                activeJobsPage={activeJobsPage}
+                activeJobsPageSize={activeJobsPageSize}
+              />
+            </Suspense>
 
-            {/* Pending Jobs Section */}
-            <Paper elevation={2} className="p-4">
-              <Typography variant="h6" color="primary" className="mb-4">
-                Pending Jobs
-              </Typography>
-              <Suspense fallback={<div>loading...</div>}>
-                <PendingJobsData
-                  id={id}
-                  pendingJobsPage={pendingJobsPage}
-                  pendingJobsPageSize={pendingJobsPageSize}
-                />
-              </Suspense>
-            </Paper>
+            <Typography variant="h6" color="primary" className="mb-4">
+              Pending Jobs
+            </Typography>
+            <Suspense fallback={<div>loading...</div>}>
+              <PendingJobsData
+                id={id}
+                pendingJobsPage={pendingJobsPage}
+                pendingJobsPageSize={pendingJobsPageSize}
+              />
+            </Suspense>
 
-            {/* All Jobs Section */}
-            <Paper elevation={2} className="p-4">
-              <Typography variant="h6" color="primary" className="mb-4">
-                All Jobs
-              </Typography>
-              <Suspense fallback={<div>loading...</div>}>
-                <AllJobsData
-                  id={id}
-                  allJobsPage={allJobsPage}
-                  allJobsPageSize={allJobsPageSize}
-                />
-              </Suspense>
-            </Paper>
+            <Typography variant="h6" color="primary" className="mb-4">
+              All Jobs
+            </Typography>
+            <Suspense fallback={<div>loading...</div>}>
+              <AllJobsData
+                id={id}
+                allJobsPage={allJobsPage}
+                allJobsPageSize={allJobsPageSize}
+              />
+            </Suspense>
           </Box>
         </JobFormWrapper>
       </JobsFormProvider>

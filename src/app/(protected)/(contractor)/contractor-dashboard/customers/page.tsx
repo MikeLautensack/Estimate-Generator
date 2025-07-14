@@ -12,12 +12,12 @@ type PageProps = {
 };
 
 const Page = async ({ params, searchParams }: PageProps) => {
-  const { data, error } = await DIContainer.authUseCases.getUser();
-  if (error || !data) redirect("/signin");
+  const user = await DIContainer.authUseCases.getUser();
+  if (!user) redirect("/signin");
   const page = (await searchParams).page as string;
   const pageSize = (await searchParams).pageSize as string;
   const customers = await DIContainer.customersUseCases.getCustomers(
-    data.user.id,
+    user.id,
     page,
     pageSize,
   );

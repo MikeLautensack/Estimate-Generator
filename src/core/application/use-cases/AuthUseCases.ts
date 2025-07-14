@@ -17,7 +17,7 @@ export class AuthUseCases implements IAuthUseCases {
 
   async getUser() {
     const client = await this.supabaseService.getServerClient();
-    return this.supabaseService.getUser(client);
+    return await this.supabaseService.getUser(client);
   }
 
   async updateSession(request: NextRequest): Promise<NextResponse> {
