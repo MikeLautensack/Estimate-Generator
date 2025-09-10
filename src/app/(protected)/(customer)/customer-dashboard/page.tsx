@@ -4,7 +4,7 @@ import { estimates } from "@/db/schemas/estimates";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { changeOrders } from "@/db/schemas/changeOrders";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import { redirect } from "next/navigation";
 
 const Page = async () => {

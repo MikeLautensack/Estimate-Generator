@@ -5,7 +5,7 @@ import { customers } from "@/db/schemas/customers";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import { ChangeOrder } from "@/types/changeOrders";
 import { auth } from "../../../../../../../auth";
-import { profiles } from "@/db/schemas/userProfile";
+import { profiles } from "@/db/schemas/profiles";
 import EstimateForm from "@/components/forms/estimate-form/EstimateForm";
 import { Typography } from "@mui/material";
 import { Session } from "next-auth";

@@ -4,7 +4,7 @@ import { Card, Typography } from "@mui/material";
 import ProfileForm from "@/components/forms/ProfileForm";
 import { Session } from "next-auth";
 import { db } from "@/db";
-import { profiles } from "@/db/schemas/userProfile";
+import { profiles } from "@/db/schemas/profiles";
 import { eq } from "drizzle-orm";
 
 const getProfile = async (session: Session) => {

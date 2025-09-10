@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const { data, error } = await DIContainer.authUseCases.getUser();

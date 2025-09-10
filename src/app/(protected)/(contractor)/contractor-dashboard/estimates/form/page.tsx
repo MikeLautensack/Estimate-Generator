@@ -1,34 +1,12 @@
-import { db } from "@/db";
-import { contractorsCustomers } from "@/db/schemas/customers";
-import { profiles } from "@/db/schemas/userProfile";
-import { eq } from "drizzle-orm";
 import { Typography } from "@mui/material";
 import EstimateForm from "@/components/forms/estimate-form/EstimateForm";
 import { generateNumericId } from "@/utils/generateRandom";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import { redirect } from "next/navigation";
 
-async function getCustomers(data: any) {
-  const res = await db
-    .select()
-    .from(contractorsCustomers)
-    .where(eq(contractorsCustomers.contractor_user_id, data?.user.id));
-  return res;
-}
-
-async function getProfile(data: any) {
-  const res = await db
-    .select()
-    .from(profiles)
-    .where(eq(profiles.user_id, data?.user.id));
-  return res;
-}
-
 const Page = async () => {
-  const { data, error } = await DIContainer.authUseCases.getUser();
-  if (error || !data) redirect("/signin");
-  const customers = await getCustomers(data!);
-  const profile = await getProfile(data);
+  const user = await DIContainer.authUseCases.getUser();
+  if (!user) redirect("/signin");
 
   const newEstimateId = generateNumericId();
   const newLineItemId = generateNumericId();

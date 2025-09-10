@@ -1,4 +1,4 @@
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import "../globals.css";
 import React from "react";
 import { redirect } from "next/navigation";

@@ -22,6 +22,7 @@ export class SupabaseService implements ISupabaseService {
 
   async getServerClient(): Promise<SupabaseClient> {
     const cookieStore = await cookies();
+    console.log("cookieStore", cookieStore);
     return createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,

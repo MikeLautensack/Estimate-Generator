@@ -1,8 +1,11 @@
-import { CustomersInsert, CustomersSelect } from "@/db/schemas/customers";
+import {
+  CustomersInsert,
+  CustomersSelect,
+  PartialCustomer,
+} from "@/db/schemas/customers";
 import { ICustomerRepository } from "../interfaces/repositories/ICustomersRepository";
 import { ICustomersUseCases } from "../interfaces/use-cases/ICustomersUseCases";
 import { ISupabaseService } from "../interfaces/services/ISupabaseService";
-import { custom } from "zod";
 
 type NewCustomer = Omit<CustomersInsert, "customer_user_id">;
 
@@ -18,32 +21,46 @@ export class CustomersUseCases implements ICustomersUseCases {
 
   async getCustomers(
     userId: string,
-    page: string,
-    size: string,
+    page: number,
+    size: number,
     filters: Record<string, string>,
-  ): Promise<CustomersSelect[]> {
-    return await this.customersRepository.getCustomers(
+  ): Promise<{ customers: CustomersSelect[]; total: number }> {
+    const total =
+      await this.customersRepository.getTotalCustomersByUser(userId);
+    const customers = await this.customersRepository.getCustomers(
       userId,
       page,
       size,
       filters,
     );
+
+    return {
+      customers,
+      total,
+    };
   }
 
-  async createCustomer(customer: NewCustomer): Promise<void> {
-    const newCustomerUser = await this.supabaseService.inviteUser(
-      customer.email,
-    );
+  async createCustomer(customer: NewCustomer): Promise<CustomersSelect> {
+    // The line below is for the automatic creation of a customer
+    // user when a contractor user creates a customer but for now is
+    // not being used
+
+    // const newCustomerUser = await this.supabaseService.inviteUser(
+    //   customer.email,
+    // );
 
     const newCustomer = {
       ...customer,
-      customer_user_id: newCustomerUser.user.id,
+      customer_user_id: null,
     };
 
-    await this.customersRepository.createCustomer(newCustomer);
+    return await this.customersRepository.createCustomer(newCustomer);
   }
 
-  async updateCustomer(id: string, customer: CustomersInsert): Promise<void> {
+  async updateCustomer(
+    id: string,
+    customer: PartialCustomer,
+  ): Promise<CustomersSelect> {
     return await this.customersRepository.updateCustomer(id, customer);
   }
 

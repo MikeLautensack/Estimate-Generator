@@ -13,12 +13,15 @@ import { sql } from "drizzle-orm";
 import { relations } from "drizzle-orm";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { jobs } from "./jobs";
+import { z } from "zod";
 
 export const estimates = pgTable(
   "estimates",
   {
     id: uuid("id").defaultRandom().primaryKey().notNull(),
-    job_id: uuid("job_id").notNull(),
+    // jobId: uuid("job_id").notNull(),
+    userId: uuid("user_id").notNull(),
+    customerId: uuid("customer_id").notNull(),
     estimateNumber: varchar("estimate_number", { length: 255 }).notNull(),
     totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),
     contractorAddress: varchar("contractor_address", { length: 255 }),
@@ -32,7 +35,7 @@ export const estimates = pgTable(
     customerFirstName: varchar("customer_first_name", { length: 255 }),
     customerLastName: varchar("customer_last_name", { length: 255 }),
     estimateName: varchar("estimate_name", { length: 255 }),
-    expirationDate: timestamp("expiration_date").notNull(),
+    expirationDate: timestamp("expiration_date"),
     message: varchar("message", { length: 255 }),
     projectAddress: varchar("project_address", { length: 255 }),
     projectAddress2: varchar("project_address2", { length: 255 }),
@@ -53,11 +56,11 @@ export const estimates = pgTable(
     deletedAt: timestamp("deleted_at"),
   },
   (table) => [
-    foreignKey({
-      columns: [table.job_id],
-      foreignColumns: [jobs.id],
-      name: "estimates_job_id_fkey",
-    }),
+    // foreignKey({
+    //   columns: [table.jobId],
+    //   foreignColumns: [jobs.id],
+    //   name: "estimates_job_id_fkey",
+    // }),
     pgPolicy("Enable RLS", {
       using: sql`true`,
     }),
@@ -105,6 +108,13 @@ export const estimates = pgTable(
 
 export type EstimatesInsert = typeof estimates.$inferInsert;
 export type EstimatesSelect = typeof estimates.$inferSelect;
+// export type EstimatesWithLineItemsSelect = {
+//   estimates: EstimatesSelect;
+//   lineItems: LineItemsSelect | null;
+// };
+export type EstimatesWithLineItemsSelect = EstimatesSelect & {
+  lineItems: LineItemsSelect[];
+};
 
 // Zod schema for inserting a estimate - can be used to validate API requests
 export const insertEstimateSchema = createInsertSchema(estimates);
@@ -149,6 +159,14 @@ export type LineItemsSelect = typeof lineItems.$inferSelect;
 export const insertLineItemsSchema = createInsertSchema(lineItems);
 // Zod schema for selecting a estimate - can be used to validate API responses
 export const selectLineItemsSchema = createSelectSchema(lineItems);
+
+export const insertEstimatesWithLineItemsSchema = insertEstimateSchema.extend({
+  lineItems: z.array(insertLineItemsSchema),
+});
+
+export type EstimatesWithLineItemsInsert = z.infer<
+  typeof insertEstimatesWithLineItemsSchema
+>;
 
 export const estimateLineItemRelationship = relations(lineItems, ({ one }) => ({
   author: one(estimates, {

@@ -35,4 +35,5 @@ export interface IStripeUseCases {
   ): Promise<void>;
   getPricePageData(): Promise<any>;
   getUserSubscription(): Promise<SubscriptionsSelect | undefined>;
+  getSubscriptionWithPricesAndProducts(): Promise<any>;
 }

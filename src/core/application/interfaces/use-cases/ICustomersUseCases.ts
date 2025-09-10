@@ -1,14 +1,21 @@
-import { CustomersInsert, CustomersSelect } from "@/db/schemas/customers";
+import {
+  CustomersInsert,
+  CustomersSelect,
+  PartialCustomer,
+} from "@/db/schemas/customers";
 
 export interface ICustomersUseCases {
   getCustomerById(id: string): Promise<CustomersSelect>;
   getCustomers(
     userId: string,
-    page: string,
-    size: string,
+    page: number,
+    size: number,
     filters: Record<string, string>,
-  ): Promise<CustomersSelect[]>;
-  createCustomer(customer: CustomersInsert): Promise<void>;
-  updateCustomer(id: string, customer: CustomersInsert): Promise<void>;
+  ): Promise<{ customers: CustomersSelect[]; total: number }>;
+  createCustomer(customer: CustomersInsert): Promise<CustomersSelect>;
+  updateCustomer(
+    id: string,
+    customer: PartialCustomer,
+  ): Promise<CustomersSelect>;
   deleteCustomer(id: string): Promise<void>;
 }

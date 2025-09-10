@@ -1,6 +1,6 @@
 "use server";
 
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import { PriceSelect } from "@/db/schemas/stripe";
 
 const StripeUseCases = DIContainer.stripeUseCases;

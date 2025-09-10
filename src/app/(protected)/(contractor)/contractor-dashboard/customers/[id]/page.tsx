@@ -6,7 +6,7 @@ import { formatPhoneNumber } from "../../../../../utils/formatingFunctions";
 import { Estimates } from "@/types/estimates";
 import { Typography } from "@mui/material";
 import CustomersEstimatesTable from "@/components/tables/contractorTables/customersEstimatesTable/CustomersEstimatesTable";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import { redirect } from "next/navigation";
 
 async function getCustomer(id: number) {

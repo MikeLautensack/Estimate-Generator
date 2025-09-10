@@ -1,4 +1,4 @@
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -13,7 +13,7 @@ const Paywall = async ({ children }: PaywallProps) => {
     subscription.status === "trialing" || subscription.status === "active";
   const currentPeriodEnd = new Date(subscription.currentPeriodEnd);
   const now = new Date();
-  if (!isActive || now > currentPeriodEnd) redirect("/pricing");
+  // if (!isActive || now > currentPeriodEnd) redirect("/pricing");
 
   return <div>{children}</div>;
 };

@@ -2,9 +2,10 @@ import { ICustomerRepository } from "@/core/application/interfaces/repositories/
 import {
   CustomersInsert,
   CustomersSelect,
+  PartialCustomer,
   contractorsCustomers,
 } from "@/db/schemas/customers";
-import { eq, and, SQL, isNull } from "drizzle-orm";
+import { eq, and, SQL, isNull, count } from "drizzle-orm";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import { IDatabaseService } from "@/core/application/interfaces/services/IDatabaseService";
@@ -20,8 +21,8 @@ export class CustomersRepository implements ICustomerRepository {
 
   async getCustomers(
     userId: string,
-    page: string,
-    size: string,
+    page: number,
+    size: number,
     filters?: Record<string, string>,
   ): Promise<CustomersSelect[]> {
     try {
@@ -39,8 +40,8 @@ export class CustomersRepository implements ICustomerRepository {
         .select()
         .from(contractorsCustomers)
         .where(and(...conditions))
-        .limit(Number(size))
-        .offset((Number(page) - 1) * Number(size));
+        .limit(size)
+        .offset((page - 1) * size);
     } catch (error) {
       console.error(error);
       throw error;
@@ -65,23 +66,46 @@ export class CustomersRepository implements ICustomerRepository {
     }
   }
 
-  async createCustomer(customer: CustomersInsert): Promise<void> {
+  async getTotalCustomersByUser(user_id: string): Promise<number> {
     try {
-      await this.databaseService.db
-        .insert(contractorsCustomers)
-        .values(customer);
+      const query = await this.databaseService.db
+        .select({ count: count() })
+        .from(contractorsCustomers)
+        .where(eq(contractorsCustomers.contractor_user_id, user_id));
+
+      return query[0]?.count ?? 0;
     } catch (error) {
       console.error(error);
       throw error;
     }
   }
 
-  async updateCustomer(id: string, customer: CustomersInsert): Promise<void> {
+  async createCustomer(customer: CustomersInsert): Promise<CustomersSelect> {
     try {
-      await this.databaseService.db
+      const queryResults = await this.databaseService.db
+        .insert(contractorsCustomers)
+        .values(customer)
+        .returning();
+
+      return queryResults[0];
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async updateCustomer(
+    id: string,
+    customer: PartialCustomer,
+  ): Promise<CustomersSelect> {
+    try {
+      const queryResults = await this.databaseService.db
         .update(contractorsCustomers)
         .set({ ...customer, updatedAt: new Date() })
-        .where(eq(contractorsCustomers.id, id));
+        .where(eq(contractorsCustomers.id, id))
+        .returning();
+
+      return queryResults[0];
     } catch (error) {
       console.error(error);
       throw error;

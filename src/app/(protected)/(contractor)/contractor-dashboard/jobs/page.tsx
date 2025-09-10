@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { Typography, Box, Paper } from "@mui/material";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import { Suspense } from "react";
 import ActiveJobsData from "@/components/dataComponents/jobs/ActiveJobsData";
 import PendingJobsData from "@/components/dataComponents/jobs/PendingJobsData";

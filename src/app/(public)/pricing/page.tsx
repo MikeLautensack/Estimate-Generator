@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import Pricing from "@/components/stripe/Pricing";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 
 export default async function Page() {
   const [user, products, subscription] =

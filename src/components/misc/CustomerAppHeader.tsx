@@ -2,7 +2,7 @@ import React from "react";
 import Heading from "./Heading";
 import Box from "@mui/material/Box";
 import HeaderNavContainer from "./HeaderNavContainer";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 

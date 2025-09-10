@@ -22,7 +22,7 @@ import MVLPhoneNumber from "../inputs/MVLPhoneNumber";
 import EstimateFormModes from "./EstimateFormModes";
 import MVLAddressInput from "../inputs/MVLAddressInput";
 import { CustomersSelect } from "@/db/schemas/customers";
-import { ProfileSelect } from "@/db/schemas/userProfile";
+import { ProfileSelect } from "@/db/schemas/profiles";
 
 export type EstimateFormPartTwoProps = {
   customers: CustomersSelect[];

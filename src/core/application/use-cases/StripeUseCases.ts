@@ -288,4 +288,11 @@ export class StripeUseCases implements IStripeUseCases {
     if (!user) return undefined;
     return this.stripeRepository.getUserSubscription(user);
   }
+
+  async getSubscriptionWithPricesAndProducts(): Promise<any> {
+    const supabase = await this.supabaseService.getServerClient();
+    return await this.stripeRepository.getSubscriptionWithPricesAndProducts(
+      supabase,
+    );
+  }
 }

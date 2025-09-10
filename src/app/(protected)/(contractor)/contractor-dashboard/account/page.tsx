@@ -11,7 +11,7 @@ import {
 import React from "react";
 import { eq } from "drizzle-orm";
 import AccountForm from "@/components/forms/AccountForm";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import { redirect } from "next/navigation";
 import HandleDeleteAccount from "@/components/buttons/HandleDeleteAccount";
 import { format } from "date-fns";

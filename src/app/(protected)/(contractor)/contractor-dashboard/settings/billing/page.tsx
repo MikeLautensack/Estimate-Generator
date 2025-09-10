@@ -1,6 +1,7 @@
 import ManageSubscription from "@/components/buttons/ManageSubscription";
 import OpenStripeBillingPortal from "@/components/buttons/OpenStripeBillingPortal";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
+import { toPrice } from "@/utils/toPrice";
 import {
   Box,
   Card,
@@ -16,7 +17,8 @@ export default async function Page() {
   // Auth
   const user = await DIContainer.authUseCases.getUser();
   if (!user) redirect("/signin");
-  const subscription = await DIContainer.stripeUseCases.getUserSubscription();
+  const subscription =
+    await DIContainer.stripeUseCases.getSubscriptionWithPricesAndProducts();
   console.log("testing subscription", subscription);
   const currentPeriodEnd = new Date(subscription?.currentPeriodEnd!);
 
@@ -40,7 +42,7 @@ export default async function Page() {
         <CardContent>
           <Typography variant="h6">Current Plan</Typography>
           <Typography variant="body1" sx={{ mt: 1 }}>
-            {`${} - ${}`}Contractor Pro – $29/mo
+            {`${subscription.prices.products.name} - $${toPrice(subscription.prices.unitAmount)}/${subscription.prices.interval}`}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {`Renews on ${currentPeriodEnd}`}
@@ -62,9 +64,6 @@ export default async function Page() {
             </ListItem>
             <ListItem>
               <ListItemText primary="Customers" secondary="12 / Unlimited" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Change Orders" secondary="6 / 50" />
             </ListItem>
           </List>
         </CardContent>

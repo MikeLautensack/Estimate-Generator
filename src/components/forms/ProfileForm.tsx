@@ -12,17 +12,14 @@ import {
   Typography,
 } from "@mui/material";
 import TextInput from "./inputs/TextInput";
-import { Session } from "next-auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { UploadButton } from "../../utils/uploadthing";
 import MVLAddressInput from "./inputs/MVLAddressInput";
+import { ProfileSelect } from "@/db/schemas/profiles";
 
 type ProfileFormProps = {
-  session: Session;
-  profileData?: any;
-  mode: "new" | "update";
-  profile?: any;
+  profile?: ProfileSelect;
 };
 
 type LoadingState =
@@ -52,21 +49,21 @@ const ProfileFormSchema = z.object({
 
 type ProfileFormValues = z.infer<typeof ProfileFormSchema>;
 
-const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
+const ProfileForm = ({ profile }: ProfileFormProps) => {
   //Hooks
   const methods = useForm<ProfileFormValues>({
     resolver: zodResolver(ProfileFormSchema),
     defaultValues: {
-      businessAddress: profileData[0].businessAddress,
-      businessAddress2: profileData[0].businessAddress2,
-      businessCity: profileData[0].businessCity,
-      businessState: profileData[0].businessState,
-      businessZip: profileData[0].businessZip,
-      businessEmail: profileData[0].businessEmail,
-      businessName: profileData[0].businessName,
-      businessPhone: profileData[0].businessPhone,
-      profileImgKey: profileData[0].profileImgKey,
-      profileImgUrl: profileData[0].profileImgUrl,
+      businessAddress: profile ? profile.businessAddress : "",
+      businessAddress2: profile ? profile.businessAddress2 : "",
+      businessCity: profile ? profile.businessCity : "",
+      businessState: profile ? profile.businessState : "",
+      businessZip: profile ? profile.businessZip : "",
+      businessEmail: profile ? profile.businessEmail : "",
+      businessName: profile ? profile.businessName : "",
+      businessPhone: profile ? profile.businessPhone : "",
+      profileImgKey: profile ? profile.profileImgKey! : "",
+      profileImgUrl: profile ? profile.profileImgUrl! : "",
     },
   });
 
@@ -75,54 +72,36 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
   // State
   const [loadingState, setLoadingState] = useState<LoadingState>("");
   const [profileImg, setProfileImg] = useState<string>(
-    profileData ? profileData[0].profileImgUrl : "/images/Profile.png",
+    profile ? profile.profileImgUrl! : "/images/Profile.png",
   );
 
   // Callbacks
   const onSubmit: SubmitHandler<ProfileFormValues> = useCallback(
     async (data) => {
-      if (mode === "new") {
-        setLoadingState("loading");
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}api/users/${session?.user?.id}/profile`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          },
-        );
+      setLoadingState("loading");
+      const endpoint = profile ? "/api/profiles/" : "";
+      const method = profile ? "PATCH" : "POST";
+      const body = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: method,
+        body: JSON.stringify(data),
+      };
+      const res = await fetch(endpoint, body);
 
-        if (res.status === 200) {
-          setLoadingState("profile-created");
-          setTimeout(() => {
-            router.push(`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard`);
-            return res;
-          }, 500);
-        } else {
-          setLoadingState("error");
-        }
-      } else if (mode === "update") {
-        setLoadingState("loading");
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}api/users/${session?.user?.id}/profile`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          },
-        );
-        if (res.status === 200) {
-          setLoadingState("profile-updated");
-        } else {
-          setLoadingState("error");
-        }
+      if (res.status === 200) {
+        const loadingState = profile ? "profile-updated" : "profile-created";
+        setLoadingState(loadingState);
+        setTimeout(() => {
+          router.push(`${process.env.NEXT_PUBLIC_HOST}contractor-dashboard`);
+          return res;
+        }, 500);
+      } else {
+        setLoadingState("error");
       }
     },
-    [mode, router, session?.user?.id],
+    [router],
   );
 
   return (
@@ -202,9 +181,9 @@ const ProfileForm = ({ session, profileData, mode }: ProfileFormProps) => {
             disabled={loadingState === "loading"}
             onClick={() => console.log("submitting profile form")}
           >
-            {loadingState === "" && mode === "new" ? (
+            {loadingState === "" && !profile ? (
               <Typography>Create Profile</Typography>
-            ) : loadingState === "" && mode === "update" ? (
+            ) : loadingState === "" && profile ? (
               <Typography>Update Profile</Typography>
             ) : loadingState === "loading" ? (
               <CircularProgress sx={{ color: "#001824" }} />

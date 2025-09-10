@@ -3,7 +3,6 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import React, { useState } from "react";
 import ProfileInfoTab from "./ProfileInfoTab";
-import { Session } from "next-auth";
 
 interface TabPanelProps {
   children?: React.ReactNode;

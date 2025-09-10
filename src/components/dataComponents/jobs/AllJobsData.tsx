@@ -1,5 +1,5 @@
 import ContractorJobsTable from "@/components/tables/contractorTables/jobsTable/ContractorJobsTable";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 
 async function getAllJobs(
   id: string,

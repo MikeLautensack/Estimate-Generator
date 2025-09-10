@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { Typography } from "@mui/material";
 import ContractorsCustomersTable from "@/components/tables/contractorTables/customersTable/ContractorsCustomersTable";
-import DIContainer from "@/core/DIContainer";
+import DIContainer from "@/core/IoCContainer";
 import { CustomersFormProvider } from "@/contexts/CustomersFormContext";
 import NewCustomerButton from "@/components/misc/NewCustomerButton";
 import CustomerFormWrapper from "@/components/wrappers/CustomerFormWrapper";

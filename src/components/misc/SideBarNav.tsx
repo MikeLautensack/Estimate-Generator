@@ -94,7 +94,7 @@ const SideBarNav = ({ ...props }) => {
             Dashboard
           </Button>
         </Link>
-        <Link
+        {/* <Link
           id="jobs-button"
           href="/contractor-dashboard/jobs"
           onClick={() => setSelected("jobs")}
@@ -107,7 +107,7 @@ const SideBarNav = ({ ...props }) => {
             <LuLayoutDashboard className="text-secondary500" />
             Jobs
           </Button>
-        </Link>
+        </Link> */}
         <Link
           id="customers-button"
           href="/contractor-dashboard/customers?page=1&pageSize=5"
@@ -136,7 +136,7 @@ const SideBarNav = ({ ...props }) => {
             Estimates
           </Button>
         </Link>
-        <Link
+        {/* <Link
           id="estimates-button"
           href="/contractor-dashboard/change-orders?page=1&pageSize=5"
           onClick={() => setSelected("change-orders")}
@@ -149,7 +149,7 @@ const SideBarNav = ({ ...props }) => {
             <FcDocument />
             Change Orders
           </Button>
-        </Link>
+        </Link> */}
       </div>
     </nav>
   );

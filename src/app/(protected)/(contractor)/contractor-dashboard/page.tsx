@@ -14,7 +14,7 @@ import { eq } from "drizzle-orm";
 import { changeOrders } from "@/db/schemas/changeOrders";
 import EstimateStatusChart from "@/components/charts/EstimateStatusChart";
 import RevenueChart from "@/components/charts/revenue-chart/RevenueChart";
-import DIContainer from "@/core/DIContainer";
+import IoCContainer from "@/core/IoCContainer";
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 
@@ -55,7 +55,8 @@ import { createClient } from "@/utils/supabase/server";
 // }
 
 const Page = async () => {
-  const user = await DIContainer.authUseCases.getUser();
+  const user = await IoCContainer.authUseCases.getUser();
+  console.log("user ************", user);
   if (!user) redirect("/signin");
 
   // const estimates = await getEstimates(session);
