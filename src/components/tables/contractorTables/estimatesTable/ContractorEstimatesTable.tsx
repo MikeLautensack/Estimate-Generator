@@ -1,6 +1,5 @@
 "use client";
 
-import { Estimates } from "@/types/estimates";
 import { TablePaginationProps } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
@@ -17,9 +16,10 @@ import { useRouter } from "next/navigation";
 import EstimatesTableMenu from "./EstimatesTableMenu";
 import MuiPagination from "@mui/material/Pagination";
 import { formatAddress, formatPriceString } from "@/utils/formatingFunctions";
+import { EstimatesSelect } from "@/db/schemas/estimates";
 
 type ContractorEstimatesTableProps = {
-  estimates: Estimates[];
+  estimates: EstimatesSelect[];
   page: string;
   pageSize: string;
   totalRows: number;
@@ -77,13 +77,13 @@ const ContractorEstimatesTable = ({
       estimateName: estimate.estimateName,
       customerName: `${estimate.customerFirstName} ${estimate.customerLastName}`,
       projectAddress: formatAddress(
-        estimate.projectAddress,
-        estimate.projectAddress2,
-        estimate.projectCity,
-        estimate.projectState,
-        estimate.projectZip,
+        estimate.projectAddress!,
+        estimate.projectAddress2!,
+        estimate.projectCity!,
+        estimate.projectState!,
+        estimate.projectZip!,
       ),
-      total: formatPriceString(estimate.total.toString()),
+      total: formatPriceString(estimate.total!.toString()),
       status: estimate.status,
     };
   });

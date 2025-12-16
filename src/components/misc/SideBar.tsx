@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut } from "next-auth/react";
+import { signOut } from "@/utils/supabase/client";
 import SideBarNav from "./SideBarNav";
 import { Box, Button, Typography } from "@mui/material";
 
@@ -8,7 +8,7 @@ const SideBar = () => {
   return (
     <Box
       component="div"
-      className="flex flex-col justify-between w-64 p-4 h-[calc(100vh-56px)] sticky top-14"
+      className="flex flex-col justify-between w-64 p-4"
       sx={{
         backgroundColor: "surfaceContainer",
         borderRight: "solid 1px",
@@ -25,10 +25,7 @@ const SideBar = () => {
         </Typography>
         <SideBarNav className="" />
       </div>
-      <Button
-        onClick={() => signOut({ callbackUrl: process.env.NEXT_PUBLIC_HOST })}
-        variant="contained"
-      >
+      <Button onClick={() => signOut()} variant="contained">
         Sign Out
       </Button>
     </Box>

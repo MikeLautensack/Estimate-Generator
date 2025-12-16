@@ -1,0 +1,3042 @@
+openapi: 3.0.3
+info:
+  title: Estimate Generator API
+  description: Field Service Management platform for independent contractors and small contracting businesses
+  version: 1.0.0
+  contact:
+    name: Estimate Generator
+    url: https://estimategeneratorapp.com
+
+servers:
+  - url: https://estimategeneratorapp.com/api/v1
+    description: Production server
+
+security:
+  - GoogleOAuth: []
+  - BearerAuth: []
+
+paths:
+  # Authentication
+  /auth/google:
+    post:
+      tags:
+        - Authentication
+      summary: Authenticate with Google OAuth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+              properties:
+                code:
+                  type: string
+                  description: Google OAuth authorization code
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/refresh:
+    post:
+      tags:
+        - Authentication
+      summary: Refresh access token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - refresh_token
+              properties:
+                refresh_token:
+                  type: string
+      responses:
+        '200':
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # Contractor Profile
+  /profile:
+    get:
+      tags:
+        - Profile
+      summary: Get contractor profile
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Contractor profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractorProfile'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    post:
+      tags:
+        - Profile
+      summary: Create contractor profile
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContractorProfile'
+      responses:
+        '201':
+          description: Profile created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractorProfile'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+    put:
+      tags:
+        - Profile
+      summary: Update contractor profile
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContractorProfile'
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractorProfile'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  # Customers
+  /customers:
+    get:
+      tags:
+        - Customers
+      summary: List customers
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Search customers by name, email, or phone
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of customers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Customer'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+    post:
+      tags:
+        - Customers
+      summary: Create a new customer
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomer'
+      responses:
+        '201':
+          description: Customer created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /customers/{customer_id}:
+    get:
+      tags:
+        - Customers
+      summary: Get customer by ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Customer details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      tags:
+        - Customers
+      summary: Update customer
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomer'
+      responses:
+        '200':
+          description: Customer updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      tags:
+        - Customers
+      summary: Delete customer
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Customer deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /customers/{customer_id}/notes:
+    get:
+      tags:
+        - Customers
+      summary: Get customer notes
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Customer notes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerNote'
+
+    post:
+      tags:
+        - Customers
+      summary: Add note to customer
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - note
+              properties:
+                note:
+                  type: string
+                  maxLength: 1000
+      responses:
+        '201':
+          description: Note added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerNote'
+
+  # Jobs
+  /jobs:
+    get:
+      tags:
+        - Jobs
+      summary: List jobs
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, active, completed]
+        - name: customer_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of jobs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+    post:
+      tags:
+        - Jobs
+      summary: Create a new job
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateJob'
+      responses:
+        '201':
+          description: Job created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+  /jobs/{job_id}:
+    get:
+      tags:
+        - Jobs
+      summary: Get job by ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Job details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+    put:
+      tags:
+        - Jobs
+      summary: Update job
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateJob'
+      responses:
+        '200':
+          description: Job updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+
+    delete:
+      tags:
+        - Jobs
+      summary: Delete job
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Job deleted
+
+  # Estimates
+  /estimates:
+    get:
+      tags:
+        - Estimates
+      summary: List estimates
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, finalized, sent]
+        - name: job_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: customer_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of estimates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Estimate'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+    post:
+      tags:
+        - Estimates
+      summary: Create a new estimate draft
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEstimate'
+      responses:
+        '201':
+          description: Estimate created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Estimate'
+
+  /estimates/{estimate_id}/save-draft:
+    patch:
+      tags:
+        - Estimates
+      summary: Save an estimate draft
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: estimate_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                template_id:
+                  type: string
+                  format: uuid
+                  description: Optional PDF template to use
+                send_email:
+                  type: boolean
+                  default: false
+                  description: Whether to email the estimate to customer
+                email_message:
+                  type: string
+                  description: Optional message to include in email
+      responses:
+        '200':
+          description: Estimate finalized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estimate:
+                    $ref: '#/components/schemas/Estimate'
+                  pdf_url:
+                    type: string
+                    format: uri
+                    description: URL to download the generated PDF
+
+  /estimates/{estimate_id}/finalize-draft:
+    patch:
+      tags:
+        - Estimates
+      summary: Finalize an estimate draft
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: estimate_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                template_id:
+                  type: string
+                  format: uuid
+                  description: Optional PDF template to use
+                send_email:
+                  type: boolean
+                  default: false
+                  description: Whether to email the estimate to customer
+                email_message:
+                  type: string
+                  description: Optional message to include in email
+      responses:
+        '200':
+          description: Estimate finalized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  estimate:
+                    $ref: '#/components/schemas/Estimate'
+                  pdf_url:
+                    type: string
+                    format: uri
+                    description: URL to download the generated PDF
+                    
+  /estimates/{estimate_id}/versions:
+    get:
+      tags:
+        - Estimates
+      summary: Get estimate versions
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: estimate_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Estimate versions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EstimateVersion'
+
+  /estimates/{estimate_id}:
+    delete:
+      tags:
+        - Estimates
+      summary: Delete estimate
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: estimate_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Estimate deleted
+          
+  # Work Orders
+  /work-orders:
+    get:
+      tags:
+        - Work Orders
+      summary: List work orders
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, scheduled, in_progress, on_hold, completed, cancelled]
+        - name: job_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of work orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WorkOrder'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+    post:
+      tags:
+        - Work Orders
+      summary: Create work order from estimate
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWorkOrder'
+      responses:
+        '201':
+          description: Work order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkOrder'
+
+  /work-orders/{work_order_id}:
+    get:
+      tags:
+        - Work Orders
+      summary: Get work order by ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: work_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Work order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkOrder'
+
+    put:
+      tags:
+        - Work Orders
+      summary: Update work order
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: work_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkOrder'
+      responses:
+        '200':
+          description: Work order updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkOrder'
+
+  /work-orders/{work_order_id}/schedule:
+    post:
+      tags:
+        - Work Orders
+      summary: Schedule work order with Google Calendar
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: work_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduleWorkOrder'
+      responses:
+        '200':
+          description: Work order scheduled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  work_order:
+                    $ref: '#/components/schemas/WorkOrder'
+                  calendar_event_id:
+                    type: string
+
+  # Change Orders
+  /change-orders:
+    get:
+      tags:
+        - Change Orders
+      summary: List change orders
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: work_order_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, sent, approved, rejected, incorporated]
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of change orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ChangeOrder'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+    post:
+      tags:
+        - Change Orders
+      summary: Create change order
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateChangeOrder'
+      responses:
+        '201':
+          description: Change order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeOrder'
+
+  /change-orders/{change_order_id}:
+    get:
+      tags:
+        - Change Orders
+      summary: Get change order by ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: change_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Change order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeOrder'
+
+    put:
+      tags:
+        - Change Orders
+      summary: Update change order
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: change_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateChangeOrder'
+      responses:
+        '200':
+          description: Change order updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeOrder'
+
+  /change-orders/{change_order_id}/approve:
+    post:
+      tags:
+        - Change Orders
+      summary: Approve change order
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: change_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Change order approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangeOrder'
+
+  # Invoices
+  /invoices:
+    get:
+      tags:
+        - Invoices
+      summary: List invoices
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, sent, past_due, paid, refunded, void]
+        - name: job_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of invoices
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Invoice'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+    post:
+      tags:
+        - Invoices
+      summary: Create invoice from work order
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInvoice'
+      responses:
+        '201':
+          description: Invoice created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+
+  /invoices/{invoice_id}:
+    get:
+      tags:
+        - Invoices
+      summary: Get invoice by ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: invoice_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Invoice details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+
+    put:
+      tags:
+        - Invoices
+      summary: Update invoice
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: invoice_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoice'
+      responses:
+        '200':
+          description: Invoice updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+
+  /invoices/{invoice_id}/send:
+    post:
+      tags:
+        - Invoices
+      summary: Send invoice to customer
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: invoice_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email_message:
+                  type: string
+                  description: Optional message to include in email
+      responses:
+        '200':
+          description: Invoice sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+
+  # Dashboard
+  /dashboard/metrics:
+    get:
+      tags:
+        - Dashboard
+      summary: Get contractor dashboard metrics
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [week, month, quarter, year]
+            default: month
+      responses:
+        '200':
+          description: Dashboard metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardMetrics'
+
+  # Settings
+  /settings:
+    get:
+      tags:
+        - Settings
+      summary: Get user settings
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: User settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+
+    put:
+      tags:
+        - Settings
+      summary: Update user settings
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSettings'
+      responses:
+        '200':
+          description: Settings updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Settings'
+
+  # PDF Templates
+  /pdf-templates:
+    get:
+      tags:
+        - PDF Templates
+      summary: List PDF templates
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: List of PDF templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PDFTemplate'
+
+    post:
+      tags:
+        - PDF Templates
+      summary: Create custom PDF template
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePDFTemplate'
+      responses:
+        '201':
+          description: Template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PDFTemplate'
+
+  /pdf-templates/{template_id}:
+    get:
+      tags:
+        - PDF Templates
+      summary: Get PDF template by ID
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: template_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: PDF template details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PDFTemplate'
+
+    put:
+      tags:
+        - PDF Templates
+      summary: Update PDF template
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: template_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePDFTemplate'
+      responses:
+        '200':
+          description: Template updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PDFTemplate'
+
+    delete:
+      tags:
+        - PDF Templates
+      summary: Delete PDF template
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: template_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Template deleted
+
+  # AI Features
+  /ai/suggest-description:
+    post:
+      tags:
+        - AI Features
+      summary: Get AI-suggested line item description
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - item
+              properties:
+                item:
+                  type: string
+                  description: Brief item name
+                context:
+                  type: string
+                  description: Optional context about the job
+      responses:
+        '200':
+          description: Suggested description
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  suggestion:
+                    type: string
+
+  /ai/draft-email:
+    post:
+      tags:
+        - AI Features
+      summary: Generate email draft for estimate/invoice
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - document_type
+                - document_id
+              properties:
+                document_type:
+                  type: string
+                  enum: [estimate, invoice]
+                document_id:
+                  type: string
+                  format: uuid
+      responses:
+        '200':
+          description: Email draft generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  subject:
+                    type: string
+                  body:
+                    type: string
+
+  # Search
+  /search:
+    get:
+      tags:
+        - Search
+      summary: Universal search across all resources
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Search query
+        - name: types
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [customers, jobs, estimates, work_orders, invoices]
+          description: Resource types to search
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+
+  # Data Export
+  /export:
+    post:
+      tags:
+        - Export
+      summary: Request data export
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExportRequest'
+      responses:
+        '202':
+          description: Export job started
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  export_id:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                    enum: [pending, processing, completed, failed]
+                  estimated_completion:
+                    type: string
+                    format: date-time
+
+  /export/{export_id}:
+    get:
+      tags:
+        - Export
+      summary: Get export status and download link
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: export_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Export status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  export_id:
+                    type: string
+                    format: uuid
+                  status:
+                    type: string
+                    enum: [pending, processing, completed, failed]
+                  download_url:
+                    type: string
+                    format: uri
+                    description: Available when status is completed
+                  expires_at:
+                    type: string
+                    format: date-time
+                  error_message:
+                    type: string
+                    description: Available when status is failed
+
+  # Billing & Subscriptions
+  /billing/plans:
+    get:
+      tags:
+        - Billing
+      summary: Get available billing plans
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Available plans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BillingPlan'
+
+  /billing/subscription:
+    get:
+      tags:
+        - Billing
+      summary: Get current subscription
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Current subscription
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+
+    post:
+      tags:
+        - Billing
+      summary: Create or upgrade subscription
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - plan_id
+              properties:
+                plan_id:
+                  type: string
+                  description: Stripe price ID
+      responses:
+        '200':
+          description: Checkout session created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  checkout_url:
+                    type: string
+                    format: uri
+                    description: Stripe checkout URL
+
+  /billing/portal:
+    post:
+      tags:
+        - Billing
+      summary: Create Stripe customer portal session
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Portal session created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  portal_url:
+                    type: string
+                    format: uri
+
+  # Webhooks
+  /webhooks/stripe:
+    post:
+      tags:
+        - Webhooks
+      summary: Stripe webhook endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Stripe webhook payload
+      responses:
+        '200':
+          description: Webhook processed
+        '400':
+          description: Invalid webhook
+
+components:
+  securitySchemes:
+    GoogleOAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            openid: OpenID Connect
+            email: User email address
+            profile: User profile information
+
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # Authentication
+    AuthResponse:
+      type: object
+      required:
+        - access_token
+        - token_type
+        - expires_in
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Token expiration in seconds
+        user:
+          $ref: '#/components/schemas/User'
+
+    User:
+      type: object
+      required:
+        - id
+        - email
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        avatar_url:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    # Contractor Profile
+    ContractorProfile:
+      type: object
+      required:
+        - id
+        - user_id
+        - business_name
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        business_name:
+          type: string
+        contact_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip_code:
+          type: string
+        license_number:
+          type: string
+        logo_url:
+          type: string
+          format: uri
+        website:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CreateContractorProfile:
+      type: object
+      required:
+        - business_name
+      properties:
+        business_name:
+          type: string
+        contact_name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip_code:
+          type: string
+        license_number:
+          type: string
+        website:
+          type: string
+          format: uri
+
+    UpdateContractorProfile:
+      allOf:
+        - $ref: '#/components/schemas/CreateContractorProfile'
+
+    # Customer
+    Customer:
+      type: object
+      required:
+        - id
+        - name
+        - email
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip_code:
+          type: string
+        credit_balance:
+          type: number
+          format: decimal
+          default: 0
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CreateCustomer:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip_code:
+          type: string
+        credit_balance:
+          type: number
+          format: decimal
+          default: 0
+
+    UpdateCustomer:
+      allOf:
+        - $ref: '#/components/schemas/CreateCustomer'
+
+    CustomerNote:
+      type: object
+      required:
+        - id
+        - customer_id
+        - note
+      properties:
+        id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        note:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    # Job
+    Job:
+      type: object
+      required:
+        - id
+        - customer_id
+        - title
+        - status
+      properties:
+        id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        site_address:
+          type: string
+        status:
+          type: string
+          enum: [pending, active, completed]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        customer:
+          $ref: '#/components/schemas/Customer'
+
+    CreateJob:
+      type: object
+      required:
+        - customer_id
+        - title
+      properties:
+        customer_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        site_address:
+          type: string
+
+    UpdateJob:
+      allOf:
+        - $ref: '#/components/schemas/CreateJob'
+        - type: object
+          properties:
+            status:
+              type: string
+              enum: [pending, active, completed]
+
+    # Line Item
+    LineItem:
+      type: object
+      required:
+        - id
+        - item
+        - rate
+        - amount
+        - price
+      properties:
+        id:
+          type: string
+          format: uuid
+        item:
+          type: string
+        description:
+          type: string
+        rate:
+          type: number
+          format: decimal
+        rate_type:
+          type: string
+          enum: [hourly, fixed, per_unit]
+          default: fixed
+        amount:
+          type: number
+          format: decimal
+        price:
+          type: number
+          format: decimal
+        image_url:
+          type: string
+          format: uri
+        order_index:
+          type: integer
+
+    CreateLineItem:
+      type: object
+      required:
+        - item
+        - rate
+        - amount
+      properties:
+        item:
+          type: string
+        description:
+          type: string
+        rate:
+          type: number
+          format: decimal
+        rate_type:
+          type: string
+          enum: [hourly, fixed, per_unit]
+          default: fixed
+        amount:
+          type: number
+          format: decimal
+        image_url:
+          type: string
+          format: uri
+
+    UpdateLineItem:
+      allOf:
+        - $ref: '#/components/schemas/CreateLineItem'
+
+    # Estimate
+    Estimate:
+      type: object
+      required:
+        - id
+        - job_id
+        - status
+        - version
+      properties:
+        id:
+          type: string
+          format: uuid
+        job_id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [draft, finalized, sent]
+        version:
+          type: integer
+          minimum: 1
+        message:
+          type: string
+          description: Custom message for the estimate
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineItem'
+        subtotal:
+          type: number
+          format: decimal
+        tax_rate:
+          type: number
+          format: decimal
+        tax_amount:
+          type: number
+          format: decimal
+        discount_type:
+          type: string
+          enum: [percentage, fixed]
+        discount_value:
+          type: number
+          format: decimal
+        discount_amount:
+          type: number
+          format: decimal
+        deposit_percentage:
+          type: number
+          format: decimal
+        deposit_amount:
+          type: number
+          format: decimal
+        total:
+          type: number
+          format: decimal
+        final_payment:
+          type: number
+          format: decimal
+        pdf_url:
+          type: string
+          format: uri
+        template_id:
+          type: string
+          format: uuid
+        finalized_at:
+          type: string
+          format: date-time
+        sent_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        job:
+          $ref: '#/components/schemas/Job'
+
+    CreateEstimate:
+      type: object
+      required:
+        - job_id
+      properties:
+        job_id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        message:
+          type: string
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateLineItem'
+        tax_rate:
+          type: number
+          format: decimal
+          default: 0
+        discount_type:
+          type: string
+          enum: [percentage, fixed]
+        discount_value:
+          type: number
+          format: decimal
+          default: 0
+        deposit_percentage:
+          type: number
+          format: decimal
+          default: 0
+
+    UpdateEstimate:
+      allOf:
+        - $ref: '#/components/schemas/CreateEstimate'
+
+    EstimateVersion:
+      type: object
+      required:
+        - version
+        - finalized_at
+      properties:
+        version:
+          type: integer
+        pdf_url:
+          type: string
+          format: uri
+        finalized_at:
+          type: string
+          format: date-time
+        sent_at:
+          type: string
+          format: date-time
+
+    # Work Order
+    WorkOrder:
+      type: object
+      required:
+        - id
+        - job_id
+        - estimate_id
+        - status
+      properties:
+        id:
+          type: string
+          format: uuid
+        job_id:
+          type: string
+          format: uuid
+        estimate_id:
+          type: string
+          format: uuid
+        estimate_version:
+          type: integer
+        status:
+          type: string
+          enum: [draft, scheduled, in_progress, on_hold, completed, cancelled]
+        scheduled_start:
+          type: string
+          format: date-time
+        scheduled_end:
+          type: string
+          format: date-time
+        google_event_id:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Task'
+        internal_notes:
+          type: string
+        subtotal:
+          type: number
+          format: decimal
+        tax_amount:
+          type: number
+          format: decimal
+        discount_amount:
+          type: number
+          format: decimal
+        deposit_collected:
+          type: number
+          format: decimal
+        total:
+          type: number
+          format: decimal
+        remaining_balance:
+          type: number
+          format: decimal
+        pdf_url:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        job:
+          $ref: '#/components/schemas/Job'
+
+    CreateWorkOrder:
+      type: object
+      required:
+        - estimate_id
+      properties:
+        estimate_id:
+          type: string
+          format: uuid
+        estimate_version:
+          type: integer
+          description: Version of estimate to use, defaults to latest
+        internal_notes:
+          type: string
+
+    UpdateWorkOrder:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [draft, scheduled, in_progress, on_hold, completed, cancelled]
+        scheduled_start:
+          type: string
+          format: date-time
+        scheduled_end:
+          type: string
+          format: date-time
+        internal_notes:
+          type: string
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateTask'
+
+    ScheduleWorkOrder:
+      type: object
+      required:
+        - start_time
+        - end_time
+      properties:
+        start_time:
+          type: string
+          format: date-time
+        end_time:
+          type: string
+          format: date-time
+        calendar_id:
+          type: string
+          description: Google Calendar ID, uses default if not specified
+        notify_customer:
+          type: boolean
+          default: false
+
+    Task:
+      type: object
+      required:
+        - id
+        - title
+        - completed
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        quantity:
+          type: number
+          format: decimal
+        unit:
+          type: string
+        rate:
+          type: number
+          format: decimal
+        extended_price:
+          type: number
+          format: decimal
+        completed:
+          type: boolean
+          default: false
+        photo_url:
+          type: string
+          format: uri
+        order_index:
+          type: integer
+
+    UpdateTask:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        completed:
+          type: boolean
+        photo_url:
+          type: string
+          format: uri
+
+    # Change Order
+    ChangeOrder:
+      type: object
+      required:
+        - id
+        - work_order_id
+        - status
+      properties:
+        id:
+          type: string
+          format: uuid
+        work_order_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [draft, sent, approved, rejected, incorporated]
+        description:
+          type: string
+        line_item_deltas:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineItemDelta'
+        original_total:
+          type: number
+          format: decimal
+        delta_amount:
+          type: number
+          format: decimal
+        revised_total:
+          type: number
+          format: decimal
+        delta_deposit:
+          type: number
+          format: decimal
+        pdf_url:
+          type: string
+          format: uri
+        approved_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CreateChangeOrder:
+      type: object
+      required:
+        - work_order_id
+        - description
+        - line_item_deltas
+      properties:
+        work_order_id:
+          type: string
+          format: uuid
+        description:
+          type: string
+        line_item_deltas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateLineItemDelta'
+        delta_deposit:
+          type: number
+          format: decimal
+          default: 0
+
+    UpdateChangeOrder:
+      allOf:
+        - $ref: '#/components/schemas/CreateChangeOrder'
+
+    LineItemDelta:
+      type: object
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+          format: uuid
+          description: Reference to existing task if modifying
+        type:
+          type: string
+          enum: [add, remove, modify]
+        item:
+          type: string
+        description:
+          type: string
+        quantity_delta:
+          type: number
+          format: decimal
+        rate_delta:
+          type: number
+          format: decimal
+        price_delta:
+          type: number
+          format: decimal
+
+    CreateLineItemDelta:
+      type: object
+      required:
+        - type
+      properties:
+        task_id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum: [add, remove, modify]
+        item:
+          type: string
+        description:
+          type: string
+        quantity_delta:
+          type: number
+          format: decimal
+        rate_delta:
+          type: number
+          format: decimal
+        price_delta:
+          type: number
+          format: decimal
+
+    # Invoice
+    Invoice:
+      type: object
+      required:
+        - id
+        - job_id
+        - invoice_number
+        - status
+      properties:
+        id:
+          type: string
+          format: uuid
+        job_id:
+          type: string
+          format: uuid
+        work_order_id:
+          type: string
+          format: uuid
+        invoice_number:
+          type: string
+        status:
+          type: string
+          enum: [draft, sent, past_due, paid, refunded, void]
+        issue_date:
+          type: string
+          format: date
+        due_date:
+          type: string
+          format: date
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineItem'
+        subtotal:
+          type: number
+          format: decimal
+        tax_amount:
+          type: number
+          format: decimal
+        discount_amount:
+          type: number
+          format: decimal
+        previous_deposits:
+          type: number
+          format: decimal
+        credits_applied:
+          type: number
+          format: decimal
+        amount_due:
+          type: number
+          format: decimal
+        total:
+          type: number
+          format: decimal
+        stripe_invoice_id:
+          type: string
+        stripe_checkout_url:
+          type: string
+          format: uri
+        pdf_url:
+          type: string
+          format: uri
+        paid_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        job:
+          $ref: '#/components/schemas/Job'
+
+    CreateInvoice:
+      type: object
+      required:
+        - work_order_id
+      properties:
+        work_order_id:
+          type: string
+          format: uuid
+        due_date:
+          type: string
+          format: date
+        payment_terms:
+          type: string
+          enum: [net_7, net_15, net_30]
+          default: net_30
+
+    UpdateInvoice:
+      type: object
+      properties:
+        due_date:
+          type: string
+          format: date
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateLineItem'
+
+    # Dashboard
+    DashboardMetrics:
+      type: object
+      properties:
+        total_estimates_sent:
+          type: integer
+        total_invoices_sent:
+          type: integer
+        total_jobs:
+          type: integer
+        total_completed_jobs:
+          type: integer
+        total_open_jobs:
+          type: integer
+        total_pending_jobs:
+          type: integer
+        total_customers:
+          type: integer
+        total_revenue:
+          type: number
+          format: decimal
+        most_active_customers:
+          type: array
+          items:
+            type: object
+            properties:
+              customer:
+                $ref: '#/components/schemas/Customer'
+              job_count:
+                type: integer
+              total_revenue:
+                type: number
+                format: decimal
+        period:
+          type: string
+          enum: [week, month, quarter, year]
+
+    # Settings
+    Settings:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        currency:
+          type: string
+          default: USD
+        tax_rate:
+          type: number
+          format: decimal
+          default: 0
+        default_deposit_percentage:
+          type: number
+          format: decimal
+          default: 0
+        default_payment_terms:
+          type: string
+          enum: [net_7, net_15, net_30]
+          default: net_30
+        pdf_settings:
+          $ref: '#/components/schemas/PDFSettings'
+        email_settings:
+          $ref: '#/components/schemas/EmailSettings'
+        calendar_settings:
+          $ref: '#/components/schemas/CalendarSettings'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    UpdateSettings:
+      type: object
+      properties:
+        currency:
+          type: string
+        tax_rate:
+          type: number
+          format: decimal
+        default_deposit_percentage:
+          type: number
+          format: decimal
+        default_payment_terms:
+          type: string
+          enum: [net_7, net_15, net_30]
+        pdf_settings:
+          $ref: '#/components/schemas/UpdatePDFSettings'
+        email_settings:
+          $ref: '#/components/schemas/UpdateEmailSettings'
+        calendar_settings:
+          $ref: '#/components/schemas/UpdateCalendarSettings'
+
+    # PDF Settings & Templates
+    PDFSettings:
+      type: object
+      properties:
+        mode:
+          type: string
+          enum: [default, custom, template]
+          default: default
+        template_id:
+          type: string
+          format: uuid
+        show_logo:
+          type: boolean
+          default: true
+        show_line_item_images:
+          type: boolean
+          default: true
+        numbering_prefix:
+          type: string
+          default: EST
+        font_family:
+          type: string
+          default: Helvetica
+        primary_color:
+          type: string
+          pattern: '^#[0-9A-Fa-f]{6}
+          default: '#000000'
+        secondary_color:
+          type: string
+          pattern: '^#[0-9A-Fa-f]{6}
+          default: '#666666'
+
+    UpdatePDFSettings:
+      allOf:
+        - $ref: '#/components/schemas/PDFSettings'
+
+    PDFTemplate:
+      type: object
+      required:
+        - id
+        - name
+        - document_type
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        document_type:
+          type: string
+          enum: [estimate, work_order, change_order, invoice]
+        is_custom:
+          type: boolean
+          default: true
+        is_premium:
+          type: boolean
+          default: false
+        settings:
+          $ref: '#/components/schemas/PDFSettings'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CreatePDFTemplate:
+      type: object
+      required:
+        - name
+        - document_type
+        - settings
+      properties:
+        name:
+          type: string
+        document_type:
+          type: string
+          enum: [estimate, work_order, change_order, invoice]
+        settings:
+          $ref: '#/components/schemas/PDFSettings'
+
+    UpdatePDFTemplate:
+      allOf:
+        - $ref: '#/components/schemas/CreatePDFTemplate'
+
+    # Email Settings
+    EmailSettings:
+      type: object
+      properties:
+        estimate_subject_template:
+          type: string
+          default: 'Estimate for {{job_title}}'
+        estimate_body_template:
+          type: string
+          default: 'Please find attached your estimate for {{job_title}}.'
+        invoice_subject_template:
+          type: string
+          default: 'Invoice for {{job_title}}'
+        invoice_body_template:
+          type: string
+          default: 'Please find attached your invoice for {{job_title}}.'
+        work_order_subject_template:
+          type: string
+          default: 'Work scheduled for {{job_title}}'
+        work_order_body_template:
+          type: string
+          default: 'Your work has been scheduled for {{scheduled_date}}.'
+
+    UpdateEmailSettings:
+      allOf:
+        - $ref: '#/components/schemas/EmailSettings'
+
+    # Calendar Settings
+    CalendarSettings:
+      type: object
+      properties:
+        google_calendar_id:
+          type: string
+        default_event_duration:
+          type: integer
+          description: Default duration in minutes
+          default: 240
+        event_title_format:
+          type: string
+          default: 'Job #{{job_number}} - {{customer_name}}'
+        include_customer_in_event:
+          type: boolean
+          default: false
+
+    UpdateCalendarSettings:
+      allOf:
+        - $ref: '#/components/schemas/CalendarSettings'
+
+    # Search
+    SearchResults:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        total_count:
+          type: integer
+
+    SearchResult:
+      type: object
+      required:
+        - id
+        - type
+        - title
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum: [customer, job, estimate, work_order, invoice]
+        title:
+          type: string
+        subtitle:
+          type: string
+        url:
+          type: string
+          description: Relative URL to the resource
+
+    # Export
+    ExportRequest:
+      type: object
+      required:
+        - format
+        - resources
+      properties:
+        format:
+          type: string
+          enum: [csv, json, pdf]
+        resources:
+          type: array
+          items:
+            type: string
+            enum: [customers, jobs, estimates, work_orders, change_orders, invoices]
+        filters:
+          type: object
+          properties:
+            date_from:
+              type: string
+              format: date
+            date_to:
+              type: string
+              format: date
+            status:
+              type: string
+            customer_id:
+              type: string
+              format: uuid
+
+    # Billing
+    BillingPlan:
+      type: object
+      required:
+        - id
+        - name
+        - price
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          enum: [free, contractor, business]
+        price:
+          type: number
+          format: decimal
+        billing_period:
+          type: string
+          enum: [month, year]
+        features:
+          type: object
+          properties:
+            max_customers:
+              type: integer
+              description: -1 for unlimited
+            max_estimates_per_month:
+              type: integer
+              description: -1 for unlimited
+            max_templates:
+              type: integer
+            ai_tokens_per_day:
+              type: integer
+            custom_templates:
+              type: boolean
+            advanced_analytics:
+              type: boolean
+
+    Subscription:
+      type: object
+      required:
+        - id
+        - plan
+        - status
+      properties:
+        id:
+          type: string
+        plan:
+          $ref: '#/components/schemas/BillingPlan'
+        status:
+          type: string
+          enum: [active, past_due, canceled, unpaid]
+        current_period_start:
+          type: string
+          format: date-time
+        current_period_end:
+          type: string
+          format: date-time
+        stripe_customer_id:
+          type: string
+        stripe_subscription_id:
+          type: string
+        usage:
+          type: object
+          properties:
+            customers_count:
+              type: integer
+            estimates_this_month:
+              type: integer
+            templates_count:
+              type: integer
+            ai_tokens_today:
+              type: integer
+
+    # Common
+    Pagination:
+      type: object
+      required:
+        - total
+        - limit
+        - offset
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        has_more:
+          type: boolean
+
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        details:
+          type: object
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    RateLimitExceeded:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/Error'
+              - type: object
+                properties:
+                  retry_after:
+                    type: integer
+                    description: Seconds until rate limit resets
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+tags:
+  - name: Authentication
+    description: User authentication and authorization
+  - name: Profile
+    description: Contractor profile management
+  - name: Customers
+    description: Customer management
+  - name: Jobs
+    description: Job management
+  - name: Estimates
+    description: Estimate creation and management
+  - name: Work Orders
+    description: Work order management and scheduling
+  - name: Change Orders
+    description: Change order management
+  - name: Invoices
+    description: Invoice generation and payment processing
+  - name: Dashboard
+    description: Analytics and metrics
+  - name: Settings
+    description: Application settings and configuration
+  - name: PDF Templates
+    description: PDF template management
+  - name: AI Features
+    description: AI-powered assistance features
+  - name: Search
+    description: Universal search functionality
+  - name: Export
+    description: Data export functionality
+  - name: Billing
+    description: Subscription and billing management
+  - name: Webhooks
+    description: External webhook endpoints
+
+# Additional endpoints that could be added for completeness
+
+x-additional-endpoints:
+  file-uploads:
+    description: |
+      File upload endpoints for logos, line item images, and task photos:
+      - POST /uploads/logo (contractor profile logo)
+      - POST /uploads/line-item-image (estimate/work order line item images)
+      - POST /uploads/task-photo (work order task completion photos)
+      
+  integrations:
+    description: |
+      Integration management endpoints:
+      - GET /integrations/google/status
+      - POST /integrations/google/connect
+      - DELETE /integrations/google/disconnect
+      - GET /integrations/stripe/status
+      
+  admin:
+    description: |
+      Admin-only endpoints for platform management:
+      - GET /admin/users (list all users)
+      - GET /admin/metrics (platform-wide metrics)
+      - POST /admin/users/{user_id}/suspend
+      - POST /admin/users/{user_id}/reset-quota
+      
+  webhooks-outbound:
+    description: |
+      Webhook configuration for sending events to customer systems:
+      - GET /webhooks (list configured webhooks)
+      - POST /webhooks (create webhook endpoint)
+      - PUT /webhooks/{webhook_id} (update webhook)
+      - DELETE /webhooks/{webhook_id} (delete webhook)
+
+x-rate-limits:
+  free-plan:
+    customers: 3 active
+    estimates-per-month: 5
+    pdf-renders-per-day: 50
+    ai-tokens-per-day: 20000
+    emails-per-day: 10
+    
+  contractor-plan:
+    customers: unlimited
+    estimates-per-month: unlimited
+    pdf-renders-per-day: 200
+    ai-tokens-per-day: 100000
+    emails-per-day: 100
+    templates: 10
+    
+  business-plan:
+    customers: unlimited
+    estimates-per-month: unlimited
+    pdf-renders-per-day: 500
+    ai-tokens-per-day: 300000
+    emails-per-day: 500
+    templates: unlimited
+    team-members: 10
+
+x-webhook-events:
+  estimate.finalized:
+    description: Fired when an estimate is finalized
+    payload:
+      estimate_id: string
+      job_id: string
+      customer_id: string
+      version: integer
+      
+  estimate.sent:
+    description: Fired when an estimate is emailed to customer
+    payload:
+      estimate_id: string
+      recipient_email: string
+      
+  work_order.scheduled:
+    description: Fired when a work order is scheduled
+    payload:
+      work_order_id: string
+      scheduled_start: datetime
+      scheduled_end: datetime
+      
+  work_order.completed:
+    description: Fired when a work order is marked complete
+    payload:
+      work_order_id: string
+      completed_at: datetime
+      
+  invoice.paid:
+    description: Fired when an invoice is paid via Stripe
+    payload:
+      invoice_id: string
+      amount_paid: decimal
+      stripe_payment_intent_id: string
+      
+  change_order.approved:
+    description: Fired when a change order is approved
+    payload:
+      change_order_id: string
+      work_order_id: string
+      delta_amount: decimal
+
+x-api-design-notes:
+  versioning: |
+    API uses URL path versioning (v1, v2, etc.) for major breaking changes.
+    Minor updates and new optional fields are added without version changes.
+    
+  authentication: |
+    Primary authentication via Google OAuth 2.0 with JWT tokens for API access.
+    Refresh tokens are used for long-lived sessions.
+    
+  rate-limiting: |
+    Rate limits are enforced per user account and tied to subscription plans.
+    Rate limit headers are included in responses (X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset).
+    
+  pagination: |
+    List endpoints use offset-based pagination with configurable limits.
+    Future consideration for cursor-based pagination for better performance.
+    
+  soft-deletes: |
+    Resources are soft-deleted by default with a deleted_at timestamp.
+    Hard deletion is admin-only for compliance purposes.
+    
+  validation: |
+    Input validation follows JSON Schema standards.
+    Business rule validation (e.g., rate limits) returns appropriate error codes.
+    
+  caching: |
+    GET endpoints include appropriate cache headers.
+    PDF generation results are cached for 24 hours.
+    
+  monitoring: |
+    All endpoints include request tracing and performance monitoring.
+    Error rates and response times are tracked per endpoint.
+

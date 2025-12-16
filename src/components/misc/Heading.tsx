@@ -1,16 +1,15 @@
 "use client";
 
 import { formatCapitalize } from "@/utils/formatingFunctions";
-import { Session } from "next-auth";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useMemo, useState } from "react";
 import { Typography } from "@mui/material";
 
 type HeadingProps = {
-  session: Session;
+  data: any;
 };
 
-const Heading = ({ session }: HeadingProps) => {
+const Heading = ({ data }: HeadingProps) => {
   // Hooks
   const pathname = usePathname();
 
@@ -19,29 +18,29 @@ const Heading = ({ session }: HeadingProps) => {
 
   // Values
   const name = useMemo(
-    () => formatCapitalize(session?.user.name),
-    [session?.user.name],
+    () => formatCapitalize(data?.user.name),
+    [data?.user.name],
   );
   const role = useMemo(
-    () => formatCapitalize(session?.user.role),
-    [session?.user.role],
+    () => formatCapitalize(data?.user.role),
+    [data?.user.role],
   );
 
   // Effects
   useEffect(() => {
-    if (session) {
+    if (data) {
       setHeading(`${name}'s ${role} Dashboard`);
     }
     if (
       pathname === "/" ||
       pathname === "/signin" ||
       pathname === "/signup" ||
-      !session
+      !data
     ) {
       setHeading("Estimate Generator");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
+  }, [data]);
 
   return (
     <Typography

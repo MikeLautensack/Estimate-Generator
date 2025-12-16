@@ -1,7 +1,6 @@
 "use client";
 
-import { Customers } from "@/types/customers";
-import { Box, Button, TablePaginationProps } from "@mui/material";
+import { Box, TablePaginationProps } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
   DataGrid,
@@ -15,9 +14,10 @@ import {
 import MuiPagination from "@mui/material/Pagination";
 import { useRouter } from "next/navigation";
 import ContractorsCustomersTableMenu from "./ContractorsCustomersTableMenu";
+import { CustomersSelect } from "@/db/schemas/customers";
 
 type ContractorsCustomersTableProps = {
-  customers: Customers[];
+  customers: CustomersSelect[];
   page: string;
   pageSize: string;
   totalRows: number;

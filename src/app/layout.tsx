@@ -1,15 +1,13 @@
-import Header from "@/components/misc/Header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import React from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import ThemeProviderWrapper from "@/contexts/ThemeProviderWrapper";
-import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
-import { ourFileRouter } from "./api/uploadthing/core";
+import { ourFileRouter } from "./api/v1/uploadthing/core";
 import { extractRouterConfig } from "uploadthing/server";
 
 export const metadata: Metadata = {
@@ -30,15 +28,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={roboto.className}>
+    <html
+      lang="en"
+      className={`${roboto.className} antialiased`}
+      suppressHydrationWarning
+    >
       <body className="min-h-screen">
-        <InitColorSchemeScript attribute="class" />
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <AppRouterCacheProvider>
-          <ThemeProviderWrapper>
-            <Header />
-            {children}
-          </ThemeProviderWrapper>
+          <ThemeProviderWrapper>{children}</ThemeProviderWrapper>
         </AppRouterCacheProvider>
         <Analytics />
         <SpeedInsights />

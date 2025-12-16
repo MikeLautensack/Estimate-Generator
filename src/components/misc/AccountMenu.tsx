@@ -17,11 +17,10 @@ import React, { useState } from "react";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
-import { Session } from "next-auth";
+import { signOut } from "@/utils/supabase/client";
 
 type AccountMenuProps = {
-  session: Session;
+  session: any;
   profile: any;
 };
 
@@ -33,6 +32,11 @@ const AccountMenu = ({ session, profile }: AccountMenuProps) => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    handleClose();
+    signOut();
   };
 
   const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -146,12 +150,7 @@ const AccountMenu = ({ session, profile }: AccountMenuProps) => {
             Settings
           </MenuItem>
         </Link>
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            signOut({ callbackUrl: process.env.NEXT_PUBLIC_HOST });
-          }}
-        >
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

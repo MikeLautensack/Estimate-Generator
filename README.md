@@ -67,6 +67,56 @@ To use the linter run...
 npm run lint
 ```
 
+## Project Structure
+
+All source code is located in the src folder
+
+### Pages
+
+Pages are located in `src/app` and organized using Next.js app router conventions.
+
+### MUI & Tailwind
+
+This project is using both MUI and Tailwind CSS. MUI components are used for building UI and themeing while tailwind is used for general css styling.
+
+### API Routes
+
+All API routes are located in `src/app/api`.
+
+### Data Access Layer
+
+The data access layer is located at `src/db`. Data schemas are written with Drizzle ORM TypeScript schemas and can be found at `src/db/schemas`. Migrations are done with Drizzle ORM via scripts found in package.json and you can find the migrations files at `src/db/drizzle`.
+
+### Components
+
+All custom components are located in `src/components`.
+
+### Types
+
+This is a TypeScript project and types are located at `src/types` or defined inside the file that uses the type.
+
+### Hooks
+
+All custom react hooks are located in `src/hooks`
+
+## Tests
+
+Currently working on a test suite for the project using Jest for unit testing. Tests are located at `src/__test__`.
+
+## Auth
+
+Estimate Generator is using Next-Auth/Auth.js v5 to implement a role based auth system.
+
+There are three user roles
+
+1. Contractor
+2. Customer
+3. Admin
+
+## Architecture
+
+The backend for Estimate Generator is built with route handlers and REST architecture. The project is using Drizzle ORM for database querys and migrations.
+
 ## Usage
 
 To use Estimate Generator navigate from the home page to the sign up page and create an account using traditional credentials login. Upon creating an account you will be redirected to a contractor profile form where you will need to complete a form with info about your business. When are finished creating your contractor profile and submit the form you will then be redirected to your contractor dashboard.

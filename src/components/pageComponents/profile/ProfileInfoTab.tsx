@@ -9,7 +9,6 @@ type ProfileInfoTabProps = {
 };
 
 const ProfileInfoTab = ({ session, profileData }: ProfileInfoTabProps) => {
-  console.log("profiledata__________", profileData);
   return (
     <Box
       component="div"

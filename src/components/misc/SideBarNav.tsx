@@ -18,6 +18,7 @@ const SideBarNav = ({ ...props }) => {
   // Effects
   useEffect(() => {
     const routeMap = [
+      { baseRoute: "/contractor-dashboard/jobs", state: "jobs" },
       { baseRoute: "/contractor-dashboard/customers", state: "customers" },
       { baseRoute: "/contractor-dashboard/estimates", state: "estimates" },
       {
@@ -93,6 +94,20 @@ const SideBarNav = ({ ...props }) => {
             Dashboard
           </Button>
         </Link>
+        {/* <Link
+          id="jobs-button"
+          href="/contractor-dashboard/jobs"
+          onClick={() => setSelected("jobs")}
+        >
+          <Button
+            variant={selected === "jobs" ? "contained" : "text"}
+            fullWidth
+            sx={{ justifyContent: "left", gap: ".5rem" }}
+          >
+            <LuLayoutDashboard className="text-secondary500" />
+            Jobs
+          </Button>
+        </Link> */}
         <Link
           id="customers-button"
           href="/contractor-dashboard/customers?page=1&pageSize=5"
@@ -121,7 +136,7 @@ const SideBarNav = ({ ...props }) => {
             Estimates
           </Button>
         </Link>
-        <Link
+        {/* <Link
           id="estimates-button"
           href="/contractor-dashboard/change-orders?page=1&pageSize=5"
           onClick={() => setSelected("change-orders")}
@@ -134,7 +149,7 @@ const SideBarNav = ({ ...props }) => {
             <FcDocument />
             Change Orders
           </Button>
-        </Link>
+        </Link> */}
       </div>
     </nav>
   );

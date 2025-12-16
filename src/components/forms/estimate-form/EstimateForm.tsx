@@ -12,27 +12,23 @@ import {
 } from "react-hook-form";
 import { Card, Tab, Tabs } from "@mui/material";
 import CustomTabPanel from "./CustomTabPanel";
-import { a11yProps } from "./utils";
+import { a11yProps, defaultValuesFactory } from "./utils";
 import EstimateFormChangeOrdersTab from "./EstimateFormChangeOrdersTab";
-import { Customers } from "@/types/customers";
-import { Profile } from "@/types/profile";
 import { ChangeOrder } from "@/types/changeOrders";
 import { z } from "zod";
 import useCalcTotal from "./hooks/useCalcTotal";
 import EstimateFormButtons from "./EstimateFormButtons";
 import useGetCustomerUserId from "./hooks/useGetCustomerUserId";
-import { sendAuthEmail } from "@/utils/sendAuthEmail";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Session } from "next-auth";
-import { handlePdfDownload } from "@/utils/downloadPDF";
+import { CustomersSelect } from "@/db/schemas/customers";
+import { ProfileSelect } from "@/db/schemas/profiles";
+import { EstimatesWithLineItemsSelect } from "@/db/schemas/estimates";
 
 export type EstimateFormProps = {
-  estimate: EstimateFormValues;
-  customers: Customers[];
-  profile: Profile;
+  estimate: EstimatesWithLineItemsSelect;
+  customers?: CustomersSelect[];
+  profile?: ProfileSelect;
   changeOrders?: ChangeOrder[];
-  mode: "new-estimate" | "update-estimate";
-  session: Session;
 };
 
 const LineItemsSchema = z.object({
@@ -88,8 +84,7 @@ const EstimateFormSchema = z.object({
   total: z.string(),
   status: z.string(),
   customer_id: z.string(),
-  customer_user_id: z.string().min(1, { message: "Customer is required" }),
-  contractor_user_id: z.string(),
+  user_id: z.string(),
 });
 
 export type EstimateFormValues = z.infer<typeof EstimateFormSchema>;
@@ -107,8 +102,6 @@ const EstimateForm = ({
   customers,
   profile,
   changeOrders,
-  mode,
-  session,
 }: EstimateFormProps) => {
   // State
   const [tab, setTab] = useState<number>(0);
@@ -119,47 +112,10 @@ const EstimateForm = ({
   // Hooks
   const methods = useForm<EstimateFormValues>({
     resolver: zodResolver(EstimateFormSchema),
-    defaultValues: {
-      id: estimate.id,
-      estimateName: estimate.estimateName,
-      customerFirstName: estimate.customerFirstName,
-      customerLastName: estimate.customerLastName,
-      customerEmail: estimate.customerEmail,
-      projectAddress: estimate.projectAddress,
-      projectAddress2: estimate.projectAddress2,
-      projectCity: estimate.projectCity,
-      projectState: estimate.projectState,
-      projectZip: estimate.projectZip,
-      contractorName: estimate.contractorName,
-      contractorAddress: estimate.contractorAddress,
-      contractorAddress2: estimate.contractorAddress2,
-      contractorCity: estimate.contractorCity,
-      contractorState: estimate.contractorState,
-      contractorZip: estimate.contractorZip,
-      contractorPhone: estimate.contractorPhone,
-      createdAt: estimate.createdAt,
-      updatedAt: estimate.updatedAt,
-      expirationDate: estimate.expirationDate,
-      lineItems: estimate.lineItems,
-      message: estimate.message,
-      subtotal: estimate.subtotal,
-      taxMode: estimate.taxMode,
-      taxRate: estimate.taxRate,
-      tax: estimate.tax,
-      discountMode: estimate.discountMode,
-      discountPercentage: estimate.discountPercentage,
-      discount: estimate.discount,
-      total: estimate.total,
-      status: estimate.status,
-      customer_id: estimate.customer_id,
-      customer_user_id: estimate.customer_user_id,
-      contractor_user_id: estimate.contractor_user_id,
-    },
+    defaultValues: defaultValuesFactory(estimate),
   });
 
   const control = methods.control;
-
-  console.log("debugging estimate form validation", methods.formState.errors);
 
   const { fields, prepend, remove } = useFieldArray({
     control,
@@ -217,133 +173,120 @@ const EstimateForm = ({
   // Callbacks
   const save: SubmitHandler<EstimateFormValues> = useCallback(
     async (data) => {
-      console.log("save callback data log", data);
-      // IDs
-      const USER_ID = estimate.contractor_user_id;
-      const ESTIMATE_ID = estimate.id;
-      const CUSTOMER_ID = data.customer_id;
-      const customer_user_id = data.customer_user_id;
+      let route = `/api/estimates/${estimate.id}`;
+      let method = "PATCH";
+      let headers = {
+        "Content-Type": "application/json",
+      };
+      let body = { ...data };
 
-      // Fetchs
-      if (mode === "new-estimate") {
-        setSaveStatus("saving");
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...data,
-              customer_user_id,
-            }),
-          },
-        );
-        if (res.status === 200) {
-          setSaveStatus("saved");
-        } else {
-          setSaveStatus("error");
-        }
-      } else if (mode === "update-estimate") {
-        setSaveStatus("saving");
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...data,
-              customer_user_id,
-              status: "updated-estimate",
-            }),
-          },
-        );
-        if (res.status === 200) {
-          setSaveStatus("saved");
-        } else {
-          setSaveStatus("error");
-        }
+      setSaveStatus("saving");
+
+      const res = await fetch(route, {
+        method: method,
+        headers: headers,
+        body: JSON.stringify(body),
+      });
+
+      if (res.status === 200) {
+        setSaveStatus("saved");
+      } else {
+        setSaveStatus("error");
       }
     },
-    [estimate.contractor_user_id, estimate.id, mode],
+    [estimate.userId, estimate.id],
   );
 
   const saveAndSend: SubmitHandler<EstimateFormValues> = useCallback(
     async (data) => {
-      console.log("save callback data log", data);
-      // IDs
-      const USER_ID = estimate.contractor_user_id;
-      const ESTIMATE_ID = estimate.id;
-      const CUSTOMER_ID = data.customer_id;
-      const customer_user_id = data.customer_user_id;
-
-      // Fetchs
-      if (mode === "new-estimate") {
-        setSaveAndSaveStatus("saving");
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...data,
-              customer_user_id,
-            }),
-          },
-        );
-        if (res.status === 200) {
-          const pdf = handlePdfDownload(res);
-          setSaveAndSaveStatus("sending");
-          const emailRes = await sendAuthEmail(
-            data.customerEmail,
-            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${`${data.customerFirstName} ${data.customerLastName}`}&contractor-name=${session.user.name}&redirect-flag=new-estimate&estimate-id=${ESTIMATE_ID}`,
-            false,
-          );
-          if (emailRes?.status === 200) {
-            setSaveAndSaveStatus("saved");
-          }
-        } else {
-          setSaveAndSaveStatus("error");
-        }
-      } else if (mode === "update-estimate") {
-        setSaveAndSaveStatus("saving");
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ...data,
-              customer_user_id,
-              status: "updated-estimate",
-            }),
-          },
-        );
-        console.log("testing res", res);
-        if (res.status === 200) {
-          const pdf = handlePdfDownload(res);
-          setSaveAndSaveStatus("sending");
-          const emailRes = await sendAuthEmail(
-            data.customerEmail,
-            `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=updated-estimate&customer-name=${`${data.customerFirstName} ${data.customerLastName}`}&contractor-name=${session.user.name}&redirect-flag=updated-estimate&estimate-id=${ESTIMATE_ID}`,
-            false,
-          );
-          if (emailRes?.status === 200) {
-            setSaveAndSaveStatus("saved");
-          }
-        } else {
-          setSaveAndSaveStatus("error");
-        }
-      }
+      // // IDs
+      // const USER_ID = estimate.contractor_user_id;
+      // const ESTIMATE_ID = estimate.id;
+      // const CUSTOMER_ID = data.customer_id;
+      // const customer_user_id = data.customer_user_id;
+      // let route = "/api/estimates";
+      // let method = "POST";
+      // let headers = {
+      //   "Content-Type": "application/json",
+      // };
+      // let body = {
+      //   ...data,
+      //   customer_user_id,
+      // };
+      // setSaveAndSaveStatus("saving");
+      // const res = await fetch(route, {
+      //   method: method,
+      //   headers: headers,
+      //   body: JSON.stringify(body),
+      // });
+      // if (res.status === 200) {
+      //   setSaveStatus("saved");
+      // } else {
+      //   setSaveStatus("error");
+      // }
+      // // Fetchs
+      // if (mode === "new-estimate") {
+      //   setSaveAndSaveStatus("saving");
+      //   const res = await fetch(
+      //     `${process.env.NEXT_PUBLIC_HOST}/api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+      //     {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify({
+      //         ...data,
+      //         customer_user_id,
+      //       }),
+      //     },
+      //   );
+      //   if (res.status === 200) {
+      //     const pdf = handlePdfDownload(res);
+      //     setSaveAndSaveStatus("sending");
+      //     const emailRes = await sendAuthEmail(
+      //       data.customerEmail,
+      //       `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=new-estimate&customer-name=${`${data.customerFirstName} ${data.customerLastName}`}&contractor-name=${session.user.name}&redirect-flag=new-estimate&estimate-id=${ESTIMATE_ID}`,
+      //       false,
+      //     );
+      //     // if (emailRes?.status === 200) {
+      //     //   setSaveAndSaveStatus("saved");
+      //     // }
+      //   } else {
+      //     setSaveAndSaveStatus("error");
+      //   }
+      // } else if (mode === "update-estimate") {
+      //   setSaveAndSaveStatus("saving");
+      //   const res = await fetch(
+      //     `${process.env.NEXT_PUBLIC_HOST}api/users/${USER_ID}/customers/${CUSTOMER_ID}/estimates/${ESTIMATE_ID}`,
+      //     {
+      //       method: "PATCH",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify({
+      //         ...data,
+      //         customer_user_id,
+      //         status: "updated-estimate",
+      //       }),
+      //     },
+      //   );
+      //   if (res.status === 200) {
+      //     const pdf = handlePdfDownload(res);
+      //     setSaveAndSaveStatus("sending");
+      //     const emailRes = await sendAuthEmail(
+      //       data.customerEmail,
+      //       `${process.env.NEXT_PUBLIC_HOST}api/redirect?email-type=updated-estimate&customer-name=${`${data.customerFirstName} ${data.customerLastName}`}&contractor-name=${session.user.name}&redirect-flag=updated-estimate&estimate-id=${ESTIMATE_ID}`,
+      //       false,
+      //     );
+      //     // if (emailRes?.status === 200) {
+      //     //   setSaveAndSaveStatus("saved");
+      //     // }
+      //   } else {
+      //     setSaveAndSaveStatus("error");
+      //   }
+      // }
     },
-    [estimate.contractor_user_id, estimate.id, mode, session.user.name],
+    [],
   );
 
   return (
@@ -367,14 +310,14 @@ const EstimateForm = ({
           </Tabs>
           <CustomTabPanel value={tab} index={0}>
             <EstimateFormPartOne
-              customers={customers}
+              customers={customers ?? []}
               saveStatus={saveStatus}
               saveAndSaveStatus={saveAndSaveStatus}
             />
           </CustomTabPanel>
           <CustomTabPanel value={tab} index={1}>
             <EstimateFormPartTwo
-              customers={customers}
+              customers={customers ?? []}
               profile={profile}
               fields={fields}
               prepend={prepend}

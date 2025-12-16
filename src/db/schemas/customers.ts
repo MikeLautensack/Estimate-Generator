@@ -1,14 +1,22 @@
-import { pgTable, varchar, bigint, timestamp } from "drizzle-orm/pg-core";
-import { users } from "./auth";
+import {
+  pgTable,
+  varchar,
+  timestamp,
+  text,
+  foreignKey,
+  uuid,
+  numeric,
+  decimal,
+} from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { estimates } from "./estimates";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { users } from "./auth";
 
-export const customers = pgTable("customers", {
-  id: bigint("id", { mode: "number" }).notNull().primaryKey(),
-  contractor_user_id: bigint("contractor_user_id", {
-    mode: "number",
-  }).notNull(),
-  customer_user_id: varchar("customer_user_id", { length: 255 }).notNull(),
+export const contractorsCustomers = pgTable("contractors_customers", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  contractor_user_id: uuid("contractor_user_id").notNull(),
+  customer_user_id: uuid("customer_user_id"),
   address: varchar("address", { length: 255 }).notNull(),
   address2: varchar("address2", { length: 255 }).notNull(),
   city: varchar("city", { length: 255 }).notNull(),
@@ -21,25 +29,51 @@ export const customers = pgTable("customers", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   deletedAt: timestamp("deleted_at"),
+  creditBalance: decimal("credit_balance", { precision: 12, scale: 2 }).default(
+    "0",
+  ),
 });
 
+export type CustomersInsert = typeof contractorsCustomers.$inferInsert;
+export type CustomersSelect = typeof contractorsCustomers.$inferSelect;
+
+export interface ICustomer extends CustomersInsert {}
+export type PartialCustomer = Partial<
+  Omit<
+    CustomersInsert,
+    "contractor_user_id" | "customer_user_id" | "id" | "createdAt" | "updatedAt"
+  >
+>;
+export interface IPartialCustomer extends PartialCustomer {}
+
+// Zod schema for inserting a customer - can be used to validate API requests
+export const insertCustomerSchema = createInsertSchema(contractorsCustomers);
+// Zod schema for selecting a customer - can be used to validate API responses
+export const selectCustomerSchema = createSelectSchema(contractorsCustomers);
+
 export const customerContractorRelationship = relations(
-  customers,
+  contractorsCustomers,
   ({ one }) => ({
     author: one(users, {
-      fields: [customers.contractor_user_id],
+      fields: [contractorsCustomers.contractor_user_id],
       references: [users.id],
     }),
   }),
 );
 
-export const customerCustomerRelationship = relations(customers, ({ one }) => ({
-  author: one(users, {
-    fields: [customers.customer_user_id],
-    references: [users.id],
+export const customerCustomerRelationship = relations(
+  contractorsCustomers,
+  ({ one }) => ({
+    author: one(users, {
+      fields: [contractorsCustomers.customer_user_id],
+      references: [users.id],
+    }),
   }),
-}));
+);
 
-export const userEstimateRelationship = relations(customers, ({ many }) => ({
-  posts: many(estimates),
-}));
+export const userEstimateRelationship = relations(
+  contractorsCustomers,
+  ({ many }) => ({
+    posts: many(estimates),
+  }),
+);
