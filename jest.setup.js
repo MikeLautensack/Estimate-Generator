@@ -1,51 +1,29 @@
-// Learn more: https://github.com/testing-library/jest-dom
-import "@testing-library/jest-dom";
+import dotenv from "dotenv";
+import {
+  setupSupabaseTest,
+  cleanupSupabaseTest,
+} from "@/__tests__/global/setup";
 
-// Polyfill for Next.js API routes in test environment
-import { TextEncoder, TextDecoder } from "util";
+// Load test environment variables
+dotenv.config({ path: ".env.test.local" });
 
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
+// Set test environment
+process.env.NODE_ENV = "test";
 
-// Mock Request and Response for Next.js API routes
-global.Request = class Request {
-  constructor(input, init = {}) {
-    const url = typeof input === "string" ? input : input.url;
-    Object.defineProperty(this, "url", {
-      value: url,
-      writable: false,
-      enumerable: true,
-      configurable: false,
-    });
-    this.method = init.method || "GET";
-    this.headers = new Map(Object.entries(init.headers || {}));
-    this.body = init.body;
-  }
+// Global test setup and teardown
+beforeAll(async () => {
+  console.log("🔧 Setting up test environment...");
+  await setupSupabaseTest();
+  console.log("✅ Test environment ready");
+});
 
-  async json() {
-    return JSON.parse(this.body || "{}");
-  }
-};
+afterAll(async () => {
+  console.log("🧹 Cleaning up test environment...");
+  await cleanupSupabaseTest();
+  console.log("✅ Test environment cleaned up");
+});
 
-global.Response = class Response {
-  constructor(body, init = {}) {
-    this.body = body;
-    this.status = init.status || 200;
-    this.statusText = init.statusText || "OK";
-    this.headers = new Map(Object.entries(init.headers || {}));
-  }
-
-  async json() {
-    return JSON.parse(this.body || "{}");
-  }
-
-  static json(data, init = {}) {
-    return new Response(JSON.stringify(data), {
-      ...init,
-      headers: {
-        "Content-Type": "application/json",
-        ...init.headers,
-      },
-    });
-  }
-};
+// Global error handler for unhandled promises
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
+});

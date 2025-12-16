@@ -10,7 +10,7 @@
     "test": "jest --verbose --coverage",
     "test:watch": "jest --watch",
     "test:unit": "jest --testPathPattern=__tests__/unit --verbose --coverage",
-    "test:integration": "npm run supabase:start && jest --testPathPattern=__tests__/integration --verbose --coverage",
+    "test:integration": "jest --testPathPattern=__tests__/integration --verbose --coverage --runInBand",
     "test:performance": "cross-env LOG_PERFORMANCE=true jest --verbose --coverage",
     "stripe:login": "stripe login",
     "stripe:listen": "stripe listen --forward-to=localhost:3000/api/webhooks/stripe",

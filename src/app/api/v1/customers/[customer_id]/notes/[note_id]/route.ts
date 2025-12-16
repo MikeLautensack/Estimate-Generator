@@ -1,6 +1,5 @@
 import IoCContainer from "@/core/IoCContainer";
 import { NextRequest, NextResponse } from "next/server";
-import { CustomersInsert } from "@/db/schemas/customers";
 import z from "zod";
 import { selectCustomersNotesSchema } from "@/db/schemas/customersNotes";
 import { PartialNote } from "@/core/entities/DTOs/PartialNote";

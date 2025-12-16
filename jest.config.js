@@ -1,4 +1,5 @@
 const nextJest = require("next/jest");
+require("dotenv").config({ path: ".env.test.local" });
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
@@ -8,6 +9,8 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const customJestConfig = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  globalSetup: "<rootDir>/src/__tests__/global/setup.js",
+  globalTeardown: "<rootDir>/src/__tests__/global/teardown.js",
   testEnvironment: "jsdom",
   transformIgnorePatterns: ["/node_modules/(?!next-auth)"],
   moduleNameMapper: {
@@ -26,6 +29,7 @@ const customJestConfig = {
   ],
   coverageDirectory: "coverage",
   coverageReporters: ["text", "lcov", "html"],
+  verbose: false,
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
